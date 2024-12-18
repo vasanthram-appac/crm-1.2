@@ -14,7 +14,6 @@
         margin-bottom: 5px;
     }
 
-    
     .custom-dropdown {
         position: absolute;
         top: 100%;
