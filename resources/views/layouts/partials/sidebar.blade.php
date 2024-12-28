@@ -53,23 +53,23 @@ $route = explode('.', Route::currentRouteName())[0];
     </ul>
 </span> -->
 
-
-                <span id="m2" class="@if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile'  || $route=='resignation'  || $route=='celebration'  || $route=='payslip') active @else  @endif">
-                   <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile' || $route=='resignation'  || $route=='celebration'  || $route=='payslip') bg-active @else  @endif">
+                <span id="m2" class="@if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile'  || $route=='resignation'  || $route=='celebration'  || $route=='payslip'  || $route=='usermodule') active @else  @endif">
+                <a href="/usermodule"> <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile' || $route=='resignation'  || $route=='celebration'  || $route=='payslip' || $route=='usermodule') bg-active @else  @endif">
                         <img src="{{ asset('asset/image/user-module.png') }}" width="22" alt="">
-                        <p class="mb-0">User Module</p>
+                        <p class="mb-0"> User Module </p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>
-                    </div>
-                    <ul class="sub-menu @if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile'  || $route=='resignation'  || $route=='celebration'  || $route=='payslip' || $route=='userdashboard' ) active @else  @endif">
-                        @if(request()->session()->get('role') != 'user')
+                    </div></a>
+                    <ul class="sub-menu @if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile'  || $route=='resignation'  || $route=='celebration'  || $route=='payslip' || $route=='userdashboard'  || $route=='usermodule' ) active @else  @endif">
+                    <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='profile') bg-bactive @else  @endif " href="/profile">View Profile</a></li>
+                    @if(request()->session()->get('role') != 'user')
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='user') bg-bactive @else  @endif " href="/user">Employee</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='leaveapproval') bg-bactive @else  @endif " href="/leaveapproval">Leave Approval</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='payslip') bg-bactive @else  @endif " href="/payslip"> Payslip</a></li>
                         @endif
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='applyleave') bg-bactive @else  @endif " href="/applyleave">Apply Leave</a></li>
-                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='profile') bg-bactive @else  @endif " href="/profile">View Profile</a></li>
+                        
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='celebration') bg-bactive @else  @endif " href="/celebration">Celebration</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='resignation') bg-bactive @else  @endif " href="/resignation">Resignation</a></li>
 						
@@ -77,15 +77,15 @@ $route = explode('.', Route::currentRouteName())[0];
                     </ul>
                 </span>
 
-                <span id="m3" class="@if($route=='task' || $route=='taskview' || $route=='workorderview' || $route=='workorder' || $route=='wip' || $route=='promotion' || $route=='design' || $route=='content') active @else  @endif">
-                    <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='task' || $route=='taskview' || $route=='workorderview' || $route=='workorder' || $route=='wip' || $route=='promotion' || $route=='design' || $route=='content') bg-active @else  @endif">
+                <span id="m3" class="@if($route=='task' || $route=='taskview' || $route=='workorderview' || $route=='workorder' || $route=='wip' || $route=='promotion' || $route=='design' || $route=='content' || $route=='workoperations') active @else  @endif">
+                <a href="/workoperations"> <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='task' || $route=='taskview' || $route=='workorderview' || $route=='workorder' || $route=='wip' || $route=='promotion' || $route=='design' || $route=='content' || $route=='workoperations') bg-active @else  @endif">
                         <img src="{{ asset('asset/image/work-operations.png') }}" width="22" alt="">
-                        <p class="mb-0">Work Operations</p>
+                        <p class="mb-0">  Work Operations</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>
-                    </div>
-                    <ul class="sub-menu @if($route=='task' || $route=='taskview' || $route=='workorderview' || $route=='workorder' || $route=='wip' || $route=='promotion' || $route=='design' || $route=='content') active @else  @endif">
+                    </div></a>
+                    <ul class="sub-menu @if($route=='task' || $route=='taskview' || $route=='workorderview' || $route=='workorder' || $route=='wip' || $route=='promotion' || $route=='design' || $route=='content' || $route=='workoperations') active @else  @endif">
                         @if(request()->session()->get('role') != 'user')
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='task') bg-bactive @else  @endif " href="/task"> Task View</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='workorderview') bg-bactive @else  @endif " href="/workorderview"> Work Order View </a></li>
@@ -107,15 +107,15 @@ $route = explode('.', Route::currentRouteName())[0];
                     </a>
                 </span>
 
-                <span id="m5" class="@if($route=='proforma' || $route=='invoice' || $route=='paymententry') active @else  @endif">
-                    <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='proforma' || $route=='invoice' || $route=='paymententry') bg-active @else  @endif">
+                <span id="m5" class="@if($route=='proforma' || $route=='invoice' || $route=='paymententry' || $route=='payments') active @else  @endif">
+                <a href="/payments"> <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='proforma' || $route=='invoice' || $route=='paymententry' || $route=='payments') bg-active @else  @endif">
                         <img src="{{ asset('asset/image/payments.png') }}" width="22" alt="">
                         <p class="mb-0">Payments</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>
-                    </div>
-                    <ul class="sub-menu @if($route=='proforma' || $route=='invoice' || $route=='paymententry') active @else  @endif">
+                    </div></a>
+                    <ul class="sub-menu @if($route=='proforma' || $route=='invoice' || $route=='paymententry' || $route=='payments') active @else  @endif">
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='proforma') bg-bactive @else  @endif " href="/proforma"> Proforma </a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='invoice') bg-bactive @else  @endif " href="/invoice"> Invoice </a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='paymententry') bg-bactive @else  @endif " href="/paymententry"> Payment Entry </a></li>
@@ -123,14 +123,14 @@ $route = explode('.', Route::currentRouteName())[0];
                     </ul>
                 </span>
 
-                <span id="m6" class="@if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract' ) active @else  @endif">
-                    <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract' ) bg-active @else  @endif">
+                <span id="m6" class="@if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails') active @else  @endif">
+                  <a href="/serverdetails"><div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails') bg-active @else  @endif">
                         <img src="{{ asset('asset/image/server-details.png') }}" width="22" alt="">
-                        <p class="mb-0">Server Details</p><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
+                        <p class="mb-0">Technology</p><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>
-                    </div>
-                    <ul class="sub-menu @if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract' ) active @else  @endif">
+                    </div></a>  
+                    <ul class="sub-menu @if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails') active @else  @endif">
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='hosting') bg-bactive @else  @endif " href="/hosting"> Hosting </a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='domain') bg-bactive @else @endif " href="/domain"> Domain </a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='email') bg-bactive @else  @endif " href="/email"> Email </a></li>
@@ -154,15 +154,15 @@ $route = explode('.', Route::currentRouteName())[0];
     </ul>
 </span> -->
 
-                <span id="m8" class="@if($route=='lead' || $route=='opportunity') active @else  @endif">
-                    <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='lead' || $route=='opportunity') active bg-active @else  @endif ">
+                <span id="m8" class="@if($route=='lead' || $route=='opportunity' || $route=='leads') active @else  @endif">
+                 <a href="/leads">   <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='lead' || $route=='opportunity' || $route=='leads') active bg-active @else  @endif ">
                         <img src="{{ asset('asset/image/leads.png') }}" width="22" alt="">
                         <p class="mb-0">Leads</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>
-                    </div>
-                    <ul class="sub-menu @if($route=='lead' || $route=='opportunity') active @else  @endif">
+                    </div></a>
+                    <ul class="sub-menu @if($route=='lead' || $route=='opportunity' || $route=='leads') active @else  @endif">
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='lead') bg-bactive @else  @endif " href="/lead"> Leads </a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='opportunity') bg-bactive  @else  @endif " href="/opportunity"> Opportunity </a></li>
                     </ul>
@@ -170,15 +170,15 @@ $route = explode('.', Route::currentRouteName())[0];
                 @endif
 
 
-                <span id="m9" class="@if($route=='employeereport' || $route=='report' || $route=='workreport'|| $route=='monthlyreport' || $route=='enquiryreport'|| $route=='leadhistory') active @else  @endif">
-                    <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='employeereport' || $route=='report' || $route=='workreport' || $route=='enquiryreport'|| $route=='leadhistory') active bg-active @else  @endif">
+                <span id="m9" class="@if($route=='employeereport' || $route=='report' || $route=='workreport'|| $route=='monthlyreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports') active @else  @endif">
+                  <a href="/reports">  <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='employeereport' || $route=='report' || $route=='workreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports') active bg-active @else  @endif">
                         <img src="{{ asset('asset/image/reports.png') }}" width="22" alt="">
                         <p class="mb-0">Reports</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>
-                    </div>
-                    <ul class="sub-menu @if($route=='employeereport' || $route=='report' || $route=='workreport' || $route=='monthlyreport' || $route=='enquiryreport'|| $route=='leadhistory') active @else  @endif">
+                    </div> </a>
+                    <ul class="sub-menu @if($route=='employeereport' || $route=='report' || $route=='workreport' || $route=='monthlyreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports') active @else  @endif">
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='workreport') bg-bactive @else  @endif " href="/workreport">Work Report</a></li>
                         @if(request()->session()->get('role') != 'user')
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='employeereport') bg-bactive @else  @endif " href="/employeereport">Employee Report</a></li>
@@ -190,7 +190,13 @@ $route = explode('.', Route::currentRouteName())[0];
                     </ul>
                 </span>
 				   @if(request()->session()->get('role') != 'user')
-				<span id="m7" class="@if($route=='fiscal' || $route=='revenue') active @else  @endif">
+                   <span id="m4">
+                    <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='fiscal') bg-active @else  @endif " href="/fiscal">
+                        <img src="{{ asset('asset/image/money-growth.png') }}" width="22" alt="">
+                        <p>Revenue </p>
+                    </a>
+                </span>
+				<!-- <span id="m7" class="@if($route=='fiscal' || $route=='revenue') active @else  @endif">
                     <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='fiscal' || $route=='revenue') active bg-active @else  @endif">
                         <img src="{{ asset('asset/image/money-growth.png') }}" width="22" alt="">
                         <p class="mb-0">Revenue</p>
@@ -202,19 +208,19 @@ $route = explode('.', Route::currentRouteName())[0];
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='fiscal') bg-bactive @else  @endif " href="/fiscal">Fiscal</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='revenue') bg-bactive @else  @endif " href="/revenue">Revenue</a></li>
                     </ul>
-                </span>
+                </span> -->
 				
 					  
 				
-				<span id="m7" class="@if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal') active @else  @endif">
-                    <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal') active bg-active @else  @endif">
+				<span id="m7" class="@if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents') active @else  @endif">
+                 <a href="/documents">  <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents') active bg-active @else  @endif">
                         <img src="{{ asset('asset/image/document-icon.png') }}" width="22" alt="">
                         <p class="mb-0">Documents</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>
-                    </div>
-                    <ul class="sub-menu @if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal') active @else  @endif">
+                    </div> </a> 
+                    <ul class="sub-menu @if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents') active @else  @endif">
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='offerletter') bg-bactive @else  @endif " href="/offerletter">Offer Letter</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='webproposal') bg-bactive @else  @endif " href="/webproposal">Web Proposal</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='digitalproposal') bg-bactive @else  @endif " href="/digitalproposal">Digital Proposal</a></li>
@@ -222,15 +228,15 @@ $route = explode('.', Route::currentRouteName())[0];
                     </ul>
                 </span>
 				
-				  <span id="m7" class="@if($route=='sociallogin' || $route=='questionnaire' || $route=='documentupload' || $route=='inventary' || $route=='googlesheet' || $route=='backup') active @else  @endif">
-                    <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='sociallogin' || $route=='questionnaire' || $route=='documentupload' || $route=='inventary' || $route=='googlesheet' || $route=='backup') active bg-active @else  @endif">
+				  <span id="m7" class="@if($route=='sociallogin' || $route=='questionnaire' || $route=='documentupload' || $route=='inventary' || $route=='googlesheet' || $route=='backup' || $route=='settings') active @else  @endif">
+                  <a href="/settings">  <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='sociallogin' || $route=='questionnaire' || $route=='documentupload' || $route=='inventary' || $route=='googlesheet' || $route=='backup' || $route=='settings') active bg-active @else  @endif">
                         <img src="{{ asset('asset/image/setting.png') }}" width="22" alt="">
                         <p class="mb-0">Settings</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>
-                    </div>
-                    <ul class="sub-menu @if($route=='sociallogin' || $route=='questionnaire' || $route=='documentupload' || $route=='inventary' || $route=='googlesheet' || $route=='backup') active @else  @endif">
+                    </div> </a>
+                    <ul class="sub-menu @if($route=='sociallogin' || $route=='questionnaire' || $route=='documentupload' || $route=='inventary' || $route=='googlesheet' || $route=='backup' || $route=='settings') active @else  @endif">
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='sociallogin') bg-bactive @else  @endif " href="/sociallogin">Social Login</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='questionnaire') bg-bactive @else  @endif " href="/questionnaire">Questionnaire</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='documentupload') bg-bactive @else  @endif " href="/documentupload">Document Upload</a></li>
