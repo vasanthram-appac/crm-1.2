@@ -535,12 +535,6 @@
     });
 </script>
 
-<!-- Example HTML -->
-<select class="select2" style="width: 100%;">
-    <option value="1">Option 1</option>
-    <option value="2">Option 2</option>
-    <option value="3">Option 3</option>
-</select>
 
        <script type="text/javascript">
       google.charts.load('current', { 'packages': ['corechart'] });

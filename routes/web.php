@@ -211,6 +211,22 @@ Route::resource('/fiscal','App\Http\Controllers\Fiscal');
 
 Route::resource('/revenue','App\Http\Controllers\Revenue');
 
+Route::resource('/usermodule','App\Http\Controllers\Usermodule');
+
+Route::resource('/workoperations','App\Http\Controllers\Workoperations');
+
+Route::resource('/payments','App\Http\Controllers\Payments');
+
+Route::resource('/serverdetails','App\Http\Controllers\Serverdetails');
+
+Route::resource('/leads','App\Http\Controllers\Lead');
+
+Route::resource('/reports','App\Http\Controllers\Reports');
+
+Route::resource('/documents','App\Http\Controllers\Documents');
+
+Route::resource('/settings','App\Http\Controllers\Settings');
+
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 
 });

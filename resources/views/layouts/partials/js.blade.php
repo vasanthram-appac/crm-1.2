@@ -19,10 +19,8 @@
 
 <!-- Optional: DataTables Buttons Flash export support -->
 <script src="{{ asset('asset/js/html5.min.js') }}" defer></script>
-
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
-
 <!-- bar chart script -->
 <script src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
@@ -42,6 +40,71 @@
 }
 </script>
 <script>
+//Scrip to the background image According to the day.
+
+$(document).ready(function () {
+   
+    let currentDay = new Date().getDay();
+   
+
+
+  
+    let dayClasses = {
+        0: 'bg1', // Sunday -1
+        1: 'bg1', // Monday -1
+        2: 'bg2', // Tuesday -2
+        3: 'bg3', // Wednesday -3
+        4: 'bg1', // Thursday -1
+        5: 'bg2', // Friday -2
+        6: 'bg3', // Saturday -3
+    };
+	//white - logo
+	 let displayClass = {
+        0: 'd-block', // Sunday -1
+        1: 'd-block', // Monday -1
+        2: 'd-none', // Tuesday -2
+        3: 'd-none', // Wednesday -3
+        4: 'd-block', // Thursday -1
+        5: 'd-none', // Friday -2
+        6: 'd-none', // Saturday -3
+    };
+	//blue - logo
+	 let displayClass2 = {
+        0: 'd-none', // Sunday -1
+        1: 'd-none', // Monday -1
+        2: 'd-block', // Tuesday -2
+        3: 'd-block', // Wednesday -3
+        4: 'd-none', // Thursday -1
+        5: 'd-block', // Friday -2
+        6: 'd-block', // Saturday -3
+    };
+	
+	 let alignProperty = {
+        0: 'align-right', // Sunday -1
+        1: 'align-right', // Monday -1
+        2: 'align-left', // Tuesday -2
+        3: 'align-right', // Wednesday -3
+        4: 'align-right', // Thursday -1
+        5: 'align-left', // Friday -2
+        6: 'align-right', // Saturday -3
+    };
+
+    // Get the class for the current day
+    let classToAdd = dayClasses[currentDay];
+    let classToAddonimg = displayClass[currentDay];//white - logo
+    let classToAddonimg2 = displayClass2[currentDay];
+    let classTologodivPos = alignProperty[currentDay];
+
+    // Add the class to elements with the 'bm-secondary-color' class
+    $('.bm-secondary-color').addClass(classToAdd);
+    $('.login-logo2').addClass(classToAddonimg);//white - logo
+    $('.login-logo1').addClass(classToAddonimg2);
+    $('.logo-div').addClass(classTologodivPos);
+  
+});
+
+
+
     // $(document).ready(function() {
 
     //     ClassicEditor

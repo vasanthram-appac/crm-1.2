@@ -9,7 +9,7 @@
 
     .custom-search-input {
         width: 100%;
-        padding: 0.375rem 0.75rem;
+        padding: 0.75rem 0.75rem;
         border-radius: 0.375rem;
         margin-bottom: 5px;
     }
@@ -67,7 +67,7 @@
                         {!! Form::label('client', 'Client Name*', ['class' => 'form-label']) !!}
                         <div class="custom-select-container">
                             <!-- Search input above the dropdown -->
-                            <input type="text" name="client1" id="clientSearch" placeholder="Search Clients..." class="form-control mt-2 custom-search-input">
+                            <input type="text" name="client1" id="clientSearch" placeholder="Search Clients..." class="form-control custom-search-input">
                             <input type="hidden" name="client" id="clientSearch1">
                             <!-- Hidden dropdown list -->
                             <ul id="clientDropdown" class="custom-dropdown">

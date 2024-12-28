@@ -40,10 +40,7 @@
                         </div>
                         @endforeach
 
-                        <div class="form-check form-check-inline">
-                            {!! Form::radio('worktype', '0', $workreport->worktype, ['id' => 'worktype_others', 'class' => 'form-check-input', 'required']) !!}
-                            {!! Form::label('worktype_others', 'Others', ['class' => 'label-color']) !!}
-                        </div>
+                        
                     </div>
                 </div>
 
