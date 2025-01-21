@@ -91,7 +91,7 @@ class Proforma extends Controller
                 ->addColumn('action', function ($row) {
                     $invoice=base64_encode($row->invoice_no);
                     return '<div class="d-flex justify-content-start gap-3 align-items-center">
-                    <a class="btn" href="' . route('pprint', ['id' => $invoice]) . '"  target="_blank"><i class="fi fi-ts-print"></i>
+                    <a class="btn" href="' . route('pprint', ['id' => $invoice]) . '"  target="blank"><i class="fi fi-ts-print"></i>
 					 <span class="tooltiptext">print</span>
 					</a>
                     <button class="btn btn-modal deleteclick p-0" data-container=".customer_modal" data-href="' . action([Proforma::class, 'edit'], [$row->invoice_no]) . '">
@@ -594,7 +594,7 @@ class Proforma extends Controller
 
     public function convertinvoice($id){
 // dd($id);
-        $invoi = DB::table('invoicedetails')->select('invoice_no')->orderBy('id','desc')->first(); 
+        $invoi = DB::table('invoicedetails')->select('invoice_no')->orderBy('invoice_no','desc')->first(); 
 
         $j = $invoi->invoice_no;
         $j++;

@@ -78,7 +78,7 @@ class Invoice extends Controller
                 
                 ->addColumn('action', function ($row) {
                     $invoice=base64_encode($row->invoice_no);
-                    return '<a class="btn" href="' . route('iprint', ['id' => $invoice]) . '"  target="_blank"><i class="fi fi-ts-print"></i><span class="tooltiptext">print</span></a>';
+                    return '<a class="btn" href="' . route('iprint', ['id' => $invoice]) . '"  target="blank"><i class="fi fi-ts-print"></i><span class="tooltiptext">print</span></a>';
                 })
                 ->rawColumns(['sno', 'action', 'companyname', 'paymentstatus'])
                 ->make(true);

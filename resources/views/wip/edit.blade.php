@@ -123,7 +123,7 @@
                         @endforeach
                         @endif
 
-                        {!! Form::select('mail_cc[]', $mail, null, ['class' => 'form-select select2', 'multiple' => true]) !!}
+                        {!! Form::select('mail_cc[]', $mail, null, ['class' => 'form-select', 'multiple' => true]) !!}
                     </div>
                 </div>
             </div>

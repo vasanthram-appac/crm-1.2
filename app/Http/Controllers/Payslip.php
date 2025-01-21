@@ -77,7 +77,7 @@ class Payslip extends Controller
         // dd($request->all());
         // Validate the request inputs
         $validator = Validator::make($request->all(), [
-            'empid' => 'required',
+            'empid' => 'required|exists:personalprofile,empid',
             'monthyear' => 'required',
         ]);
 

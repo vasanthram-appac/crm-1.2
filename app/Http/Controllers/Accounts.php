@@ -300,7 +300,7 @@ $ssl=DB::table('ssl_certificate')->where('company_name',$id)->select('source as 
         // Collect values
         $val = [
             'datetimestamp' => $request->datetimestamp,
-            'employee' => $request->employee,
+            'employee' => request()->session()->get('empid'),
             'subject' => $request->subject,
             'company_name' => $request->company_name,
             'submitdate' => date('Y-m-d'),
@@ -312,7 +312,7 @@ $ssl=DB::table('ssl_certificate')->where('company_name',$id)->select('source as 
         $company_name_value = $company->company_name ?? '';
 
         // Fetch employee details
-        $employeeData = DB::table('regis')->where('empid', $request->employee)->first();
+        $employeeData = DB::table('regis')->where('empid', request()->session()->get('empid'))->first();
         $empid_value1 = $employeeData->fname ?? '';
         $empid_value2 = $employeeData->lname ?? '';
         $emailid = $employeeData->emailid ?? '';
@@ -321,6 +321,35 @@ $ssl=DB::table('ssl_certificate')->where('company_name',$id)->select('source as 
         $insert = DB::table('notes')->insert($val);
 
         if ($insert) {
+
+            $htmlContent = '<html>
+                    <head><title>Application</title></head>
+                    <body>
+                        <table style="background:#efeded; width:575px" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td align="center">
+                                    <table width="96%" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                            <td style="border-top:5px solid #1e96d3; background:#fff; padding:20px;">
+                                                <p style="font-size:14px; color:#000; font-weight:bold; text-align:center;">UPDATE ACCOUNT INFO</p>
+                                                <p style="color:#000; font-size:13px;"> <strong>Dear Sir,</strong> <br> Account History Updated Through CRM Portal </p>
+                                                <table style="font-family:Arial, sans-serif; font-size:12px; width:100%;">
+                                                    <tr><td style="width:200px; padding:4px 0;">Company Name:</td><td style="font-weight:normal;">' . $company_name_value . '</td></tr>
+                                                    <tr><td>Employee Name:</td><td style="font-weight:normal;">' . $empid_value1 . ' ' . $empid_value2 . '</td></tr>
+                                                    <tr><td>EMP ID:</td><td style="font-weight:normal;">' . request()->session()->get('empid') . '</td></tr>
+                                                    <tr><td>Date of Info Updated:</td><td style="font-weight:normal;">' . $request->datetimestamp . '</td></tr>
+                                                    <tr><td>Subject:</td><td style="font-weight:normal;">' . $request->subject . '</td></tr>
+                                                    <tr><td>Summary:</td><td style="font-weight:normal;">' . $request->summary . '</td></tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </body>
+                </html>';
+
             // Get email addresses from environment variables
             $bccEmail = env('SUPPORTMAIL');
             $bala = env('FOUNDERMAIL');
@@ -328,54 +357,26 @@ $ssl=DB::table('ssl_certificate')->where('company_name',$id)->select('source as 
             $managermail = env('MANAGERMAIL');
 
             // Send email
-            Mail::send([], [], function ($message) use ($request, $bala, $managermail, $bccEmail, $infomail, $emailid, $company_name_value, $empid_value1, $empid_value2) {
+            Mail::send([], [], function ($message) use ($request, $bala, $managermail, $bccEmail, $infomail, $emailid, $company_name_value, $htmlContent, $empid_value2) {
                 // Configure email properties
                 $message->to($bala)
-                    ->cc($managermail)
-                    ->bcc($bccEmail)
-                    ->replyTo($emailid)
-                    ->from($infomail, $company_name_value)
-                    ->subject($request->subject);
-
+                       ->cc($managermail)
+                        ->bcc($bccEmail)
+                        ->replyTo($emailid)
+                        ->from($infomail, $company_name_value)
+                        ->subject($request->subject)
+                        ->html($htmlContent);
+            
                 // Add any CC emails from mail_cc array
-                if ($request->has('mail_cc')) {
+                if ($request->has('mail_cc') && count($request->mail_cc) > 0) {
                     foreach ($request->mail_cc as $m_email) {
-                        $message->cc($m_email);
+                        if (filter_var($m_email, FILTER_VALIDATE_EMAIL)) {  // Validate CC email
+                            $message->cc($m_email);
+                        }
                     }
                 }
-
-                // HTML content for the email
-                $message->html(
-                    '<html>
-                        <head><title>Application</title></head>
-                        <body>
-                            <table style="background:#efeded; width:575px" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td align="center">
-                                        <table width="96%" cellpadding="0" cellspacing="0">
-                                            <tr>
-                                                <td style="border-top:5px solid #1e96d3; background:#fff; padding:20px;">
-                                                    <p style="font-size:14px; color:#000; font-weight:bold; text-align:center;">UPDATE ACCOUNT INFO</p>
-                                                    <p style="color:#000; font-size:13px;"> <strong>Dear Sir,</strong> <br> Account History Updated Through CRM Portal </p>
-                                                    <table style="font-family:Arial, sans-serif; font-size:12px; width:100%;">
-                                                        <tr><td style="width:200px; padding:4px 0;">Company Name:</td><td style="font-weight:normal;">' . $company_name_value . '</td></tr>
-                                                        <tr><td>Employee Name:</td><td style="font-weight:normal;">' . $empid_value1 . ' ' . $empid_value2 . '</td></tr>
-                                                        <tr><td>EMP ID:</td><td style="font-weight:normal;">' . $request->employee . '</td></tr>
-                                                        <tr><td>Date of Info Updated:</td><td style="font-weight:normal;">' . $request->datetimestamp . '</td></tr>
-                                                        <tr><td>Subject:</td><td style="font-weight:normal;">' . $request->subject . '</td></tr>
-                                                        <tr><td>Summary:</td><td style="font-weight:normal;">' . $request->summary . '</td></tr>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </body>
-                    </html>'
-                );
             });
-
+       
             session()->flash('secmessage', 'Notes Created Successfully.');
             return response()->json(['status' => 1, 'message' => 'Notes Created Successfully.'], 200);
         } else {

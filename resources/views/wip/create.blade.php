@@ -65,7 +65,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('project_status', 'Project Status', ['class' => 'label-color py-2']) !!}
-                        <select class="span6 form-control select2" name="project_status" required>
+                        <select class="span6 form-control " name="project_status" required>
                             <option value="">Select From List</option>
                             <option value="On Board">On Board</option>
                             <option value="Discovery">Discovery</option>
@@ -124,7 +124,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('mail_cc', 'Mark a CC Mail to *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::select('mail_cc[]', $mail, null, ['class' => 'form-select select2', 'multiple' => true]) !!}
+                        {!! Form::select('mail_cc[]', $mail, null, ['class' => 'form-select ', 'multiple' => true]) !!}
                     </div>
                 </div>
 

@@ -20,76 +20,80 @@
         <div class="row  col-wrap">
 
 
-        <div class="col-lg-12 col-xl-12 col-xxl-12 pr-20 h-100 u-dash">
-            
-            <div class="bio  rounded-30 bg-white h-100  client-li  profile-div">
-                <div class="server-det-wrap">
-                    <div class="server-d">
-                        <img src="asset/image/domain.png" alt="">
-                        <h4 class="m-0"><strong>Domain</strong> ( Apr 2025 )</h4>
-                        <span class="d-flex gap-3 align-items-center">
-                            <p class="ser-type m-0">
-                            @if(count($domain) > 0)
-                                {{ $domain[0]->domain_manager }}
-                            @else
-                                Domain Manager
-                            @endif
-                            </p>|
-                            <p class="ser-val m-0">
-                            @if(count($domain) > 0)
-                                {{ $domain[0]->domain_source }}
-                            @else
-                                Source
-                            @endif
-                            </p>
-                        </span>
-                    </div>
-                    <div class="server-d">
-                        <img src="asset/image/hoisiting.png" alt="">
-                        <h4 class="m-0"><strong>Web Hoisting</strong></h4>
-                        <span class="d-flex gap-3 align-items-center"><p class="ser-type m-0">Server</p>|<p class="ser-val m-0">Host</p></span>
-                    </div>
-                    <div class="server-d">
-                        <img src="asset/image/email.png" alt="">
-                        <h4 class="m-0"><strong>Email</strong></h4>
-                        <span class="d-flex gap-3 align-items-center"><p class="ser-type m-0">Server</p>|<p class="ser-val m-0">{{($email)?$email:0}}</p></span>
-                    </div>
-                    <div class="server-d">
-                        <img src="asset/image/domain.png" alt="">
-                        <h4 class="m-0"><strong>SSL</strong></h4>
-                        <span class="d-flex gap-3 align-items-center">
-                            <p class="ser-type m-0">
-                            @if(count($ssl) > 0)
-                                {{ $ssl[0]->Source }}
-                            @else
-                                Source
-                            @endif
-                            </p>|
-                            <p class="ser-val m-0">
-                            @if(count($ssl) > 0)
-                                {{ $ssl[0]->D_month }}
-                            @else
-                                Month
-                            @endif
-                            </p>
-                        </span>
+            <div class="col-lg-12 col-xl-12 col-xxl-12 pr-20 h-100 u-dash">
+
+                <div class="bio  rounded-30 bg-white h-100  client-li  profile-div">
+                    <div class="server-det-wrap">
+                        <div class="server-d">
+                            <img src="asset/image/domain.png" alt="">
+                            <h4 class="m-0"><strong>Domain</strong> ( Apr 2025 )</h4>
+                            <span class="d-flex gap-3 align-items-center">
+                                <p class="ser-type m-0">
+                                    @if(count($domain) > 0)
+                                    {{ $domain[0]->domain_manager }}
+                                    @else
+                                    Domain Manager
+                                    @endif
+                                </p>|
+                                <p class="ser-val m-0">
+                                    @if(count($domain) > 0)
+                                    {{ $domain[0]->domain_source }}
+                                    @else
+                                    Source
+                                    @endif
+                                </p>
+                            </span>
+                        </div>
+                        <div class="server-d">
+                            <img src="asset/image/hoisiting.png" alt="">
+                            <h4 class="m-0"><strong>Web Hoisting</strong></h4>
+                            <span class="d-flex gap-3 align-items-center">
+                                <p class="ser-type m-0">Server</p>|<p class="ser-val m-0">Host</p>
+                            </span>
+                        </div>
+                        <div class="server-d">
+                            <img src="asset/image/email.png" alt="">
+                            <h4 class="m-0"><strong>Email</strong></h4>
+                            <span class="d-flex gap-3 align-items-center">
+                                <p class="ser-type m-0">Server</p>|<p class="ser-val m-0">{{($email)?$email:0}}</p>
+                            </span>
+                        </div>
+                        <div class="server-d">
+                            <img src="asset/image/domain.png" alt="">
+                            <h4 class="m-0"><strong>SSL</strong></h4>
+                            <span class="d-flex gap-3 align-items-center">
+                                <p class="ser-type m-0">
+                                    @if(count($ssl) > 0)
+                                    {{ $ssl[0]->Source }}
+                                    @else
+                                    Source
+                                    @endif
+                                </p>|
+                                <p class="ser-val m-0">
+                                    @if(count($ssl) > 0)
+                                    {{ $ssl[0]->D_month }}
+                                    @else
+                                    Month
+                                    @endif
+                                </p>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-<div class="col-lg-12 col-xl-7 col-xxl-2 pr-20 h-100   u-dash">
-        
-        <div class="bio  rounded-30 bg-white h-100  client-li  profile-div">
-            <h4 class="text-center">Revenue</h4>
-            <div class="rev-d h-100 mb-3">
-                <div class="rev-val">
-                 
-                    <p class="rev mb-0">{{$formattedNumber}}</p>
-                    <p class="rev mb-0">{{$scale}}</p>
-                </div>
-            </div>
-        
-        <!-- <div class="col-lg-7 ">
+            <div class="col-lg-12 col-xl-7 col-xxl-2 pr-20 h-100   u-dash">
+
+                <div class="bio  rounded-30 bg-white h-100  client-li  profile-div">
+                    <h4 class="text-center">Revenue</h4>
+                    <div class="rev-d h-100 mb-3">
+                        <div class="rev-val">
+
+                            <p class="rev mb-0">{{$formattedNumber}}</p>
+                            <p class="rev mb-0">{{$scale}}</p>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-lg-7 ">
         <div class="rev-wrap">
             <div class="rev-ty-d d-flex justify-content-between align-items-center py-2 px-2 seo">
                 <div class="d-flex align-items-center p-0 gap-3">
@@ -130,74 +134,80 @@
         </div>
         
         </div> -->
-    </div>
-</div>
-      
+                </div>
+            </div>
 
-        
-<div class="col-lg-12  col-xl-5 col-xxl-4 pr-20 h-100   u-dash">
-            <div class="bio  rounded-30 bg-white h-100  client-li ">
-                <div class="pl-sts-wordwrap p-0">
-                <div class="plan-status">
-                    <div class="pl-icon">
-                       <div class="ic-d start">
-                          <img src="asset/image/plan-start.png" alt="">
-                       </div>
-                    </div>
-                    <div class="pln-sts">
-                        <h5>Plan Started</h5>
-                        <div class="d-flex gap-3 flex-wrap  p-0">
-                           <span class="d-flex gap-1 "><p class="pl-p-h">Price</p> : <p class="pl-p">50k</p></span>  |  
-                           <p class="pl-date">Apr 2020</p>
+
+
+            <div class="col-lg-12  col-xl-5 col-xxl-4 pr-20 h-100   u-dash">
+                <div class="bio  rounded-30 bg-white h-100  client-li ">
+                    <div class="pl-sts-wordwrap p-0">
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d start">
+                                    <img src="asset/image/plan-start.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>Plan Started</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">50k</p>
+                                    </span> |
+                                    <p class="pl-date">Apr 2020</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d current">
+                                    <img src="asset/image/current-sts.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>Current Status</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">50k</p>
+                                    </span> |
+                                    <p class="pl-date">Apr 2020</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d upcom">
+                                    <img src="asset/image/renewal.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>Plan Renewal</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">50k</p>
+                                    </span> |
+                                    <p class="pl-date">Apr 2020</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="plan-status">
-                    <div class="pl-icon">
-                       <div class="ic-d current">
-                          <img src="asset/image/current-sts.png" alt="">
-                       </div>
+            </div>
+            <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100   u-dash">
+
+                <div class="bio  rounded-30 bg-white h-100 pb-0 client-li  profile-div">
+                    <div class="table-responsive">
+                        <div id="combo_chart_div" style="width: 100%;min-width:400px; height: 300px;"></div>
                     </div>
-                    <div class="pln-sts">
-                        <h5>Current Status</h5>
-                        <div class="d-flex gap-3 flex-wrap  p-0">
-                           <span class="d-flex gap-1 "><p class="pl-p-h">Price</p> : <p class="pl-p">50k</p></span>  |  
-                           <p class="pl-date">Apr 2020</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="plan-status">
-                    <div class="pl-icon">
-                       <div class="ic-d upcom">
-                          <img src="asset/image/renewal.png" alt="">
-                       </div>
-                    </div>
-                    <div class="pln-sts">
-                        <h5>Plan Renewal</h5>
-                        <div class="d-flex gap-3 flex-wrap  p-0">
-                           <span class="d-flex gap-1 "><p class="pl-p-h">Price</p> : <p class="pl-p">50k</p></span>  |  
-                           <p class="pl-date">Apr 2020</p>
-                        </div>
-                    </div>
-                    </div>
+
                 </div>
             </div>
-            </div>
-  <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100   u-dash">
-        
-        <div class="bio  rounded-30 bg-white h-100 pb-0 client-li  profile-div">
-            <div class="table-responsive">
-            <div id="combo_chart_div" style="width: 100%;min-width:400px; height: 300px;"></div>
-            </div>
-       
-        </div>
-    </div>
 
             <div class="col-lg-12 col-xl-6 col-xxl-4 pr-20">
                 <div class=" bio rounded-30 bg-white    client-li">
-				<div class="widget-body">
+                    <div class="widget-body">
                         <h4> Client Details</h4>
-				</div>
+                    </div>
                     <div class="row experience client-li-d">
                         <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
                         <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
@@ -252,7 +262,7 @@
                         <div class=" validate-input m-b-23 mb-2">
                             {!! Form::label('subject', 'Subject', ['class' => 'label-color py-2 ']) !!}
                             {!! Form::text('subject', null, ['class' => 'form-control', 'maxlength' => '50', 'placeholder' => 'Enter Subject']) !!}
-                         
+
                         </div>
 
 
@@ -261,7 +271,7 @@
                         <div class=" validate-input m-b-23 mb-2">
                             {!! Form::label('summary', 'Brief Description', ['class' => 'label-color py-2']) !!}
                             {!! Form::textarea('summary', null, ['class' => 'form-control', 'rows' => '5', 'style' => 'resize:none;', 'placeholder' => 'Brief Description', 'required']) !!}
-                          
+
                         </div>
 
 
@@ -270,7 +280,7 @@
                         <div class=" validate-input m-b-23 mb-2">
                             {!! Form::label('mail_cc', 'Mail to CC', ['class' => 'label-color py-2 ']) !!}
                             {!! Form::select('mail_cc[]', $results->pluck('fname', 'emailid')->toArray(), null, ['class' => 'select2 input100 custoname border-0', 'multiple' => true, 'placeholder' => 'Select Employee']) !!}
-                       
+
                         </div>
 
 
@@ -454,15 +464,18 @@
                                         <td>{{ $payment->neftnumber }}</td>
                                         <td>{{ $payment->productservice }}</td>
                                         <td>
+                                            @php
+                                            $inno = base64_encode($payment->invoiceno);
+                                            $pno = base64_encode($payment->pinvoice);
+                                            @endphp
                                             @if($payment->pinvoice && $payment->invoiceno)
-                                            <b>PI:</b> <a href="{{ url('print_proforma?invoice_no=' . $payment->pinvoice) }}" target="_blank">{{ $payment->pinvoice }}</a><br>
-                                            <b>Ino:</b> <a href="{{ url('print_invoice?invoice_no=' . $payment->invoiceno) }}" target="_blank">{{ $payment->invoiceno }}</a><br>
+                                            <b>PI:</b> <a href="{{ url('pprint/' . $pno) }}" target="_blank">{{ $payment->pinvoice }}</a><br>
+                                            <b>Ino:</b> <a href="{{ url('iprint/' . $inno) }}" target="_blank">{{ $payment->invoiceno }}</a><br>
                                             @elseif($payment->pinvoice)
-                                            <b>PI:</b> <a href="{{ url('print_proforma?invoice_no=' . $payment->pinvoice) }}" target="_blank">{{ $payment->pinvoice }}</a><br>
+                                            <b>PI:</b> <a href="{{ url('pprint/' . $pno) }}" target="_blank">{{ $payment->pinvoice }}</a><br>
                                             @elseif($payment->invoiceno)
-                                            <b>Ino:</b> <a href="{{ url('print_invoice?invoice_no=' . $payment->invoiceno) }}" target="_blank">{{ $payment->invoiceno }}</a><br>
+                                            <b>Ino:</b> <a href="{{ url('iprint/' . $inno) }}" target="_blank">{{ $payment->invoiceno }}</a><br>
                                             @endif
-                                        </td>
 
                                         <td>{{ $payment->payamount }}</td>
                                     </tr>
@@ -536,61 +549,83 @@
 </script>
 
 
-       <script type="text/javascript">
-      google.charts.load('current', { 'packages': ['corechart'] });
-      google.charts.setOnLoadCallback(drawComboChart);
-      function drawComboChart() {
+<script type="text/javascript">
+    google.charts.load('current', {
+        'packages': ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawComboChart);
+
+    function drawComboChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Date', 'Bar Value', 'Line Value'],
-          ['12/1', 0, 35],
-          ['12/3', 0, 25],
-          ['12/5', 0, 40],
-          ['12/7', 0, 35],
-          ['12/9', 70, 0],
-          ['12/11', 0, 0],
-          ['12/13', 0, 0],
-          ['12/15', 0, 0]
+            ['Date', 'Bar Value', 'Line Value'],
+            ['12/1', 0, 35],
+            ['12/3', 0, 25],
+            ['12/5', 0, 40],
+            ['12/7', 0, 35],
+            ['12/9', 70, 0],
+            ['12/11', 0, 0],
+            ['12/13', 0, 0],
+            ['12/15', 0, 0]
         ]);
         var options = {
-          hAxis: {
-            maxValue: 100,
-            textStyle: { color: '#666' },
-            baselineColor: 'transparent',
-            gridlines: { color: 'transparent' }
-          },
-          vAxis: {
-            minValue: 0,
-            textStyle: { color: '#666' },
-            baselineColor: 'transparent',
-            gridlines: { color: '#ddd' }
-          },
-          seriesType: 'bars',
-          series: {
-            1: {
-            //   type: 'area', // Area chart for a filled line graph
-            type:'area',
-              color: '#a5bbda',
-              lineWidth: 3,
-            //   curveType: 'function', // Ensures smooth curve
-              areaOpacity: 0.3 // Adjust as needed
-            }
-          },
-          curveType: 'function', // Applies to the entire chart for a smooth line
-          colors: ['#a5bbda'], // Color for bars
-          backgroundColor: { fill: 'transparent' },
-          chartArea: { width: '80%', height: '75%' },
-          legend: { position: 'top', textStyle: { color: '#666', fontSize: 12 } },
-          animation: {
-            startup: true,
-            duration: 1000,
-            easing: 'out'
-          },
-          chartArea: {
-        width: '80%',
-        height: '50%',},
+            hAxis: {
+                maxValue: 100,
+                textStyle: {
+                    color: '#666'
+                },
+                baselineColor: 'transparent',
+                gridlines: {
+                    color: 'transparent'
+                }
+            },
+            vAxis: {
+                minValue: 0,
+                textStyle: {
+                    color: '#666'
+                },
+                baselineColor: 'transparent',
+                gridlines: {
+                    color: '#ddd'
+                }
+            },
+            seriesType: 'bars',
+            series: {
+                1: {
+                    //   type: 'area', // Area chart for a filled line graph
+                    type: 'area',
+                    color: '#a5bbda',
+                    lineWidth: 3,
+                    //   curveType: 'function', // Ensures smooth curve
+                    areaOpacity: 0.3 // Adjust as needed
+                }
+            },
+            curveType: 'function', // Applies to the entire chart for a smooth line
+            colors: ['#a5bbda'], // Color for bars
+            backgroundColor: {
+                fill: 'transparent'
+            },
+            chartArea: {
+                width: '80%',
+                height: '75%'
+            },
+            legend: {
+                position: 'top',
+                textStyle: {
+                    color: '#666',
+                    fontSize: 12
+                }
+            },
+            animation: {
+                startup: true,
+                duration: 1000,
+                easing: 'out'
+            },
+            chartArea: {
+                width: '80%',
+                height: '50%',
+            },
         };
         var chart = new google.visualization.ComboChart(document.getElementById('combo_chart_div'));
         chart.draw(data, options);
-      }
-   
+    }
 </script>

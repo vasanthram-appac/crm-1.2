@@ -148,7 +148,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn bg-white pri-text-color loginform-btn">
-                        {{ __('Send OTP') }}
+                        {{ __('Submit') }}
                     </button>
                 </form>
                 @endif
