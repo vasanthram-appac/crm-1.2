@@ -113,7 +113,7 @@ class User extends Controller
 
 
             'photo' => 'required|mimes:jpeg,jpg,png|file|max:1024',
-            'resume' => 'required|mimes:pdf|file|max:1024',
+            'resume' => 'nullable|mimes:pdf|file|max:1024',
             'addressproof' => 'required|mimes:pdf|file|max:1024',
             'identityproof' => 'required|mimes:pdf|file|max:1024',
 

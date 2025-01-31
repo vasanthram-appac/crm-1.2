@@ -305,8 +305,8 @@
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('resume', 'Resume (PDF Format, File size below 1MB)*', ['class' => 'label-color py-2']) !!}
-                        {!! Form::file('resume', ['class' => 'form-control', 'accept' => 'application/pdf', 'required']) !!}
+                        {!! Form::label('resume', 'Resume (PDF Format, File size below 1MB)', ['class' => 'label-color py-2']) !!}
+                        {!! Form::file('resume', ['class' => 'form-control', 'accept' => 'application/pdf']) !!}
                     </div>
                 </div>
             </div>

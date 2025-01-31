@@ -329,7 +329,7 @@
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('resume', 'Resume (PDF Format, File size below 1MB)*', ['class' => 'label-color py-2']) !!}
+                        {!! Form::label('resume', 'Resume (PDF Format, File size below 1MB)', ['class' => 'label-color py-2']) !!}
                         @if(!empty($document->resume))
                         <a href="{{ asset('uploadresume/' . $document->resume) }}" target="_blank">View</a>
                         @endif

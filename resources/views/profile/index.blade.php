@@ -341,7 +341,7 @@
                                     <p class="">{!! Form::file('photo', ['class' => 'form-control val', 'accept' => 'image/png, image/jpeg, image/jpg']) !!}</p>
                                 </div>
                                 <div class="col-lg-6 profile-val">
-                                    <p class="label">{!! Form::label('resume', 'Resume (PDF Format, File size below 1MB)*', ['class' => 'label']) !!}</p>
+                                    <p class="label">{!! Form::label('resume', 'Resume (PDF Format, File size below 1MB)', ['class' => 'label']) !!}</p>
                                     <p class="">{!! Form::file('resume', ['class' => 'form-control val', 'accept' => 'application/pdf']) !!}</p>
                                 </div>
                                 <div class="col-lg-6 profile-val">
