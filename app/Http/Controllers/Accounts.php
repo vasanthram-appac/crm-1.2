@@ -23,7 +23,7 @@ class Accounts extends Controller
         if (request()->ajax()) {
 
             if (request()->session()->get('active_status') == "") {
-                request()->session()->put('active_status', 'All');
+                request()->session()->put('active_status', '1');
             }
 
             if (isset($request->status) && !empty($request->status)) {

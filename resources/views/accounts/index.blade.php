@@ -76,9 +76,9 @@
                                 <select name="account_status" class="tab-sel" id="account_status">
                                     <option value="">Select</option>
                                     <option value="All" @if(request()->session()->get('active_status') == 'All') selected @endif>All</option>
+                                    <option value="1" @if(request()->session()->get('active_status') == '1') selected @endif>Key Accounts</option>
                                     <option value="active" @if(request()->session()->get('active_status') == 'active') selected @endif>Active Accounts</option>
                                     <option value="inactive" @if(request()->session()->get('active_status') == 'inactive') selected @endif>Inactive Accounts</option>
-                                    <option value="1" @if(request()->session()->get('active_status') == '1') selected @endif>Key Accounts</option>
                                     <option value="AM001" @if(request()->session()->get('active_status') == 'AM001') selected @endif>Assigned to Balakrishnan</option>
                                     <option value="AM081" @if(request()->session()->get('active_status') == 'AM081') selected @endif>Assigned to Deepak</option>
                                     <option value="AM088" @if(request()->session()->get('active_status') == 'AM088') selected @endif>Assigned to Teresa</option>

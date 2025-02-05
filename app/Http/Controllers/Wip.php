@@ -23,7 +23,7 @@ class Wip extends Controller
 
 // dd($request->all());
 
-               if(request()->session()->has('wip_status') && empty(request()->session()->get('wip_status'))){
+               if(empty(request()->session()->get('wip_status'))){
                 request()->session()->put('wip_status','new');
                }
 

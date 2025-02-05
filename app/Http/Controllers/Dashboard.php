@@ -161,9 +161,6 @@ class Dashboard extends Controller
             ];
         }
 
-        
-
-
         $activeAcc = DB::table('accounts')->where('status', '!=', 0)->count();
         $proforma = DB::table('proformadetails')->count();
         $invoice = DB::table('invoicedetails')->count();

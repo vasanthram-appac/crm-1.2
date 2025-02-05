@@ -91,8 +91,8 @@ class Proforma extends Controller
                 ->addColumn('action', function ($row) {
                     $invoice=base64_encode($row->invoice_no);
                     return '<div class="d-flex justify-content-start gap-3 align-items-center">
-                    <a class="btn" href="' . route('pprint', ['id' => $invoice]) . '"  target="blank"><i class="fi fi-ts-print"></i>
-					 <span class="tooltiptext">print</span>
+                    <a class="btn" href="' . route('pprint', ['id' => $invoice]) . '"  target="blank"><i class="fi fi-ts-user-check"></i>
+					 <span class="tooltiptext">view</span>
 					</a>
                     <button class="btn btn-modal deleteclick p-0" data-container=".customer_modal" data-href="' . action([Proforma::class, 'edit'], [$row->invoice_no]) . '">
                     <i class="fi fi-ts-file-edit"></i>
