@@ -83,7 +83,7 @@
                 </div>
             </div>
 
-            @if(request()->session()->get('role')=='superadmin')
+            @if(request()->session()->get('role')=='admin')
             <div class="row m-0 mb-0">
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
