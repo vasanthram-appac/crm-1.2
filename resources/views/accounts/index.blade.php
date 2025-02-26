@@ -138,8 +138,6 @@
 //     }
 // });
 
-
-
     $(document).ready(function() {
 
         var cat_table = $('#example').DataTable({
@@ -260,10 +258,14 @@
                             window.location.reload();
                         }, 2000);
                     } else {
+                       
                         $('.customer_modal').modal('hide');
                         $('.appac_show').hide();
                         $('.appac_hide').show();
                         cat_table.ajax.reload(null, false); // Prevents table state reset on reload
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 500);
                     }
 
 

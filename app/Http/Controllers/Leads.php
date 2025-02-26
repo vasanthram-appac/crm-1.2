@@ -147,7 +147,7 @@ class Leads extends Controller
             'title' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
             'company_name' => 'nullable|string|max:255',
-            'gst_number' => 'required|string|max:15',
+            'gst_number' => 'nullable|string|max:15',
            
             'phone' => 'required|digits:10',
             'assignedto' => 'required|string|max:255',
@@ -259,7 +259,7 @@ class Leads extends Controller
             'firstname' => 'required|string|max:255',
            
             'company_name' => 'nullable|string|max:255',
-            'gst_number' => 'required|string|max:15',
+            'gst_number' => 'nullable|string|max:15',
            
             'phone' => 'required|digits:10',
        
@@ -354,6 +354,7 @@ class Leads extends Controller
 
             'summary' => 'required',
             'subject' => 'required',
+            'date'    => 'required',
 
         ]);
 
@@ -395,6 +396,7 @@ class Leads extends Controller
             'summary' => $summary,
             'leads_id' => $companyNameId,
             'submit_date' => $todaydate,
+            'followupdate' => $request->date,
         ];
 
         $insert = DB::table('leads_history')->insert($val);

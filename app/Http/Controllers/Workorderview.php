@@ -534,4 +534,25 @@ class Workorderview extends Controller
         session()->flash('secmessage', 'Status Updated Successfully.');
         return response()->json(['status' => 1, 'message' => 'Status Updated Successfully.'], 200);
     }
+
+    public function getempid(Request $request)
+    {
+        $category_Id = $request->avalue;
+    
+        // Fetch employees from the 'regis' table
+        $employees = DB::table('regis')
+            ->where('status', '!=', '0')
+            ->where('dept_id', $category_Id)
+            ->where('fname', '!=', 'Appac')
+            ->get();
+    
+        // Generate checkbox options
+        $options = '';
+        foreach ($employees as $employee) {
+            $options .= '<input type="checkbox" name="empid[]" value="' . $employee->id . '" /> ' 
+                      . htmlspecialchars($employee->fname . " " . $employee->lname) . '<br>';
+        }
+    
+        return response($options);
+    }
 }

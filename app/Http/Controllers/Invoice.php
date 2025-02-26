@@ -41,7 +41,7 @@ class Invoice extends Controller
                 $emp = DB::table('regis')->where('empid', $pdata->empid)->first();
                 $pdata->fname = $emp->fname;
 
-                $pdata->grosspay = number_format((float)$pdata->grosspay, 2, '.', '');
+                $pdata->grosspay = number_format((float)$pdata->grosspay, 2, '.', ',');
 
                 $emp = DB::table('accounts')->where('id', $pdata->company_id)->first();
 

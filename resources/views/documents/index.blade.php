@@ -71,6 +71,18 @@
                     </a>
                 </div>
 
+           
+                <div class="g-data ps-3"><a href="/ratecards">
+                        <div class="bio  rounded-30  piechart-leads dash-4">
+                            <div class="svg-d">
+                                 <img src="/img/digital-proposal.png" />
+                            </div>
+                            <h3 class="text-center ">Rate Cards</h3>
+                            <h4>{{$rate}}</h4>
+                        </div>
+                    </a>
+                </div>
+
 
             </div>
         </div>

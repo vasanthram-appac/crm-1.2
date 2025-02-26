@@ -212,18 +212,19 @@ $route = explode('.', Route::currentRouteName())[0];
 				
 					  
 				
-				<span id="m7" class="@if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents') active @else  @endif">
-                 <a href="/documents">  <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents') active bg-active @else  @endif">
+				<span id="m7" class="@if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents' || $route=='ratecards') active @else  @endif">
+                 <a href="/documents">  <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents' || $route=='ratecards') active bg-active @else  @endif">
                         <img src="{{ asset('asset/image/document-icon.png') }}" width="22" alt="">
                         <p class="mb-0">Documents</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>
                     </div> </a> 
-                    <ul class="sub-menu @if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents') active @else  @endif">
+                    <ul class="sub-menu @if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents' || $route=='ratecards') active @else  @endif">
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='offerletter') bg-bactive @else  @endif " href="/offerletter">Offer Letter</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='webproposal') bg-bactive @else  @endif " href="/webproposal">Web Proposal</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='digitalproposal') bg-bactive @else  @endif " href="/digitalproposal">Digital Proposal</a></li>
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='ratecards') bg-bactive @else  @endif " href="/ratecards">Rate Cards</a></li>
                   
                     </ul>
                 </span>

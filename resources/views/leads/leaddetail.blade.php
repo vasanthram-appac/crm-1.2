@@ -63,12 +63,14 @@
                         {!! Form::hidden('company_name', $lead->id, ['class' => 'col-6', 'readonly']) !!}
 
                         <div class="control-group mb-2 p-0">
-                           
                             {!! Form::text('subject', null, ['class' => 'span6 form-control', 'placeholder' => 'Subject']) !!}
                         </div>
 
                         <div class="control-group mb-2 p-0">
-                          
+                            {!! Form::date('date', null, ['class' => 'span6 form-control', 'placeholder' => 'Follow -up Date']) !!}
+                        </div>
+
+                        <div class="control-group mb-2 p-0">
                             {!! Form::textarea('summary', null, ['class' => 'span6 form-control', 'rows' => 5, 'placeholder' => 'Brief Description', 'style' => 'resize:none;', 'required']) !!}
                         </div>
 
@@ -113,6 +115,7 @@
                                     <thead>
                                         <tr class="bg-white border-0">
                                             <th class="text-grey">Date of Notes Created</th>
+                                            <th class="text-grey">Follow -up date</th>
                                             <th class="text-grey">Emp ID</th>
                                             <th class="text-grey">Subject</th>
                                             <th class="text-grey">Summary</th>
@@ -122,6 +125,7 @@
                                         @forelse($leadshistory as $history)
                                         <tr>
                                             <td>{{ $history->datetimestamp }}</td>
+                                            <td>{{ $history->followupdate }}</td>
                                             <td>{{ $history->empid }}</td>
                                             <td>{{ $history->subject }}</td>
                                             <td>{{ $history->summary }}</td>

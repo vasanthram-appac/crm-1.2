@@ -25,7 +25,10 @@ class Lead extends Controller
 
         $opportunity = DB::table('opportunity')->count();
 
-        return view('lead/index')->with(compact('leads', 'opportunity'))->render();
+        $leadfollowup = DB::table('leads_history')->select('leads_history.*','leads.company_name')
+        ->join('leads', 'leads_history.leads_id','=','leads.id')->where('followupdate',date('Y-m-d'))->orderby('id','desc')->get();
+
+        return view('lead/index')->with(compact('leads', 'opportunity', 'leadfollowup'))->render();
     }
   
 }

@@ -153,6 +153,8 @@ Route::resource('/workorderview','App\Http\Controllers\Workorderview');
 
 Route::get('/workstatus/{id}/{status}', [Workorderview::class, 'workstatus'])->name('workstatus');
 
+Route::post('/getempid', [Workorderview::class, 'getempid'])->name('getempid');
+
 Route::get('/workqueryindex/{id}', [Workquery::class, 'index'])->name('workqueryindex');
 
 Route::get('/workqueryadd/{id}', [Workquery::class, 'queryadd'])->name('workqueryadd');
@@ -226,6 +228,8 @@ Route::resource('/reports','App\Http\Controllers\Reports');
 Route::resource('/documents','App\Http\Controllers\Documents');
 
 Route::resource('/settings','App\Http\Controllers\Settings');
+
+Route::resource('/ratecards','App\Http\Controllers\Ratecards');
 
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 

@@ -57,6 +57,10 @@ class Paymententry extends Controller
         
                 // Combine first and last name for account manager
                 $pay->account_manager = $pay->fname . ' ' . $pay->lname;
+
+                $paypayamount = str_replace([',', '/-'], '', $pay->payamount);
+ 
+                $pay->payamount = number_format((float)$paypayamount, 2, '.', ',');
             }
         
             return DataTables::of($data)

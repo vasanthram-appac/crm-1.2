@@ -176,8 +176,19 @@ class Dashboard extends Controller
         $work_order = DB::table('work_order')->count();
 
         $dailyreport = DB::table('dailyreport')->where('report_date1', date('Y-m-d', strtotime('-1 day')))->count();
+
+        $empreport = DB::table('dailyreport')->whereYear('report_date1',date('Y'))->count();
+
+        $employee = DB::table('regis')->where('status',1)->count();
+
+        $currentYear = date('Y');
+        $leaveapproved = DB::table('leaverecord')->whereYear('leavedate', $currentYear)->where('leavestatus','Approved')->count();
+
+        $social = DB::table('social_login')->count();
+
+        $payment = DB::table('payment_list')->count();
     
-        return view('dashboard/index')->with(compact('leadCounts','activeAcc','proforma','invoice','wip_history' ,'keyaccounts','aallead','wipenqs','opportunity','website_enquiry_data','work_order','dailyreport'))->render();
+        return view('dashboard/index')->with(compact('leadCounts','activeAcc','proforma','invoice','wip_history' ,'keyaccounts','aallead','wipenqs','opportunity','website_enquiry_data','work_order','dailyreport','empreport','employee','leaveapproved','social','payment'))->render();
     }
 
 

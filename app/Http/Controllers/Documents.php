@@ -24,7 +24,12 @@ class Documents extends Controller
 
         $digital = DB::table('digital_proposal_pdf')->count();
 
-        return view('documents/index')->with(compact('offer', 'web', 'digital'))->render();
+        $rate = DB::table('ratecard')
+        ->whereNotNull('empid')
+        ->where('empid', '!=', '')
+        ->count();
+
+        return view('documents/index')->with(compact('offer', 'web', 'digital', 'rate'))->render();
     }
   
 }

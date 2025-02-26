@@ -110,7 +110,7 @@
         $.ajax({
             type: "POST",
             cache: false,
-            url: "/websitelistload",
+            url: "/getempid",
             data: {
                 avalue: a,
                 names: sel_text,

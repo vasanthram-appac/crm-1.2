@@ -65,9 +65,7 @@
                 <div class="g-data ps-3"><a href="/paymententry">
                         <div class="bio  rounded-30  piechart-leads dash-3">
                             <div class="svg-d">
-
                                 <img src="/img/payment entry.png"/>
-
                             </div>
                             <h3 class="text-center ">Payment Entry</h3>
                             <h4>{{$payment}}</h4>
