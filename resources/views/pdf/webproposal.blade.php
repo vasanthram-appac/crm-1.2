@@ -423,35 +423,65 @@
 
                                             <h3>TABLE OF CONTENTS</h3>
                                             <ul>
-                                                <li>Overview</li>
-                                                <li>Discovery &amp; Consulting</li>
-                                                <li>Initial Planning &amp; UI/UX</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; Overview</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; Discovery &amp; Consulting</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; Initial Planning &amp; UI/UX</li>
                                                 <ul class="internalUL">
-                                                    <li>Content Architecture</li>
-                                                    <li>User Journey Mapping </li>
-                                                    <li>High Fidelity Designs</li>
+                                                    <li>✔&nbsp;&nbsp; Content Architecture</li>
+                                                    <li>✔&nbsp;&nbsp; User Journey Mapping </li>
+                                                    <li>✔&nbsp;&nbsp; High Fidelity Designs</li>
                                                 </ul>
-                                                <li>CMS Web Development</li>
-                                                <li>Analytics &amp; Measurements</li>
-                                                <li>SEO Optimization</li>
-                                                <li>Technical Standards</li>
-                                                <li>Copywriting &amp; Photography</li>
-                                                <li>Testing, Approval &amp; Change Requests</li>
-                                                <li>Hosting</li>
-                                                <li>Support &amp; Maintenance Time</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; CMS Web Development</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; Analytics &amp; Measurements</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; SEO Optimization</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; Technical Standards</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; Copywriting &amp; Photography</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; Testing, Approval &amp; Change Requests</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg> Hosting</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; Support &amp; Maintenance Time</li>
                                                 <ul>
-                                                    <li>Scope of work</li>
-                                                    <li>Core Objectives</li>
-                                                    <li>Key Features</li>
-                                                    <li>Design Elements</li>
-                                                    <li>Functional Elements</li>
-                                                    <li>Deliverables</li>
-                                                    <li>Style Guide</li>
+                                                    <li>✔&nbsp;&nbsp; Scope of work</li>
+                                                    <li>✔&nbsp;&nbsp; Core Objectives</li>
+                                                    <li>✔&nbsp;&nbsp; Key Features</li>
+                                                    <li>✔&nbsp;&nbsp; Design Elements</li>
+                                                    <li>✔&nbsp;&nbsp; Functional Elements</li>
+                                                    <li>✔&nbsp;&nbsp; Deliverables</li>
+                                                    <li>✔&nbsp;&nbsp; Style Guide</li>
                                                 </ul>
-                                                <li>Time Estimate</li>
-                                                <li>Total Investment</li>
-                                                <li>Investment Summary</li>
-                                                <li>Payment Terms</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; Time Estimate</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; Total Investment</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; Investment Summary</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"></path>
+                                                        </svg>&nbsp;&nbsp; Payment Terms</li>
                                             </ul>
                                         </div>                                                                
                                             <p class="pg-no">Page no 1<p>
@@ -911,7 +941,7 @@
                                         <div class="pad">
                                             <div class="reduce">
                                                 <h3>INVESTMENT SUMMARY:</h3>
-                                                <p>** The above rates are exclusive of GST, VAT and other corporate taxes.</p>
+                                                <p>** The above rates are exclusive of GST 18%, VAT and other corporate taxes.</p>
                                                 <p>** Please note Annual Maintenance cost tentatively 20hours excluding testing period is given as value
                                                     addition along with above costing.</p>
                                                 <p>** This document is an estimate and also represents a binding agreement between the APPAC Media

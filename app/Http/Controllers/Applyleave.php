@@ -21,8 +21,8 @@ class Applyleave extends Controller
 
             $currentYear = date('Y');
             $currentMonth = date('m');
-    
-            if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) { 
+
+            if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) {
                 $academicStart = ($currentYear - 1) . "-04-01"; // April 1st of the previous year
                 $academicEnd = "$currentYear-03-31"; // March 31st of the current year
             } else { // For other months
@@ -32,7 +32,7 @@ class Applyleave extends Controller
 
             // Execute the query
             $data = DB::table('leaverecord')
-            ->whereBetween('leavedate', [$academicStart, $academicEnd])
+                ->whereBetween('leavedate', [$academicStart, $academicEnd])
                 ->where('empid', request()->session()->get('empid'))
                 ->orderByDesc('id')
                 ->get();
@@ -54,8 +54,6 @@ class Applyleave extends Controller
             }
             // dd($data);
 
-
-
             return DataTables::of($data)
                 ->addColumn('sno', function ($row) {
                     return '';
@@ -75,30 +73,29 @@ class Applyleave extends Controller
                     }
                 })
 
-                    
                 // ->addColumn('action', function ($row) {
-                  
+
                 //         return '<button class="btn btn-modal conformdelete" data-id="' . $row->id . '"><i class="fi fi-ts-trash-xmark"></i></button>';
-               
+
                 // })
-                        
+
                 ->rawColumns(['sno', 'leavestatus', 'action'])
                 ->make(true);
         }
+
         $employeeId = request()->session()->get('empid');
 
         $currentYear = date('Y');
         $currentMonth = date('m');
 
-        if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) { 
+        if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) {
             $academicStart = ($currentYear - 1) . "-04-01"; // April 1st of the previous year
             $academicEnd = "$currentYear-03-31"; // March 31st of the current year
         } else { // For other months
             $academicStart = "$currentYear-04-01"; // April 1st of the current year
             $academicEnd = ($currentYear + 1) . "-03-31"; // March 31st of the next year
         }
-        
-        
+
         // Fetch monthly leave breakdown
         $monthlyLeaves = DB::table('leaverecord')->selectRaw('MONTH(leavedate) as month, 
                 SUM(CASE WHEN leavetype = 1 THEN noofdays ELSE 0 END) as compensate,
@@ -113,7 +110,7 @@ class Applyleave extends Controller
             ->groupByRaw('MONTH(leavedate)')
             ->orderByRaw('MONTH(leavedate)')
             ->get();
-// dd($monthlyLeaves);
+        // dd($monthlyLeaves);
 
         // Calculate total leaves taken in the year
         $totalLeavesTaken = DB::table('leaverecord')->where('empid', $employeeId)
@@ -122,33 +119,73 @@ class Applyleave extends Controller
             ->sum('noofdays');
 
         // Casual and sick leave remaining calculations (assuming max 6 per type)
-        $maxCasualAndSickLeaves = 6;
-        
+
+        $userdetails = DB::table("personalprofile")
+            ->select("doj")
+            ->where('empid', $employeeId)
+            ->first();
+
+        if ($userdetails && !empty($userdetails->doj)) {
+            $doj = $userdetails->doj;
+
+            // Extract year and month from DOJ
+            list($dojYear, $dojMonth, $dojDay) = explode('-', $doj);
+
+            // Get current year and month manually
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+            
+            // Calculate months difference manually
+            $dataleave = ($currentYear - $dojYear) * 12 + ($currentMonth - $dojMonth) + 1;
+
+            // Check if DOJ falls within the academic year
+            if ($doj >= $academicStart) {
+                if ($dataleave < 12) {
+                    if ($dataleave % 2 == 0) {
+                        // Even months
+                        $maxCasual = $dataleave / 2;
+                        $SickLeaves = $dataleave / 2;
+                    } else {
+                        // Odd months
+                        $maxCasual = ceil($dataleave / 2);
+                        $SickLeaves = floor($dataleave / 2);
+                    }
+                } else {
+                    $maxCasual = 6;
+                    $SickLeaves = 6;
+                }
+            } else {
+                $maxCasual = 6;
+                $SickLeaves = 6;
+            }
+        } else {
+            $maxCasual = 6;
+            $SickLeaves = 6;
+        }
+
         $casualLeavesTaken = DB::table('leaverecord')->where('empid', $employeeId)
             ->where('leavestatus', 'Approved')
             ->where('leavetype', 5)
             ->whereBetween('leavedate', [$academicStart, $academicEnd])
             ->sum('noofdays');
-        $remainingCasualLeaves = max($maxCasualAndSickLeaves - $casualLeavesTaken, 0);
+        $remainingCasualLeaves = max($maxCasual - $casualLeavesTaken, 0);
 
         $sickLeavesTaken = DB::table('leaverecord')->where('empid', $employeeId)
             ->where('leavestatus', 'Approved')
             ->where('leavetype', 6)
             ->whereBetween('leavedate', [$academicStart, $academicEnd])
             ->sum('noofdays');
-        $remainingSickLeaves = max($maxCasualAndSickLeaves - $sickLeavesTaken, 0);
+        $remainingSickLeaves = max($SickLeaves - $sickLeavesTaken, 0);
 
         return view('applyleave.index', compact('monthlyLeaves', 'totalLeavesTaken', 'remainingCasualLeaves', 'remainingSickLeaves', 'currentYear'));
-   
     }
-
 
     public function create()
     {
         $currentYear = date('Y');
         $currentMonth = date('m');
 
-        if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) { 
+        if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) {
             $academicStart = ($currentYear - 1) . "-04-01"; // April 1st of the previous year
             $academicEnd = "$currentYear-03-31"; // March 31st of the current year
         } else { // For other months
@@ -160,7 +197,7 @@ class Applyleave extends Controller
             ->select(DB::raw('EXTRACT(month FROM leavedate) as Month'), DB::raw('count(*) as count1'), DB::raw('SUM(noofdays) as noday1'))
             ->where('empid', request()->session()->get('empid')) // Use Laravel's session helper to get the empid
             ->where('leavestatus', 'Approved')
-           ->whereBetween('leavedate', [$academicStart, $academicEnd]) // Use whereYear for year comparison
+            ->whereBetween('leavedate', [$academicStart, $academicEnd]) // Use whereYear for year comparison
             ->where('leavetype', 5) // Assuming '5' is Casual Leave
             ->groupBy(DB::raw('EXTRACT(month FROM leavedate)'))
             ->orderBy(DB::raw('EXTRACT(month FROM leavedate)'))
@@ -170,37 +207,106 @@ class Applyleave extends Controller
             ->select(DB::raw('EXTRACT(month FROM leavedate) as Month'), DB::raw('count(*) as count1'), DB::raw('SUM(noofdays) as noday1'))
             ->where('empid', request()->session()->get('empid')) // Use Laravel's session helper to get the empid
             ->where('leavestatus', 'Approved')
-           ->whereBetween('leavedate', [$academicStart, $academicEnd]) // Use whereYear for year comparison
+            ->whereBetween('leavedate', [$academicStart, $academicEnd]) // Use whereYear for year comparison
             ->where('leavetype', 6) // Assuming '5' is Casual Leave
             ->groupBy(DB::raw('EXTRACT(month FROM leavedate)'))
             ->orderBy(DB::raw('EXTRACT(month FROM leavedate)'))
             ->get();
 
-            $casual = $casual->sum('count1');
-$sick = $sick->sum('count1');
+
+        $userdetails = DB::table("personalprofile")
+            ->select("doj")
+            ->where('empid', request()->session()->get('empid'))
+            ->first();
+
+        if ($userdetails && !empty($userdetails->doj)) {
+            $doj = $userdetails->doj;
+            // Extract year and month from DOJ
+            list($dojYear, $dojMonth, $dojDay) = explode('-', $doj);
+
+            // Get current year and month manually
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+            
+            // Calculate months difference manually
+            $dataleave = ($currentYear - $dojYear) * 12 + ($currentMonth - $dojMonth) + 1;
+
+            if ($doj >= $academicStart) {
+                
+            if ($dataleave < 12) {
+
+                if ($dataleave % 2 == 0) {
+                    // Even months
+                    $maxCasual = $dataleave / 2;
+                    $SickLeaves = $dataleave / 2;
+
+                    if ($maxCasual > $casual->sum('noday1')) {
+                        $casual = $casual->sum('noday1');
+                    } else {
+                        $casual = 6;
+                    }
+
+                    if ($SickLeaves > $sick->sum('noday1')) {
+                        $sick = $sick->sum('noday1');
+                    } else {
+                        $sick = 6;
+                    }
+                } else {
+                    // Odd months
+                    $maxCasual = ceil($dataleave / 2);
+                    $SickLeaves = floor($dataleave / 2);
+
+                    if ($maxCasual > $casual->sum('noday1')) {
+                        $casual = $casual->sum('noday1');
+                    } else {
+                        $casual = 6;
+                    }
+
+                    if ($SickLeaves > $sick->sum('noday1')) {
+                        $sick = $sick->sum('noday1');
+                    } else {
+                        $sick = 6;
+                    }
+                }
+            } else {
+                $casual = $casual->sum('noday1');
+                $sick = $sick->sum('noday1');
+            }
+        } else {
+            $casual = $casual->sum('noday1');
+            $sick = $sick->sum('noday1');
+        }
+
+
+        } else {
+            $casual = $casual->sum('noday1');
+            $sick = $sick->sum('noday1');
+        }
+
+
 
         return view('applyleave/create', compact('casual', 'sick'))->render();
     }
 
     public function store(Request $request)
     {
-      
+
         $rules = [
-            'leavetype' => 'required',  
+            'leavetype' => 'required',
         ];
 
         switch ($request->leavetype) {
             case '1': // Compensate
                 $rules = array_merge($rules, [
                     'cleavedate' => 'required|date',
-                    'cleavedatetill' => 'required|date|after_or_equal:cleavedate', 
+                    'cleavedatetill' => 'required|date|after_or_equal:cleavedate',
                 ]);
                 break;
             case '0': // Permission
                 $rules = array_merge($rules, [
                     'pleavedate' => 'required|date',
-                    'fromtime' => 'required|date_format:H:i', 
-                    'totime' => 'required|date_format:H:i|after:fromtime', 
+                    'fromtime' => 'required|date_format:H:i',
+                    'totime' => 'required|date_format:H:i|after:fromtime',
                 ]);
                 break;
             case '2': // WFH
@@ -209,13 +315,13 @@ $sick = $sick->sum('count1');
             case '6': // Sick
                 $rules = array_merge($rules, [
                     'leavedate' => 'required|date',
-                    'leavedatetill' => 'required|date|after_or_equal:leavedate', 
+                    'leavedatetill' => 'required|date|after_or_equal:leavedate',
                 ]);
                 break;
             case '3': // Half Day
                 $rules = array_merge($rules, [
                     'hleavedate' => 'required|date',
-                    'half' => 'required|in:1,2', 
+                    'half' => 'required|in:1,2',
                 ]);
                 break;
         }
@@ -232,7 +338,7 @@ $sick = $sick->sum('count1');
         $leavetype = $request->leavetype;
         $reason = $request->reason;
 
-      
+
         $leavedate = null;
         $leavedatetill = null;
         $noofdays = null;
@@ -280,10 +386,10 @@ $sick = $sick->sum('count1');
         $bccEmail = env('SUPPORTMAIL');
 
         $head_mail = DB::table('regis')->select('emailid')->where('empid', $emp_email->dept_head)->first();
-        if(!empty($head_mail)){
-        $heademail = $head_mail->emailid;
-        }else{
-        $heademail = $bccEmail;
+        if (!empty($head_mail)) {
+            $heademail = $head_mail->emailid;
+        } else {
+            $heademail = $bccEmail;
         }
         $existingLeave = DB::table('leaverecord')
             ->where('empid', $empid)
@@ -312,7 +418,7 @@ $sick = $sick->sum('count1');
             'fromtime' => $fromtime,
             'totime' => $totime,
         ];
-    
+
         $insert = DB::table('leaverecord')->insert($uleave);
 
         if ($insert) {
@@ -465,7 +571,7 @@ $sick = $sick->sum('count1');
 
 
     public function destroy($id)
-    {  
+    {
         DB::table('leaverecord')->where('id', $id)->delete();
         session()->flash('secmessage', 'Leave Deleted Successfully!');
         return response()->json(['status' => 1, 'message' => 'Leave Deleted Successfully!'], 200);

@@ -242,6 +242,7 @@
 
         li {
             list-style: none;
+			line-height:20px !important;
             font-size: 13px !important;
             font-weight: 400 !important;
             padding: 5px 0px !important;
@@ -315,27 +316,27 @@
 
         .dig_tab .nb th {
             text-align: left;
-            font-size: 13px;
+            font-size: 14px;
             padding: 2px 10px;
             color: #000;
         }
 
         .dig_tab .nb td {
             text-align: left;
-            font-size: 13px;
+            font-size: 14px;
             padding: 2px 10px;
             color: #000;
         }
 
         .dig_tab .bold {
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 600px;
             color: black !important;
             padding: 15px 0px !important;
         }
 
         .dig_tab .ht {
-            font-size: 13px;
+            font-size: 14px;
             color: black !important;
             padding: 10px 0px !important;
         }
@@ -343,7 +344,7 @@
         .dig_tab P {
             padding: 0px 5px;
             text-align: left;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 800;
             color: #1f1b55 !important;
             line-height: 20px !important;
@@ -380,7 +381,7 @@
         }
 
         .error-msg {
-            font-size: 12px;
+            font-size: 14px;
             color: #c15656;
         }
 
@@ -434,7 +435,8 @@
         }
 
         td {
-            font-size: 12px;
+			line-height:20px !important;
+            font-size: 14px;
             padding: 0px 10px;
             border: none
         }
@@ -576,7 +578,7 @@
         }
 
         .input_wrp label {
-            font-size: 13px;
+            font-size: 14px;
         }
 
         body {
@@ -704,7 +706,7 @@
         }
 
         .dig_tab .pg-no {
-            font-size: 13px !important;
+            font-size: 14px !important;
             font-weight: 300 !important;
             text-align: end !important;
             padding: 0px 60px !important;
@@ -712,7 +714,7 @@
         }
 
         .pg-no {
-            font-size: 13px !important;
+            font-size: 14px !important;
             text-align: end !important;
             padding: 0px 60px !important;
             color: #888888 !important;
@@ -756,6 +758,7 @@
         }
 
         tr td:nth-child(1) {
+		
             width: 70%;
         }
 
@@ -866,7 +869,7 @@
                                                             <h2 class="city pl-1">{{$digital->city}}</h2>
                                                         </span>
                                                         <h3>DIGITAL MARKETING, RETAINERSHIP CONTRACT</h3>
-                                                        <p class="date">DATED 01-10-2024</p>
+                                                        <p class="date">DATED {{ date('d-m-Y',strtotime($digital->date)) }}</p>
                                                         <p class="valid">( Valid for 30 days )</p>
                                                     </div>
                                                     <div class="title_b">
