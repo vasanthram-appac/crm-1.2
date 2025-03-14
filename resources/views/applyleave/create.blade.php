@@ -32,13 +32,13 @@
                         {!! Form::label('leavetype', 'Leave Type', ['class' => 'label-color py-2']) !!}
 
                         <div class="mt-2">
-                            @if(count($casual) < 6)
+                            @if($casual < 6)
                                 <div class="form-check form-check-inline">
                                 {!! Form::radio('leavetype', '5', true, ['id' => 'casualRadio', 'class' => 'form-check-input']) !!}
                                 {!! Form::label('casualRadio', 'Casual', ['class' => 'label-color']) !!}
                         </div>
                         @endif
-                        @if(count($sick) < 6)
+                        @if($sick < 6)
                             <div class="form-check form-check-inline">
                             {!! Form::radio('leavetype', '6', false, ['id' => 'sickRadio', 'class' => 'form-check-input']) !!}
                             {!! Form::label('sickRadio', 'Sick', ['class' => 'label-color']) !!}

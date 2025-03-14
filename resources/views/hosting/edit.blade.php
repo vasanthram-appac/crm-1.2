@@ -60,7 +60,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('domain_source', 'Domain Source *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::select('domain_source', [
+                        {!! Form::select('hostingperiod', [
                             '' => 'Select From List',
                             '1' => '1 Month',
                             '3' => '3 Months',

@@ -52,7 +52,7 @@
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('pinvoice', 'Proforma Invoiceno*', ['class' => 'label-color py-2']) !!}
+                        {!! Form::label('pinvoice', 'Proforma Invoiceno', ['class' => 'label-color py-2']) !!}
                         {!! Form::text('pinvoice', null, ['class' => 'form-control', 'id'=>'pi']) !!}
                     </div>
                     (**If you want to add multiple please give like this PI100934,PI100935)
@@ -156,7 +156,7 @@
     <!--/.Content-->
 </div>
 
-<script>
+<!-- <script>
 $('#pm').on('change', function() {
   //  alert( this.value ); // or $(this).val()
   if(this.value == "1") {
@@ -174,4 +174,4 @@ $('#pm').on('change', function() {
      $("#pi").attr('required', false);
   }
 });
-</script>
+</script> -->

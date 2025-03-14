@@ -478,14 +478,19 @@ class Task extends Controller
                 $task_duedate = date("d-m-Y", strtotime($task_duedate1));
             }
 
-            $shrs = $wsql1->shrs;
-            $ssecs = $wsql1->ssecs;
-            $s_ampm = $wsql1->s_ampm;
-            $start_time = $shrs . ":" . $ssecs . " " . $s_ampm;
-            $thrs = $wsql1->thrs;
-            $tsecs = $wsql1->tsecs;
-            $e_ampm = $wsql1->e_ampm;
-            $end_time = $thrs . ":" . $tsecs . " " . $e_ampm;
+            // $shrs = $wsql1->shrs;
+            // $ssecs = $wsql1->ssecs;
+            // $s_ampm = $wsql1->s_ampm;
+            // $start_time = $shrs . ":" . $ssecs . " " . $s_ampm;
+
+            // $thrs = $wsql1->thrs;
+            // $tsecs = $wsql1->tsecs;
+            // $e_ampm = $wsql1->e_ampm;
+            // $end_time = $thrs . ":" . $tsecs . " " . $e_ampm;
+
+            $start_time = "";
+            $end_time = "";
+
             $task_description = $wsql1->task_description;
 
             $taskid = $wsql1->taskid;

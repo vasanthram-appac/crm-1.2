@@ -19,11 +19,20 @@ class Applyleave extends Controller
 
         if (request()->ajax()) {
 
-            $year = date('Y');
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+    
+            if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) { 
+                $academicStart = ($currentYear - 1) . "-04-01"; // April 1st of the previous year
+                $academicEnd = "$currentYear-03-31"; // March 31st of the current year
+            } else { // For other months
+                $academicStart = "$currentYear-04-01"; // April 1st of the current year
+                $academicEnd = ($currentYear + 1) . "-03-31"; // March 31st of the next year
+            }
 
             // Execute the query
             $data = DB::table('leaverecord')
-                ->whereYear('leavedate', $year)
+            ->whereBetween('leavedate', [$academicStart, $academicEnd])
                 ->where('empid', request()->session()->get('empid'))
                 ->orderByDesc('id')
                 ->get();
@@ -77,7 +86,18 @@ class Applyleave extends Controller
                 ->make(true);
         }
         $employeeId = request()->session()->get('empid');
+
         $currentYear = date('Y');
+        $currentMonth = date('m');
+
+        if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) { 
+            $academicStart = ($currentYear - 1) . "-04-01"; // April 1st of the previous year
+            $academicEnd = "$currentYear-03-31"; // March 31st of the current year
+        } else { // For other months
+            $academicStart = "$currentYear-04-01"; // April 1st of the current year
+            $academicEnd = ($currentYear + 1) . "-03-31"; // March 31st of the next year
+        }
+        
         
         // Fetch monthly leave breakdown
         $monthlyLeaves = DB::table('leaverecord')->selectRaw('MONTH(leavedate) as month, 
@@ -89,7 +109,7 @@ class Applyleave extends Controller
                 SUM(CASE WHEN leavetype = 6 THEN noofdays ELSE 0 END) as sick')
             ->where('empid', $employeeId)
             ->where('leavestatus', 'Approved')
-            ->whereYear('leavedate', $currentYear)
+            ->whereBetween('leavedate', [$academicStart, $academicEnd])
             ->groupByRaw('MONTH(leavedate)')
             ->orderByRaw('MONTH(leavedate)')
             ->get();
@@ -98,7 +118,7 @@ class Applyleave extends Controller
         // Calculate total leaves taken in the year
         $totalLeavesTaken = DB::table('leaverecord')->where('empid', $employeeId)
             ->where('leavestatus', 'Approved')
-            ->whereYear('leavedate', $currentYear)
+            ->whereBetween('leavedate', [$academicStart, $academicEnd])
             ->sum('noofdays');
 
         // Casual and sick leave remaining calculations (assuming max 6 per type)
@@ -107,14 +127,14 @@ class Applyleave extends Controller
         $casualLeavesTaken = DB::table('leaverecord')->where('empid', $employeeId)
             ->where('leavestatus', 'Approved')
             ->where('leavetype', 5)
-            ->whereYear('leavedate', $currentYear)
+            ->whereBetween('leavedate', [$academicStart, $academicEnd])
             ->sum('noofdays');
         $remainingCasualLeaves = max($maxCasualAndSickLeaves - $casualLeavesTaken, 0);
 
         $sickLeavesTaken = DB::table('leaverecord')->where('empid', $employeeId)
             ->where('leavestatus', 'Approved')
             ->where('leavetype', 6)
-            ->whereYear('leavedate', $currentYear)
+            ->whereBetween('leavedate', [$academicStart, $academicEnd])
             ->sum('noofdays');
         $remainingSickLeaves = max($maxCasualAndSickLeaves - $sickLeavesTaken, 0);
 
@@ -125,14 +145,22 @@ class Applyleave extends Controller
 
     public function create()
     {
+        $currentYear = date('Y');
+        $currentMonth = date('m');
 
-        $year = date('Y');
+        if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) { 
+            $academicStart = ($currentYear - 1) . "-04-01"; // April 1st of the previous year
+            $academicEnd = "$currentYear-03-31"; // March 31st of the current year
+        } else { // For other months
+            $academicStart = "$currentYear-04-01"; // April 1st of the current year
+            $academicEnd = ($currentYear + 1) . "-03-31"; // March 31st of the next year
+        }
 
         $casual = DB::table('leaverecord')
             ->select(DB::raw('EXTRACT(month FROM leavedate) as Month'), DB::raw('count(*) as count1'), DB::raw('SUM(noofdays) as noday1'))
             ->where('empid', request()->session()->get('empid')) // Use Laravel's session helper to get the empid
             ->where('leavestatus', 'Approved')
-            ->whereYear('leavedate', $year) // Use whereYear for year comparison
+           ->whereBetween('leavedate', [$academicStart, $academicEnd]) // Use whereYear for year comparison
             ->where('leavetype', 5) // Assuming '5' is Casual Leave
             ->groupBy(DB::raw('EXTRACT(month FROM leavedate)'))
             ->orderBy(DB::raw('EXTRACT(month FROM leavedate)'))
@@ -142,12 +170,14 @@ class Applyleave extends Controller
             ->select(DB::raw('EXTRACT(month FROM leavedate) as Month'), DB::raw('count(*) as count1'), DB::raw('SUM(noofdays) as noday1'))
             ->where('empid', request()->session()->get('empid')) // Use Laravel's session helper to get the empid
             ->where('leavestatus', 'Approved')
-            ->whereYear('leavedate', $year) // Use whereYear for year comparison
+           ->whereBetween('leavedate', [$academicStart, $academicEnd]) // Use whereYear for year comparison
             ->where('leavetype', 6) // Assuming '5' is Casual Leave
             ->groupBy(DB::raw('EXTRACT(month FROM leavedate)'))
             ->orderBy(DB::raw('EXTRACT(month FROM leavedate)'))
             ->get();
 
+            $casual = $casual->sum('count1');
+$sick = $sick->sum('count1');
 
         return view('applyleave/create', compact('casual', 'sick'))->render();
     }
@@ -155,8 +185,6 @@ class Applyleave extends Controller
     public function store(Request $request)
     {
       
-
-
         $rules = [
             'leavetype' => 'required',  
         ];

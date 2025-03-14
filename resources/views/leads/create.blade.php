@@ -131,6 +131,12 @@
 
                     <div class="row m-0 mb-0">
 
+                            <div class="col-lg-6 col-sm-12">
+                                {!! Form::label('pincode', 'Pincode', ['class' => 'label-color py-2 ']) !!}
+                                {!! Form::number('pincode', null, ['class' => 'form-control']) !!}
+                                <span class="focus-input100"></span>
+                            </div>
+
                         <div class="col-lg-6 col-sm-12">
                             <div class="validate-input m-b-23 mb-2">
                                 {!! Form::label('country', 'Country*', ['class' => 'label-color py-2']) !!}

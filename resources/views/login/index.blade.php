@@ -88,12 +88,7 @@
                             @enderror
                            
                         </div>
-                        <div class="justify-content-between align-items-center d-flex my-3 m-4">
-        <div class="form-check">
-            {!! Form::checkbox('remember', '1', old('remember') ? true : false, ['class' => 'form-check-input', 'id' => 'remember']) !!}
-            <label class="form-check-label" for="remember">Remember Me</label>
-        </div>
-    </div>
+  
                     </div>
 <div class="justify-content-between align-items-center d-flex my-3  m-4">
 

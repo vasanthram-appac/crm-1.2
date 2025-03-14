@@ -54,8 +54,11 @@ class Monthlyreport extends Controller
                     DB::raw("CONCAT(regis.fname, ' ', regis.lname) as emp_fullname"),
                     DB::raw("CONCAT(dailyreport.w_hours, ' Hours ', dailyreport.w_mins, ' Minutes') as total_time")
                 )
-                ->when($client && $client != 'all', function ($query) use ($client) {
-                    return $query->where('dailyreport.client', $client);
+                ->when(!empty($client) && $client != 'all', function ($query) use ($client) {
+                    return $query->where(function ($q) use ($client) {
+                        $q->where('dailyreport.client', $client)
+                          ->orWhere('dailyreport.wipid', $client);
+                    });
                 })
                 ->when(!empty($emp) && !in_array('all', $emp), function ($query) use ($emp) {
                     return $query->whereIn('dailyreport.empid', $emp);

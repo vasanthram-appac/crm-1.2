@@ -141,8 +141,8 @@
                     orderData: 0
                 },
                 {
-                    data: 'com_name',
-                    name: 'com_name'
+                    data: 'company',
+                    name: 'company'
                 },
                 {
                     data: 'time',

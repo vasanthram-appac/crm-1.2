@@ -21,11 +21,21 @@ class Leaveapproval extends Controller
         }
         if (request()->ajax()) {
 
-            $year = date('Y');
+            
+        $currentYear = date('Y');
+        $currentMonth = date('m');
+
+        if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) { 
+            $academicStart = ($currentYear - 1) . "-04-01"; // April 1st of the previous year
+            $academicEnd = "$currentYear-03-31"; // March 31st of the current year
+        } else { // For other months
+            $academicStart = "$currentYear-04-01"; // April 1st of the current year
+            $academicEnd = ($currentYear + 1) . "-03-31"; // March 31st of the next year
+        }
 
             // Execute the query
             $data = DB::table('leaverecord')
-                ->whereYear('leavedate', $year)
+            ->whereBetween('leavedate', [$academicStart, $academicEnd])
 
                 ->orderByDesc('id')
                 ->get();
@@ -87,7 +97,17 @@ class Leaveapproval extends Controller
                 ->make(true);
         }
 
-        $year = date('Y');
+        
+        $currentYear = date('Y');
+        $currentMonth = date('m');
+
+        if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) { 
+            $academicStart = ($currentYear - 1) . "-04-01"; // April 1st of the previous year
+            $academicEnd = "$currentYear-03-31"; // March 31st of the current year
+        } else { // For other months
+            $academicStart = "$currentYear-04-01"; // April 1st of the current year
+            $academicEnd = ($currentYear + 1) . "-03-31"; // March 31st of the next year
+        }
 
         $employees = DB::table('regis')
             ->join('personalprofile', 'regis.empid', '=', 'personalprofile.empid')
@@ -117,7 +137,7 @@ class Leaveapproval extends Controller
                 ")
                 ->where('empid', $employee->empid)
                 ->where('leavestatus', 'Approved')
-                ->whereYear('leavedate', $year)
+                ->whereBetween('leavedate', [$academicStart, $academicEnd])
                 ->first();
 
             $totalLeaves = ($leaves->noday3 ?? 0) + ($leaves->noday4 ?? 0) + ($leaves->noday5 ?? 0) + ($leaves->noday6 ?? 0);
@@ -133,7 +153,8 @@ class Leaveapproval extends Controller
                 'available' => $casualAvailable
             ];
         }
-
+        
+        $year=$currentYear;
         return view('leaveapproval.index', compact('year', 'leaveData'));
     }
 

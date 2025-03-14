@@ -49,7 +49,7 @@
             <div class="row m-0 mb-0">
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('pinvoice', 'Proforma Invoiceno*', ['class' => 'label-color py-2']) !!}
+                        {!! Form::label('pinvoice', 'Proforma Invoiceno', ['class' => 'label-color py-2']) !!}
                         {!! Form::text('pinvoice', $pii, ['class' => 'form-control', 'id'=>'pi']) !!}
                     </div>
                     (**If you want to add multiple please give like this PI100934,PI100935)

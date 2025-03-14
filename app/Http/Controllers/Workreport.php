@@ -26,7 +26,7 @@ class Workreport extends Controller
 
             if (count($data) > 0) {
                 foreach ($data as $record) {
-                    $client = $record->client;
+                    $client = (!empty($record->client))? $record->client : $record->wipid ;
                     $leadid = $record->leadid;
                     $start_time = $record->start_time;
                     $end_time = $record->end_time;
@@ -111,7 +111,7 @@ class Workreport extends Controller
             ->join('accounts', 'work_wip.client_id', '=', 'accounts.id')
             ->whereIn('project_status', ['Development', 'Design'])
             ->where('work_wip.status', '0')
-            ->pluck('accounts.company_name', 'work_wip.id');
+            ->pluck('accounts.company_name', 'work_wip.client_id');
 
         $leads_list = DB::table('leads')
             ->where('oppourtunity_status', 'inactive')
@@ -141,7 +141,8 @@ class Workreport extends Controller
         // Define validation rules for inputs
         $validator = Validator::make($request->all(), [
             'report_date' => 'required|date',
-            'client' => 'required|exists:accounts,id', // Assuming 'accounts' is your table and 'id' is the column
+            'client' => 'nullable|exists:accounts,id',
+            'wipid' => 'nullable|exists:work_wip,id',
             'worktype' => 'required|integer',
             'wipid' => 'nullable|exists:work_wip,id', // Assuming 'wip_list' is your table and 'id' is the column
             'leadid' => 'nullable|exists:leads,id', // Assuming 'leads_list' is your table and 'id' is the column
@@ -175,6 +176,12 @@ class Workreport extends Controller
             'project_name' => 'nullable|string|max:255',
             'status' => 'required|string',
         ]);
+
+        $validator->after(function ($validator) use ($request) {
+            if (empty($request->client) && empty($request->wipid)) {
+                $validator->errors()->add('client', 'Either Client or WIP ID is required.');
+            }
+        });
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
@@ -239,7 +246,7 @@ class Workreport extends Controller
             ->join('accounts', 'work_wip.client_id', '=', 'accounts.id')
             ->whereIn('project_status', ['Development', 'Design'])
             ->where('work_wip.status', '0')
-            ->pluck('accounts.company_name', 'work_wip.id');
+            ->pluck('accounts.company_name', 'work_wip.client_id');
 
         $leads_list = DB::table('leads')
             ->where('oppourtunity_status', 'inactive')
@@ -259,7 +266,7 @@ class Workreport extends Controller
             'report_date' => 'required|date',
             'client' => 'required|exists:accounts,id', // Assuming 'accounts' is your table and 'id' is the column
             'worktype' => 'required|integer',
-            'wipid' => 'nullable|exists:work_wip,id', // Assuming 'wip_list' is your table and 'id' is the column
+            'wipid' => 'nullable|exists:accounts,id', // Assuming 'wip_list' is your table and 'id' is the column
             'leadid' => 'nullable|exists:leads,id', // Assuming 'leads_list' is your table and 'id' is the column
             'start_time' => 'required|date_format:H:i',
             'end_time' => [

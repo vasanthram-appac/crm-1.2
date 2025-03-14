@@ -875,7 +875,7 @@ $empidvalue = request()->session()->get('empid');
             align-items: center;
             justify-content: center;
             width: 209mm;
-            height: 1115px;
+            height: 1120px;
             max-width: 209mm;
         }
 
@@ -1517,10 +1517,14 @@ $empidvalue = request()->session()->get('empid');
 
                 $('#downloadPdfBtn').text('Downloading...').attr('disabled', true); // Show loading
 
-                const element = document.getElementById('pdf_Content');
-                // const employeeName = $("#emp_name_input").val().trim() || "Employee";
+                const originalElement = document.getElementById('pdf_Content');
+    if (!originalElement) {
+        alert("Error: 'pdf_Content' element not found!");
+        $('#downloadPdfBtn').text('Download').attr('disabled', false);
+        return;
+    }
 
-                const pages = element.querySelectorAll('.page');
+    const clonedElement = originalElement.cloneNode(true);
                
 
                 // Generate the PDF as a Blob
@@ -1545,7 +1549,15 @@ $empidvalue = request()->session()->get('empid');
                             orientation: 'portrait'
                         }
                     })
-                    .from(element)
+                    .from(clonedElement)
+        .toPdf()
+        .get('pdf')
+        .then(function (pdf) {
+            let pageCount = pdf.internal.getNumberOfPages();
+            if (pageCount > 1) {
+                pdf.deletePage(pageCount); // Remove the last generated page
+            }
+        })
                     .outputPdf('blob') // Get the PDF as a Blob
                     .then(function(pdfBlob) {
                         // Trigger the download for the user

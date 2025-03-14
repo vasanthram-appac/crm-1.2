@@ -128,7 +128,7 @@
 
             <div class="row m-0">
                 <div class="col-lg-6 col-sm-12">
-                    {!! Form::label('website', 'Website*', ['class' => 'label-color  py-2']) !!}
+                    {!! Form::label('website', 'Website', ['class' => 'label-color  py-2']) !!}
                     {!! Form::text('website', $lead->website, ['class' => 'form-control']) !!}
                     <span class="focus-input100"></span>
                 </div>

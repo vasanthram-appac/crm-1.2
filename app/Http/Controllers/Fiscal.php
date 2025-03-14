@@ -17,6 +17,19 @@ class Fiscal extends Controller
     {
 
         // dd($request->all());
+        $accounts = DB::table('accounts')
+        ->select('id','company_name')
+            ->where('status', '!=', '0')
+            ->where('active_status', 'active')
+            ->where('key_status', '1')
+            ->orderBy('id', 'ASC')
+            ->get();
+
+        foreach ($accounts as $account) {
+            $account->total = DB::table('invoicedetails')
+                ->where('company_id', $account->id)
+                ->sum('grosspay');
+        }
 
         if (isset($request->date) && !empty($request->date)) {
         $yearrange = $request->date;
@@ -67,9 +80,15 @@ class Fiscal extends Controller
         return response()->json([
             'total' => $total,
             'Rtotal' => $Rtotal,
+            'fromdate' => (!empty($fromdate)) ? $fromdate : date('Y-01-01'),
+            'todate' => (!empty($todate)) ? $todate : date('Y-m-d'),
+            'count' => count($Rtotal),
         ]);
+
+            
+
     }else{
-        return view('fiscal.index', compact('total', 'Rtotal'));
+        return view('fiscal.index', compact('total', 'Rtotal' ,'accounts'));
     }
 
       

@@ -300,6 +300,7 @@
 	.no-gap{gap:0px !important}
     .pl-1{padding-left:5px;}
 
+    
     @media(max-width:1500px){
         /* .pdf_page {    display: flex;
     align-items: center;
@@ -347,7 +348,7 @@
         align-items: center;
         justify-content: center;
         width: 209mm;
-        height: 1115px;
+        height: 1120px;
         max-width: 209mm;
     }
     .view-btn{
@@ -356,6 +357,7 @@
         width: 55px;
         color: white;
     }
+
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
 </head>
@@ -561,23 +563,111 @@
                                                 <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> XML Sitemap Creation & Submission</li>
                                             </ul>
                                             <h3>Technical Standards</h3>
+                                            <p>Appac will develop using the following technologies:</p>
                                             <ul class="arrow-ul">
-                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> Appac will develop using the following technologies:</li>
-                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> PHP CMS</li>
+                                                
+
                                                 <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> HTML 5</li>
-                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> CSS 3</li>
-                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> PHP 8.1</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> CSS 3 / Bootstrap</li>
                                                 <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> Javascript / Jquery</li>
-                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> No Flash will be used anywhere on the site</li>
-                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> Minified code</li>
-                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> Linux Server & W3C Standard</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> React JS</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> Node JS</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> AJAX</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> PHP 8.1</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> Laravel</li>
                                                 <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> MySQL Database</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> Linux Server & W3C Standard</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg> Minified code</li>
                                             </ul>
                                         </div>
                                         <p class="pg-no">Page no 4<p>
                                         <!-- <div class="footer"><img src="./img/proposal-footer.jpg" alt="footer"></div> -->
                                     </div>
                                 </div>
+
+                                <div class="page">
+                                    <div class="container">
+                                        <div class="currentDate"></div><div class="currentTime"></div>
+
+                                        <div class="delo">
+                                            <div class="des_div"><img src="{{asset('img/side-design-proposal.jpg')}}" alt=""></div>
+                                            <div class="logo_div"><img src="{{asset('img/appac-logo.png')}}" alt="" width="180px"></div>
+                                        </div>
+                                        <div class="pad">
+                                        <h3 style="margin-top: 30px;">Web Technology</h3>
+                                        <table border="1" style="border-collapse: separate; border-spacing: 10px; padding-top: 40px;">
+                                                  
+                                                  <tbody>
+                                                      <tr>
+                                                          <td>
+                                                          <h3> <span class="title" style="color:#000;">Frontend: </span>React.js</h3>
+                                                              <ul>
+                                                                  <li><strong>Component-Based Architecture</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– Makes UI development modular and reusable.</li>
+                                                                  <li><strong>Virtual DOM</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– Boosts performance by updating only necessary 
+                                                                  </br>&nbsp;&nbsp;&nbsp;parts of the UI.</li>
+                                                                  <li><strong>Fast Rendering</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– React uses efficient diffing algorithms for smooth 
+                                                                  </br>&nbsp;&nbsp;&nbsp;updates.</li>
+                                                                  <li><strong>Strong Ecosystem</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– Large community, libraries, and tools like Next.js.</li>
+                                                                  <li><strong>SEO-Friendly</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– With SSR (Server-Side Rendering) using 
+                                                                  </br>&nbsp;&nbsp;&nbsp;frameworks like Next.js.</li>
+                                                              </ul>
+                                                          </td>
+                                                          <td>
+                                                          <h3><span class="title" style="color:#000;">Backend: </span>Node.js</h3>
+                                                                <ul>
+                                                                    <li><strong>Non-Blocking I/O</strong><br>&nbsp;&nbsp;&nbsp;– Handles multiple requests efficiently, great for </br>&nbsp;&nbsp;&nbsp;real-time apps.</li>
+                                                                    <li><strong>Fast Performance</strong><br>&nbsp;&nbsp;&nbsp;– Uses the V8 engine, making it super quick.</li>
+                                                                    <li><strong>JavaScript Everywhere</strong><br>&nbsp;&nbsp;&nbsp;– Same language for both frontend and </br>&nbsp;&nbsp;&nbsp;backend.</li>
+                                                                    <li><strong>Large Package Ecosystem</strong><br>&nbsp;&nbsp;&nbsp;– NPM provides tons of libraries to speed up </br>&nbsp;&nbsp;&nbsp;development.</li>
+                                                                    <li><strong>Microservices-Friendly</strong><br>&nbsp;&nbsp;&nbsp;– Easily scalable with APIs and microservices.</li>
+                                                                </ul>
+                                                          </td>
+                                                      </tr>
+                                                      <tr>
+                                                          <td>
+                                                              <h3><span class="title" style="color:#000;">Database: </span>MySQL</h3>
+                                                              <ul>
+                                                                  <li><strong>Structured & Reliable</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– Ideal for applications that need ACID </br>&nbsp;&nbsp;&nbsp;compliance.</li>
+                                                                  <li><strong>Scalability</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– Can handle large amounts of data with indexing </br>&nbsp;&nbsp;&nbsp;& optimization.</li>
+                                                                  <li><strong>Open-Source & Cost-Effective</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– Free to use and widely supported.</li>
+                                                                  <li><strong>Strong Security Features</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– With user privilege management and encryption.</li>
+                                                                  <li><strong>Good Performance</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– Optimized for read-heavy operations with </br>&nbsp;&nbsp;&nbsp;caching.</li>
+                                                              </ul>
+                                                          </td>
+                                                          <td>
+                                                              <h3><span class="title" style="color:#000;">Server: </span>Ubuntu (Linux)</h3>
+                                                              <ul>
+                                                                  <li><strong>Stable & Secure</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– Frequent updates and a strong security </br>&nbsp;&nbsp;&nbsp;model.</li>
+                                                                  <li><strong>Lightweight & Fast</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– Uses fewer system resources than other OSs.</li>
+                                                                  <li><strong>Great for Hosting</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– Popular choice for web servers, cloud </br>&nbsp;&nbsp;&nbsp;computing, & DevOps.</li>
+                                                                  <li><strong>Command-Line Power</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– Full control with terminal commands.</li>
+                                                                  <li><strong>Extensive Community Support</strong> 
+                                                                  </br>&nbsp;&nbsp;&nbsp;– Lots of documentation and forums for </br>&nbsp;&nbsp;&nbsp;troubleshooting.</li>
+                                                              </ul>
+                                                          </td>
+                                                      </tr>
+                                                  </tbody>
+                                              </table>
+                                        </div>
+                                        <p class="pg-no">Page no 5<p>
+                                        <!-- <div class="footer"><img src="./img/proposal-footer.jpg" alt="footer"></div> -->
+                                    </div>
+                                </div>
+
 
                                 <div class="page">
                                     <div class="container">
@@ -617,7 +707,7 @@
                                             <p>Any further support / maintenance / consulting requests is to be quoted separately. For Instance we
                                                 can sign Annual Maintenance fees to address basic requirements.</p>
                                         </div>
-                                        <p class="pg-no">Page no 5<p>
+                                        <p class="pg-no">Page no 6<p>
                                         <!-- <div class="footer"><img src="./img/proposal-footer.jpg" alt="footer"></div> -->
                                     </div>
                                 </div>
@@ -667,7 +757,7 @@
                                             </div>
 
                                         </div>
-                                        <p class="pg-no">Page no 6<p>
+                                        <p class="pg-no">Page no 7<p>
                                         <!-- <div class="footer"><img src="./img/proposal-footer.jpg" alt="footer"></div> -->
                                     </div>
                                 </div>
@@ -706,7 +796,7 @@
                                             </div>
 
                                         </div>
-                                        <p class="pg-no">Page no 7<p>
+                                        <p class="pg-no">Page no 8<p>
                                         <!-- <div class="footer"><img src="./img/proposal-footer.jpg" alt="footer"></div> -->
                                     </div>
                                 </div>
@@ -805,7 +895,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <p class="pg-no">Page no 8</p>
+                                        <p class="pg-no">Page no 9</p>
                                         <!-- <div class="footer"><img src="./img/proposal-footer.jpg" alt="footer"></div> -->
                                     </div>
                                 </div>
@@ -851,7 +941,7 @@
                                                 <p>Website : <a href="http://www.appacmedia.com"> www.appacmedia.com</a></p>
                                             </div>
                                         </div>
-                                        <p class="pg-no">Page no 9<p>
+                                        <p class="pg-no">Page no 10<p>
                                         <!-- <div class="footer"><img src="./img/proposal-footer.jpg" alt="footer"></div>                                  -->
                                     </div>
                                 </div>
@@ -924,33 +1014,44 @@
         $("#downloadPdfBtn").on("click", function(e) {
             $('#downloadPdfBtn').text('Downloading...').attr('disabled', true); // Show loading
 
-const element = document.getElementById('pdf_Content');
-// const companyName = $("#company_input").val().trim() || "Company";
+            const originalElement = document.getElementById('pdf_Content');
+    if (!originalElement) {
+        alert("Error: 'pdf_Content' element not found!");
+        $('#downloadPdfBtn').text('Download').attr('disabled', false);
+        return;
+    }
 
-const pages = element.querySelectorAll('.page');
-
+    const clonedElement = originalElement.cloneNode(true);
 
 // Generate the PDF as a Blob
 html2pdf()
     .set({
         margin: [0, 0, 0, 0],
-        filename: `{{ $web->company }}-web-proposal.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, logging: true, dpi: 190, letterRendering: true },
-        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+            filename: `{{ $web->company }}-web-proposal.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, logging: true, dpi: 190, letterRendering: true },
+            jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
     })
-    .from(element)
+    .from(clonedElement)
+        .toPdf()
+        .get('pdf')
+        .then(function (pdf) {
+            let pageCount = pdf.internal.getNumberOfPages();
+            if (pageCount > 1) {
+                pdf.deletePage(pageCount); // Remove the last generated page
+            }
+        })
     .outputPdf('blob') // Get the PDF as a Blob
     .then(function (pdfBlob) {
         // Trigger the download for the user
         const downloadLink = document.createElement('a');
-        const url = URL.createObjectURL(pdfBlob);
-        downloadLink.href = url;
-        downloadLink.download = `{{ $web->company }}-web-proposal.pdf`;
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
-        URL.revokeObjectURL(url);
+            const url = URL.createObjectURL(pdfBlob);
+            downloadLink.href = url;
+            downloadLink.download = `{{ $web->company }}-web-proposal.pdf`;
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+            URL.revokeObjectURL(url);
         
         // Now, upload the PDF Blob to the server
         // return uploadPdf(pdfBlob, `{{ $web->company }}-web-proposal.pdf`); // Use companyName instead of clientName

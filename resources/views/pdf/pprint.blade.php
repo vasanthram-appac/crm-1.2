@@ -6,9 +6,7 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <title>Proforma Invoice</title>
-
     <style>
-
         .flex{
             position: absolute;
             width: fit-content;
@@ -22,7 +20,6 @@
         .border::after{position:absolute;bottom:0px;left:-10px;width:102%;height:1px;background:#000;content:''}
         
     </style>
-
 </head>
 <body>
     <span style="margin-left:950px;">
@@ -34,7 +31,7 @@
     <!--<img src="imgs/proforma_cover.jpg" class="cover_img" style=" width: 930px; background-size: cover; background-repeat: no-repeat;position:absolute;"/>-->
 	<div class="wid"style="width:930px;">
 		<div class="head_grid" style="width: 870px; margin:auto; display: grid; grid-template-columns: 25% 35% 40%; align-items: end;">
-			<img src="https://appacmedia.in/imgs/head-logo.png" alt="" style="width: 175px; padding-left: 10px; background-color:#fff;">
+			<img src="https://appacmedia.in/oldcrm/imgs/head-logo.png" alt="" style="width: 175px; padding-left: 10px; background-color:#fff;">
 			<div class="head_add" style="width: 100%;">
 				<b style="font-family: 'Work Sans', sans-serif; font-size: 10px; font-weight: 800; line-height: 25px; color:#221b53;">APPAC MEDIATECH PVT. LTD.</b><br>
 				<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">#204, 2nd floor, Aathisree Towers, DB Road, R S Puram,</span><br>
@@ -42,7 +39,7 @@
 				<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">+91 422 435 4854 | +91 63692 86774</span><br>
 				<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">Email: info@appacmedia.com | Web: www.appacmedia.com</span>
 			</div>
-			<img src="https://appacmedia.in/imgs/head-promo-logo.png" alt="" style="width: 350px; padding-left: 30px; background-color:#fff;">
+			<img src="https://appacmedia.in/oldcrm/imgs/head-promo-logo.png" alt="" style="width: 350px; padding-left: 30px; background-color:#fff;">
 		</div>
     </div>
     <div class="cover_img" style="position: absolute; width: 930px;">
@@ -105,7 +102,7 @@
                                 <tr>
                                     <td align="left" style="font-family: 'Inter', sans-serif; width: 35%;"><strong>Contact Person</strong></td>
                                     <td align="left" style="width: 20px;">:</td>
-                                    <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ ($accounts->shipping_title) ? $accounts->shipping_title : ($accounts->title . ' ' . (($accounts->shipping_firstname) ? $accounts->shipping_firstname : $accounts->firstname) . ' ' . (($accounts->shipping_lastname) ? $accounts->shipping_lastname : $accounts->lastname)) }}
+                                    <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ ($accounts->shipping_title) ? $accounts->shipping_title : $accounts->title }} {{ ($accounts->shipping_firstname) ? $accounts->shipping_firstname : $accounts->firstname }} {{ ($accounts->shipping_lastname) ? $accounts->shipping_lastname : $accounts->lastname }}
                                     </td>
                                 </tr>
                                 <tr>
@@ -153,8 +150,8 @@
                                 <td style="font-family: 'Inter', sans-serif; padding-left: 15px;">{{$value->item_no}}</td>
                                 <td style="font-family: 'Inter', sans-serif;">{{$value->description}}</td>
                                 <td style="font-family: 'Inter', sans-serif; padding-left: 35px;">{{$value->quantity}}</td>
-                                <td style="font-family: 'Inter', sans-serif; padding-left: 10px;">{{ number_format($value->unit ?? 0, 2) }}</td>
-                                <td style="font-family: 'Inter', sans-serif; padding-left: 10px;">{{number_format($value->totalamount ?? 0, 2)}}</td>
+                                <td style="font-family: 'Inter', sans-serif; padding-left: 10px;"><p style="width:65px;text-align:right;">{{ number_format($value->unit ?? 0, 2) }}</p></td>
+                                <td style="font-family: 'Inter', sans-serif; padding-left: 10px;"><p style="width:65px;text-align:right;">{{number_format($value->totalamount ?? 0, 2)}}</p></td>
                             </tr>
                             @endforeach
                             @endif
@@ -176,7 +173,7 @@
 								</span>
 							</th>
 							<div style="display:flex;align-items:center;justify-content:right;position: absolute;left: 35%;right: 30%;top: 60%;background-color:#fff;    z-index: -2;">
-							<img src="https://appacmedia.in/imgs/appac-watermark.svg" class="" style="width:320px;background-color:#fff;" /></div>
+							<img src="https://appacmedia.in/oldcrm/imgs/appac-watermark.svg" class="" style="width:320px;background-color:#fff;" /></div>
 								
                             @if($proforma->specialdiscount !='0')
 							<th style="text-align: right; border-top: 1px solid black; padding: 10px 0px 0px 0px;font-size:13px">Total Amount Rs. </th>
@@ -185,7 +182,7 @@
 							@endif
 
 							@if($proforma->specialdiscount !='0')
-							<th style="text-align: right; border-top: 1px solid black; padding-right: 35px; padding-top: 10px;font-size:13px">{{number_format($proforma->specialdiscount ?? 0,2)}}</th>
+							<th style="text-align: right; border-top: 1px solid black; padding-right: 35px; padding-top: 10px;font-size:13px">{{number_format($proforma->amount ?? 0,2)}}</th>
                             @else
 							<th style="text-align: right; border-top: 1px solid black; padding-right: 35px; padding-top: 10px;font-size:13px">{{number_format($proforma->netpay ?? 0,2)}}</th>
 							@endif
@@ -228,9 +225,9 @@
                                 @endif
 
                                 @if($proforma->taxvalue=='sgst')
-                                <td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px; padding-top: 10px;"><b>{{number_format($proforma->cgst ?? 0, 2)}}&nbsp;</b></td>                       
+                                <td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px; padding-top: 10px;"><b>{{number_format($proforma->cgst ?? 0, 2)}}</b></td>                       
                                 @elseif($proforma->taxvalue=='igst')
-                                <td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px; padding-top: 10px;"><b>{{number_format($proforma->igst ?? 0, 2)}}&nbsp;</b></td>
+                                <td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px; padding-top: 10px;"><b>{{number_format($proforma->igst ?? 0, 2)}}</b></td>
                                 @else
                                 <td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px; padding-top: 10px;"></td>
                                 @endif
@@ -245,7 +242,7 @@
                                 @endif
                                 @if($proforma->taxvalue=='sgst')
                                
-                                <td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px;"><b>{{number_format($proforma->sgst ?? 0, 2)}}&nbsp;</b></td>                        
+                                <td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px;"><b>{{number_format($proforma->sgst ?? 0, 2)}}</b></td>                        
                                 @else
                                 <td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px;"></td>
                                 @endif
@@ -292,7 +289,7 @@
                             ?> 
                             <tr>
                                 <td align="left" style="font-family: 'Work Sans', sans-serif; border-right: 1px solid black; padding-left: 15px; border-top: 1px solid black; padding-top: 10px; padding-bottom: 10px;"><b style="line-height: 24px;">Amount in Words :</b><br>
-                                <span style="font-family: 'Inter', sans-serif; color:#464141">{{ '&nbsp;&nbsp;' . $result . ' Rupees Only' }}</span></td>
+                                <span style="font-family: 'Inter', sans-serif; color:#464141">{{ $result . ' Rupees Only' }}</span></td>
                                 <td align="right" style="font-family: 'Inter', sans-serif; padding: 10px 0px 15px 0px; border-top: 1px solid black;"><b>Grand Total Rs.</b></td>
                                 <td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px; padding-top: 10px; padding-bottom: 15px; border-top: 1px solid black;"><b>{{number_format($proforma->grosspay ?? 0, 2)}}&nbsp;</b></td>                       
                             </tr>                    
@@ -353,7 +350,7 @@
                             <!-- Right side: SAC CODE -->
                             <td style=" font-family: 'Inter', sans-serif; padding-bottom: 10px; border-left: 1px solid black; border-top: 1px solid black; vertical-align: bottom;">
 							<div style="font-family: 'Inter', sans-serif; font-size: 8px;padding-bottom: 65px; text-align:center;">This is a digitally signed invoice.<br> No physical signature is necessary.</div>
-                                <div><img src="https://appacmedia.in/imgs/sign.jpg" style="width: 100px; display: block; margin: auto; margin-bottom: -10px; background-color:#fff;" alt="sign"><div style="font-family: 'Inter', sans-serif; font-size: 7px; width: 100px; display: block; margin: auto;">for Appac Mediatech Pvt Ltd</div></div>
+                                <div><img src="https://appacmedia.in/oldcrm/imgs/sign.jpg" style="width: 100px; display: block; margin: auto; margin-bottom: -10px; background-color:#fff;" alt="sign"><div style="font-family: 'Inter', sans-serif; font-size: 7px; width: 100px; display: block; margin: auto;">for Appac Mediatech Pvt Ltd</div></div>
                             </td>
                             
                         </tr>
@@ -384,3 +381,4 @@
 </body> 
 </html>  
     
+
