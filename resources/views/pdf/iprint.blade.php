@@ -168,6 +168,7 @@
                                     <col style="width: 22%;font-family: 'Inter', sans-serif;">
                                     <col style="width: 22%;font-family: 'Inter', sans-serif;">
                                 </colgroup>
+                                
                                 <tr>
                                     <th style="text-align: left; font-family: 'Work Sans', sans-serif; padding-left: 10px; padding-top: 10px; border-top: 1px solid black; border-right: 1px solid black;font-size:13px">Key Notes:</th>
 									<div style="display:flex;align-items:center;justify-content:right;position: absolute;left: 35%;right: 30%;top: 60%;background-color:#fff;    z-index: -2;">
@@ -176,25 +177,18 @@
                                     
                                     @if($invoice->specialdiscount !='0')
                                     <th style="text-align: right; border-top: 1px solid black; padding: 10px 0px 0px 0px;font-size:13px">Total Rs. </th>
+								    @else
+									<th style="text-align: right; border-top: 1px solid black; padding: 10px 0px 0px 0px;font-size:13px"> </th>
                                     @endif
                                     
-                                    @if($invoice->gsttype =='in')
-                                    <th style="text-align: right; border-top: 1px solid black; padding: 10px 0px 0px 0px;font-size:13px">Total (Including GST) Rs. </th>
-                                    @else
-                                    <th style="text-align: right; border-top: 1px solid black; padding: 10px 0px 0px 0px;font-size:13px">Total Netpay Rs. </th>
-                                    @endif
-
-                                  
                                     @if($invoice->specialdiscount !='0')
-                                    <th style="text-align: right; border-top: 1px solid black; padding-right: 35px; padding-top: 10px;font-size:13px">{{ number_format($invoice->specialdiscount?? 0,2) }}</th>
-                                    @endif
-                                    
-                                    @if($invoice->gsttype =='in')
-                                    <th style="text-align: right; border-top: 1px solid black; padding-right: 35px; padding-top: 10px;font-size:13px">{{number_format($invoice->amount ?? 0,2)}}</th>
-                                     @else
-                                    <th style="text-align: right; border-top: 1px solid black; padding-right: 35px; padding-top: 10px;font-size:13px">{{number_format($invoice->netpay ?? 0,2)}}</th>
-                                    @endif
+                                    <th style="text-align: right; border-top: 1px solid black; padding-right: 35px; padding-top: 10px;font-size:13px">{{ number_format($invoice->amount?? 0,2) }}</th>
+                                    @else
+									<th style="text-align: right; border-top: 1px solid black; padding: 10px 0px 0px 0px;font-size:13px"> </th>
+									@endif
+
                                 </tr>
+
                                 <tbody>
 								    <tr>
                                         <td align="right" style="border-right: 1px solid black;"></td>
@@ -208,6 +202,21 @@
                                         <td align="right" style="padding-right: 35px; padding-top: 10px;font-size:13px"><b>{{number_format($invoice->specialdiscount ?? 0,2)}}</b></td>
                                         @endif
                                     </tr>
+
+                                    <tr>   
+								 <td align="right" style="border-right: 1px solid black;"></td>
+								  @if($invoice->gsttype =='in')
+                                    <td style="text-align: right;  padding: 10px 0px 0px 0px;font-size:13px"><b>Total (Including GST) Rs. </b></td>
+                                    @else
+                                    <td style="text-align: right; padding: 10px 0px 0px 0px;font-size:13px"><b>Total Netpay Rs. </b></td>
+                                    @endif
+								
+								@if($invoice->gsttype =='in')
+                                    <td style="text-align: right;  padding-right: 35px; padding-top: 10px;font-size:13px"><b>{{number_format($invoice->amount ?? 0,2)}}</b></td>
+                                     @else
+                                    <td style="text-align: right;  padding-right: 35px; padding-top: 10px;font-size:13px"><b>{{number_format($invoice->netpay ?? 0,2)}}</b></td>
+                                    @endif
+                                </tr>
                                     
                                     <tr style="padding-left: 10px;">
                                         <td align="right" style="border-right: 1px solid black;"></td>

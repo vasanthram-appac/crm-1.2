@@ -94,7 +94,7 @@ class Workreport extends Controller
 
         if ($dept_id == 2) {
             $work_types = DB::table('work_type')->whereIn('dept', [2, 3])->get();
-        }else if($dept_id == 5){
+        }else if($dept_id == 5 || $dept_id == 4){
             $work_types = DB::table('work_type')->whereIn('dept', [4,0])->get();
         }else {
             
@@ -224,8 +224,6 @@ class Workreport extends Controller
         return response()->json(['status' => 1, 'message' => 'your Daily Report Successfully Added.'], 200);
     }
 
-
-
     public function edit($id)
     {
         $workreport = DB::table('dailyreport')->where('id', $id)->first();
@@ -238,8 +236,17 @@ class Workreport extends Controller
 
         if ($dept_id == 2) {
             $work_types = DB::table('work_type')->whereIn('dept', [2, 3])->get();
-        } else {
-            $work_types = DB::table('work_type')->where('dept', $dept_id)->get();
+        }else if($dept_id == 5 || $dept_id == 4){
+            $work_types = DB::table('work_type')->whereIn('dept', [4,0])->get();
+        }else {
+            
+            if($dept_id != 1 && $dept_id != 5 && $dept_id != 6 && $dept_id != 7){
+                $dept_id1=$dept_id;
+            }else{
+                $dept_id1="0";
+            }
+
+            $work_types = DB::table('work_type')->where('dept', $dept_id1)->get();
         }
 
         $wip_list = DB::table('work_wip')
@@ -252,8 +259,6 @@ class Workreport extends Controller
             ->where('oppourtunity_status', 'inactive')
             ->orderBy('company_name', 'ASC')
             ->pluck('company_name', 'id');
-
-
 
         return view('workreport/edit', compact('accounts', 'work_types', 'wip_list', 'leads_list','workreport'))->render();
     }

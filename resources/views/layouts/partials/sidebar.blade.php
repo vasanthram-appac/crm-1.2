@@ -190,12 +190,14 @@ $route = explode('.', Route::currentRouteName())[0];
                     </ul>
                 </span>
 				   @if(request()->session()->get('role') != 'user')
+                   @if (request()->session()->get('empid') == 'AM001' || request()->session()->get('empid') == 'AM090') 
                    <span id="m4">
                     <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='fiscal') bg-active @else  @endif " href="/fiscal">
                         <img src="{{ asset('asset/image/money-growth.png') }}" width="22" alt="">
                         <p>Revenue </p>
                     </a>
                 </span>
+                @endif
 				<!-- <span id="m7" class="@if($route=='fiscal' || $route=='revenue') active @else  @endif">
                     <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='fiscal' || $route=='revenue') active bg-active @else  @endif">
                         <img src="{{ asset('asset/image/money-growth.png') }}" width="22" alt="">

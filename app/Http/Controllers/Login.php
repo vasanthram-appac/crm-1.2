@@ -36,7 +36,7 @@ class Login extends Controller
     public function Login(Request $request)
     {
  
-        if (env('IPADDRESS') == request()->session()->get('serverip')) {
+        if (env('IPADDRESS') == request()->session()->get('serverip') || env('IPADDRESSJIO')==request()->session()->get('serverip')) {
 
             $user = DB::table('regis')->where('empid', $request->username)->where('status', 1)->get();
 

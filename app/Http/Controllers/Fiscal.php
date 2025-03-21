@@ -16,6 +16,10 @@ class Fiscal extends Controller
     public function index(Request $request)
     {
 
+        if (request()->session()->get('empid') != 'AM001' && request()->session()->get('empid') != 'AM090') {
+            return redirect()->to('/workreport');
+        }
+
         // dd($request->all());
         $accounts = DB::table('accounts')
         ->select('id','company_name')

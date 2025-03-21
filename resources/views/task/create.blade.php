@@ -1,3 +1,14 @@
+<style>
+    .select2-container {
+    z-index: 99999 !important; /* Higher than Bootstrap modal */
+}
+.select2-container--default .select2-selection--multiple {
+    border: 0 !important;
+    padding-bottom: 0.6rem !important;
+    padding-top: 0.25rem !important;
+}
+</style>
+
 <div class="modal-dialog cascading-modal" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -75,7 +86,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('mail_cc', 'Mark a CC Mail to', ['class' => 'label-color py-2']) !!} 
-                        {!! Form::select('mail_cc[]', $assign, null, ['class' => 'form-select', 'required' => true,'multiple' => true,]) !!}
+                        {!! Form::select('mail_cc[]', $assign, null, ['class' => 'form-select select2', 'required' => true,'multiple' => true]) !!}
                     </div>
                 </div>
             </div>
@@ -99,9 +110,17 @@
     <!--/.Content-->
 </div>
 
-<script language="javascript" type="text/javascript">
-         $(function() {
-             $.configureBoxes();
-         });
-		 $('.select2').select2(); 
-      </script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.select2').select2({
+        dropdownParent: $('.customer_modal'), // Ensures dropdown stays inside the modal
+        width: '100%' // Makes the select box full width
+    });
+});
+
+</script>

@@ -19,7 +19,7 @@
 
 <!-- Optional: DataTables Buttons Flash export support -->
 <script src="{{ asset('asset/js/html5.min.js') }}" defer></script>
-<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <!-- bar chart script -->
 <script src="https://www.gstatic.com/charts/loader.js"></script>

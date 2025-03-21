@@ -134,6 +134,7 @@
             pageLength: 10,
             lengthMenu: [10, 20, 50, 100],
             ajax: "{{ action([App\Http\Controllers\Invoice::class,'index']) }}",
+          
             columns: [{
                     data: 'sno',
                     name: 'sno'

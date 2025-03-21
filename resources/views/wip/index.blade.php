@@ -35,6 +35,7 @@
         </div>
         <div class="justify-content-sm-end d-flex">
                 <div class=""></div>
+                <a class="btn bg-primary text-white ft-15 pri-text-color m-0 mx-2" target="_blank" href="http://appacmediatech.in/@develop/demo-wip-url/">WIP Demo</a>
                 <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Wip::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add WIP</button>
             </div>
     </div>

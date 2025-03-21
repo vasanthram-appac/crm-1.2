@@ -136,7 +136,7 @@ class Accounts extends Controller
         $history = DB::table('wip_history as wh')
             ->join('work_wip as w', 'wh.wip_id', '=', 'w.id')
             ->join('regis as r', 'wh.empid', '=', 'r.empid')
-            ->select('wh.*', 'w.id', 'r.fname', 'r,lname')->where('w.client_id', $id)->get();
+            ->select('wh.*', 'w.id', 'r.fname', 'r.lname')->where('w.client_id', $id)->get();
 
         $today = date('m-Y');
 

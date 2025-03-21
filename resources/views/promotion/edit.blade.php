@@ -1,3 +1,13 @@
+<style>
+    .select2-container {
+    z-index: 99999 !important; /* Higher than Bootstrap modal */
+}
+.select2-container--default .select2-selection--multiple {
+    border: 0 !important;
+    padding-bottom: 0.6rem !important;
+    padding-top: 0.25rem !important;
+}
+</style>
 <div class="modal-dialog cascading-modal" role="document">
     <div class="modal-content">
         <div class="modal-header">
@@ -62,7 +72,7 @@
 
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('client_coordinate', 'Contract Period *', ['class' => 'label-color py-2']) !!}
-                        <select class="span6 form-select select2" name="contract" required id="my_select">
+                        <select class="span6 form-select" name="contract" required id="my_select">
                             <option value="">Select</option>
                             <option value="1" @if($promotionWip->contract == 1) selected @endif>1 Month</option>
                             <option value="3" @if($promotionWip->contract == 3) selected @endif>3 Months</option>
@@ -129,3 +139,18 @@
             </div>
         </div>
     </div>
+
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.select2').select2({
+        dropdownParent: $('.customer_modal'), // Ensures dropdown stays inside the modal
+        width: '100%' // Makes the select box full width
+    });
+});
+
+</script>

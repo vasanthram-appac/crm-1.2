@@ -41,6 +41,17 @@
         background-color: #f0f0f0;
     }
 </style>
+
+<style>
+    .select2-container {
+    z-index: 99999 !important; /* Higher than Bootstrap modal */
+}
+.select2-container--default .select2-selection--multiple {
+    border: 0 !important;
+    padding-bottom: 0.6rem !important;
+    padding-top: 0.25rem !important;
+}
+</style>
 <div class="modal-dialog cascading-modal" role="document">
     <!--Content-->
     <div class="modal-content">
@@ -65,19 +76,20 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="form-group">
                         {!! Form::label('client', 'Client Name*', ['class' => 'form-label']) !!}
-                        <div class="custom-select-container">
-                            <!-- Search input above the dropdown -->
+                        {!! Form::select('client', $accounts, null, ['class' => 'form-select select2']) !!}
+                        <!-- <div class="custom-select-container">
+                        
                             <input type="text" name="client1" id="clientSearch" placeholder="Search Clients..." class="form-control custom-search-input">
                             <input type="hidden" name="client" id="clientSearch1">
-                            <!-- Hidden dropdown list -->
+                         
                             <ul id="clientDropdown" class="custom-dropdown">
                                 @foreach ($accounts as $value => $label)
                                 <li class="client-option" data-value="{{ $value }}">{{ $label }}</li>
                                 @endforeach
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
-                    <button type="button" id="removeSelection" style="position: absolute;top: 46px;right: 27px;" class="btn mt-2">X</button>
+                    <!-- <button type="button" id="removeSelection" style="position: absolute;top: 46px;right: 27px;" class="btn mt-2">X</button> -->
                 </div>
 
 
@@ -111,11 +123,11 @@
                     <div class="form-group">
                         <div id="type-1">
                             {!! Form::label('wipid', 'WIP List', ['class' => 'form-label']) !!}
-                            {!! Form::select('wipid', $wip_list, null, ['class' => 'form-select', 'placeholder' => 'Select From List']) !!}
+                            {!! Form::select('wipid', $wip_list, null, ['class' => 'form-select select2']) !!}
                         </div>
                         @if (in_array(request()->session()->get('dept_id'), [1, 6, 7]))
                         <label class="form-label mt-3">(OR) Leads Name</label>
-                        {!! Form::select('leadid', $leads_list, null, ['class' => 'form-select', 'placeholder' => 'Select From List']) !!}
+                        {!! Form::select('leadid', $leads_list, null, ['class' => 'form-select select2']) !!}
                         @endif
                     </div>
                 </div>
@@ -175,7 +187,20 @@
     <!--/.Content-->
 </div>
 
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.select2').select2({
+        dropdownParent: $('.customer_modal'), // Ensures dropdown stays inside the modal
+        width: '100%' // Makes the select box full width
+    });
+});
+
+</script>
 
 <script>
     $(document).ready(function() {

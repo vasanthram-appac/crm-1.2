@@ -35,6 +35,7 @@ class Invoice extends Controller
                     $query->where('paymentstatus', '!=', 'closed');
                 })
                 ->orderBy('invoice_no', 'desc')
+                ->paginate(10)
                 ->get();
 
             foreach ($data as $pdata) {
