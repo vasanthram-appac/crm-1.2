@@ -171,14 +171,15 @@ class Proforma extends Controller
             'specialdiscount' => 'nullable|numeric|min:0',
             'netpay' => 'required|numeric|min:0',
             'principle' => 'nullable|string|max:255',
-            'cgst1' => 'nullable|numeric|min:0',
-            'sgst1' => 'nullable|numeric|min:0',
-            'grosspay1' => 'nullable|numeric|min:0',
-            'cgst' => 'required|numeric|min:0',
-            'sgst' => 'required|numeric|min:0',
-            'igst' => 'required|numeric|min:0',
-            'taxvalue' => 'required|in:cgst,sgst,igst',
-            'grosspay' => 'required|numeric|min:0',
+
+            // 'cgst1' => 'nullable|numeric|min:0',
+            // 'sgst1' => 'nullable|numeric|min:0',
+            // 'grosspay1' => 'nullable|numeric|min:0',
+            // 'cgst' => 'required|numeric|min:0',
+            // 'sgst' => 'required|numeric|min:0',
+            // 'igst' => 'required|numeric|min:0',
+            // 'taxvalue' => 'required|in:cgst,sgst,igst',
+            // 'grosspay' => 'required|numeric|min:0',
         ]);
 
         if ($validator->fails()) {
@@ -371,14 +372,18 @@ class Proforma extends Controller
             'specialdiscount' => 'nullable|numeric|min:0',
             'netpay' => 'required|numeric|min:0',
             'principle' => 'nullable|string|max:255',
-            'cgst1' => 'nullable|numeric|min:0',
-            'sgst1' => 'nullable|numeric|min:0',
-            'grosspay1' => 'nullable|numeric|min:0',
-            'cgst' => 'required|numeric|min:0',
-            'sgst' => 'required|numeric|min:0',
-            'igst' => 'required|numeric|min:0',
-            'taxvalue' => 'required|in:cgst,sgst,igst',
-            'grosspay' => 'required|numeric|min:0',
+
+            // 'cgst' => 'required|numeric|min:0',
+
+            // 'cgst1' => 'nullable|numeric|min:0',
+            // 'sgst1' => 'nullable|numeric|min:0',
+            // 'grosspay1' => 'nullable|numeric|min:0',
+            // 'taxvalue1' => 'required|in:cgst,sgst,igst',
+            
+            // 'sgst' => 'required|numeric|min:0',
+            // 'igst' => 'required|numeric|min:0',
+            // 'taxvalue' => 'required|in:cgst,sgst,igst',
+            // 'grosspay' => 'required|numeric|min:0',
         ]);
 
         if ($validator->fails()) {

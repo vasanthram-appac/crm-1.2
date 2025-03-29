@@ -265,12 +265,12 @@
           
             </div>
             <div class="col-6  col-sm-6 col-md-6 col-lg-6 p-0  align-content-center">
-            <h4  class=" text-center">{{6 - $remainingCasualLeaves }}</h3>
+            <h4  class=" text-center">{{$remainingCasualLeaves }}</h3>
             <h5 class="text-center">Casual</h5>
             </div>
 
             <div class="col-6  col-sm-6 col-md-6 col-lg-6 p-0  align-content-center">
-            <h4 class=" text-center">{{6 - $remainingSickLeaves }}</h3>
+            <h4 class=" text-center">{{$remainingSickLeaves }}</h3>
             <h5 class="text-center">Sick</h5>
             </div>
 

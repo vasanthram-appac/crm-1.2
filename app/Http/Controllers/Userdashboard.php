@@ -138,27 +138,86 @@ class Userdashboard extends Controller
 
         //leave 
 
-        $totalLeavesTaken = DB::table('leaverecord')->where('empid', request()->session()->get('empid'))
+      
+
+            $employeeId = request()->session()->get('empid');
+
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+    
+            if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) {
+                $academicStart = ($currentYear - 1) . "-04-01"; // April 1st of the previous year
+                $academicEnd = "$currentYear-03-31"; // March 31st of the current year
+            } else { // For other months
+                $academicStart = "$currentYear-04-01"; // April 1st of the current year
+                $academicEnd = ($currentYear + 1) . "-03-31"; // March 31st of the next year
+            }
+
+            $totalLeavesTaken = DB::table('leaverecord')->where('empid', request()->session()->get('empid'))
             ->where('leavestatus', 'Approved')
-            ->whereYear('leavedate', date('Y'))
+            ->whereBetween('leavedate', [$academicStart, $academicEnd])
             ->sum('noofdays');
+    
+
+            $userdetails = DB::table("personalprofile")
+            ->select("doj")
+            ->where('empid', $employeeId)
+            ->first();
+
+        if ($userdetails && !empty($userdetails->doj)) {
+            $doj = $userdetails->doj;
+
+            // Extract year and month from DOJ
+            list($dojYear, $dojMonth, $dojDay) = explode('-', $doj);
+
+            // Get current year and month manually
+            $currentYear = date('Y');
+            $currentMonth = date('m');
+            
+            // Calculate months difference manually
+            $dataleave = ($currentYear - $dojYear) * 12 + ($currentMonth - $dojMonth) + 1;
+
+            // Check if DOJ falls within the academic year
+            if ($doj >= $academicStart) {
+                if ($dataleave < 12) {
+                    if ($dataleave % 2 == 0) {
+                        // Even months
+                        $maxCasual = $dataleave / 2;
+                        $SickLeaves = $dataleave / 2;
+                    } else {
+                        // Odd months
+                        $maxCasual = ceil($dataleave / 2);
+                        $SickLeaves = floor($dataleave / 2);
+                    }
+                } else {
+                    $maxCasual = 6;
+                    $SickLeaves = 6;
+                }
+            } else {
+                $maxCasual = 6;
+                $SickLeaves = 6;
+            }
+        } else {
+            $maxCasual = 6;
+            $SickLeaves = 6;
+        }
+
 
         // Casual and sick leave remaining calculations (assuming max 6 per type)
-        $maxCasualAndSickLeaves = 6;
-        
-        $casualLeavesTaken = DB::table('leaverecord')->where('empid', request()->session()->get('empid'))
-            ->where('leavestatus', 'Approved')
-            ->where('leavetype', 5)
-            ->whereYear('leavedate', date('Y'))
-            ->sum('noofdays');
-        $remainingCasualLeaves = max($maxCasualAndSickLeaves - $casualLeavesTaken, 0);
 
-        $sickLeavesTaken = DB::table('leaverecord')->where('empid', request()->session()->get('empid'))
-            ->where('leavestatus', 'Approved')
-            ->where('leavetype', 6)
-            ->whereYear('leavedate', date('Y'))
-            ->sum('noofdays');
-        $remainingSickLeaves = max($maxCasualAndSickLeaves - $sickLeavesTaken, 0);
+        $casualLeavesTaken = DB::table('leaverecord')->where('empid', $employeeId)
+        ->where('leavestatus', 'Approved')
+        ->where('leavetype', 5)
+        ->whereBetween('leavedate', [$academicStart, $academicEnd])
+        ->sum('noofdays');
+    $remainingCasualLeaves = max($maxCasual - $casualLeavesTaken, 0);
+
+    $sickLeavesTaken = DB::table('leaverecord')->where('empid', $employeeId)
+        ->where('leavestatus', 'Approved')
+        ->where('leavetype', 6)
+        ->whereBetween('leavedate', [$academicStart, $academicEnd])
+        ->sum('noofdays');
+    $remainingSickLeaves = max($SickLeaves - $sickLeavesTaken, 0);
 
         return view('userdashboard.index')->with(compact('user', 'profile', 'reportactive', 'task','totals','report','totalhours','hours','remainingMinutes','totalLeavesTaken','remainingCasualLeaves','remainingSickLeaves'));
     }
