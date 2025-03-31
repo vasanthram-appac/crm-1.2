@@ -173,7 +173,7 @@ class Leaveapproval extends Controller
 
         $validator = Validator::make($request->all(), [
             'leavestatus' => 'required',
-            'comments'    => 'required'
+           
         ]);
 
         if ($validator->fails()) {

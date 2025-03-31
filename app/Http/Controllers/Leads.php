@@ -466,6 +466,17 @@ class Leads extends Controller
                 $query->where('dept_id', '1')->orWhere('dept_id', '6');
             })
             ->where('id', '!=', '1')
+            ->where('empid', $opportunity[0]->assignedto)
+            ->orderBy('fname', 'ASC')
+            ->first();
+
+            $assignedmanager = DB::table('regis')
+            ->select('empid', 'fname')
+            ->where('status', '1')
+            ->where(function ($query) {
+                $query->where('dept_id', '1')->orWhere('dept_id', '6');
+            })
+            ->where('id', '!=', '1')
             ->orderBy('fname', 'ASC')
             ->first();
 
@@ -480,7 +491,7 @@ class Leads extends Controller
             ->orderBy('source', 'ASC')
             ->pluck('id', 'source');
 
-        return view('leads.opportunity')->with(compact('lead', 'opportunity', 'assignedto', 'opportunitymaster', 'source'));
+        return view('leads.opportunity')->with(compact('lead', 'opportunity', 'assignedmanager', 'assignedto', 'opportunitymaster', 'source'));
     }
 
     public function Opportunityupdate(Request $request)

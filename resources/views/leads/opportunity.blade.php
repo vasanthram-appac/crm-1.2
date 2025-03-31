@@ -142,8 +142,8 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="validate-input m-b-23 mb-2">
                         {!! Form::label('accountmanager', 'Account Manager', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('text', $assignedto->fname, ['class' => 'form-control', 'readonly']) !!}
-                        {!! Form::hidden('accountmanager', $assignedto->empid) !!}
+                        {!! Form::text('text', $assignedmanager->fname, ['class' => 'form-control', 'readonly']) !!}
+                        {!! Form::hidden('accountmanager', $assignedmanager->empid) !!}
                     </div>
                 </div>
             </div>

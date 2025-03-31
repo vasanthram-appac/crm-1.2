@@ -21,7 +21,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('comments', 'Comments', ['class' => 'label-color py-2']) !!}
-                        {!! Form::textarea('comments', null, ['class' => 'form-control', 'required' => 'required', 'rows' => 1]) !!}
+                        {!! Form::textarea('comments', null, ['class' => 'form-control', 'rows' => 1]) !!}
                     </div>
                 </div>
             </div>
