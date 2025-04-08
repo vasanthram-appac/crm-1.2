@@ -229,15 +229,29 @@
                 <b>Principle Amount</b>
                 <input type="text" id="totalamount" name="principle" class="input-xlarge" readonly><br><br>
 
+                <div id="sgst1" style="display:none;overflow:hidden;">
+                    
                 CGST {{ $gst->cgst }}%
                 <input type="hidden" id="cgstvalue1" name="cgst1" value="{{ $gst->cgst }}">
                 <input type="text" id="pro_cgst1" name="cgst1" class="input-xlarge" readonly><br><br>
                 SGST {{ $gst->sgst }}%
                 <input type="hidden" id="sgstvalue1" name="sgst1" value="{{ $gst->sgst }}">
                 <input type="text" id="pro_sgst1" name="sgst1" class="input-xlarge" readonly><br><br>
+
+                </div>
+
+                <div id="igst1" style="display:none;">
+                    <!--code-->
+                    IGST {{ $gst->igst }}%
+                    <input type="hidden" id="igstvalue1" name="igst1" value="{{ $gst->igst }}">
+                    <input type="text" id="pro_igst1" name="igst1" class="input-xlarge" readonly>
+                    <!--code-->
+                </div>
+
+
                 GST Type
-                <input class="input-xlarge" type="radio" value="sgst" name="taxvalue1">SGST/CGST
-                <input class="input-xlarge" type="radio" value="igst" name="taxvalue1">IGST<br><br>
+                <input class="input-xlarge" type="radio" value="sgst" onclick="show6()" name="taxvalue1" id="sgst1">SGST/CGST
+                <input class="input-xlarge" type="radio" value="igst" onclick="show7()" name="taxvalue1" id="igst1">IGST<br><br>
 
                 <th>
                     Gross Pay
@@ -373,6 +387,24 @@ document.getElementById("calculate").style.display='block';
 document.getElementById('cgstvalue').style.display = 'none';
 document.getElementById('sgstvalue').style.display = 'none';
 }
+
+function show6() {
+        document.getElementById('sgst1').style.display = 'block';
+        document.getElementById('igst1').style.display = 'none';
+        //document.getElementById("submitproformaid").style.display='block';
+        document.getElementById("calculate").style.display = 'block';
+        document.getElementById('igstvalue1').style.display = 'none';
+    }
+
+    function show7() {
+        document.getElementById('igst1').style.display = 'block';
+        document.getElementById('sgst1').style.display = 'none';
+        //document.getElementById("submitproformaid").style.display='block';
+        document.getElementById("calculate").style.display = 'block';
+        document.getElementById('cgstvalue1').style.display = 'none';
+        document.getElementById('sgstvalue1').style.display = 'none';
+    }
+
 </script>
 <script type="text/javascript">
 function add() {
@@ -397,6 +429,7 @@ $("#pro_grosspay1").val((+$("#pro_netpay").val()));
 	$("#totalamount").val(parseFloat((+$("#pro_netpay").val()) * (84.75/100)).toFixed(0));
 	$("#pro_cgst1").val(((+$("#pro_netpay").val()) - (+$("#totalamount").val()))/2);
 	$("#pro_sgst1").val(((+$("#pro_netpay").val()) - (+$("#totalamount").val()))/2);
+    $("#pro_igst1").val(((+$("#pro_netpay").val()) - (+$("#totalamount").val())));
 //alert($("#totalamount").val());
 }
 

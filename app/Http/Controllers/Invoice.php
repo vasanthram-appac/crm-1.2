@@ -110,9 +110,11 @@ class Invoice extends Controller
         // dd($latestInvoice);
         $inv = $latestInvoice ? substr($latestInvoice->invoice_no, -4) : '';
 
+        $extracted = substr($latestInvoice->invoice_no, 3, 7);
+
         $common = 'AMT';
 
-        if ($inv == '') {
+        if ($inv == '' ||  (date('d-m') >= "01-04" ||  ($inv != "0001" && $extracted != $financialYear) ) ) {
             $inv1 = '0001';
         } else {
             $inv1 = str_pad($inv + 1, 4, '0', STR_PAD_LEFT);

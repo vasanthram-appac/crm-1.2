@@ -131,6 +131,7 @@ class Proforma extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all()); 
         // Validate the request inputs
         $validator = Validator::make($request->all(), [
             'company_id' => 'required|integer|exists:accounts,id',
@@ -331,7 +332,7 @@ class Proforma extends Controller
 
     public function update(Request $request, $id)
     {
-        
+        // dd($request->all()); 
         // Validate the request inputs
         $validator = Validator::make($request->all(), [
             'company_id' => 'required|integer|exists:accounts,id',
@@ -598,12 +599,42 @@ class Proforma extends Controller
     }
 
     public function convertinvoice($id){
-// dd($id);
+      // dd($id);
+
         $invoi = DB::table('invoicedetails')->select('invoice_no')->orderBy('invoice_no','desc')->first(); 
 
         $j = $invoi->invoice_no;
         $j++;
         $in_number = $j;
+
+        // new code start
+
+        $todayDate = date('Y-m-d');
+        $date = date_create($todayDate);
+        if (date_format($date, "m") >= 4) {
+            $financialYear = date_format($date, "Y") . '-' . (date_format($date, "y") + 1);
+        } else {
+            $financialYear = (date_format($date, "Y") - 1) . '-' . date_format($date, "y");
+        }
+
+        $latestInvoice = DB::table('invoicedetails')->orderByDesc('id')->first();
+ 
+        $inv = $latestInvoice ? substr($latestInvoice->invoice_no, -4) : '';
+
+        $extracted = substr($latestInvoice->invoice_no, 3, 7);
+    
+        $common = 'AMT';
+
+        if ($inv == '' ||  (date('d-m') >= "01-04" &&  ($inv != "0001" && $extracted != $financialYear) ) ) {
+            $inv1 = '0001';
+        } else {
+            $inv1 = str_pad($inv + 1, 4, '0', STR_PAD_LEFT);
+        }
+        // dd($extracted,$financialYear,$inv1);
+        $c_id = $common . $financialYear . '/' . $inv1;
+        $in_number = $c_id;
+        
+        // new code end
 
         $invoice = DB::table('invoicedetails')->where('invoice_no',$in_number)->count(); 
    

@@ -24,8 +24,16 @@ class Employeereport extends Controller
         if (request()->ajax()) {
 
             // dd(request()->session()->get('aireportdate'), request()->session()->get('aiempid'), request()->session()->get('aidept_id'));
-
             // $date=date('2024-09-06', strtotime('-1 day'));
+
+            $lastdata = DB::table('dailyreport')
+            ->select('report_date1')
+            ->orderBy('id', 'desc')
+            ->first();
+    
+            if(empty(request()->session()->get('aireportdate'))){
+                request()->session()->put('aireportdate', $lastdata->report_date1);
+            }
 
             $data = DB::table('dailyreport')
             ->when(!empty('dailyreport.client'), function ($query) {
@@ -95,6 +103,7 @@ class Employeereport extends Controller
             ->select('fname')
             ->whereNotIn('empid', $excludedEmpIds)
             ->where('status', '1')
+            ->where('dept_id', '!=', '6')
             ->get();
 
             $data->inactive = $inactive;

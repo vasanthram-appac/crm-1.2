@@ -36,7 +36,7 @@ class Login extends Controller
     public function Login(Request $request)
     {
  
-        if (env('IPADDRESS') == request()->session()->get('serverip') || env('IPADDRESSJIO')==request()->session()->get('serverip')) {
+        if (env('IPADDRESS') == request()->session()->get('serverip')) {
 
             $user = DB::table('regis')->where('empid', $request->username)->where('status', 1)->get();
 
@@ -121,18 +121,18 @@ class Login extends Controller
                     $infomail = env('INFOMAIL');
                     $appname= env('APP_NAME');
 
-                //     Mail::send([], [], function ($message) use ($email, $infomail, $fname, $lname, $otp, $appname) {
-                //         $message->to($email) 
-                //             // ->bcc($bccEmail) 
-                //             ->replyTo($infomail) 
-                //             ->from($infomail, $appname) 
-                //             ->subject('OTP for verification') 
-                //             ->html('
-                //     <span style="margin-top:50px;"></span>
-                //     Dear ' . $fname . ' ' . $lname . ',<br><br>
-                //     Thanks for your interest. Your OTP is ' . $otp . ' for verification from Appac Media.<br>
-                // '); // Set the HTML content directly
-                //     });
+                    Mail::send([], [], function ($message) use ($email, $infomail, $fname, $lname, $otp, $appname) {
+                        $message->to($email) 
+                            // ->bcc($bccEmail) 
+                            ->replyTo($infomail) 
+                            ->from($infomail, $appname) 
+                            ->subject('OTP for verification') 
+                            ->html('
+                    <span style="margin-top:50px;"></span>
+                    Dear ' . $fname . ' ' . $lname . ',<br><br>
+                    Thanks for your interest. Your OTP is ' . $otp . ' for verification from Appac Media.<br>
+                '); // Set the HTML content directly
+                    });
 
                     request()->session()->put('otp', $otp);
                     request()->session()->put('empid', $user[0]->empid);

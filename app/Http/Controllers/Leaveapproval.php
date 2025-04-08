@@ -141,7 +141,7 @@ class Leaveapproval extends Controller
                 ->first();
 
             $totalLeaves = ($leaves->noday3 ?? 0) + ($leaves->noday4 ?? 0) + ($leaves->noday5 ?? 0) + ($leaves->noday6 ?? 0);
-            $casualAvailable = $currentMonth - ($leaves->noday5 ?? 0) - ($leaves->noday6 ?? 0) - ($leaves->noday3 ?? 0);
+            $casualAvailable = 12 - ($leaves->noday5 ?? 0) - ($leaves->noday6 ?? 0) - ($leaves->noday3 ?? 0);
 
             $leaveData[] = [
                 'id' => $employee->empid,

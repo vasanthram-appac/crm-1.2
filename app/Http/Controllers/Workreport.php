@@ -81,7 +81,27 @@ class Workreport extends Controller
         $remainingMinutes = $totalMinutes % 60;
 
 
-        return view('workreport/index', compact('hours', 'remainingMinutes'))->render();
+        $totalhour = DB::table('dailyreport')
+        ->join('accounts', 'dailyreport.client', '=', 'accounts.id') // Correct JOIN syntax
+        ->where('dailyreport.empid', request()->session()->get('empid'))
+        ->where('dailyreport.report_date', date('d-m-Y'))
+        ->selectRaw('accounts.company_name, SUM(dailyreport.w_hours) AS total_hours, SUM(dailyreport.w_mins) AS total_minutes')
+        ->groupBy('accounts.company_name') // Grouping by the correct column
+        ->get();
+    
+    
+    // Process results to format hours and minutes correctly
+    $clientWiseData = $totalhour->map(function ($item) {
+        $totalMinute = ($item->total_hours * 60) + $item->total_minutes;
+        return [
+            'client' => $item->company_name,
+            'hours' => floor($totalMinute / 60),
+            'minutes' => $totalMinute % 60
+        ];
+    });
+
+
+        return view('workreport/index', compact('hours', 'remainingMinutes', 'clientWiseData'))->render();
     }
 
     public function create(Request $request)
@@ -200,7 +220,7 @@ class Workreport extends Controller
             'report_date1' => $request->report_date,
             'empid' => request()->session()->get('empid'),
             'dept_id' => request()->session()->get('dept_id'),
-            'client' => $request->client,
+            'client' => ($request->worktype == 1) ? $request->wipid : $request->client,
             'leadid' => $request->leadid,
             'project_name' => $request->project_name,
             'start_time' => date("g:i a", strtotime($request->start_time)),
@@ -321,7 +341,7 @@ class Workreport extends Controller
             'report_date1' => $request->report_date,
             'empid' => request()->session()->get('empid'),
             'dept_id' => request()->session()->get('dept_id'),
-            'client' => $request->client,
+            'client' => ($request->worktype == 1) ? $request->wipid : $request->client,
             'leadid' => $request->leadid,
             'project_name' => $request->project_name,
             'start_time' => date("g:i a", strtotime($request->start_time)),

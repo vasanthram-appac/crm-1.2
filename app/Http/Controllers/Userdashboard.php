@@ -54,16 +54,21 @@ class Userdashboard extends Controller
         } else if(request()->session()->get('dept_id') == 2) {
             $totals = [
                 0 => ['hours' => 0, 'mins' => 0, 'type' => 'Others'],
-                1 => ['hours' => 0, 'mins' => 0, 'type' => 'POST'],
-                2 => ['hours' => 0, 'mins' => 0, 'type' => 'S Post'],
+                1 => ['hours' => 0, 'mins' => 0, 'type' => 'WIP'],
+                2 => ['hours' => 0, 'mins' => 0, 'type' => 'AMC'],
                 3 => ['hours' => 0, 'mins' => 0, 'type' => 'SEO'],
-                4 => ['hours' => 0, 'mins' => 0, 'type' => 'WIP'],
-                5 => ['hours' => 0, 'mins' => 0, 'type' => 'AMC'],
+                4 => ['hours' => 0, 'mins' => 0, 'type' => 'POST'],
+                5 => ['hours' => 0, 'mins' => 0, 'type' => 'S Post'],
             ];
         }elseif(request()->session()->get('dept_id') == 4){
             $totals = [
                 0 => ['hours' => 0, 'mins' => 0, 'type' => 'Others'],
                 1 => ['hours' => 0, 'mins' => 0, 'type' => 'SEO'],
+            ];
+        }elseif(request()->session()->get('dept_id') == 5){
+            $totals = [
+			    6 => ['hours' => 0, 'mins' => 0, 'type' => 'SEO'],
+                7 => ['hours' => 0, 'mins' => 0, 'type' => 'Others'],
             ];
         }else{
             $totals = [
@@ -131,14 +136,13 @@ class Userdashboard extends Controller
     $hours = floor($totalMinutes / 60);
     $remainingMinutes = $totalMinutes % 60;
     
-
       //total task
         $task=DB::table('task_management')->where('empid',request()->session()->get('empid'))->count();
 
+              //total Pending task
+              $taskpending=DB::table('task_management')->where('empid',request()->session()->get('empid'))->where('task_status','assigned')->count();
 
         //leave 
-
-      
 
             $employeeId = request()->session()->get('empid');
 
@@ -219,7 +223,7 @@ class Userdashboard extends Controller
         ->sum('noofdays');
     $remainingSickLeaves = max($SickLeaves - $sickLeavesTaken, 0);
 
-        return view('userdashboard.index')->with(compact('user', 'profile', 'reportactive', 'task','totals','report','totalhours','hours','remainingMinutes','totalLeavesTaken','remainingCasualLeaves','remainingSickLeaves'));
+        return view('userdashboard.index')->with(compact('user', 'profile', 'reportactive', 'task','totals','report','totalhours','hours','remainingMinutes','totalLeavesTaken','remainingCasualLeaves','remainingSickLeaves', 'taskpending'));
     }
 
    

@@ -56,7 +56,7 @@ $route = explode('.', Route::currentRouteName())[0];
                 <span id="m2" class="@if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile'  || $route=='resignation'  || $route=='celebration'  || $route=='payslip'  || $route=='usermodule') active @else  @endif">
                 <a href="/usermodule"> <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile' || $route=='resignation'  || $route=='celebration'  || $route=='payslip' || $route=='usermodule') bg-active @else  @endif">
                         <img src="{{ asset('asset/image/user-module.png') }}" width="22" alt="">
-                        <p class="mb-0"> User Module </p>
+                        <p class="mb-0"> My Universe </p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>
@@ -170,34 +170,35 @@ $route = explode('.', Route::currentRouteName())[0];
                 @endif
 
 
-                <span id="m9" class="@if($route=='employeereport' || $route=='report' || $route=='workreport'|| $route=='monthlyreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports') active @else  @endif">
-                  <a href="/reports">  <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='employeereport' || $route=='report' || $route=='workreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports') active bg-active @else  @endif">
+                <span id="m9" class="@if($route=='employeereport' || $route=='report' || $route=='workreport'|| $route=='monthlyreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports' || $route=='fiscal') active @else  @endif">
+                  <a href="/reports">  <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='employeereport' || $route=='report' || $route=='workreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports' || $route=='fiscal') active bg-active @else  @endif">
                         <img src="{{ asset('asset/image/reports.png') }}" width="22" alt="">
                         <p class="mb-0">Reports</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>
                     </div> </a>
-                    <ul class="sub-menu @if($route=='employeereport' || $route=='report' || $route=='workreport' || $route=='monthlyreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports') active @else  @endif">
+                    <ul class="sub-menu @if($route=='employeereport' || $route=='report' || $route=='workreport' || $route=='monthlyreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports' || $route=='fiscal') active @else  @endif">
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='workreport') bg-bactive @else  @endif " href="/workreport">Work Report</a></li>
                         @if(request()->session()->get('role') != 'user')
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='employeereport') bg-bactive @else  @endif " href="/employeereport">Employee Report</a></li>
                       <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='monthlyreport') bg-bactive @else  @endif " href="/monthlyreport">Monthly Report</a></li> 
                       <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='enquiryreport') bg-bactive @else  @endif " href="/enquiryreport">Enquiry Report</a></li><li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='leadhistory') bg-bactive @else  @endif " href="/leadhistory">Lead History</a></li>
+                      <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='fiscal') bg-bactive @else  @endif " href="/fiscal">Fiscal</a></li>
 
 					   @endif
 
                     </ul>
                 </span>
 				   @if(request()->session()->get('role') != 'user')
-                   @if (request()->session()->get('empid') == 'AM001' || request()->session()->get('empid') == 'AM090') 
-                   <span id="m4">
+                   <!-- @if (request()->session()->get('empid') == 'AM001' || request()->session()->get('empid') == 'AM090') 
+                  <span id="m4">
                     <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='fiscal') bg-active @else  @endif " href="/fiscal">
                         <img src="{{ asset('asset/image/money-growth.png') }}" width="22" alt="">
                         <p>Revenue </p>
                     </a>
-                </span>
-                @endif
+                </span> 
+                @endif -->
 				<!-- <span id="m7" class="@if($route=='fiscal' || $route=='revenue') active @else  @endif">
                     <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='fiscal' || $route=='revenue') active bg-active @else  @endif">
                         <img src="{{ asset('asset/image/money-growth.png') }}" width="22" alt="">
@@ -217,7 +218,7 @@ $route = explode('.', Route::currentRouteName())[0];
 				<span id="m7" class="@if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents' || $route=='ratecards') active @else  @endif">
                  <a href="/documents">  <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents' || $route=='ratecards') active bg-active @else  @endif">
                         <img src="{{ asset('asset/image/document-icon.png') }}" width="22" alt="">
-                        <p class="mb-0">Documents</p>
+                        <p class="mb-0">My Documents</p>
                         <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>

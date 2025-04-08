@@ -33,6 +33,13 @@
         <div class="profile-head">
             <h1 class="ch2 comp-name">Work Report : {{$hours}} Hours {{$remainingMinutes}} Minutes</h1>
         </div>
+        <div class="profile-head">
+		    @if(count($clientWiseData)>0)
+			@foreach($clientWiseData as $clients)
+            <h6 class="">{{$clients['client']}} : {{$clients['hours']}} Hours {{$clients['minutes']}} Minutes</h6>
+			@endforeach
+			@endif
+        </div>
         <div class="justify-content-sm-end d-flex">
                 <div class=""></div>
                 <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Workreport::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Work Report</button>

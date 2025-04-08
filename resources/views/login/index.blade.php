@@ -41,7 +41,7 @@
                 </a>-->
                
                <div class="login-column login-form-div">
-             @if(env('IPADDRESS')==request()->session()->get('serverip') || env('IPADDRESSJIO')==request()->session()->get('serverip'))
+             @if(env('IPADDRESS')==request()->session()->get('serverip'))
                 <form method="POST" action="{{ url('/login') }}">
                     @csrf
                     <div class="row login-form-row pb-0 pt-3  m-auto  bg-white rounded-top-3 mbpad">
@@ -88,8 +88,10 @@
                             @enderror
                            
                         </div>
-  
+		
                     </div>
+					
+	
 <div class="justify-content-between align-items-center d-flex my-3  m-4">
 
                      <!-- <div class="">

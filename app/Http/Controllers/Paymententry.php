@@ -109,7 +109,7 @@ class Paymententry extends Controller
             'chequeno' => 'nullable|string|max:255',
             'document_upload' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:1024', // 1MB file limit
             'neftnumber' => 'nullable|string|max:255',
-            'productservice' => 'required|string|max:255',
+            'productservice' => 'required|string|max:1000',
             'comment' => 'required|string|max:500',
         ]);
 
