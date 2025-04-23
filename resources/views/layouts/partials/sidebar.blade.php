@@ -123,19 +123,20 @@ $route = explode('.', Route::currentRouteName())[0];
                     </ul>
                 </span>
 
-                <span id="m6" class="@if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails') active @else  @endif">
-                  <a href="/serverdetails"><div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails') bg-active @else  @endif">
+                <span id="m6" class="@if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails'  || $route=='plans') active @else  @endif">
+                  <a href="/serverdetails"><div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails'  || $route=='plans') bg-active @else  @endif">
                         <img src="{{ asset('asset/image/server-details.png') }}" width="22" alt="">
                         <p class="mb-0">Technology</p><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
                             <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
                         </svg>
                     </div></a>  
-                    <ul class="sub-menu @if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails') active @else  @endif">
+                    <ul class="sub-menu @if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails'  || $route=='plans') active @else  @endif">
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='hosting') bg-bactive @else  @endif " href="/hosting"> Hosting </a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='domain') bg-bactive @else @endif " href="/domain"> Domain </a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='email') bg-bactive @else  @endif " href="/email"> Email </a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='ssl') bg-bactive @else @endif " href="/ssl"> SSL </a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='dmcontract') bg-bactive @else  @endif " href="/dmcontract"> DM Contract </a></li>
+                        <li><a class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey anchor sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='plans') bg-bactive @else  @endif " href="/plans"> Plans </a></li>
                     </ul>
                 </span>
 

@@ -23,6 +23,7 @@ use App\Http\Controllers\Content;
 use App\Http\Controllers\Offerletter;
 use App\Http\Controllers\Webproposal;
 use App\Http\Controllers\Digitalproposal;
+use App\Http\Controllers\Paymententry;
 
 
 
@@ -133,7 +134,9 @@ Route::post('/invoicestatus', [Invoice::class, 'invoicestatus'])->name('invoices
 
 Route::post('/invoiceaccountsid', [Invoice::class, 'accountsid'])->name('invoiceaccountsid');
 
-Route::resource('/paymententry','App\Http\Controllers\Paymententry');
+Route::resource('/paymententry','App\Http\Controllers\Paymententry'); 
+
+Route::post('/searchpayment', [Paymententry::class, 'searchpayment'])->name('searchpayment');
 
 Route::resource('/task','App\Http\Controllers\Task');
 
@@ -230,6 +233,8 @@ Route::resource('/documents','App\Http\Controllers\Documents');
 Route::resource('/settings','App\Http\Controllers\Settings');
 
 Route::resource('/ratecards','App\Http\Controllers\Ratecards');
+
+Route::resource('/plans','App\Http\Controllers\Plans');
 
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 

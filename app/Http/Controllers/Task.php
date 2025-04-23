@@ -228,7 +228,7 @@ class Task extends Controller
             $fquery,
             $com_name,
             $mquery1,
-            $task_new
+            $task_new,
         ) {
             // Validate that $request->mail_cc is an array or provide a fallback
             $ccEmails = is_array($request->mail_cc) ? $request->mail_cc : [];

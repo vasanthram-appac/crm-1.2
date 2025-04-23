@@ -98,7 +98,8 @@
                     $empid = request()->session()->get('empid');
                 @endphp
                 @if(in_array($empid, ['AM001', 'AM090']))
-                <div class="g-data ps-3"><a href="/fiscal">
+                <div class="g-data ps-3">
+                    <a href="/fiscal">
                         <div class="bio  rounded-30  piechart-leads dash-6">
                             <div class="svg-d">
 

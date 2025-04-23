@@ -148,7 +148,7 @@
                 <div class="btn-g2">
                     <div></div>
                     <div></div>
-                    <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button"> Add </button>
+                    <button type="submit" data-id="8" class="frm-btn pri-text-color wipadd" role="button"> Add </button>
                     <button type="button" data-bs-dismiss="modal" class="frm-btn outline-btn" role="button"> Cancel </button>
                 </div>
             </div>

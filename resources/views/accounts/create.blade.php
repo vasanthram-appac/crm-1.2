@@ -1,5 +1,7 @@
 <style>
-    #preback{display:none;}
+    #preback{
+        display: none;
+    }
 </style>
 
 <div class="row">
@@ -29,7 +31,7 @@
                     <div class="server-det-wrap">
                         <div class="server-d">
                             <img src="asset/image/domain.png" alt="">
-                            <h4 class="m-0"><strong>Domain</strong> ( Apr 2025 )</h4>
+                            <h4 class="m-0"><strong>Domain</strong> {{(count($domain) > 0) ? $domain[0]->dateofexpire : ""}}</h4>
                             <span class="d-flex gap-3 align-items-center">
                                 <p class="ser-type m-0">
                                     @if(count($domain) > 0)
@@ -49,21 +51,21 @@
                         </div>
                         <div class="server-d">
                             <img src="asset/image/hoisiting.png" alt="">
-                            <h4 class="m-0"><strong>Web Hoisting</strong></h4>
+                            <h4 class="m-0"><strong>Web Hosting</strong> {{($hosting) ? $hosting->dateofexpire : ""}}</h4>
                             <span class="d-flex gap-3 align-items-center">
-                                <p class="ser-type m-0">Server</p>|<p class="ser-val m-0">Host</p>
+                                <p class="ser-type m-0">{{($hosting) ? $hosting->hosting_manager : "Server"}}</p>|<p class="ser-val m-0">{{($hosting) ? $hosting->hosting_source : "Host"}}</p>
                             </span>
                         </div>
                         <div class="server-d">
                             <img src="asset/image/email.png" alt="">
-                            <h4 class="m-0"><strong>Email</strong></h4>
+                            <h4 class="m-0"><strong>Email</strong> {{($email) ? $email->dateofexpire : ""}}</h4>
                             <span class="d-flex gap-3 align-items-center">
-                                <p class="ser-type m-0">Server</p>|<p class="ser-val m-0">{{($email)?$email:0}}</p>
+                                <p class="ser-type m-0">{{($email) ? $email->vendorname : "Server"}}</p>|<p class="ser-val m-0">{{($email)?$email->noofemailid:0}}</p>
                             </span>
                         </div>
                         <div class="server-d">
                             <img src="asset/image/domain.png" alt="">
-                            <h4 class="m-0"><strong>SSL</strong></h4>
+                            <h4 class="m-0"><strong>SSL</strong> {{(count($ssl) > 0) ? $ssl[0]->dateofexpire : ""}}</h4>
                             <span class="d-flex gap-3 align-items-center">
                                 <p class="ser-type m-0">
                                     @if(count($ssl) > 0)
@@ -152,12 +154,12 @@
                                 </div>
                             </div>
                             <div class="pln-sts">
-                                <h5>Plan Started</h5>
+                                <h5>SEO Plan Started</h5>
                                 <div class="d-flex gap-3 flex-wrap  p-0">
                                     <span class="d-flex gap-1 ">
-                                        <p class="pl-p-h">Price</p> : <p class="pl-p">50k</p>
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plans) ? number_format($plans->amount ?? 0,2) : ""}}</p>
                                     </span> |
-                                    <p class="pl-date">Apr 2020</p>
+                                    <p class="pl-date">{{ ($plans) ? $plans->dateofregis : ""}}</p>
                                 </div>
                             </div>
                         </div>
@@ -168,12 +170,12 @@
                                 </div>
                             </div>
                             <div class="pln-sts">
-                                <h5>Current Status</h5>
+                                <h5>SEO Current Status</h5>
                                 <div class="d-flex gap-3 flex-wrap  p-0">
                                     <span class="d-flex gap-1 ">
-                                        <p class="pl-p-h">Price</p> : <p class="pl-p">50k</p>
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plans) ? number_format($plans->amount ?? 0,2) : ""}}</p>
                                     </span> |
-                                    <p class="pl-date">Apr 2020</p>
+                                    <p class="pl-date">{{ ($plans) ? $plans->plansmonth : ""}}</p>
                                 </div>
                             </div>
                         </div>
@@ -184,19 +186,75 @@
                                 </div>
                             </div>
                             <div class="pln-sts">
-                                <h5>Plan Renewal</h5>
+                                <h5>SEO Plan Renewal</h5>
                                 <div class="d-flex gap-3 flex-wrap  p-0">
                                     <span class="d-flex gap-1 ">
-                                        <p class="pl-p-h">Price</p> : <p class="pl-p">50k</p>
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plans) ? number_format($plans->amount ?? 0,2) : ""}}</p>
                                     </span> |
-                                    <p class="pl-date">Apr 2020</p>
+                                    <p class="pl-date">{{ ($plans) ? $plans->dateofexpire : ""}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100   u-dash">
+
+            <div class="col-lg-12  col-xl-5 col-xxl-4 pr-20 h-100   u-dash">
+                <div class="bio  rounded-30 bg-white h-100  client-li ">
+                    <div class="pl-sts-wordwrap p-0">
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d start">
+                                    <img src="asset/image/plan-start.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>AMC Plan Started</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plan) ? number_format($plan->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plan) ? $plan->dateofregis : ""}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d current">
+                                    <img src="asset/image/current-sts.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>AMC Current Status</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plan) ? number_format($plan->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plan) ? $plan->plansmonth : ""}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d upcom">
+                                    <img src="asset/image/renewal.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>AMC Plan Renewal</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plan) ? number_format($plan->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plan) ? $plan->dateofexpire : ""}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100   u-dash">
 
                 <div class="bio  rounded-30 bg-white h-100 pb-0 client-li  profile-div">
                     <div class="table-responsive">
@@ -204,7 +262,7 @@
                     </div>
 
                 </div>
-            </div>
+            </div> -->
 
             <div class="col-lg-12 col-xl-6 col-xxl-4 pr-20">
                 <div class=" bio rounded-30 bg-white    client-li">

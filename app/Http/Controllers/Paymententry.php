@@ -79,9 +79,17 @@ class Paymententry extends Controller
                 ->rawColumns(['sno', 'proinv', 'action'])
                 ->make(true);
         }
+
+        $accounts = DB::table('accounts')
+            ->where('status', 1)
+            ->where('active_status', 'active')
+            ->orderBy('company_name', 'asc')
+            ->pluck('company_name', 'id')
+            ->toArray();
+        $accounts = ['0' => 'Select Option'] + $accounts;
         
 
-        return view('paymententry/index')->render();
+        return view('paymententry/index', compact('accounts'))->render();
     }
 
     public function create(Request $request)
@@ -110,7 +118,7 @@ class Paymententry extends Controller
             'document_upload' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:1024', // 1MB file limit
             'neftnumber' => 'nullable|string|max:255',
             'productservice' => 'required|string|max:1000',
-            'comment' => 'required|string|max:500',
+            'comment' => 'nullable|string|max:500',
         ]);
 
         if ($validator->fails()) {
@@ -283,7 +291,7 @@ class Paymententry extends Controller
             'document_upload' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:1024', // 1MB file limit
             'neftnumber' => 'nullable|string|max:255',
             'productservice' => 'required|string|max:1000',
-            'comment' => 'required|string|max:500',
+            'comment' => 'nullable|string|max:500',
         ]);
 
         if ($validator->fails()) {
@@ -406,4 +414,26 @@ class Paymententry extends Controller
             return response()->json(['status' => 1, 'message' => 'Payment Details Updated Successfully'], 200);
         }
     }
+
+
+    public function searchpayment(Request $request){
+        // dd($request->all());
+        $daterange = explode(' - ', $request->daterange);
+        $start_date = date('Y-m-d', strtotime($daterange[0]));
+        $end_date = date('Y-m-d', strtotime($daterange[1]));
+        
+        $data = DB::table('payment_list')
+        ->select(DB::raw("SUM(REPLACE(REPLACE(REPLACE(payamount, ',', ''), '/', ''), '-', '')) as payamount"))
+        ->where('company_name', $request->companyname)
+        ->whereBetween('paydate', [$start_date, $end_date])
+        ->get();
+    
+        
+        $payment = number_format((float)$data[0]->payamount, 2, '.', ',')  ?? 0; // fallback to 0 if null
+        
+        return response()->json(['payment' => $payment]);
+
+    }
+
+
 }

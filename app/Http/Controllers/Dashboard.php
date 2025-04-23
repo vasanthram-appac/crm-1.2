@@ -36,6 +36,8 @@ class Dashboard extends Controller
                 DB::raw("DATE_FORMAT(STR_TO_DATE(hosting.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat")
             )
             ->where('hosting.status', '0')
+            ->whereRaw("MONTH(STR_TO_DATE(hosting.dateofexpire, '%d-%m-%Y')) = ?", [date('m')])
+            ->whereRaw("YEAR(STR_TO_DATE(hosting.dateofexpire, '%d-%m-%Y')) = ?", [date('Y')])
             ->orderBy('dateofexpire', 'ASC')
             ->get();
         
@@ -153,7 +155,6 @@ class Dashboard extends Controller
     ->where(DB::raw("SUBSTRING(enquiry_date, 4, 2)"), $month)
     ->where(DB::raw("SUBSTRING(enquiry_date, 7, 4)"), $year)
     ->count();
-
         
             $wipenqs[] = [
                 'month' => $date->format('M Y'),

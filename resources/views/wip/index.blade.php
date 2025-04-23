@@ -61,6 +61,7 @@
                             <!-- <th class="text-grey">Total Hours</th>
                             <th class="text-grey">WIP Hours</th> -->
                             <th class="text-grey">ETA</th>
+                            <th class="text-grey">Total Working Hours</th>
                             <th class="text-grey"> URL</th>
                             <th class="text-grey">Action
                                 <select class="d-block" name="wip_status">
@@ -92,7 +93,7 @@
                 <!--Header-->
 
                 <button type="button" class="close waves-effect waves-light fs-4" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
+                    <span aria-hidden="true">x</span>
                 </button>
                 <h4 class="title ps-3 pt-1">Errors</h4>
                 <!--Body-->
@@ -103,6 +104,24 @@
             <!--/.Content-->
         </div>
     </div>
+
+    <!-- total working hours start-->
+
+    <div class="modal fade" id="showvalues" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content px-4 py-2">
+      <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">X</span>
+      </button>
+      <h4 class="title">Department Wise</h4>
+      <div class="dev-modal fw-bold"></div>
+      <div class="design-modal fw-bold"></div>
+    </div>
+  </div>
+</div>
+
+
+    <!-- total working hours end-->
 </div>
 
 
@@ -156,6 +175,10 @@
                 {
                     data: 'eta',
                     name: 'eta'
+                },
+                {
+                    data: 'totalhours',
+                    name: 'totalhours'
                 },
                 {
                     data: 'url',
@@ -228,7 +251,10 @@
                 cache: false,
                 contentType: false,
                 processData: false,
-                success: function(response) {
+                beforeSend: function() {
+                $(".wipadd").prop("disabled", true).text("Submitting...");
+                },
+                success: function(response) {  
 
                     $('#session_message').css('display', 'block');
                     $('#session_message').text(response.message);
@@ -248,12 +274,13 @@
                         $('.appac_show').hide();
                         $('.appac_hide').show();
                         cat_table.ajax.reload(null, false); // Prevents table state reset on reload
+                        $(".wipadd").prop("disabled", false).text("Add");
                     }
 
                 },
                 error: function(xhr) {
                     // Handle other types of errors (e.g., server error)
-
+                    $(".wipadd").prop("disabled", false).text("Add");
                     var errors = xhr.responseJSON.errors;
                     var errorString = '';
 
@@ -298,7 +325,25 @@ $.ajax({
 
 $('select[name="wip_status"]').on('change', Oppourtunity);
 
-
     });
+
+function viewalldetail(element) {
+  var $row = $(element).closest('tr');
+  var development = $row.find('input[name="development"]').val();
+  var design = $row.find('input[name="design"]').val();
+
+  $('#showvalues .dev-modal').html('Development: '+development);
+  $('#showvalues .design-modal').html('Design: '+design);
+
+  var offset = $(element).offset();
+  $('#showvalues .modal-dialog').css({
+    position: 'absolute',
+    top: offset.top + $(element).outerHeight() - 100,
+    left: offset.left
+  });
+
+  $('#showvalues').modal('show');
+}
+
 </script>
 @endsection
