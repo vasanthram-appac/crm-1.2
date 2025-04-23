@@ -217,7 +217,7 @@ Route::resource('/usermodule','App\Http\Controllers\Usermodule');
 
 Route::resource('/workoperations','App\Http\Controllers\Workoperations');
 
-Route::resource('/payments','App\Http\Controllers\Payments');
+Route::resource('/account','App\Http\Controllers\Payments');
 
 Route::resource('/serverdetails','App\Http\Controllers\Serverdetails');
 

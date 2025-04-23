@@ -94,6 +94,23 @@
                         </div>
                     </a>
                 </div>
+                @php
+                    $empid = request()->session()->get('empid');
+                @endphp
+                @if(in_array($empid, ['AM001', 'AM090']))
+                <div class="g-data ps-3"><a href="/fiscal">
+                        <div class="bio  rounded-30  piechart-leads dash-6">
+                            <div class="svg-d">
+
+                                <img src="/img/task.png"  />
+
+                            </div>
+                            <h3 class="text-center ">Fiscal</h3>
+                            <h4 class="opacity-0">0</h4>
+                        </div>
+                    </a>
+                </div>
+                @endif
                 @endif
             </div>
         </div>

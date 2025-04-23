@@ -28,7 +28,17 @@ class Payments extends Controller
 
         $payment = DB::table('payment_list')->count();
 
-        return view('payments/index')->with(compact('invoice', 'proforma', 'payment'))->render();
+        $leads = DB::table('leads')->count();
+
+        $opportunity = DB::table('opportunity')->count();
+
+        $active = DB::table('accounts')->where('status', '!=', '0')->where('active_status', 'active')->orderBy('accounts.id', 'ASC')->count();
+
+        $inactive = DB::table('accounts')->where('status', '!=', '0')->where('active_status', 'inactive')->orderBy('accounts.id', 'ASC')->count();
+
+        $keyaccount = DB::table('accounts')->where('status', '!=', '0')->where('active_status', 'active')->where('key_status', 1)->orderBy('accounts.id', 'ASC')->count();
+
+        return view('payments/index')->with(compact('invoice', 'proforma', 'payment', 'leads', 'opportunity', 'active', 'inactive', 'keyaccount'))->render();
     }
   
 }
