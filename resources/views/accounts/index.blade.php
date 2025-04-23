@@ -73,7 +73,7 @@
                             <th class="text-grey">Managed By</th>
                             <th class="text-grey">Status
 
-                                <select name="account_status" class="tab-sel" id="account_status">
+                                <select name="account_status" class="tab-sel form-select" id="account_status">
                                     <option value="">Select</option>
                                     <option value="All" @if(request()->session()->get('active_status') == 'All') selected @endif>All</option>
                                     <option value="1" @if(request()->session()->get('active_status') == '1') selected @endif>Key Accounts</option>

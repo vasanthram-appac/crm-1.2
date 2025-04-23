@@ -772,6 +772,9 @@
             max-width: 209mm;
         }
 
+        .arrow-ul ol{padding-left: 45px;}
+        .arrow-ul ol li{list-style: circle;margin-left: 9px;}
+
         @media(max-width:1500px) {
 
             /* .pdf_page {    display: flex;
@@ -899,6 +902,8 @@
                                                 </p>
 
                                                 <h3>SCOPE OF WORK</h3>
+												
+												<h3>DIGITAL:</h3>
                                                 <ul class="arrow-ul">
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
@@ -911,7 +916,7 @@
                                                         </svg> Create SEO Impact and do Search Engine Optimization as per web vitals</li>
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
-                                                        </svg> Search Engine Marketing & Remarketing</li>
+                                                        </svg>  Search Engine Marketing & Remarketing</li>
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
                                                         </svg> Conceptual Creative Designs and the adaptation works</li>
@@ -928,27 +933,31 @@
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
                                                         </svg> Create call actions, Do GMB optimization and GEO targeting to our relevant TG</li>
                                                 </ul>
-                                                <h3>ENGAGEMENT:</h3>
+                                                <h3>WEB VITALS:</h3>
                                                 <ul class="arrow-ul">
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
-                                                        </svg> Regular engagement with the TG on all the Social Channels.</li>
+                                                        </svg>Minify CSS, JS, and HTML,Use WebP/AVIF image formats</li>
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
-                                                        </svg> Update on current affairs about the Institution by the way of lucrative posts - video/ images</li>
+                                                        </svg>Integrate Real User Monitoring (RUM) & Limit tracking pixels and third-party scripts</li>
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
-                                                        </svg> To consistently deliver content every alternate week day to ensure there is enough organic
-                                                        content to be promoted and spread awareness about the brand to relevant users</li>
+                                                        </svg>Ensures fast content loading and faster initial content display</li>
+
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
-                                                        </svg> To create content on did you know facts, Case studies, Problem and the Solution.</li>
+                                                        </svg>Reduce latency, ensure mobile-first compatibility</li>
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
-                                                        </svg> Page Engagement - To Create lucrative posts to increase likes, comments, shares.</li>
-                                                    <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
-                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
-                                                        </svg> Create Videos are a great source to win trust, boost credibility, and convert new clients.</li>
+                                                        </svg>Why It Matters in Digital Marketing : 
+                                                         <ol>
+                                                            <li>SEO Ranking Factor, User Interactive Design</li>
+                                                            <li>A Smooth, fast site reduces bounce rates. Faster sites lead to better conversions</li>
+                                                            <li>Paid Campaign Efficiency. Brand Perception and Online Reputation Matter</li>
+                                                         </ol>
+                                                     </li>
+                                                        
                                                 </ul>
                                             </div>
                                             <p class="pg-no">Page no 1
@@ -966,14 +975,26 @@
                                             <div class="logo_div"><img src="{{asset('img/appac-logo.png')}}" alt="" width="180px"></div>
                                         </div>
                                             <div class="pad">
+											<h3>RESEARCH AND ANALYSIS:</h3>
                                                 <ul class="arrow-ul">
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
-                                                        </svg> Integrate Social Plugins on your website will give you more advantages on Branding Awareness
-                                                        and followers Increase on Socials.</li>
+                                                        </svg> Monthly Reporting with Google and Meta Analysis</li>
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
-                                                        </svg> Social themes based on keyword research for the Target Audience</li>
+                                                        </svg> Email Marketing Management with post analysis report.</li>
+														<li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
+                                                        </svg> Social Media Calendar Management</li>
+														<li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
+                                                        </svg>  Case Studies Creation - LinkedIn Article Creation.</li>
+														<li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
+                                                        </svg> Competitor Analysis Report</li>
+														<li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
+                                                        </svg>  Market Research Report</li>
                                                 </ul>
                                                 <h3>METHODOLOGY</h3>
                                                 <ul class="arrow-ul">
@@ -999,14 +1020,18 @@
                                                         </svg> One of the Leading Agency in South India with 100% Inhouse Production</li>
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
-                                                        </svg> Client-centric approach, Better workflow management</li>
+                                                        </svg> Client-centric approach, Better workflow management, Real-time Performance tracking</li>
+                                                   
                                                     <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
-                                                        </svg> Real-time Performance tracking</li>
-                                                    <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                        </svg> Proven track record - Successful Casestudies for clients across industry</li>
+														                                                    <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
-                                                        </svg> Proven track record - Successful Campaigns for clients across industry</li>
-                                                    <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                        </svg> Our Client Retention rate is more than 90%. Out of 10 clients, we retain 9.</li>
+														                                                    <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
+                                                        </svg> Strong Domain knowledge in Industries we serve like Manufacturing, Healthcare, Education and Real Estate.</li>
+														 <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
                                                             <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
                                                         </svg> Personalized approach - Dedicated account manager and Customized strategies</li>
                                                 </ul>
@@ -1185,6 +1210,7 @@
                                                 <div class="logo_div"><img src="{{asset('img/appac-logo.png')}}" alt="" width="180px"></div>
                                             </div>
                                                 <div class="pad">
+
                                                     <table cellpadding="10" cellspacing="0">
                                                         <tr>
                                                             <th colspan="2">
@@ -1276,14 +1302,13 @@
                                                             <th></th>
                                                             <td></td>
                                                         </tr>
-
-
                                                     </table>
+
                                                     <table style="margin-top: -2px;">
                                                         <tr class="bnone">
                                                             <td>
                                                                 <p class="bold">**The Above cost is exclusive of Taxes and Paid Marketing budget. Our Campaign management
-                                                                    charges would be Minimum INR 10,000 or 10% of Total Investment</p>
+                                                                    charges would be Minimum INR 15,000 or 10% of Total Investment</p>
                                                                 <p class="bold">**Please note Minimum Contract Period is 6 months.</p>
                                                             </td>
                                                         </tr>

@@ -214,7 +214,7 @@ class Leads extends Controller
 
     ];
         /*Check Duplicate leads in database*/
-        $Selectmobile=DB::table('leads')->where('phone',$request->phone)->where('gst_number',$request->gst_number)->get();
+        $Selectmobile=DB::table('leads')->where('phone',$request->phone)->where('gst_number',$request->gst_number)->where('company_name',$request->company_name)->get();
       
 
         if(count($Selectmobile) > 0)

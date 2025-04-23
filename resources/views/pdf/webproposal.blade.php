@@ -818,6 +818,25 @@
                                                 <p>We guarantee that the design elements and overall visual identity are consistent and aligned
                                                     with the brand's vision, making it easier to maintain and evolve the design over time.</p>
 
+                                            <h3>WHY CHOOSE US</h3>
+											
+											  <ul class="arrow-ul" Style="margin-bottom: 0px;">
+											  <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
+                                                        </svg>One of the Leading Agency in South India with 100% Inhouse Production</li>
+                                                    <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
+                                                        </svg>Client-centric approach, Better workflow management, Real-time Performance tracking</li>
+                                                    <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
+                                                        </svg>Proven track record - Successful Casestudies for clients across industry</li>
+                                                <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg>Our Client Retention rate is more than 90%. Out of 10 clients, we retain 9.</li>
+                                                <li Style="line-height:20px;"><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20"><path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045"/></svg>Strong Domain knowledge in Industries we serve like Manufacturing, Healthcare, Education and Real <span Style="padding-left:30px;"> Estate. </span></li>
+                                            <li><svg xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 20 20">
+                                                            <path fill="currentColor" fill-rule="evenodd" d="m2.542 2.154l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.448-.475 0-.98l7.08-6.918l-6.754-6.763q-.356-.514.066-.935q.422-.42.951-.045m9 0l7.254 7.26q.204.21.204.483a.73.73 0 0 1-.204.5l-7.575 7.398q-.575.476-1.022 0q-.449-.475 0-.98l7.08-6.918l-6.754-6.763q-.355-.514.066-.935q.422-.42.951-.045" />
+                                                        </svg>Personalized approach - Dedicated account manager and Customized strategies</li>
+										   </ul>
+
                                                 <span class="flex inline-fl"><h3>TIME ESTIMATE - TENTATIVELY 45-60 WORKING DAYS</h3></span>
                                                 <p>- Week 1-2: Discovery and planning</p>
                                                 <p>- Week 3-4: Design concepting and revisions</p>
@@ -947,7 +966,7 @@
                                                 <p>** This document is an estimate and also represents a binding agreement between the APPAC Media
                                                     (Agency) and <strong>{{$web->company}}</strong> (Client).</p>
                                                 <p>** Additional services or alterations outside the scope of the contract will be quoted as needed at a
-                                                    base rate of INR.1500 / hour, with a 1 hour minimum</p>
+                                                    base rate of INR.2000 / hour, with a 1 hour minimum</p>
 
                                                 <h3>PAYMENT TERMS:</h3>
 
@@ -958,7 +977,7 @@
 
                                             </div>
 
-                                                <p>If the website Go-live is delayed by the Client, then Appac will charge a nominal figure of INR.1500/
+                                                <p>If the website Go-live is delayed by the Client, then Appac will charge a nominal figure of INR.2000 /
                                                     month to cover the unplanned Project Management and additional costs.</p>
 
                                             <div class="thanks_div">

@@ -56,7 +56,7 @@ class Wip extends Controller
 
             foreach ($data as $wip) {
 
-                // $reports = DB::table('dailyreport')
+                 // $reports = DB::table('dailyreport')
                 // ->where('client', $wip->aid)
                 // ->orWhere('leadid', $wip->aid)
                 // ->get();
@@ -104,8 +104,58 @@ class Wip extends Controller
                 // $contentTime = $timeByDepartment['5']['formatted_time'];
                 // $marketingTime = $timeByDepartment['6']['formatted_time'];
 
+                $reports = DB::table('dailyreport')
+                ->where('worktype', 1)
+                ->where('report_date1','>=', $wip->startdate)
+                ->where('client', $wip->aid)
+                ->orWhere('leadid', $wip->aid)
+                ->get();
 
+                $timeByDepartment = [
+                    '3' => ['hours' => 0, 'minutes' => 0], // Management
+                    '2' => ['hours' => 0, 'minutes' => 0], // Design
+                ];
 
+                foreach ($reports as $report) {
+                    $deptId = $report->dept_id;
+                    $startTime = strtotime($report->start_time);
+                    $endTime = strtotime($report->end_time);
+
+                    if ($startTime && $endTime && isset($timeByDepartment[$deptId])) {
+                        $dateDiff = intval(($endTime - $startTime) / 60); // Convert to minutes
+                        $hours = intval($dateDiff / 60);
+                        $minutes = $dateDiff % 60;
+
+                        // Add hours and minutes to the respective department
+                        $timeByDepartment[$deptId]['hours'] += $hours;
+                        $timeByDepartment[$deptId]['minutes'] += $minutes;
+                    }
+                }
+
+                // Convert minutes to hours for each department and format the result
+                foreach ($timeByDepartment as $deptId => $time) {
+                    $totalMinutes = $time['hours'] * 60 + $time['minutes'];
+                    $hours = intval($totalMinutes / 60);
+                    $minutes = $totalMinutes % 60;
+                    $timeByDepartment[$deptId]['formatted_time'] = sprintf('%d Hours %02d Minutes', $hours, $minutes);
+                    $timeByDepartment[$deptId]['decimal_time'] = sprintf('%d.%02d', $hours, $minutes);
+                }
+
+                // Access the formatted times for each department
+                $wip->developmentTime = $timeByDepartment['3']['formatted_time'];
+                $wip->designTime = $timeByDepartment['2']['formatted_time'];
+
+                $developmentDecimal = floatval($timeByDepartment['3']['hours']) + ($timeByDepartment['3']['minutes'] / 60);
+                $designDecimal = floatval($timeByDepartment['2']['hours']) + ($timeByDepartment['2']['minutes'] / 60);
+
+                $totalDecimal = $developmentDecimal + $designDecimal;
+
+                // Convert total decimal back to hours and minutes
+                $totalMinutes = intval($totalDecimal * 60);
+                $totalHours = intval($totalMinutes / 60);
+                $totalRemainingMinutes = $totalMinutes % 60;
+                
+                $wip->totalTime = sprintf('%d Hours %02d Minutes', $totalHours, $totalRemainingMinutes);
 
                 $datetime1 = date_create(date('d-m-Y', time()));
                 $datetime2 = date_create($wip->startdate);
@@ -140,6 +190,11 @@ class Wip extends Controller
                 ->addColumn('remainday1', function ($row) {
                     return $row->remainday1;
                 })
+                ->addColumn('totalhours', function ($row) {
+                    return '<die style="cursor: pointer;" onclick="viewalldetail(this)">' . $row->totalTime . '</div>' .
+                           '<input type="hidden" name="development" value="' . $row->developmentTime . '">' .
+                           '<input type="hidden" name="design" value="' . $row->designTime . '">';
+                })                
                 ->addColumn('url', function ($row) {
                     if (!empty($row->temp_url)) {
                         return '<a class="btn" href="' . htmlspecialchars($row->temp_url, ENT_QUOTES, 'UTF-8') . '" target="_blank">
@@ -157,14 +212,12 @@ class Wip extends Controller
 								<span class="tooltiptext">Edit</span>
                             </button> ';
                 })
-                ->rawColumns(['sno', 'remainday1', 'companyname', 'action', 'url'])
+                ->rawColumns(['sno', 'remainday1', 'companyname', 'action', 'url', 'totalhours'])
                 ->make(true);
         }
 
         return view('wip.index');
     }
-
-
 
     public function create(Request $request)
     {

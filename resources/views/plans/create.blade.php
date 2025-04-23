@@ -4,11 +4,11 @@
             <button type="button" class="close waves-effect waves-light fs-4" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>
-            <h4 class="title">Add Hosting</h4>
+            <h4 class="title">Add Plans</h4>
         </div>
         <!--Body-->
         <div class="modal-body mb-0">
-            {!! Form::open(['route' => ['hosting.store'], 'method' => 'Post']) !!}
+            {!! Form::open(['route' => ['plans.store'], 'method' => 'Post']) !!}
 
             <div class="row m-0 mb-0">
                 <div class="col-lg-6 col-sm-12">
@@ -20,7 +20,6 @@
                             <option name="company_name" value="{{ $master->company_name }}">{{ $master->company_name_full }}</option>
                             @endforeach
                         </select>
-
                     </div>
                 </div>
 
@@ -29,7 +28,6 @@
                         {!! Form::label('domainname', 'Domain Name*', ['class' => 'label-color py-2']) !!}
                         <select name="domainname" class="form-control" id="domainnameid" readonly>
                         </select>
-
                     </div>
                 </div>
             </div>
@@ -38,28 +36,29 @@
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('dateofregis', 'Date of Hosting *', ['class' => 'label-color py-2']) !!}
+                        {!! Form::label('dateofregis', 'Date of Plans *', ['class' => 'label-color py-2']) !!}
                         {!! Form::date('dateofregis', null, ['class' => 'form-control', 'required']) !!}
-
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('domainname', 'Domain Name*', ['class' => 'label-color py-2']) !!}
-                        <select name="hostingperiod" class="form-select">
+                        {!! Form::label('plansperiod', 'Plans Period*', ['class' => 'label-color py-2']) !!}
+                        <select name="plansperiod" class="form-select">
                             <option value="0">Select Month</option>
                             <option value="1">1 Month</option>
+                            <option value="2">2 Months</option>
                             <option value="3">3 Months</option>
+                            <option value="4">4 Months</option>
+                            <option value="5">5 Months</option>
                             <option value="6">6 Months</option>
+                            <option value="7">7 Months</option>
+                            <option value="8">8 Months</option>
                             <option value="9">9 Months</option>
+                            <option value="10">10 Months</option>
+                            <option value="11">11 Months</option>
                             <option value="12">12 Months</option>
-                            <option value="15">15 Months</option>
-                            <option value="18">18 Months</option>
-                            <option value="24">24 Months</option>
-                            <option value="36">36 Months</option>
                         </select>
-
                     </div>
                 </div>
 
@@ -68,18 +67,20 @@
             <div class="row m-0 mb-0">
 
                 <div class="col-lg-6 col-sm-12">
-                    <div class="validate-input m-b-23 mb-2">
-                        {!! Form::label('hosting_source', 'Hosting Source *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::select('hosting_source', ['' => 'Select From List', 'godaddy' => 'Godaddy', 'bluehost' => 'Blue Host', 'other' => 'Other', 'reseller' => 'Reseller'], null, ['class' => 'form-select', 'required']) !!}
-                        <span class="focus-input100"></span>
+                    <div class="alidate-input m-b-23 mb-2">
+                        {!! Form::label('amount', 'Amount *', ['class' => 'label-color py-2']) !!}
+                        {!! Form::number('amount', null, ['class' => 'form-control', 'required']) !!}
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-sm-12">
-                    <div class="validate-input m-b-23 mb-2">
-                        {!! Form::label('hosting_manager', 'Hosting Managed by *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::select('hosting_manager', ['' => 'Select From List', 'own' => 'Appac', 'client' => 'Client', 'thirdparty' => 'Third Party'], null, ['class' => 'form-select', 'required']) !!}
-                        <span class="focus-input100"></span>
+                    <div class="alidate-input m-b-23 mb-2">
+                        {!! Form::label('planstype', 'Plans Type*', ['class' => 'label-color py-2']) !!}
+                        <select name="planstype" class="form-select">
+                            <option value="">Select Type</option>
+                            <option value="SEO">SEO</option>
+                            <option value="AMC">AMC</option>
+                        </select>
                     </div>
                 </div>
 

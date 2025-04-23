@@ -59,17 +59,17 @@ class Enquiryreport extends Controller
             $website = $request->input('website');
             $pro_website = $request->input('pro_website');
             $daterange = $request->input('daterange');
-
+         
             $startDate = '';
             $endDate = '';
 
             if ($daterange) {
-                
+             
                 $dates = explode(' - ', $daterange);
                 if (count($dates) == 2) {
                     $startDate = date('Y-m-d', strtotime($dates[0]));  
                     $endDate = date('Y-m-d', strtotime($dates[1]));    
-                    
+                  
                     $query->whereBetween($db_date, [$startDate, $endDate]);                  
                 }
             }else {
@@ -189,13 +189,14 @@ class Enquiryreport extends Controller
 
             // Check if a custom date range was provided; if not, use the current month
             if (!$startDate || !$endDate) {
+             
                 // Set the start date to the first day of the current month
                 $startDate = $currentDate->format('Y-m-01'); // First day of the current month
                 
                 // Set the end date to the current date
                 $endDate = $currentDate->format('Y-m-d');
             }else{
-
+                
                 // Create DateTime objects for the start and end date
                 $startDateObj = new DateTime($startDate);
                 $endDateObj = new DateTime($endDate);
@@ -204,11 +205,11 @@ class Enquiryreport extends Controller
                 // Check if the selected range exceeds the current month (April in this case)
                 $currentMonth = (int)date('m'); // Current month
                 $selectedStartMonth = (int)$startDateObj->format('m'); // Selected start month
-
-                // If the selected range goes beyond the current month, set the start date to April of the current year
-                if ($selectedStartMonth < 4 && $currentMonth >= 4) {
-                    $startDate = (new DateTime('first day of April this year'))->format('Y-m-d'); // Start from April of the current year
-                }
+                
+                // // If the selected range goes beyond the current month, set the start date to April of the current year
+                // if ($selectedStartMonth < 4 && $currentMonth >= 4) {
+                //     $startDate = (new DateTime('first day of April this year'))->format('Y-m-d'); // Start from April of the current year
+                // }
             }
 
             // Build the query to filter by date range
@@ -217,8 +218,9 @@ class Enquiryreport extends Controller
             // Create DateTime objects for the range
             $start = new DateTime($startDate);
             $end = new DateTime($endDate);
-
+        
             while ($start <= $end) {
+               
                 // Get the month and year for the current iteration
                 $monthName = $start->format('M'); // Short month name (e.g., Jan, Feb)
                 $year = $start->format('Y'); // Year (e.g., 2024)
@@ -229,7 +231,7 @@ class Enquiryreport extends Controller
 
                 $monthQuery = clone $query; // Clone the base query to modify it for each month
                 $enquiryCount = $monthQuery->whereBetween($db_date, [$monthStart, $monthEnd])->count();
-
+            
                 // Add the result to the array
                 $enquiryCounts[] = [
                     'month' => $monthName,
@@ -244,7 +246,7 @@ class Enquiryreport extends Controller
             $enquiryCountsArray = $enquiryCounts;  // Already an array at this point
             $months = array_column($enquiryCountsArray, 'month');
             $monthCounts = array_column($enquiryCountsArray, 'enquiries');
-
+     
             // Prepare data for the Google Chart or any other charting library
             $enquiryCounts = array_map(function($month, $count) {
                 return [
@@ -252,7 +254,7 @@ class Enquiryreport extends Controller
                     'enquiries' => $count  // Number of enquiries
                 ];
             }, $months, $monthCounts);
-
+      
             // Return the response
             return response()->json([
                 'draw' => $request->get('draw'),

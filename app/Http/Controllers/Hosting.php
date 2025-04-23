@@ -113,7 +113,6 @@ class Hosting extends Controller
 
     public function create(Request $request)
     {
-
         $domainmaster = DB::table('domainmaster')
             ->join('accounts', 'domainmaster.company_name', '=', 'accounts.id')
             ->where('domainmaster.domainname', '!=', '')
@@ -137,6 +136,8 @@ class Hosting extends Controller
             'domainname' => 'required|string',
             'dateofregis' => 'required|date',
             'hostingperiod' => 'required|integer',
+            'hosting_source' => 'required|string',
+            'hosting_manager' => 'required|string',
         ]);
 
         if ($validator->fails()) {
@@ -153,8 +154,6 @@ class Hosting extends Controller
             session()->flash('secmessage', 'Hosting Already added in Server');
             return response()->json(['status' => 1, 'message' => 'Hosting Already added in Server'], 200);
         }
-
-
 
         // Format dates
         $registerDate = date("d-m-Y", strtotime($request->dateofregis));
@@ -178,6 +177,8 @@ class Hosting extends Controller
             'hostingmonth' => $domainMonth,
             'empid' => $empid,
             'datetime' => $datetime,
+            'hosting_source' => $request->hosting_source,
+            'hosting_manager' => $request->hosting_manager,
             'status' => 0
         ];
 
@@ -188,11 +189,9 @@ class Hosting extends Controller
         return response()->json(['status' => 1, 'message' => 'Server details Successfully Added.'], 200);
     }
 
-
-
     public function edit($id)
     {
-        $hosting = DB::table('hosting')->select('id', 'company_name', 'domainname', 'dateofregis', 'dateofexpire', 'hostingperiod', 'empid', 'datetime')->find($id);
+        $hosting = DB::table('hosting')->select('id', 'company_name', 'domainname', 'dateofregis', 'dateofexpire', 'hostingperiod', 'empid', 'datetime', 'hosting_source', 'hosting_manager')->find($id);
 
         $accounts = DB::table('accounts')->select('id', 'company_name')->find($hosting->company_name);
 
@@ -224,7 +223,6 @@ class Hosting extends Controller
         $hostingMonth = "$thisMonth-$thisYear";
 
         $data = [
-
             'company_name' => $request->companyid,
             'domainname' => $request->domainname,
             'dateofregis' => $renewaldate,
@@ -232,11 +230,11 @@ class Hosting extends Controller
             'dateofexpire' => $expireDateFormatted,
             'dateofexpire1' => $effectiveDate,
             'hostingmonth' => $hostingMonth,
+            'hosting_source' => $request->hosting_source,
+            'hosting_manager' => $request->hosting_manager,
             'empid' => request()->session()->get('empid'),
             'datetime' => date("F j, Y, g:i A"),
-
         ];
-
 
         // Update the hosting record
         $updated = DB::table('hosting')->where('id', $id)->update($data);
@@ -347,8 +345,6 @@ class Hosting extends Controller
                 </body></html>
             ');
         });
-
-
 
         $upd = DB::table('hosting')->where('id', $id)->delete();
         session()->flash('secmessage', 'Hosting Deleted Successfully!');

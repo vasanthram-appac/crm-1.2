@@ -158,8 +158,8 @@ class Accounts extends Controller
                 'r.lname'
             )
             ->where('d.client', $id)->where('d.enquiry_month', $today)->orderBy('d.id', 'desc')->get();
-            
-        if (count($reports)>0) {
+
+        if (count($reports) > 0) {
             foreach ($reports as $report) {
 
                 $dateDiff = intval((strtotime($report->end_time) - strtotime($report->start_time)) / 60);
@@ -169,7 +169,7 @@ class Accounts extends Controller
                 $report->total_time = $hours . " Hours and " . $minutes . " Minutes";
             }
         }
-       
+
         $payments = DB::table('payment_list as p')
             ->join('regis as r', 'r.empid', '=', 'p.create_empid')
             ->leftJoin('payment_list_invoice as pli', 'pli.plist_id', '=', 'p.id')
@@ -214,83 +214,102 @@ class Accounts extends Controller
             ->get();
 
 
-                // Revnue start
-$revenueData = DB::table('payment_list')
-->where('company_name', $id)
-->whereYear('paydate', date('Y'))
-->select('payamount')  // Get only the payamount column
-->get();
+        // Revnue start
+        $revenueData = DB::table('payment_list')
+            ->where('company_name', $id)
+            ->whereYear('paydate', date('Y'))
+            ->select('payamount')  // Get only the payamount column
+            ->get();
 
-$totalrev = 0;
-
-
-// Step 2: Loop through the data, clean and sum the amounts
-foreach ($revenueData as $row) {
-// Split the payamount string by '&' if present
-$amounts = preg_split('/\s*&\s*/', $row->payamount);  // Split by '&' and remove extra spaces
-
-// Process each part
-foreach ($amounts as $amount) {
-    // Remove any non-numeric characters except for decimal points
-    $cleanedAmount = preg_replace('/[^\d.]/', '', $amount);
-    
-    // Convert the cleaned-up amount to a float and add it to the total
-    $totalrev += (float)$cleanedAmount;
-}
-}
-
-// Function to format the number in Indian numbering format
-function formatIndianNumber($number) {
-// Format the number with commas
-
-if (!$number || $number == 0) {
-    return ['formatted' => 'Revenue', 'scale' => ''];
-}
-
-$formattedNumber = number_format($number);
-
-// Initialize the scale
-$scale = '';
-
-// Check the scale of the number
-if ($number >= 10000000) {
-    $scale = 'Crore';
-    $number /= 10000000; // Convert to Crores
-} elseif ($number >= 100000) {
-    $scale = 'Lakh';
-    $number /= 100000; // Convert to Lakhs
-} elseif ($number >= 1000) {
-    $scale = 'Thousand';
-    $number /= 1000; // Convert to Thousands
-}
-
-// Return formatted number with scale
-return ['formatted' => $formattedNumber, 'scale' => $scale];
-}
-
-// Get the formatted revenue with scale
-$formattedData = formatIndianNumber($totalrev);
-
-// Output formatted total revenue with scale
-    
-$formattedNumber = $formattedData['formatted'];
-$scale = $formattedData['scale'];
-    
-
-$domain=DB::table('domain')->where('company_name', $id)->select(
-    'domain_manager as domain_manager',  // Alias for domain_manager
-    'domain_source as domain_source'     // Alias for domain_source
-)->get();
-
-$email =DB::table('emailserver')->where('company_name',$id)->select(
-    'vendorname as vendorname',  // Alias for domain_manager
-    'emailserver as emailserver'     // Alias for domain_source
-)->count();
-
-$ssl=DB::table('ssl_certificate')->where('company_name',$id)->select('source as Source','domainmonth as D_month')->get();
+        $totalrev = 0;
 
 
-        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery','formattedNumber','scale','domain','email','ssl'));
+        // Step 2: Loop through the data, clean and sum the amounts
+        foreach ($revenueData as $row) {
+            // Split the payamount string by '&' if present
+            $amounts = preg_split('/\s*&\s*/', $row->payamount);  // Split by '&' and remove extra spaces
+
+            // Process each part
+            foreach ($amounts as $amount) {
+                // Remove any non-numeric characters except for decimal points
+                $cleanedAmount = preg_replace('/[^\d.]/', '', $amount);
+
+                // Convert the cleaned-up amount to a float and add it to the total
+                $totalrev += (float)$cleanedAmount;
+            }
+        }
+
+        // Function to format the number in Indian numbering format
+        function formatIndianNumber($number)
+        {
+            // Format the number with commas
+
+            if (!$number || $number == 0) {
+                return ['formatted' => 'Revenue', 'scale' => ''];
+            }
+
+            $formattedNumber = number_format($number);
+
+            // Initialize the scale
+            $scale = '';
+
+            // Check the scale of the number
+            if ($number >= 10000000) {
+                $scale = 'Crore';
+                $number /= 10000000; // Convert to Crores
+            } elseif ($number >= 100000) {
+                $scale = 'Lakh';
+                $number /= 100000; // Convert to Lakhs
+            } elseif ($number >= 1000) {
+                $scale = 'Thousand';
+                $number /= 1000; // Convert to Thousands
+            }
+
+            // Return formatted number with scale
+            return ['formatted' => $formattedNumber, 'scale' => $scale];
+        }
+
+        // Get the formatted revenue with scale
+        $formattedData = formatIndianNumber($totalrev);
+
+        // Output formatted total revenue with scale
+
+        $formattedNumber = $formattedData['formatted'];
+        $scale = $formattedData['scale'];
+
+        $domain = DB::table('domain')->where('company_name', $id)->select(
+            'domain_manager as domain_manager',  // Alias for domain_manager
+            'domain_source as domain_source',
+            'dateofexpire'     // Alias for domain_source
+        )->get();
+
+        $email = DB::table('emailserver')->where('company_name', $id)->select('noofemailid', 'dateofexpire', 'vendorname')->first();
+
+        $ssl = DB::table('ssl_certificate')->where('company_name', $id)->select('source as Source', 'domainmonth as D_month', 'dateofexpire')->get();
+
+        $hosting = DB::table('hosting')->where('company_name', $id)->select('dateofexpire', 'hosting_source', 'hosting_manager')->first();
+
+        $plans = DB::table('plans')->where('company_name', $id)->where('type','SEO')->select('dateofregis', 'dateofexpire', 'amount','plansmonth')->first();
+        $plan = DB::table('plans')->where('company_name', $id)->where('type','AMC')->select('dateofregis', 'dateofexpire', 'amount','plansmonth')->first();
+        // for ($i = 0; $i < 7; $i++) {
+        //     $month = date('m');
+        //     $year = date('Y');
+
+        //     $wipenq = DB::connection('mysql_second') // Specify the second database connection
+        //         ->table('website_enquiry_data')
+        //         ->where(DB::raw("SUBSTRING(enquiry_date, 4, 2)"), $month)
+        //         ->where(DB::raw("SUBSTRING(enquiry_date, 7, 4)"), $year)
+        //         ->where()
+        //         ->count();
+
+        //     $wipenqs[] = [
+        //         'month' => date('M Y'),
+        //         'leads' => $wipenq
+        //     ];
+        // }
+
+        // dd($wipenq);
+        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan'));
     }
 
     public function store(Request $request)
@@ -366,7 +385,7 @@ $ssl=DB::table('ssl_certificate')->where('company_name',$id)->select('source as 
             //             ->from($infomail, $company_name_value)
             //             ->subject($request->subject)
             //             ->html($htmlContent);
-            
+
             //     // Add any CC emails from mail_cc array
             //     if ($request->has('mail_cc') && count($request->mail_cc) > 0) {
             //         foreach ($request->mail_cc as $m_email) {
@@ -376,7 +395,7 @@ $ssl=DB::table('ssl_certificate')->where('company_name',$id)->select('source as 
             //         }
             //     }
             // });
-       
+
             session()->flash('secmessage', 'Notes Created Successfully.');
             return response()->json(['status' => 1, 'message' => 'Notes Created Successfully.'], 200);
         } else {

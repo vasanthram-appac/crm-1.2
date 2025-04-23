@@ -159,8 +159,6 @@ class Email extends Controller
             return response()->json(['status' => 1, 'message' => 'Email Already added in Server'], 200);
         }
 
-      
-
         // Format dates
         $registerdate = date("d-m-Y", strtotime($request->dateofregis));
         $renewaldate = date("d-m-Y", strtotime($request->dateofrenewal));
@@ -298,7 +296,6 @@ class Email extends Controller
         session()->flash('secmessage', 'Email Server details updated successfully.');
         return response()->json(['status' => 1, 'message' => 'Email Server details updated successfully.'], 200);
     }
-
 
     public function destroy($id)
     {

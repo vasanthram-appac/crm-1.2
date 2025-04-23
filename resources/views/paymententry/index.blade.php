@@ -22,22 +22,82 @@
         background-color: #01152b !important;
         color: #fff !important;
     }
+
+    .select2-container .select2-selection--single {
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 43px !important;
+        border: 0 !important;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        color: #444;
+        line-height: 28px;
+        padding-top: 7px !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 26px;
+        position: absolute;
+        top: 10px !important;
+        right: 1px;
+        width: 20px;
+    }
 </style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 @endsection
 
 @section('content')
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
-<div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
+
+    <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
+
+        <div class="col-lg-3 col-sm-12">
+            <div class="form-group">
+                {!! Form::label('companyname', 'Company Name', ['class' => 'label-color py-2']) !!}
+                {!! Form::select('company_name', $accounts, null, ['class' => 'form-select select2', 'required' => true]) !!}
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-12">
+            <div class="form-group px-2">
+                {!! Form::label('reportrange', 'Date', ['class' => 'label-color py-2']) !!}
+                <input type="text" name="daterange" id="reportrange" class="form-control " />
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-sm-12">
+            <div class="validate-input m-b-23 mt-5 mx-5">
+                <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button" onclick="searchpayment()">
+                    Submit
+                </button>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-sm-12">
+            <div class="alidate-input m-b-23 mb-2">
+                <p class="fs-4 pt-5 totalamount mb-0"></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
             <h1 class="ch2 comp-name">Payment Entry</h1>
         </div>
         <div class="justify-content-sm-end d-flex">
-                <div class=""></div>
-                <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Paymententry::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Payment</button>
-            </div>
+            <div class=""></div>
+            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Paymententry::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Payment</button>
+        </div>
     </div>
+
+
 
     <!-- <div class="lead-charthed d-flex flex-wrap pt-4">
         <div class="col-lg-8 col-md-8 col-sm-12 p-0 pr-30">
@@ -66,7 +126,7 @@
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
 
-          
+
 
             <div class="p-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered ">
@@ -119,11 +179,12 @@
     </div>
 </div>
 
-
 @endsection
 
-
 @section('script')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script>
     $(document).ready(function() {
 
@@ -216,8 +277,8 @@
                 ]
             <?php endif; ?>
         });
-		
-		        // Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon
@@ -332,7 +393,78 @@
             });
         });
 
+    });
 
+    $(document).ready(function() {
+        $('.select2').select2({
+            width: '100%'
+        });
+    });
+
+    function searchpayment() {
+
+        var companyname = $('[name="company_name"]').val();
+        var daterange = $('[name="daterange"]').val();
+
+        // Validate required fields
+        if (companyname == "" || companyname == 0) {
+            alert("Please select a company name.");
+            return false;
+        }
+        if (!daterange) {
+            alert("Please select a date range.");
+            return false;
+        }
+
+        $.ajax({
+            url: '/searchpayment', // Change this to your endpoint
+            type: 'POST',
+            data: {
+                companyname: companyname,
+                daterange: daterange,
+                _token: '{{ csrf_token() }}',
+            },
+            success: function(response) {
+                $('.totalamount').text('Total Amount: ' + response.payment);
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    }
+
+    $(function() {
+        var start = moment('01/01/2019');
+        var end = moment();
+
+        function cb(start, end) {
+            // Set the value of the input field
+            $('#reportrange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+
+            // Send selected date range to server via AJAX
+            var daterange = {
+                start: start.format('YYYY-MM-DD'), // Convert to YYYY-MM-DD format for comparison
+                end: end.format('YYYY-MM-DD') // Same format for end date
+            };
+        }
+
+        $('#reportrange').daterangepicker({
+            autoUpdateInput: false,
+            startDate: start,
+            endDate: end,
+            locale: {
+                format: 'MM/DD/YYYY'
+            },
+            ranges: {
+                'All': [moment('01/01/2019'), moment()],
+                'Today': [moment(), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            }
+        }, cb);
+
+        cb(start, end);
     });
 </script>
+
 @endsection
