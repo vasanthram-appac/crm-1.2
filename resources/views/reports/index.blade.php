@@ -94,7 +94,6 @@
                         </div>
                     </a>
                 </div>
-
                 @php
                     $empid = request()->session()->get('empid');
                 @endphp
@@ -113,7 +112,6 @@
                     </a>
                 </div>
                 @endif
-
                 @endif
             </div>
         </div>

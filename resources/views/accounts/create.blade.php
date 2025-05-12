@@ -8,7 +8,6 @@
 
     <!-- <a href="javascript:history.back()">Back</a> -->
     <a href="javascript:window.location.reload()">Back</a>
-
     <!-- Profile Portlet -->
     <div class="profile span12">
         <div class="span6 profile-side-box col-12 my-3 col-lg-12 col-xl-12 col-xxl-12">
