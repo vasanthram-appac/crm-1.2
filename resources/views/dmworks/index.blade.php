@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title','Task View')
+@section('title','DM Works')
 
 @section('css')
 <style>
@@ -29,30 +29,53 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
-<div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
+    <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">Task View</h1>
+            <h1 class="ch2 comp-name">DM Works</h1>
         </div>
-        <div class="justify-content-sm-end d-flex">
-                <div class=""></div>
-                <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Task::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Task</button>
+
+        <div class="row">
+
+        <div class="col-lg-5 col-sm-12">
+            <div class="alidate-input m-b-23 mb-2">
+                {!! Form::label('dmaccount', 'Client Name*', ['class' => 'label-color py-2 '] ) !!}
+                <select name="dmaccount" class="form-select select2" id="company_nameid" onchange="categorynameone(this.value)">
+                    <option value="All" @if(request()->session()->get('dmaccount') == 'All') selected @endif>All</option>
+                    @foreach($domainmaster as $master)
+                    <option value="{{ $master->company_name }}"
+                        @if(session()->get('dmaccount') == $master->company_name) selected @endif>
+                        {{ $master->company_name_full }}
+                    </option>
+                    @endforeach
+                </select>
             </div>
+        </div>
+
+        <div class="col-lg-5 col-sm-12">
+            <div class="alidate-input m-b-23 mb-2">
+                {!! Form::label('dmtype', 'Type*', ['class' => 'label-color py-2 '] ) !!}
+            <select name="dmtype" class="tab-sel form-select" id="dmtype">
+                <option value="All" @if(request()->session()->get('dmtype') == 'All') selected @endif>All</option>
+                <option value="Promotion Dashboard" @if(request()->session()->get('dmtype') == 'Promotion Dashboard') selected @endif>Promotion Dashboard</option>
+                <option value="Monthly Report" @if(request()->session()->get('dmtype') == 'Monthly Report') selected @endif>Monthly Report</option>
+                <option value="Audit Report" @if(request()->session()->get('dmtype') == 'Audit Report') selected @endif>Audit Report</option>
+                <option value="MR Report" @if(request()->session()->get('dmtype') == 'MR Report') selected @endif>MR Report</option>
+                <option value="Minutes of Meeting" @if(request()->session()->get('dmtype') == 'Minutes of Meeting') selected @endif>Minutes of Meeting</option>
+                <option value="Others" @if(request()->session()->get('dmtype') == 'Others') selected @endif>Others</option>
+            </select>
+        </div>
+        </div>
+
+        <div class="col-lg-2 col-sm-12">
+            <button type="submit" class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 mt-5" onclick="Status()">Submit</button>
+        </div>
     </div>
-    <!-- <div class="lead-charthed d-flex flex-wrap pt-4">
-        <div class="col-lg-8 col-md-8 col-sm-12 p-0 pr-30">
-            <div class="d-flex align-items-center justify-content-center piechart-leads">
-                <div class="chart-container">
-                    <div id="chart1" class="chart"></div>
-                    <div id="chart2" class="chart"></div>
-                    <div id="chart3" class="chart"></div>
-                    <div id="chart4" class="chart"></div>
-                </div>
-            </div>
+
+        <div class=" justify-content-sm-end d-flex  gap-2 flex-wrap">
+            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\DMworks::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add DM Works</button>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 p-0">
-            <div id="bar_chart"></div>
-        </div>
-    </div> -->
+    </div>
+
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
             <!-- <div class="add-newproduct-tab">
@@ -61,24 +84,19 @@
                 </div>
             </div> comment by vasanth-->
 
-
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
 
-            
-
             <div class="p-4 table-responsive">
-                <table id="example" class="dataTable mt-6 table table-bordered ">
+                <table id="example" class="dataTable mt-6 table table-bordered">
                     <thead>
                         <tr class="bg-white">
-                            <th class="text-grey">S.No</th>
-                            <th class="text-grey">Task ID</th>
-                            <th class="text-grey">Company Name</th>
-                            <th class="text-grey">Task Name</th>
-                            <th class="text-grey">Task Startdate</th>
-                            <th class="text-grey">Assigned to Employee</th>
-                            <th class="text-grey">Assigned By</th>
-                            <th class="text-grey">Task Status</th>
+                            <th class="text-grey">S.no</th>
+                            <th class="text-grey">Account Name</th>
+                            <th class="text-grey">Domain Name</th>
+                            <th class="text-grey">Name</th>
+                            <th class="text-grey">Type</th>
+                            <th class="text-grey">URL</th>
                             <th class="text-grey">Action</th>
                             <!-- Add more columns as needed -->
                         </tr>
@@ -93,7 +111,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="modal fade" id="errorModal" role="dialog" style="">
         <div class="modal-dialog cascading-modal float-end me-3" role="document">
@@ -115,9 +132,7 @@
     </div>
 </div>
 
-
 @endsection
-
 
 @section('script')
 <script>
@@ -128,42 +143,31 @@
             serverSide: true,
             pageLength: 10,
             lengthMenu: [10, 20, 50, 100],
-            ajax: "{{ action([App\Http\Controllers\Task::class,'index']) }}",
+            ajax: "{{ action([App\Http\Controllers\DMworks::class,'index']) }}",
             columns: [{
                     data: 'sno',
                     name: 'sno'
                 },
-
                 {
-                    data: 'taskid',
-                    name: 'taskid'
+                    data: 'companyname',
+                    name: 'companyname'
                 },
                 {
-                    data: 'company_name',
-                    name: 'company_name'
+                    data: 'domainname',
+                    name: 'domainname'
                 },
                 {
-                    data: 'task_name',
-                    name: 'task_name'
+                    data: 'name',
+                    name: 'name'
                 },
                 {
-                    data: 'task_startdate',
-                    type: 'date-mm-dd', // Use the custom date type
-                    orderData: 0
+                    data: 'type',
+                    name: 'type'
                 },
                 {
-                    data: 'fname',
-                    name: 'fname'
+                    data: 'url',
+                    name: 'url'
                 },
-                {
-                    data: 'assig_fname',
-                    name: 'assig_fname'
-                },
-                {
-                    data: 'status',
-                    name: 'status'
-                },
-                
                 {
                     data: 'action',
                     name: 'action',
@@ -201,8 +205,8 @@
                 ]
             <?php endif; ?>
         });
-		
-		// Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon
@@ -213,6 +217,7 @@
         $('#example_paginate').addClass('mt-3');
         $('.dt-buttons').addClass('ps-2');
         $('#example_wrapper').addClass('overflow-x-auto');
+
 
         $(document).on('submit', 'form', function(e) {
             e.preventDefault();
@@ -230,9 +235,6 @@
                 cache: false,
                 contentType: false,
                 processData: false,
-                beforeSend: function() {
-                $(".wipadd").prop("disabled", true).text("Submitting...");
-                },
                 success: function(response) {
 
                     $('#session_message').css('display', 'block');
@@ -252,7 +254,6 @@
                         $('.customer_modal').modal('hide');
                         $('.appac_show').hide();
                         $('.appac_hide').show();
-                        $(".wipadd").prop("disabled", false).text("Add");
                         cat_table.ajax.reload(null, false); // Prevents table state reset on reload
                     }
 
@@ -270,16 +271,16 @@
                     // Show errors in a Bootstrap modal (assuming you are using Bootstrap)
                     $('#errorModal .error-modal').html(errorString);
                     $('#errorModal').modal('show');
-                    $(".wipadd").prop("disabled", false).text("Add");
                 }
             });
         });
+
 
         $(document).on('click', '.conformdelete', function() {
             var Id = $(this).data('id');
             swal({
                 title: "Alert",
-                text: "Are you sure you want to delete the DM contract?",
+                text: "Are you sure you want to delete the DM Works?",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -288,7 +289,7 @@
             }).then(function(isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: '/dmcontract/' + Id, // Change this to your endpoint
+                        url: '/dmworks/' + Id, // Change this to your endpoint
                         type: 'DELETE',
                         data: {
                             id: Id,
@@ -313,11 +314,42 @@
                         }
                     });
                 } else {
-                    window.location.href = '/dmcontract';
+                    window.location.href = '/dmworks';
                 }
             });
         });
 
+
+
     });
+
+    function Status() {
+
+        var dmaccount = $('select[name="dmaccount"]').val();
+        var dmtype = $('select[name="dmtype"]').val();
+
+        $.ajax({
+            url: "{{ action([App\Http\Controllers\DMworks::class, 'index']) }}",
+            type: 'GET',
+            data: {
+                dmaccount: dmaccount,
+                dmtype: dmtype
+            },
+            success: function(response) {
+                window.location.reload();
+            },
+            error: function(xhr) {
+                var errors = xhr.responseJSON.errors;
+                var errorString = '';
+
+                for (var key in errors) {
+                    errorString += '<span class="text-danger">' + errors[key][0] + '</span><br>';
+                }
+
+                $('#errorModal .error-modal').html(errorString);
+                $('#errorModal').modal('show');
+            }
+        });
+    }
 </script>
 @endsection

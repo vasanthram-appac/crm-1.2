@@ -289,8 +289,11 @@ class Accounts extends Controller
 
         $hosting = DB::table('hosting')->where('company_name', $id)->select('dateofexpire', 'hosting_source', 'hosting_manager')->first();
 
-        $plans = DB::table('plans')->where('company_name', $id)->where('type','SEO')->select('dateofregis', 'dateofexpire', 'amount','plansmonth')->first();
-        $plan = DB::table('plans')->where('company_name', $id)->where('type','AMC')->select('dateofregis', 'dateofexpire', 'amount','plansmonth')->first();
+        $plans = DB::table('plans')->where('company_name', $id)->where('type', 'SEO')->select('dateofregis', 'dateofexpire', 'amount', 'plansmonth')->first();
+        $plan = DB::table('plans')->where('company_name', $id)->where('type', 'AMC')->select('dateofregis', 'dateofexpire', 'amount', 'plansmonth')->first();
+        $dmworks = DB::table('dmworks')->select('name', 'type', 'url')->get();
+        $invoice = DB::table('invoicedetails')->select('empid', 'invoice_no', 'invoice_date', 'grosspay')->get();
+
         // for ($i = 0; $i < 7; $i++) {
         //     $month = date('m');
         //     $year = date('Y');
@@ -309,7 +312,7 @@ class Accounts extends Controller
         // }
 
         // dd($wipenq);
-        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan'));
+        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan', 'dmworks', 'invoice'));
     }
 
     public function store(Request $request)
@@ -520,5 +523,36 @@ class Accounts extends Controller
             session()->flash('secmessage', 'Failed to update status.');
             return response()->json(['status' => 1, 'message' => 'Failed to update status.'], 200);
         }
+    }
+
+    public function dmaccountsearch($type, $name)
+    {
+        dd($type, $name);
+
+        if (isset($name) && !empty($name) && isset($type) && !empty($type)) {
+            request()->session()->put('dmname', $request->dmaccount);
+            request()->session()->put('dmtypea', $request->dmtype);
+
+            if ($name == "All") {
+                request()->session()->put('dmname', "");
+            }
+
+            if ($type == "All") {
+                request()->session()->put('dmtypea', "");
+            }
+        }
+
+        $dmworks = DB::table('dmworks')
+            ->select('name', 'type', 'url');
+
+        if (!empty(request()->session()->get('dmname'))) {
+            $dmworks->where('name', request()->session()->get('dmname'));
+        }
+
+        if (!empty(request()->session()->get('dmtypea'))) {
+            $dmworks->where('dmworks.type', request()->session()->get('dmtypea'));
+        }
+
+        $dmworks->get();
     }
 }

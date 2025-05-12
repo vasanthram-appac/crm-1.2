@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title','Task View')
+@section('title','New NBD')
 
 @section('css')
 <style>
@@ -31,56 +31,33 @@
 <div class="row m-0 appac_hide">
 <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">Task View</h1>
+            <h1 class="ch2 comp-name">New NBD</h1>
         </div>
         <div class="justify-content-sm-end d-flex">
                 <div class=""></div>
-                <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Task::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Task</button>
+                <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Newnbd::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add New NBD</button>
             </div>
     </div>
-    <!-- <div class="lead-charthed d-flex flex-wrap pt-4">
-        <div class="col-lg-8 col-md-8 col-sm-12 p-0 pr-30">
-            <div class="d-flex align-items-center justify-content-center piechart-leads">
-                <div class="chart-container">
-                    <div id="chart1" class="chart"></div>
-                    <div id="chart2" class="chart"></div>
-                    <div id="chart3" class="chart"></div>
-                    <div id="chart4" class="chart"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 p-0">
-            <div id="bar_chart"></div>
-        </div>
-    </div> -->
+   
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
-            <!-- <div class="add-newproduct-tab">
-                <div class="gradient-card-header">
-                    <h2 class="white-text mx-3">Leads</h2>
-                </div>
-            </div> comment by vasanth-->
-
 
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
-
-            
 
             <div class="p-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered ">
                     <thead>
                         <tr class="bg-white">
                             <th class="text-grey">S.No</th>
-                            <th class="text-grey">Task ID</th>
+                            <th class="text-grey">Name</th>
+                            <th class="text-grey">Email</th>
+                            <th class="text-grey">Mobile</th>
                             <th class="text-grey">Company Name</th>
-                            <th class="text-grey">Task Name</th>
-                            <th class="text-grey">Task Startdate</th>
-                            <th class="text-grey">Assigned to Employee</th>
-                            <th class="text-grey">Assigned By</th>
-                            <th class="text-grey">Task Status</th>
+                            <th class="text-grey">Employee</th>
+                            <th class="text-grey">Source</th>
+                            <th class="text-grey">Status</th>
                             <th class="text-grey">Action</th>
-                            <!-- Add more columns as needed -->
                         </tr>
                     </thead>
                 </table>
@@ -128,36 +105,34 @@
             serverSide: true,
             pageLength: 10,
             lengthMenu: [10, 20, 50, 100],
-            ajax: "{{ action([App\Http\Controllers\Task::class,'index']) }}",
+            ajax: "{{ action([App\Http\Controllers\Newnbd::class,'index']) }}",
             columns: [{
                     data: 'sno',
                     name: 'sno'
                 },
-
                 {
-                    data: 'taskid',
-                    name: 'taskid'
+                    data: 'name',
+                    name: 'name'
                 },
                 {
-                    data: 'company_name',
-                    name: 'company_name'
+                    data: 'email',
+                    name: 'email'
                 },
                 {
-                    data: 'task_name',
-                    name: 'task_name'
+                    data: 'mobile',
+                    name: 'mobile'
                 },
                 {
-                    data: 'task_startdate',
-                    type: 'date-mm-dd', // Use the custom date type
-                    orderData: 0
+                    data: 'companyname',
+                    name: 'companyname'
                 },
                 {
                     data: 'fname',
                     name: 'fname'
                 },
                 {
-                    data: 'assig_fname',
-                    name: 'assig_fname'
+                    data: 'source',
+                    name: 'source'
                 },
                 {
                     data: 'status',

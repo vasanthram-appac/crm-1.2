@@ -161,6 +161,40 @@
                     </a>
                 </div>
 
+                <div class="g-data ps-3"><a href="/newnbd">
+                        <div class="bio  rounded-30  piechart-leads dash-9">
+                            <div class="svg-d">
+                                <svg id="Layer_1" enable-background="new 0 0 16 16" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                                    <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                                        <g id="star">
+                                            <path d="m8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zm4 14-4-3-4 3 1-5-4-3h5l2-5 2 5h5l-4 3z" fill="#b1b5c3" fill-opacity="1" data-original-color="#37474fff" stroke="none" stroke-opacity="1" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <h3 class="text-center">New NBD</h3>
+                            <h4>0</h4>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="g-data ps-3"><a href="/dmworks">
+                        <div class="bio  rounded-30  piechart-leads dash-9">
+                            <div class="svg-d">
+                                <svg id="Layer_1" enable-background="new 0 0 16 16" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                                    <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                                        <g id="star">
+                                            <path d="m8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zm4 14-4-3-4 3 1-5-4-3h5l2-5 2 5h5l-4 3z" fill="#b1b5c3" fill-opacity="1" data-original-color="#37474fff" stroke="none" stroke-opacity="1" />
+                                        </g>
+                                    </g>
+                                </svg>
+                            </div>
+                            <h3 class="text-center">DM Works</h3>
+                            <h4>0</h4>
+                        </div>
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>

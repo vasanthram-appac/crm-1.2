@@ -26,7 +26,7 @@ class Workreport extends Controller
 
             if (count($data) > 0) {
                 foreach ($data as $record) {
-                    $client = (!empty($record->client))? $record->client : $record->wipid ;
+                    $client = (!empty($record->client)) ? $record->client : $record->wipid;
                     $leadid = $record->leadid;
                     $start_time = $record->start_time;
                     $end_time = $record->end_time;
@@ -70,11 +70,11 @@ class Workreport extends Controller
                 ->make(true);
         }
 
-         $totalhours = DB::table('dailyreport')
-        ->where('empid', request()->session()->get('empid'))
-        ->where('report_date', date('d-m-Y'))
-        ->selectRaw('SUM(w_hours) AS total_hours, SUM(w_mins) AS total_minutes, COUNT(*) AS totalcount')
-        ->get();
+        $totalhours = DB::table('dailyreport')
+            ->where('empid', request()->session()->get('empid'))
+            ->where('report_date', date('d-m-Y'))
+            ->selectRaw('SUM(w_hours) AS total_hours, SUM(w_mins) AS total_minutes, COUNT(*) AS totalcount')
+            ->get();
 
         $totalMinutes = ($totalhours[0]->total_hours * 60) + $totalhours[0]->total_minutes;
         $hours = floor($totalMinutes / 60);
@@ -82,23 +82,23 @@ class Workreport extends Controller
 
 
         $totalhour = DB::table('dailyreport')
-        ->join('accounts', 'dailyreport.client', '=', 'accounts.id') // Correct JOIN syntax
-        ->where('dailyreport.empid', request()->session()->get('empid'))
-        ->where('dailyreport.report_date', date('d-m-Y'))
-        ->selectRaw('accounts.company_name, SUM(dailyreport.w_hours) AS total_hours, SUM(dailyreport.w_mins) AS total_minutes')
-        ->groupBy('accounts.company_name') // Grouping by the correct column
-        ->get();
-    
-    
-    // Process results to format hours and minutes correctly
-    $clientWiseData = $totalhour->map(function ($item) {
-        $totalMinute = ($item->total_hours * 60) + $item->total_minutes;
-        return [
-            'client' => $item->company_name,
-            'hours' => floor($totalMinute / 60),
-            'minutes' => $totalMinute % 60
-        ];
-    });
+            ->join('accounts', 'dailyreport.client', '=', 'accounts.id') // Correct JOIN syntax
+            ->where('dailyreport.empid', request()->session()->get('empid'))
+            ->where('dailyreport.report_date', date('d-m-Y'))
+            ->selectRaw('accounts.company_name, SUM(dailyreport.w_hours) AS total_hours, SUM(dailyreport.w_mins) AS total_minutes')
+            ->groupBy('accounts.company_name') // Grouping by the correct column
+            ->get();
+
+
+        // Process results to format hours and minutes correctly
+        $clientWiseData = $totalhour->map(function ($item) {
+            $totalMinute = ($item->total_hours * 60) + $item->total_minutes;
+            return [
+                'client' => $item->company_name,
+                'hours' => floor($totalMinute / 60),
+                'minutes' => $totalMinute % 60
+            ];
+        });
 
 
         return view('workreport/index', compact('hours', 'remainingMinutes', 'clientWiseData'))->render();
@@ -106,22 +106,29 @@ class Workreport extends Controller
 
     public function create(Request $request)
     {
-        $accounts = DB::table('accounts')->where('status', '1')->where('active_status', 'active')->orderBy('company_name', 'ASC')->pluck('company_name', 'id');
+        $accounts = DB::table('accounts')
+            ->where('status', '1')
+            ->where('active_status', 'active')
+            ->orderBy('company_name', 'ASC')
+            ->pluck('company_name', 'id')
+            ->toArray();
 
         $accounts[147] = 'Others';
+
+        $accounts = ['0' => 'Select Option'] + $accounts;
 
         $dept_id = request()->session()->get('dept_id');
 
         if ($dept_id == 2) {
             $work_types = DB::table('work_type')->whereIn('dept', [2, 3])->get();
-        }else if($dept_id == 5 || $dept_id == 4){
-            $work_types = DB::table('work_type')->whereIn('dept', [4,0])->get();
-        }else {
-            
-            if($dept_id != 1 && $dept_id != 5 && $dept_id != 6 && $dept_id != 7){
-                $dept_id1=$dept_id;
-            }else{
-                $dept_id1="0";
+        } else if ($dept_id == 5 || $dept_id == 4) {
+            $work_types = DB::table('work_type')->whereIn('dept', [4, 0])->get();
+        } else {
+
+            if ($dept_id != 1 && $dept_id != 5 && $dept_id != 6 && $dept_id != 7) {
+                $dept_id1 = $dept_id;
+            } else {
+                $dept_id1 = "0";
             }
 
             $work_types = DB::table('work_type')->where('dept', $dept_id1)->get();
@@ -136,20 +143,22 @@ class Workreport extends Controller
         $leads_list = DB::table('leads')
             ->where('oppourtunity_status', 'inactive')
             ->orderBy('company_name', 'ASC')
-            ->pluck('company_name', 'id');
+            ->pluck('company_name', 'id')->toArray();
 
-  $lasttime = DB::table('dailyreport')
+        $leads_list = ['0' => 'Select Option'] + $leads_list;
+
+        $lasttime = DB::table('dailyreport')
             ->select('end')
             ->where('report_date1', date('Y-m-d'))
             ->orderBy('id', 'DESC')
             ->first();
 
-            if(!empty($lasttime)){
-              
-                $lasttime=date('H:i', strtotime($lasttime->end . ' +1 minute'));   
-            }else{
-                $lasttime='08:45';
-            }
+        if (!empty($lasttime)) {
+
+            $lasttime = date('H:i', strtotime($lasttime->end . ' +1 minute'));
+        } else {
+            $lasttime = '00:00';
+        }
 
 
         return view('workreport/create', compact('accounts', 'work_types', 'wip_list', 'leads_list', 'lasttime'))->render();
@@ -161,11 +170,10 @@ class Workreport extends Controller
         // Define validation rules for inputs
         $validator = Validator::make($request->all(), [
             'report_date' => 'required|date',
-            'client' => 'nullable|exists:accounts,id',
-            'wipid' => 'nullable|exists:work_wip,id',
+            // 'client' => 'nullable|exists:accounts,id',
             'worktype' => 'required|integer',
-            'wipid' => 'nullable|exists:work_wip,id', // Assuming 'wip_list' is your table and 'id' is the column
-            'leadid' => 'nullable|exists:leads,id', // Assuming 'leads_list' is your table and 'id' is the column
+            // 'wipid' => 'nullable|exists:work_wip,id', // Assuming 'wip_list' is your table and 'id' is the column
+            // 'leadid' => 'nullable|exists:leads,id', // Assuming 'leads_list' is your table and 'id' is the column
             'start_time' => 'required|date_format:H:i',
             'end_time' => [
                 'required',
@@ -175,22 +183,22 @@ class Workreport extends Controller
                     // Parse start_time and end_time as timestamps
                     $startTime = strtotime($request->start_time);
                     $endTime = strtotime($value);
-            
+
                     // Ensure both timestamps are valid
                     if ($startTime === false || $endTime === false) {
                         $fail("Invalid time format provided for start or end time.");
                         return;
                     }
-            
+
                     // Calculate the difference in minutes
                     $diffInMinutes = ($endTime - $startTime) / 60;
-            
+
                     // Allow if the difference is 5 hours or less
                     if ($diffInMinutes > 300) {
                         $fail("The difference between start time and end time must be 5 hours or less.");
                     }
                 },
-                
+
             ],
 
             'project_name' => 'nullable|string|max:255',
@@ -200,6 +208,9 @@ class Workreport extends Controller
         $validator->after(function ($validator) use ($request) {
             if (empty($request->client) && empty($request->wipid)) {
                 $validator->errors()->add('client', 'Either Client or WIP ID is required.');
+            }
+            if (empty($request->client) && empty($request->wipid) && empty($request->leadid)) {
+                $validator->errors()->add('client', 'Either Client or WIP ID or Lead ID is required.');
             }
         });
 
@@ -256,14 +267,14 @@ class Workreport extends Controller
 
         if ($dept_id == 2) {
             $work_types = DB::table('work_type')->whereIn('dept', [2, 3])->get();
-        }else if($dept_id == 5 || $dept_id == 4){
-            $work_types = DB::table('work_type')->whereIn('dept', [4,0])->get();
-        }else {
-            
-            if($dept_id != 1 && $dept_id != 5 && $dept_id != 6 && $dept_id != 7){
-                $dept_id1=$dept_id;
-            }else{
-                $dept_id1="0";
+        } else if ($dept_id == 5 || $dept_id == 4) {
+            $work_types = DB::table('work_type')->whereIn('dept', [4, 0])->get();
+        } else {
+
+            if ($dept_id != 1 && $dept_id != 5 && $dept_id != 6 && $dept_id != 7) {
+                $dept_id1 = $dept_id;
+            } else {
+                $dept_id1 = "0";
             }
 
             $work_types = DB::table('work_type')->where('dept', $dept_id1)->get();
@@ -280,12 +291,12 @@ class Workreport extends Controller
             ->orderBy('company_name', 'ASC')
             ->pluck('company_name', 'id');
 
-        return view('workreport/edit', compact('accounts', 'work_types', 'wip_list', 'leads_list','workreport'))->render();
+        return view('workreport/edit', compact('accounts', 'work_types', 'wip_list', 'leads_list', 'workreport'))->render();
     }
 
     public function update(Request $request, $id)
     {
-        
+
         // Define validation rules for inputs
         $validator = Validator::make($request->all(), [
             'report_date' => 'required|date',
@@ -302,22 +313,22 @@ class Workreport extends Controller
                     // Parse start_time and end_time as timestamps
                     $startTime = strtotime($request->start_time);
                     $endTime = strtotime($value);
-            
+
                     // Ensure both timestamps are valid
                     if ($startTime === false || $endTime === false) {
                         $fail("Invalid time format provided for start or end time.");
                         return;
                     }
-            
+
                     // Calculate the difference in minutes
                     $diffInMinutes = ($endTime - $startTime) / 60;
-            
+
                     // Allow if the difference is 5 hours or less
                     if ($diffInMinutes > 300) {
                         $fail("The difference between start time and end time must be 5 hours or less.");
                     }
                 },
-                
+
             ],
 
             'project_name' => 'nullable|string|max:255',
@@ -359,7 +370,7 @@ class Workreport extends Controller
         ];
 
         // Insert data into the database
-        DB::table('dailyreport')->where('id',$id)->update($reportData);
+        DB::table('dailyreport')->where('id', $id)->update($reportData);
 
         session()->flash('secmessage', 'your Daily Report updated successfully.');
         return response()->json(['status' => 1, 'message' => 'your Daily Report updated successfully.'], 200);

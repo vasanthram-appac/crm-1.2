@@ -236,6 +236,12 @@ Route::resource('/ratecards','App\Http\Controllers\Ratecards');
 
 Route::resource('/plans','App\Http\Controllers\Plans');
 
+Route::resource('/newnbd','App\Http\Controllers\Newnbd');
+
+Route::resource('/dmworks','App\Http\Controllers\DMworks');
+
+Route::post('/dmaccountsearch/{type}/{name}', [Accounts::class, 'dmaccountsearch'])->name('dmaccountsearch');
+
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 
 });

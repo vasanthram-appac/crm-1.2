@@ -76,7 +76,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="form-group">
                         {!! Form::label('client', 'Client Name*', ['class' => 'form-label']) !!}
-                        {!! Form::select('client', $accounts, null, ['class' => 'form-select select2']) !!}
+                        {!! Form::select('client', $accounts, null, ['class' => 'form-select select2' , 'required']) !!}
                         <!-- <div class="custom-select-container">
                         
                             <input type="text" name="client1" id="clientSearch" placeholder="Search Clients..." class="form-control custom-search-input">
@@ -123,7 +123,7 @@
                     <div class="form-group">
                         <div id="type-1">
                             {!! Form::label('wipid', 'WIP List', ['class' => 'form-label']) !!}
-                            {!! Form::select('wipid', $wip_list, null, ['class' => 'form-select select2']) !!}
+                            {!! Form::select('wipid', $wip_list, null, ['class' => 'form-select select2', 'required']) !!}
                         </div>
                         @if (in_array(request()->session()->get('dept_id'), [1, 6, 7]))
                         <label class="form-label mt-3">(OR) Leads Name</label>

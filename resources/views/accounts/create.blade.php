@@ -1,5 +1,5 @@
 <style>
-    #preback{
+    #preback {
         display: none;
     }
 </style>
@@ -372,6 +372,9 @@
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#wiphistory"><b>WIP History</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#report"><b>Daily Work report</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#payment"><b>Payment Details</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#dmworks"><b>DM Works</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#invoice"><b>Invoice</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#proforma"><b>Proforma</b></a></li>
         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#social"><b>Social Media login</b></a></li> -->
     </ul>
 
@@ -554,6 +557,119 @@
             </div>
         </div>
 
+        <!-- DM Works Report Tab -->
+        <div id="dmworks" class="tab-pane fade show " role="tabpanel">
+            <div class="row">
+
+                <div class="col-lg-5 col-sm-12">
+                    <div class="alidate-input m-b-23 mb-2">
+                        {!! Form::label('dmtype', 'Type*', ['class' => 'label-color py-2 '] ) !!}
+                        <select name="dmtype" class="tab-sel form-select" id="dmtype">
+                            <option value="All" @if(request()->session()->get('dmtypea') == 'All') selected @endif>All</option>
+                            <option value="Promotion Dashboard" @if(request()->session()->get('dmtypea') == 'Promotion Dashboard') selected @endif>Promotion Dashboard</option>
+                            <option value="Monthly Report" @if(request()->session()->get('dmtypea') == 'Monthly Report') selected @endif>Monthly Report</option>
+                            <option value="Audit Report" @if(request()->session()->get('dmtypea') == 'Audit Report') selected @endif>Audit Report</option>
+                            <option value="MR Report" @if(request()->session()->get('dmtypea') == 'MR Report') selected @endif>MR Report</option>
+                            <option value="Minutes of Meeting" @if(request()->session()->get('dmtypea') == 'Minutes of Meeting') selected @endif>Minutes of Meeting</option>
+                            <option value="Others" @if(request()->session()->get('dmtypea') == 'Others') selected @endif>Others</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-5 col-sm-12">
+                    <div class="alidate-input m-b-23 mb-2">
+                        {!! Form::label('dmname', 'Name*', ['class' => 'label-color py-2 '] ) !!}
+                        <select name="dmname" class="tab-sel form-select" id="dmname">
+                            <option value="All" @if(request()->session()->get('dmname') == 'All') selected @endif>All</option>
+                            @if(count($dmworks)>0)
+                            @foreach($dmworks as $dmwork)
+                            <option value="{{ $dmwork->name }}" @if(request()->session()->get('dmname') == $dmwork->name) selected @endif>{{ $dmwork->name }}</option>
+                            @endforeach
+                            @endif
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-2 col-sm-12">
+                    <button type="submit" class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 mt-5" onclick="Status()">Submit</button>
+                </div>
+
+                <div class="col-12">
+                    <div class="widget appac">
+                        <!-- <div class="widget-title">
+                            <h4><i class="icon-reorder"></i> Daily Work report</h4>
+                        </div> -->
+                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="bg-white border-0">
+                                        <th>S.no</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if(count($dmworks)>0)
+                                    @foreach($dmworks as $index => $dmwork)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $dmwork->name }}</td>
+                                        <td>{{ $dmwork->type }} </td>
+                                        <td><a href={{ $dmwork->url }} target="blank" style="text-decoration:none;">View</a></td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invoice Tab -->
+        <div id="invoice" class="tab-pane fade show " role="tabpanel">
+            <div class="row">
+                <div class="col-12">
+                    <div class="widget appac">
+                        <!-- <div class="widget-title">
+                            <h4><i class="icon-reorder"></i> Daily Work report</h4>
+                        </div> -->
+                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="bg-white border-0">
+                                        <th>S.no</th>
+                                        <th class="text-grey">Created By</th>
+                                        <th class="text-grey">Invoice No</th>
+                                        <th class="text-grey">Invoice Date</th>
+                                        <th class="text-grey">Amount</th>
+                                        <th class="text-grey">View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if(count($invoice)>0)
+                                    @foreach($invoice as $index => $invoices)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $invoices->empid }}</td>
+                                        <td>{{ $invoices->invoice_no }}</td>
+                                        <td>{{ $invoices->invoice_date }}</td>
+                                        <td>{{ $invoices->grosspay }}</td>
+                                        <td><a class="btn" href="' . route('iprint', ['id' => {{$invoices->invoice_no}}]) . '"  target="blank"><i class="fi fi-ts-user-check"></i><span class="tooltiptext">view</span></a></td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Social Media Login Details Tab -->
         <div id="social" class="tab-pane fade show " role="tabpanel">
             <div class="row">
@@ -605,6 +721,31 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script type="text/javascript">
+    function Status() {
+
+        var dmname = $('select[name="dmname"]').val();
+        var dmtypea = $('select[name="dmtypea"]').val();
+
+        $.ajax({
+            url: "/dmaccountsearch/"+dmtypea+"/"+dmname,
+            type: 'GET',
+            success: function(response) {
+                window.location.reload();
+            },
+            error: function(xhr) {
+                var errors = xhr.responseJSON.errors;
+                var errorString = '';
+
+                for (var key in errors) {
+                    errorString += '<span class="text-danger">' + errors[key][0] + '</span><br>';
+                }
+
+                $('#errorModal .error-modal').html(errorString);
+                $('#errorModal').modal('show');
+            }
+        });
+    }
+
     $(document).ready(function() {
         $('.select2').select2(); // Initialize select2
     });

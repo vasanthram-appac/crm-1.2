@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title','Task View')
+@section('title','Task')
 
 @section('css')
 <style>
@@ -31,12 +31,12 @@
 <div class="row m-0 appac_hide">
 <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">Task View</h1>
+            <h1 class="ch2 comp-name">Task</h1>
         </div>
-        <div class="justify-content-sm-end d-flex">
+        <!-- <div class="justify-content-sm-end d-flex">
                 <div class=""></div>
                 <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Task::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Task</button>
-            </div>
+            </div> -->
     </div>
     <!-- <div class="lead-charthed d-flex flex-wrap pt-4">
         <div class="col-lg-8 col-md-8 col-sm-12 p-0 pr-30">
@@ -77,8 +77,8 @@
                             <th class="text-grey">Description</th>
                             <th class="text-grey">Start Date</th>
                             <th class="text-grey">Due Date & Time</th>
-                            <th class="text-grey">Work Status</th>
                             <th class="text-grey">Assigned By</th>
+                            <th class="text-grey">Work Status</th>
                             <th class="text-grey">Action</th>
                             <!-- Add more columns as needed -->
                         </tr>
