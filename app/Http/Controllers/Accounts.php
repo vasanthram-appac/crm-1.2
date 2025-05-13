@@ -557,7 +557,7 @@ class Accounts extends Controller
 
     public function todaydetails()
     {
-
+        if(request()->session()->get('role') != 'user'){
         $hosting = DB::table('hosting')
             ->join('domainmaster', 'hosting.domainname', '=', 'domainmaster.id')
             ->join('accounts', 'hosting.company_name', '=', 'accounts.id')
@@ -602,6 +602,13 @@ class Accounts extends Controller
             ->where('ssl_certificate.dateofexpire', date('d-m-Y'))
             ->orderBy('DateFormat', 'Desc')
             ->get();
+        }else{
+            $hosting = [];
+            $seo_client = [];
+            $domain = [];
+            $emailserver = [];
+            $ssl_certificate = [];
+        }
 
         $calendar = DB::table('calendar')
             ->whereRaw("SUBSTRING(datelist_one, 1, 5) = ?", [date('d-m')])
