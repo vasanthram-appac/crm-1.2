@@ -608,7 +608,7 @@
                 <div class="lgrey-bg  w-100  ">
                     <div class="container">
                         <!--<a href="javascript:window.location.reload()">Back</a>-->
-                        <a id="preback" href="javascript:history.back()">Back</a>
+                    
                         <main class="py-2">
                             @yield('content')
 

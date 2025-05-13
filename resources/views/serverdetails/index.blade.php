@@ -30,6 +30,38 @@
 <div class="appac_show"></div>
 
 <div class="row m-0 appac_hide col-wrap ">
+<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+        <a id="preback" href="javascript:history.back()">Back</a>
+        <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
+            <li class="nav-item">
+                <a class="nav-link "  href="/accounts"><b>Accounts</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "  href="/proforma"><b>Proforma</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/invoice"><b>Invoice</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/paymententry"><b>Payment Entry</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link "  href="/lead"><b>Leads</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/opportunity"><b>Opportunity</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active"  href="/serverdetails"><b>Renewals</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/newnbd"><b>New NBD</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/dmworks"><b>DM Works</b></a>
+            </li>
+        </ul>
+    </div>
 
     <div class="lead-charthed d-flex flex-wrap pt-4 row-gap-3">
         <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 p-0 ">

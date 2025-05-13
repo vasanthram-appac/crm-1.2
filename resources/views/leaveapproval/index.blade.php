@@ -29,6 +29,35 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
+<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+        <a id="preback" href="javascript:history.back()">Back</a>
+        <ul class="nav nav-tabs my-4 justify-content-end mb-0">
+            <li class="nav-item">
+                <a class="nav-link active" href="/profile"><b>Profile</b></a>
+            </li>
+            @if(request()->session()->get('role') != 'user')
+            <li class="nav-item">
+                <a class="nav-link" href="/user"><b>Employee</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/leaveapprovel"><b>Leave Approvel</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/pasyslip"><b>Payslip</b></a>
+            </li>
+            @endif
+            <li class="nav-item">
+                <a class="nav-link" href="/applyleave"><b>Employee Leave</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/celebration"><b>Celebration</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/resignation"><b>Resignation</b></a>
+            </li>
+         
+        </ul>
+    </div>
 <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12">
         <div class="profile-head">
             <h1 class="ch2 comp-name">Leave Approval</h1>
