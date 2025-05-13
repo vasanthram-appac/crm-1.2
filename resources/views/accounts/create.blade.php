@@ -371,9 +371,9 @@
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#wiphistory"><b>WIP History</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#report"><b>Daily Work report</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#payment"><b>Payment Details</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#dmworks"><b>DM Works</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#invoice"><b>Invoice</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#proforma"><b>Proforma</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#dmworks"><b>DM Works</b></a></li>
         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#social"><b>Social Media login</b></a></li> -->
     </ul>
 
@@ -562,8 +562,8 @@
 
                 <div class="col-lg-5 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('dmtype', 'Type*', ['class' => 'label-color py-2 '] ) !!}
-                        <select name="dmtype" class="tab-sel form-select" id="dmtype">
+                        {!! Form::label('dmtypea', 'Type*', ['class' => 'label-color py-2 '] ) !!}
+                        <select name="dmtypea" class="tab-sel form-select" id="dmtypea">
                             <option value="All" @if(request()->session()->get('dmtypea') == 'All') selected @endif>All</option>
                             <option value="Promotion Dashboard" @if(request()->session()->get('dmtypea') == 'Promotion Dashboard') selected @endif>Promotion Dashboard</option>
                             <option value="Monthly Report" @if(request()->session()->get('dmtypea') == 'Monthly Report') selected @endif>Monthly Report</option>
@@ -593,13 +593,10 @@
                     <button type="submit" class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 mt-5" onclick="Status()">Submit</button>
                 </div>
 
-                <div class="col-12">
+                <div class="col-12" id="tabledm" style="display: none;">
                     <div class="widget appac">
-                        <!-- <div class="widget-title">
-                            <h4><i class="icon-reorder"></i> Daily Work report</h4>
-                        </div> -->
-                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
-                            <table class="table table-bordered">
+                        <div class="widget-body" style="height: 500px; overflow: auto; margin: 20px 0px">
+                            <table class="table table-bordered" id="tabledmworks">
                                 <thead>
                                     <tr class="bg-white border-0">
                                         <th>S.no</th>
@@ -609,21 +606,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(count($dmworks)>0)
-                                    @foreach($dmworks as $index => $dmwork)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $dmwork->name }}</td>
-                                        <td>{{ $dmwork->type }} </td>
-                                        <td><a href={{ $dmwork->url }} target="blank" style="text-decoration:none;">View</a></td>
-                                    </tr>
-                                    @endforeach
-                                    @endif
+                                    <!-- Rows will be loaded here via AJAX -->
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -648,21 +637,63 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(count($invoice)>0)
+
+                                    @if(count($invoice) > 0)
                                     @foreach($invoice as $index => $invoices)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
-                                        <td>{{ $invoices->empid }}</td>
+                                        <td>{{ $invoices->fname }}</td>
                                         <td>{{ $invoices->invoice_no }}</td>
                                         <td>{{ $invoices->invoice_date }}</td>
                                         <td>{{ $invoices->grosspay }}</td>
-                                        <td><a class="btn" href="' . route('iprint', ['id' => {{$invoices->invoice_no}}]) . '"  target="blank"><i class="fi fi-ts-user-check"></i><span class="tooltiptext">view</span></a></td>
+                                        <td><a class="btn" href="' . route('iprint', ['id' => {{$invoices->invoice_no}}]) . '" target="blank"><i class="fi fi-ts-user-check"></i><span class="tooltiptext">view</span></a></td>
                                     </tr>
                                     @endforeach
                                     @endif
                                 </tbody>
                             </table>
-                            
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Proforma Tab -->
+        <div id="proforma" class="tab-pane fade show " role="tabpanel">
+            <div class="row">
+                <div class="col-12">
+                    <div class="widget appac">
+                        <!-- <div class="widget-title">
+                            <h4><i class="icon-reorder"></i> Daily Work report</h4>
+                        </div> -->
+                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="bg-white border-0">
+                                        <th>S.no</th>
+                                        <th class="text-grey">Created By</th>
+                                        <th class="text-grey">Invoice No</th>
+                                        <th class="text-grey">Invoice Date</th>
+                                        <th class="text-grey">Amount</th>
+                                        <th class="text-grey">View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if(count($proforma)>0)
+                                    @foreach($proforma as $index => $proformas)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $proformas->fname }}</td>
+                                        <td>{{ $proformas->invoice_no }}</td>
+                                        <td>{{ $proformas->invoice_date }}</td>
+                                        <td>{{ $proformas->grosspay }}</td>
+                                        <td><a class="btn" href="' . route('pprint', ['id' => {{$proformas->invoice_no}}]) . '" target="blank"><i class="fi fi-ts-user-check"></i><span class="tooltiptext">view</span></a></td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -700,7 +731,6 @@
                                         <td>{{ $social->username }}</td>
                                         <td>{{ $social->password }}</td>
                                         <td>{{ $social->remarks }}</td>
-
                                     </tr>
                                     @endforeach
                                     @endif
@@ -720,16 +750,44 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script type="text/javascript">
-    function Status() {
+    $(document).ready(function() {
+        var company_name = $('[name="company_name"]').val();
+        Status("All", "All", company_name);
+    });
 
-        var dmname = $('select[name="dmname"]').val();
-        var dmtypea = $('select[name="dmtypea"]').val();
+    function Status(dmtypea = null, dmname = null, company_name = null) {
+        dmname = dmname ?? $('select[name="dmname"]').val();
+        dmtypea = dmtypea ?? $('select[name="dmtypea"]').val();
+        company_name = company_name ?? $('[name="company_name"]').val();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
         $.ajax({
-            url: "/dmaccountsearch/"+dmtypea+"/"+dmname,
-            type: 'GET',
+            url: "/dmaccountsearch/" + dmtypea + "/" + dmname + "/" + company_name,
+            type: 'POST',
             success: function(response) {
-                window.location.reload();
+                var tableBody = '';
+
+                if (response.length > 0) {
+                    $.each(response, function(index, item) {
+                        tableBody += '<tr>';
+                        tableBody += '<td>' + (index + 1) + '</td>';
+                        tableBody += '<td>' + item.name + '</td>';
+                        tableBody += '<td>' + item.type + '</td>';
+                        tableBody += '<td><a href="' + item.url + '" target="_blank" style="text-decoration:none;">View</a></td>';
+                        tableBody += '</tr>';
+                    });
+                } else {
+                    tableBody = '<tr><td colspan="4" class="text-center">No records found.</td></tr>';
+                }
+
+                $("#tabledm").show();
+
+                $("#tabledmworks tbody").html(tableBody);
             },
             error: function(xhr) {
                 var errors = xhr.responseJSON.errors;

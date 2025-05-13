@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
@@ -16,6 +15,7 @@ class Accounts extends Controller
 
     public function index(Request $request)
     {
+
         // dd($request->all());
         if (request()->session()->get('role') == 'user') {
             return redirect()->to('/workreport');
@@ -61,8 +61,6 @@ class Accounts extends Controller
                     ->get();
             }
             // dd($data);
-
-
 
             return DataTables::of($data)
                 ->addColumn('sno', function ($row) {
@@ -292,8 +290,16 @@ class Accounts extends Controller
         $plans = DB::table('plans')->where('company_name', $id)->where('type', 'SEO')->select('dateofregis', 'dateofexpire', 'amount', 'plansmonth')->first();
         $plan = DB::table('plans')->where('company_name', $id)->where('type', 'AMC')->select('dateofregis', 'dateofexpire', 'amount', 'plansmonth')->first();
         $dmworks = DB::table('dmworks')->select('name', 'type', 'url')->get();
-        $invoice = DB::table('invoicedetails')->select('empid', 'invoice_no', 'invoice_date', 'grosspay')->get();
 
+        $invoice = DB::table('invoicedetails')
+            ->join('regis', 'invoicedetails.empid', 'regis.empid')
+            ->select('regis.fname', 'invoicedetails.invoice_no', 'invoicedetails.invoice_date', 'invoicedetails.grosspay')
+            ->where('company_id', $id)->get();
+
+        $proforma = DB::table('proformadetails')
+            ->join('regis', 'proformadetails.empid', 'regis.empid')
+            ->select('regis.fname', 'proformadetails.invoice_no', 'proformadetails.invoice_date', 'proformadetails.grosspay')
+            ->where('company_id', $id)->get();;
         // for ($i = 0; $i < 7; $i++) {
         //     $month = date('m');
         //     $year = date('Y');
@@ -312,7 +318,7 @@ class Accounts extends Controller
         // }
 
         // dd($wipenq);
-        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan', 'dmworks', 'invoice'));
+        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan', 'dmworks', 'invoice', 'proforma'));
     }
 
     public function store(Request $request)
@@ -513,7 +519,6 @@ class Accounts extends Controller
 
     public function Keystatus($id, $key_status)
     {
-
         $update = DB::table('accounts')->where('id', $id)->update(['key_status' => $key_status]);
 
         if ($update) {
@@ -525,34 +530,100 @@ class Accounts extends Controller
         }
     }
 
-    public function dmaccountsearch($type, $name)
+    public function dmaccountsearch($type, $name, $id)
     {
-        dd($type, $name);
+        // Store the parameters in session (or empty string if "All")
+        request()->session()->put('dmname', $name === "All" ? "" : $name);
+        request()->session()->put('dmtypea', $type === "All" ? "" : $type);
 
-        if (isset($name) && !empty($name) && isset($type) && !empty($type)) {
-            request()->session()->put('dmname', $request->dmaccount);
-            request()->session()->put('dmtypea', $request->dmtype);
-
-            if ($name == "All") {
-                request()->session()->put('dmname', "");
-            }
-
-            if ($type == "All") {
-                request()->session()->put('dmtypea', "");
-            }
-        }
-
-        $dmworks = DB::table('dmworks')
+        // Build the query
+        $query = DB::table('dmworks')
             ->select('name', 'type', 'url');
 
         if (!empty(request()->session()->get('dmname'))) {
-            $dmworks->where('name', request()->session()->get('dmname'));
+            $query->where('name', request()->session()->get('dmname'));
         }
 
         if (!empty(request()->session()->get('dmtypea'))) {
-            $dmworks->where('dmworks.type', request()->session()->get('dmtypea'));
+            $query->where('type', request()->session()->get('dmtypea'));
         }
 
-        $dmworks->get();
+        // Fetch results
+        $dmworks = $query->where('company_name', $id)->get();
+
+        // Return JSON response
+        return response()->json($dmworks);
+    }
+
+    public function todaydetails()
+    {
+
+        $hosting = DB::table('hosting')
+            ->join('domainmaster', 'hosting.domainname', '=', 'domainmaster.id')
+            ->join('accounts', 'hosting.company_name', '=', 'accounts.id')
+            ->select('hosting.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(hosting.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
+            ->where('hosting.status', '0')
+            ->where('hosting.dateofexpire', date('d-m-Y'))
+            ->orderBy('id', 'ASC')
+            ->get();
+
+        $seo_client = DB::table('seo_client')
+            ->join('domainmaster', 'seo_client.domainname', '=', 'domainmaster.id')
+            ->join('accounts', 'seo_client.company_name', '=', 'accounts.id')
+            ->select('seo_client.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(seo_client.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
+            ->where('seo_client.status', '0')
+            ->where('seo_client.dateofexpire', date('d-m-Y'))
+            ->orderBy('DateFormat', 'Desc')
+            ->get();
+
+        $domain = DB::table('domain')
+            ->join('domainmaster', 'domain.domainname', '=', 'domainmaster.id')
+            ->join('accounts', 'domain.company_name', '=', 'accounts.id')
+            ->select('domain.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(domain.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
+            ->where('domain.status', '0')
+            ->where('domain.dateofexpire', date('d-m-Y'))
+            ->orderBy('id', 'ASC')
+            ->get();
+
+        $emailserver = DB::table('emailserver')
+            ->join('domainmaster', 'emailserver.domainname', '=', 'domainmaster.id')
+            ->join('accounts', 'emailserver.company_name', '=', 'accounts.id')
+            ->select('emailserver.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(emailserver.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
+            ->where('emailserver.status', '0')
+            ->where('emailserver.dateofexpire', date('d-m-Y'))
+            ->orderBy('id', 'ASC')
+            ->get();
+
+        $ssl_certificate = DB::table('ssl_certificate')
+            ->join('domainmaster', 'ssl_certificate.domainname', '=', 'domainmaster.id')
+            ->join('accounts', 'ssl_certificate.company_name', '=', 'accounts.id')
+            ->select('ssl_certificate.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(ssl_certificate.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
+            ->where('ssl_certificate.status', '0')
+            ->where('ssl_certificate.dateofexpire', date('d-m-Y'))
+            ->orderBy('DateFormat', 'Desc')
+            ->get();
+
+        $calendar = DB::table('calendar')
+            ->whereRaw("SUBSTRING(datelist_one, 1, 5) = ?", [date('d-m')])
+            ->get();
+
+        $birthdayData = DB::table('personalprofile')
+            ->select('fname')
+            ->where('dob', date('Y-m-d'))
+            ->get();
+
+        $count = count($hosting)+count($seo_client)+count($domain)+count($emailserver)+count($ssl_certificate)+count($calendar)+count($birthdayData);
+
+       return response()->json([
+    'hosting' => $hosting,
+    'seo_client' => $seo_client,
+    'domain' => $domain,
+    'emailserver' => $emailserver,
+    'ssl_certificate' => $ssl_certificate,
+    'calendar' => $calendar,
+    'birthdayData' => $birthdayData,
+    'count' => $count,
+]);
+
     }
 }

@@ -240,7 +240,9 @@ Route::resource('/newnbd','App\Http\Controllers\Newnbd');
 
 Route::resource('/dmworks','App\Http\Controllers\DMworks');
 
-Route::post('/dmaccountsearch/{type}/{name}', [Accounts::class, 'dmaccountsearch'])->name('dmaccountsearch');
+Route::post('/dmaccountsearch/{type}/{name}/{id}', [Accounts::class, 'dmaccountsearch'])->name('dmaccountsearch');
+
+Route::get('/todaydetails', [Accounts::class, 'todaydetails'])->name('todaydetails');
 
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 

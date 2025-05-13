@@ -252,7 +252,20 @@
                         </div>
 
                         <div class="d-flex align-items-center gap-4">
-                            <div class="bell"></div>
+                            <div class="bell pro-d" style="height: 30px !important;">
+                                <p id="totalcount" style="position: absolute; padding-left: 30px;"></p>
+                            </div>
+
+                            <div class="pro-div" style="width: 400px; right: 10px; top: 85px;">
+                                <div class="side-menu-hed h-auto">
+                                    <div class="menu-list-group pt-3 p-2 menu-list-group-flush gap-2  menus">
+                                        <div class=" menus">
+                                            <div id="appenttoday"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             @if(request()->session()->get('role') != 'user')
                             <a href="/settings"> <img src="{{ asset('asset/image/setting.png') }}" width="22" alt=""></a>
                             @endif
@@ -269,10 +282,11 @@
 
                                         </ul> comment by vasanth-->
                             <div class="no-border">
-                                <div><button class="pro-d">
+                                <button class="pro-d">
+                                    <img class="w-100" src="{{ request()->session()->has('profilephoto') && request()->session()->get('profilephoto') ? asset('uploadphoto/' . request()->session()->get('profilephoto'))  : asset('asset/image/avatar/' . request()->session()->get('avatarphoto').'.png') }}" alt="Employee profile">
+                                </button>
 
-                                        <img class="w-100" src="{{ request()->session()->has('profilephoto') && request()->session()->get('profilephoto') ? asset('uploadphoto/' . request()->session()->get('profilephoto'))  : asset('asset/image/avatar/' . request()->session()->get('avatarphoto').'.png') }}" alt="Employee profile">
-                                    </button></div>
+
                                 <div class="pro-div">
                                     <div class="side-menu-hed h-auto">
                                         <div class="menu-list-group pt-3 p-2 menu-list-group-flush gap-2  menus">
@@ -462,11 +476,11 @@
                     <div class="sidemenu">
                         <div>
 
-                       
-                    <div class="menu-list-group menu-list-group-flush gap-2  menus">
+
+                            <div class="menu-list-group menu-list-group-flush gap-2  menus">
 
 
-<!-- <span id="m1">
+                                <!-- <span id="m1">
 <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3">
 <img src="{{ asset('asset/image/dashboard.png') }}" width="22" alt="">
 <p class="mb-0">Dashboard</p><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
@@ -480,32 +494,36 @@
 </ul>
 </span> -->
 
-<span id="m2" class="@if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile'  || $route=='resignation'  || $route=='celebration'  || $route=='payslip'  || $route=='usermodule') active @else  @endif">
-<a href="/usermodule"> <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile' || $route=='resignation'  || $route=='celebration'  || $route=='payslip' || $route=='usermodule') bg-active @else  @endif">
-        <img src="{{ asset('asset/image/user-module.png') }}" width="22" alt="">
-        <p class="mb-0"> My Universe </p>
-       
-    </div></a>
-    
-</span>
+                                <span id="m2" class="@if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile'  || $route=='resignation'  || $route=='celebration'  || $route=='payslip'  || $route=='usermodule') active @else  @endif">
+                                    <a href="/usermodule">
+                                        <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile' || $route=='resignation'  || $route=='celebration'  || $route=='payslip' || $route=='usermodule') bg-active @else  @endif">
+                                            <img src="{{ asset('asset/image/user-module.png') }}" width="22" alt="">
+                                            <p class="mb-0"> My Universe </p>
 
-<span id="m3" class="@if($route=='task' || $route=='taskview' || $route=='workorderview' || $route=='workorder' || $route=='wip' || $route=='promotion' || $route=='design' || $route=='content' || $route=='workoperations') active @else  @endif">
-<a href="/workoperations"> <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='task' || $route=='taskview' || $route=='workorderview' || $route=='workorder' || $route=='wip' || $route=='promotion' || $route=='design' || $route=='content' || $route=='workoperations') bg-active @else  @endif">
-        <img src="{{ asset('asset/image/work-operations.png') }}" width="22" alt="">
-        <p class="mb-0">  Work Operations</p>
-       
-    </div></a>
-  
-</span>
+                                        </div>
+                                    </a>
 
-@if(request()->session()->get('role') != 'user')
-<span id="m4">
-    <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='account') bg-active @else  @endif " href="/account">
-        <img src="{{ asset('asset/image/accounts.png') }}" width="22" alt="">
-        <p>Accounts </p>
-    </a>
-</span>
-<!-- 
+                                </span>
+
+                                <span id="m3" class="@if($route=='task' || $route=='taskview' || $route=='workorderview' || $route=='workorder' || $route=='wip' || $route=='promotion' || $route=='design' || $route=='content' || $route=='workoperations') active @else  @endif">
+                                    <a href="/workoperations">
+                                        <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='task' || $route=='taskview' || $route=='workorderview' || $route=='workorder' || $route=='wip' || $route=='promotion' || $route=='design' || $route=='content' || $route=='workoperations') bg-active @else  @endif">
+                                            <img src="{{ asset('asset/image/work-operations.png') }}" width="22" alt="">
+                                            <p class="mb-0"> Work Operations</p>
+
+                                        </div>
+                                    </a>
+
+                                </span>
+
+                                @if(request()->session()->get('role') != 'user')
+                                <span id="m4">
+                                    <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='account') bg-active @else  @endif " href="/account">
+                                        <img src="{{ asset('asset/image/accounts.png') }}" width="22" alt="">
+                                        <p>Accounts </p>
+                                    </a>
+                                </span>
+                                <!-- 
 <span id="m5" class="@if($route=='proforma' || $route=='invoice' || $route=='paymententry' || $route=='payments') active @else  @endif">
 <a href="/payments"> <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='proforma' || $route=='invoice' || $route=='paymententry' || $route=='payments') bg-active @else  @endif">
         <img src="{{ asset('asset/image/payments.png') }}" width="22" alt="">
@@ -515,15 +533,17 @@
    
 </span> -->
 
-<span id="m6" class="@if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails') active @else  @endif">
-  <a href="/serverdetails"><div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails') bg-active @else  @endif">
-        <img src="{{ asset('asset/image/server-details.png') }}" width="22" alt="">
-        <p class="mb-0">Renewals</p>
-    </div></a>  
-  
-</span>
+                                <span id="m6" class="@if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails') active @else  @endif">
+                                    <a href="/serverdetails">
+                                        <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='hosting' || $route=='domain' || $route=='email' || $route=='ssl'  || $route=='dmcontract'  || $route=='serverdetails') bg-active @else  @endif">
+                                            <img src="{{ asset('asset/image/server-details.png') }}" width="22" alt="">
+                                            <p class="mb-0">Renewals</p>
+                                        </div>
+                                    </a>
 
-<!-- <span id="m7">
+                                </span>
+
+                                <!-- <span id="m7">
 <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3">
 <img src="{{ asset('asset/image/enquiry.png') }}" width="22" alt="">
 <p class="mb-0">Enquiry</p>
@@ -539,69 +559,73 @@
 </span> -->
 
 
-@endif
+                                @endif
 
 
-<span id="m9" class="@if($route=='employeereport' || $route=='report' || $route=='workreport'|| $route=='monthlyreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports' || $route=='fiscal') active @else  @endif">
-  <a href="/reports">  <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='employeereport' || $route=='report' || $route=='workreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports' || $route=='fiscal') active bg-active @else  @endif">
-        <img src="{{ asset('asset/image/reports.png') }}" width="22" alt="">
-        <p class="mb-0">Reports</p>
-       
-    </div> </a>
-   
-</span>
-   @if(request()->session()->get('role') != 'user')
-   <!-- @if (request()->session()->get('empid') == 'AM001' || request()->session()->get('empid') == 'AM090') 
-  <span id="m4">
-    <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='fiscal') bg-active @else  @endif " href="/fiscal">
-        <img src="{{ asset('asset/image/money-growth.png') }}" width="22" alt="">
-        <p>Revenue </p>
-    </a>
-</span> 
-@endif -->
-<!-- <span id="m7" class="@if($route=='fiscal' || $route=='revenue') active @else  @endif">
-    <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='fiscal' || $route=='revenue') active bg-active @else  @endif">
-        <img src="{{ asset('asset/image/money-growth.png') }}" width="22" alt="">
-        <p class="mb-0">Revenue</p>
-        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
-            <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
-        </svg>
-    </div>
-    <ul class="sub-menu @if($route=='fiscal' || $route=='revenue') active @else  @endif">
-        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='fiscal') bg-bactive @else  @endif " href="/fiscal">Fiscal</a></li>
-        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='revenue') bg-bactive @else  @endif " href="/revenue">Revenue</a></li>
-    </ul>
-</span> -->
+                                <span id="m9" class="@if($route=='employeereport' || $route=='report' || $route=='workreport'|| $route=='monthlyreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports' || $route=='fiscal') active @else  @endif">
+                                    <a href="/reports">
+                                        <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='employeereport' || $route=='report' || $route=='workreport' || $route=='enquiryreport'|| $route=='leadhistory'|| $route=='reports' || $route=='fiscal') active bg-active @else  @endif">
+                                            <img src="{{ asset('asset/image/reports.png') }}" width="22" alt="">
+                                            <p class="mb-0">Reports</p>
 
-      
+                                        </div>
+                                    </a>
 
-<span id="m7" class="@if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents' || $route=='ratecards') active @else  @endif">
- <a href="/documents">  <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents' || $route=='ratecards') active bg-active @else  @endif">
-        <img src="{{ asset('asset/image/document-icon.png') }}" width="22" alt="">
-        <p class="mb-0">My Documents</p>
-       
-    </div> </a> 
-  
-</span>
+                                </span>
+                                @if(request()->session()->get('role') != 'user')
+                                <!-- @if (request()->session()->get('empid') == 'AM001' || request()->session()->get('empid') == 'AM090') 
+                                <span id="m4">
+                                    <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='fiscal') bg-active @else  @endif " href="/fiscal">
+                                        <img src="{{ asset('asset/image/money-growth.png') }}" width="22" alt="">
+                                        <p>Revenue </p>
+                                    </a>
+                                </span> 
+                                @endif -->
+                                <!-- <span id="m7" class="@if($route=='fiscal' || $route=='revenue') active @else  @endif">
+                                    <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='fiscal' || $route=='revenue') active bg-active @else  @endif">
+                                        <img src="{{ asset('asset/image/money-growth.png') }}" width="22" alt="">
+                                        <p class="mb-0">Revenue</p>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
+                                            <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
+                                        </svg>
+                                    </div>
+                                    <ul class="sub-menu @if($route=='fiscal' || $route=='revenue') active @else  @endif">
+                                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='fiscal') bg-bactive @else  @endif " href="/fiscal">Fiscal</a></li>
+                                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='revenue') bg-bactive @else  @endif " href="/revenue">Revenue</a></li>
+                                    </ul>
+                                </span> -->
 
-</span>
-@endif
-<!-- <span id="m10">
-<div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3">
-<img src="{{ asset('asset/image/documents.png') }}" width="22" alt="">
-<p class="mb-0">Documents</p>
-<svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
-<path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
-</svg>
-</div>
-<ul class="sub-menu">
-<li><a class="">Menu 1</a></li>
-<li><a class="">Menu 2</a></li>
-<li><a class="">Menu 3</a></li>
-</ul>
-</span> -->
-</div>
-</div>
+
+
+                                <span id="m7" class="@if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents' || $route=='ratecards') active @else  @endif">
+                                    <a href="/documents">
+                                        <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='offerletter' || $route=='webproposal' || $route=='digitalproposal' || $route=='documents' || $route=='ratecards') active bg-active @else  @endif">
+                                            <img src="{{ asset('asset/image/document-icon.png') }}" width="22" alt="">
+                                            <p class="mb-0">My Documents</p>
+
+                                        </div>
+                                    </a>
+
+                                </span>
+
+                                </span>
+                                @endif
+                                <!-- <span id="m10">
+                                <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3">
+                                <img src="{{ asset('asset/image/documents.png') }}" width="22" alt="">
+                                <p class="mb-0">Documents</p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
+                                <path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
+                                </svg>
+                                </div>
+                                <ul class="sub-menu">
+                                <li><a class="">Menu 1</a></li>
+                                <li><a class="">Menu 2</a></li>
+                                <li><a class="">Menu 3</a></li>
+                                </ul>
+                                </span> -->
+                            </div>
+                        </div>
                     </div>
                 </nav>
 
@@ -619,6 +643,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 @include('layouts/partials/js')
@@ -674,21 +699,128 @@
     }
 </script>
 <script>
-    document.addEventListener('click', function(event) {
-        const proD = document.querySelector('.pro-d');
-        const proDiv = document.querySelector('.pro-div');
+    $(document).ready(function() {
+        $('.pro-d').on("click", function(e) {
+            e.stopPropagation();
 
-        // Check if the click is outside both `.pro-d` and `.pro-div`
-        if (!proD.contains(event.target) && !proDiv.contains(event.target)) {
-            proDiv.classList.remove('active');
-        }
+            $('.pro-div').not($(this).siblings('.pro-div')).removeClass('active');
+
+            $(this).siblings('.pro-div').toggleClass('active');
+        });
+
+        $(document).on("click", function() {
+            $('.pro-div').removeClass('active');
+        });
+
+        $('.pro-div').on("click", function(e) {
+            e.stopPropagation();
+        });
+
+        $.ajax({
+            url: "/todaydetails",
+            type: 'GET',
+            success: function(response) {
+
+                if (response.count > 0) {
+                    $("#totalcount").text(response.count);
+                    // $(".bell").css('background-color','red');
+                    $("#totalcount").css('color','green');
+                }
+
+                let html = '';
+
+                // HOSTING
+                if (response.hosting.length > 0) {
+                    html += '<div><h5>Hosting Expiry</h5>';
+                    response.hosting.forEach(item => {
+                        html += '<p><a href="/hosting"><strong>' + item.companyname + '</strong> - ' + item.DateFormat + '</a></p></div>';
+                    });
+                }
+
+                // SEO CLIENT
+                if (response.seo_client.length > 0) {
+                    html += '<div><h5>DM Contract Expiry</h5>';
+                    response.seo_client.forEach(item => {
+                        html += '<p><a href="/dmcontract"><strong>' + item.companyname + '</strong> - ' + item.DateFormat + '</a></p></div>';
+                    });
+                }
+
+                // DOMAIN
+                if (response.domain.length > 0) {
+                    html += '<div><h5>Domain Expiry</h5>';
+                    response.domain.forEach(item => {
+                        html += '<p><a href="/domain"><strong>' + item.companyname + '</strong> - ' + item.DateFormat + '</a></p></div>';
+                    });
+                }
+
+                // EMAIL SERVER
+                if (response.emailserver.length > 0) {
+                    html += '<div><h5>Email Server Expiry</h5>';
+                    response.emailserver.forEach(item => {
+                        html += '<p><a href="/email"><strong>' + item.companyname + '</strong> - ' + item.DateFormat + '</a></p></div>';
+                    });
+                }
+
+                // SSL CERTIFICATE
+                if (response.ssl_certificate.length > 0) {
+                    html += '<div><h5>SSL Certificate Expiry</h5>';
+                    response.ssl_certificate.forEach(item => {
+                        html += '<p><a href="/ssl"><strong>' + item.companyname + '</strong> - ' + item.DateFormat + '</a></p></div>';
+                    });
+                }
+
+                // CALENDAR
+                if (response.calendar.length > 0) {
+                    html += '<div><h5>Special Day</h5>';
+                    response.calendar.forEach(item => {
+                        html += '<p><a href="/celebration">' + item.reason + ' - ' + item.datelist_one + '</a></p></div>';
+                    });
+                }
+
+                // BIRTHDAYS
+                if (response.birthdayData.length > 0) {
+                    html += '<div><h5>Birthdays Today</h5>';
+                    response.birthdayData.forEach(item => {
+                        html += '<p><a href="/celebration"> Happy Birthday 🎉 ' + item.fname + '</a></p></div>';
+                    });
+                } //2024-11-13
+
+                if (html == "") {
+                    html = '<div><p class="text-muted">No data found.</p></div>';
+                }
+
+                $('#appenttoday').html(html);
+            },
+            error: function(xhr) {
+                var errors = xhr.responseJSON.errors;
+                var errorString = '';
+
+                for (var key in errors) {
+                    errorString += '<span class="text-danger">' + errors[key][0] + '</span><br>';
+                }
+
+                $('#errorModal .error-modal').html(errorString);
+                $('#errorModal').modal('show');
+            }
+        });
+
     });
 
-    document.querySelector('.pro-d').addEventListener('click', function(event) {
-        const proDiv = document.querySelector('.pro-div');
-        proDiv.classList.toggle('active'); // Toggles the 'active' class
-        event.stopPropagation(); // Prevent event bubbling to the document click listener
-    });
+    // document.addEventListener('click', function(event) {
+    //     const proD = document.querySelector('.pro-d');
+    //     const proDiv = document.querySelector('.pro-div');
+
+    //     // Check if the click is outside both `.pro-d` and `.pro-div`
+    //     if (!proD.contains(event.target) && !proDiv.contains(event.target)) {
+    //         proDiv.closest('div').classList.remove('active');  
+    //     }
+    // });
+
+    // document.querySelector('.pro-d').addEventListener('click', function(event) {
+    //     const proDiv = document.querySelector('.pro-div');
+    //     proDiv.closest('div').classList.toggle('active'); // Toggles the 'active' class
+    //     event.stopPropagation(); // Prevent event bubbling to the document click listener
+    // });
 </script>
 <script>
     function toggleFullScreen() {
@@ -720,6 +852,10 @@
         `;
         }
     }
+
+    $(document).ready(function() {
+
+    });
 </script>
 
 </html>
