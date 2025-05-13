@@ -29,6 +29,23 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
+<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+        <a id="preback" href="javascript:history.back()">Back</a>
+        <ul class="nav nav-tabs my-4 justify-content-end mb-0">
+            <li class="nav-item">
+                <a class="nav-link" href="/offerletter"><b>Offer Letter</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/webproposal"><b>Web Proposal</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/digitalproposal"><b>Digital Proposal</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/ratecards"><b>Rate Cards</b></a>
+            </li>
+        </ul>
+    </div>
 <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
             <h1 class="ch2 comp-name">Web Proposal</h1>

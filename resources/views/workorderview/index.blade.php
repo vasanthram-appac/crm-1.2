@@ -35,10 +35,41 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
+    <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+        <a id="preback" href="javascript:history.back()">Back</a>
+        <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
+        @if(request()->session()->get('role') != 'user')
+            <li class="nav-item">
+                <a class="nav-link"  href="/task"><b>Task</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active"  href="/workorderview"><b>Work Order</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/wip"><b>WIP</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/promotion"><b>Promotion</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/design"><b>Design</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/content"><b>Content</b></a>
+            </li>
+            @endif
+            <li class="nav-item">
+                <a class="nav-link"  href="/taskview"><b>Task</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/workorder"><b>Work Order</b></a>
+            </li>        
+        </ul>
+    </div>
 <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
-        <div class="profile-head">
-            <h1 class="ch2 comp-name">Work Order View</h1>
-        </div>
+    <div class="profile-head">
+        <h1 class="ch2 comp-name">Work Order View</h1>
+    </div>
         <div class="justify-content-sm-end d-flex">
                 <div class=""></div>
                 <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Workorderview::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Work Order</button>

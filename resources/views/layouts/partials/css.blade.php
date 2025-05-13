@@ -601,6 +601,13 @@ p{font-family:'inter', sans-serif !important}
 
 
 .dash-pie-chart .g-data{padding:0px 30px;}
+.inside-nav{border-bottom:1px solid #dee2e6;}
+.inside-nav  .nav-tabs{border-bottom:0px }
+.inside-nav  .nav-tabs .nav-item  a:hover{background:#fff;}
+#preback{height:fit-content;padding: 10px 20px;margin: 0px 10px 0px 0px;}
+
+
+
 
 @media(max-width:1500px){
   .dash-pie-chart .g-data{padding:0px 10px;}
@@ -2379,8 +2386,9 @@ div[dir="ltr"][style*="position: relative;"][style*="width: 450px;"][style*="hei
 
 .login-column {  
 padding:30px;}
-
-    }
+.inside-nav{flex-wrap:wrap;}
+.inside-nav .nav-tabs{flex-wrap:wrap;justify-content:start !important;}  
+}
 
 @media(max-width:820px){
   .profile-col {

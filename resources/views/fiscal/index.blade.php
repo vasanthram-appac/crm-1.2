@@ -118,6 +118,37 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide  pb-5">
+<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+        <a id="preback" href="javascript:history.back()">Back</a>
+        <ul class="nav nav-tabs my-4 justify-content-end mb-0">
+            <li class="nav-item">
+                <a class="nav-link  com ad-btn" href="/workreport"><b>Work Report</b></a>
+            </li>
+            @if(request()->session()->get('role') != 'user')
+            <li class="nav-item">
+                <a class="nav-link " href="/employeereport"><b>Employee Report</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/monthlyreport"><b>Monthly Report</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/enquiryreport"><b>Enquiry Report</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/leadhistory"><b>Lead History</b></a>
+            </li>
+            @php
+            $empid = request()->session()->get('empid');
+            @endphp
+            @if(in_array($empid, ['AM001', 'AM090']))
+            
+            <li class="nav-item">
+                <a class="nav-link active" href="/fiscal"><b>Fiscal</b></a>
+            </li>
+            @endif
+            @endif        
+        </ul>
+    </div>
     <div class="col-12">
   
         <div class="row  col-wrap  bg-white gap-0 rounded-30">
