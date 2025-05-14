@@ -29,39 +29,42 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
-<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+    <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
             <li class="nav-item">
-                <a class="nav-link active"  href="/accounts"><b>Accounts</b></a>
+                <a class="nav-link active" href="/accounts"><b>Accounts</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/proforma"><b>Proforma</b></a>
+                <a class="nav-link" href="/proforma"><b>Proforma</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/invoice"><b>Invoice</b></a>
+                <a class="nav-link" href="/invoice"><b>Invoice</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/paymententry"><b>Payment Entry</b></a>
+                <a class="nav-link" href="/paymententry"><b>Payment Entry</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/lead"><b>Leads</b></a>
+                <a class="nav-link" href="/lead"><b>Leads</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/opportunity"><b>Opportunity</b></a>
+                <a class="nav-link" href="/opportunity"><b>Opportunity</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/serverdetails"><b>Renewals</b></a>
+                <a class="nav-link" href="/serverdetails"><b>Renewals</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/newnbd"><b>New NBD</b></a>
+                <a class="nav-link" href="/newnbd"><b>New NBD</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/dmworks"><b>DM Works</b></a>
+                <a class="nav-link" href="/dmworks"><b>DM Works</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
             </li>
         </ul>
     </div>
-<div class="profile col-12 col-lg-12 col-xl-12 my-2 col-xxl-12">
+    <div class="profile col-12 col-lg-12 col-xl-12 my-2 col-xxl-12">
         <div class="profile-head">
             <h1 class="ch2 comp-name">Accounts</h1>
         </div>
@@ -111,6 +114,7 @@
                                     <option value="1" @if(request()->session()->get('active_status') == '1') selected @endif>Key Accounts</option>
                                     <option value="active" @if(request()->session()->get('active_status') == 'active') selected @endif>Active Accounts</option>
                                     <option value="inactive" @if(request()->session()->get('active_status') == 'inactive') selected @endif>Inactive Accounts</option>
+                                    <option value="Download" @if(request()->session()->get('active_status') == 'Download') selected @endif>Download Accounts</option>
                                     <option value="AM001" @if(request()->session()->get('active_status') == 'AM001') selected @endif>Assigned to Balakrishnan</option>
                                     <option value="AM081" @if(request()->session()->get('active_status') == 'AM081') selected @endif>Assigned to Deepak</option>
                                     <option value="AM088" @if(request()->session()->get('active_status') == 'AM088') selected @endif>Assigned to Teresa</option>
@@ -120,7 +124,8 @@
                             </th>
 
                             <th class="text-grey">Key Account</th>
-                            <th class="text-grey">Action</th>
+                            <th class="text-grey">Download Account</th>
+                            <th class="text-grey">Action</th> 
                             <!-- Add more columns as needed -->
                         </tr>
                     </thead>
@@ -161,14 +166,13 @@
 @section('script')
 
 <script>
-
-// document.addEventListener("DOMContentLoaded", function () {
-//     // Check if a session flash message exists
-//     if (document.querySelector('.secmessage')) {
-//         // Trigger the reload
-//         window.location.reload();
-//     }
-// });
+    // document.addEventListener("DOMContentLoaded", function () {
+    //     // Check if a session flash message exists
+    //     if (document.querySelector('.secmessage')) {
+    //         // Trigger the reload
+    //         window.location.reload();
+    //     }
+    // });
 
     $(document).ready(function() {
 
@@ -208,6 +212,10 @@
                     name: 'key_status'
                 },
                 {
+                    data: 'download_status',
+                    name: 'download_status'
+                },
+                {
                     data: 'action',
                     name: 'action',
                     orderable: false,
@@ -244,8 +252,8 @@
                 ]
             <?php endif; ?>
         });
-		
-		        // Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon
@@ -290,7 +298,7 @@
                             window.location.reload();
                         }, 2000);
                     } else {
-                       
+
                         $('.customer_modal').modal('hide');
                         $('.appac_show').hide();
                         $('.appac_hide').show();

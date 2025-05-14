@@ -26,15 +26,6 @@
             <div class="row m-0 mb-0">
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('empid', 'Employee*', ['class' => 'label-color py-2']) !!}
-                        {!! Form::select('empid', $regis, null, ['class' => 'form-select', 'required' => true]) !!}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row m-0 mb-0">
-                <div class="col-lg-6 col-sm-12">
-                    <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('name', 'Name*', ['class' => 'label-color py-2']) !!}
                         {!! Form::text('name', null, ['class' => 'form-control', 'required']) !!}
                     </div>
@@ -80,15 +71,11 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-sm-12">
-                    <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('status', 'Status*', ['class' => 'label-color py-2']) !!}
-                        <select name="status" class="span12 form-control" required>
-                            <option value="Assigned">Assigned</option>
-                            <option value="Completed">Completed</option>
-                            <option value="Closed">Closed</option>
-                            <option value="Reopen">Reopen</option>
-                        </select>
+               <div class="col-lg-6 col-sm-12">
+                    <div class="validate-input m-b-23 mb-2">
+                        {!! Form::label('url', 'URL *', ['class' => 'label-color py-2']) !!}
+                        {!! Form::text('url', null, ['class' => 'form-control']) !!}
+                        <span class="focus-input100"></span>
                     </div>
                 </div>
             </div>

@@ -55,7 +55,7 @@
                             <img  src="/img/work-order-view.png"/>
                             </div>
                             <h3 class="text-center">Work Order View</h3>
-                            <h4>{{$workorderview}}</h4>
+                            <h4>{{$workorder}}</h4>
                         </div>
                     </a>
                 </div>
@@ -123,7 +123,7 @@
 
                             </div>
                             <h3 class="text-center">Work Order</h3>
-                            <h4>{{$workorder}}</h4>
+                            <h4>{{$workorderview}}</h4>
                         </div>
                     </a>
                 </div>

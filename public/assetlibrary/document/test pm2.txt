@@ -1,0 +1,25 @@
+
+    <Directory /var/www/html/gknmhospital.org>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+
+    ProxyPass "/Backend/" "http://127.0.0.1:8000/"
+    ProxyPassReverse "/Backend/" "http://127.0.0.1:8000/"
+
+
+sudo apt update
+sudo apt install nodejs npm -y
+node -v
+npm -v
+
+sudo npm install -g pm2
+pm2 -v
+
+
+
+sudo a2enmod proxy
+sudo a2enmod proxy_http
+sudo systemctl restart apache2
+

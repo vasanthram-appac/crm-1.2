@@ -51,7 +51,14 @@ class Accounts extends Controller
                     ->where('key_status', 1)
                     ->orderBy('accounts.id', 'ASC')
                     ->get();
-            } else {
+            } elseif (request()->session()->get('active_status') == 'Download') {
+
+                $data = DB::table('accounts')
+                    ->where('status', '!=', '0')
+                    ->where('download_status', 'Download')
+                    ->orderBy('accounts.id', 'ASC')
+                    ->get();
+            }  else {
 
                 $data = DB::table('accounts')
                     ->where('status', '!=', '0')
@@ -100,13 +107,27 @@ class Accounts extends Controller
                         ]) . '"> ' . $nextStatus1 . ' </button>';
                 })
 
+                  ->addColumn('download_status', function ($row) {
+                    // Determine the next active status based on the current status
+                    $nextStatusd = $row->download_status == 'Not' ? 'Download' : 'Not';
+
+                    $nextStatusd1 = $row->download_status == 'Not' ? '<i class="fi fi-ts-toggle-off "></i> <span class="tooltiptext">Download</span>' : '<i class="fi fi-ts-toggle-on ms-2"></i> <span class="tooltiptext">Not</span>';
+
+                    // Return the current active status with the button for the next action
+                    return ucfirst($row->download_status) .
+                        '<button class="btn btn-modal text-lblue change-status" data-container=".appac_show" data-href="' . route('downloadstatus', [
+                            'id' => $row->id,
+                            'download_status' => $nextStatusd
+                        ]) . '">' . $nextStatusd1 . '</button>';
+                })
+
                 ->addColumn('action', function ($row) {
                     return '<button class="btn  btn-modal" data-container=".customer_modal" data-href="' . action([Accounts::class, 'edit'], [$row->id]) . '">
                      <i class="fi fi-ts-file-edit"></i> 
 					  <span class="tooltiptext">Edit</span>
 					 </button>';
                 })
-                ->rawColumns(['sno', 'action', 'active_status', 'key_status', 'company_name'])
+                ->rawColumns(['sno', 'action', 'active_status', 'key_status', 'company_name', 'download_status'])
                 ->make(true);
         }
 
@@ -289,7 +310,7 @@ class Accounts extends Controller
 
         $plans = DB::table('plans')->where('company_name', $id)->where('type', 'SEO')->select('dateofregis', 'dateofexpire', 'amount', 'plansmonth')->first();
         $plan = DB::table('plans')->where('company_name', $id)->where('type', 'AMC')->select('dateofregis', 'dateofexpire', 'amount', 'plansmonth')->first();
-        $dmworks = DB::table('dmworks')->select('name', 'type', 'url')->get();
+        $dmworks = DB::table('dmworks')->select('name', 'type', 'url')->where('company_name', $id)->get();
 
         $invoice = DB::table('invoicedetails')
             ->join('regis', 'invoicedetails.empid', 'regis.empid')
@@ -299,7 +320,9 @@ class Accounts extends Controller
         $proforma = DB::table('proformadetails')
             ->join('regis', 'proformadetails.empid', 'regis.empid')
             ->select('regis.fname', 'proformadetails.invoice_no', 'proformadetails.invoice_date', 'proformadetails.grosspay')
-            ->where('company_id', $id)->get();;
+            ->where('company_id', $id)->get();
+
+        $asset = DB::table('assetlibrary')->select('name', 'file')->where('company_name', $id)->get();
         // for ($i = 0; $i < 7; $i++) {
         //     $month = date('m');
         //     $year = date('Y');
@@ -318,7 +341,7 @@ class Accounts extends Controller
         // }
 
         // dd($wipenq);
-        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan', 'dmworks', 'invoice', 'proforma'));
+        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan', 'dmworks', 'invoice', 'proforma', 'asset'));
     }
 
     public function store(Request $request)
@@ -507,6 +530,20 @@ class Accounts extends Controller
     {
 
         $update = DB::table('accounts')->where('id', $id)->update(['active_status' => $active_status]);
+
+        if ($update) {
+            session()->flash('secmessage', 'Status updated successfully!');
+            return response()->json(['status' => 1, 'message' => 'Status updated successfully!'], 200);
+        } else {
+            session()->flash('secmessage', 'Failed to update status.');
+            return response()->json(['status' => 1, 'message' => 'Failed to update status.'], 200);
+        }
+    }
+
+     public function Downloadstatus($id, $download_status)
+    {
+
+        $update = DB::table('accounts')->where('id', $id)->update(['download_status' => $download_status]);
 
         if ($update) {
             session()->flash('secmessage', 'Status updated successfully!');

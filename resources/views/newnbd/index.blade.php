@@ -59,6 +59,9 @@
             <li class="nav-item">
                 <a class="nav-link"  href="/dmworks"><b>DM Works</b></a>
             </li>
+             <li class="nav-item">
+                <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
+            </li>
         </ul>
     </div>
 <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
@@ -88,7 +91,7 @@
                             <th class="text-grey">Company Name</th>
                             <th class="text-grey">Employee</th>
                             <th class="text-grey">Source</th>
-                            <th class="text-grey">Status</th>
+                            <th class="text-grey">View</th>
                             <th class="text-grey">Action</th>
                         </tr>
                     </thead>
@@ -166,11 +169,10 @@
                     data: 'source',
                     name: 'source'
                 },
-                {
-                    data: 'status',
-                    name: 'status'
+                 {
+                    data: 'url',
+                    name: 'url'
                 },
-                
                 {
                     data: 'action',
                     name: 'action',

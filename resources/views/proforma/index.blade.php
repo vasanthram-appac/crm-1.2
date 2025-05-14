@@ -29,53 +29,58 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
-<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+    <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
             <li class="nav-item">
-                <a class="nav-link "  href="/accounts"><b>Accounts</b></a>
+                <a class="nav-link " href="/accounts"><b>Accounts</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active"  href="/proforma"><b>Proforma</b></a>
+                <a class="nav-link active" href="/proforma"><b>Proforma</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/invoice"><b>Invoice</b></a>
+                <a class="nav-link" href="/invoice"><b>Invoice</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/paymententry"><b>Payment Entry</b></a>
+                <a class="nav-link" href="/paymententry"><b>Payment Entry</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/lead"><b>Leads</b></a>
+                <a class="nav-link" href="/lead"><b>Leads</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/opportunity"><b>Opportunity</b></a>
+                <a class="nav-link" href="/opportunity"><b>Opportunity</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/serverdetails"><b>Renewals</b></a>
+                <a class="nav-link" href="/serverdetails"><b>Renewals</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/newnbd"><b>New NBD</b></a>
+                <a class="nav-link" href="/newnbd"><b>New NBD</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/dmworks"><b>DM Works</b></a>
+                <a class="nav-link" href="/dmworks"><b>DM Works</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
             </li>
         </ul>
     </div>
-<div class="profile  prof  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex  justify-content-between  align-items-center  p-15">
+    <div class="profile  prof  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex  justify-content-between  align-items-center  p-15">
         <div class="profile-head">
             <h1 class="ch2 comp-name m-0">Proforma</h1>
         </div>
         <div class="justify-content-sm-end search-bar d-flex w-100">
-                <div class="row  form-flex">
-                    {!! Form::open(['route' => ['accountsid'], 'method' => 'Post']) !!}
-                    {!! Form::label('company_name', 'Company Name', ['class' => 'label-color '] ) !!}
-                    {!! Form::select('accountsid', $accounts, null, ['class' => 'form-select', 'required']) !!}
-                    <button type="submit" data-id="8" class="frm-btn pri-text-color bcreate " role="button" data-container=".customer_modal">Create </button>
-                    {!! Form::close() !!}
-                    <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 bcreateview" data-container=".customer_modal" style="display: none;" data-href="{{action([App\Http\Controllers\Proforma::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Create </button>
-
-                </div>
+            <div class="row  form-flex">
+                {!! Form::open(['route' => ['accountsid'], 'method' => 'Post']) !!}
+                {!! Form::label('company_name', 'Company Name', ['class' => 'label-color '] ) !!}
+                {!! Form::select('accountsid', $accounts, null, ['class' => 'form-select', 'required']) !!}
+                <button type="submit" data-id="8" class="frm-btn pri-text-color bcreate " role="button" data-container=".customer_modal">Create </button>
+                {!! Form::close() !!}
+                <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 bcreateview" data-container=".customer_modal" style="display: none;" data-href="{{action([App\Http\Controllers\Proforma::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Create </button>
             </div>
+        </div>
+    </div>
+    <div>
+        <p class="d-block" style="cursor: pointer;" id="pendingstatus">Pending ({{$proformadata->total_open}}) - {{number_format($proformadata->total_grosspay ?? 0,2)}}</p>
     </div>
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
@@ -83,7 +88,7 @@
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
 
-            
+
 
             <div class="p-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered ">
@@ -100,6 +105,7 @@
                                     <option value="">Select</option>
                                     <option value="all" @if(request()->session()->get('proforma_status') == 'all') selected @endif>All</option>
                                     <option value="open" @if(request()->session()->get('proforma_status') == 'open') selected @endif>Open</option>
+                                    <option value="suspence" @if(request()->session()->get('proforma_status') == 'suspence') selected @endif>Suspence</option>
                                     <option value="closed" @if(request()->session()->get('proforma_status') == 'closed') selected @endif>Close</option>
                                     <option value="cancelled" @if(request()->session()->get('proforma_status') == 'cancelled') selected @endif>Cancelled</option>
                                 </select>
@@ -224,8 +230,8 @@
                 ]
             <?php endif; ?>
         });
-		
-		        // Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon
@@ -415,36 +421,41 @@
             });
         });
 
-        function Oppourtunity() {
+        $('#pendingstatus').on('click', function() {
+        Oppourtunity('open');
+    });
 
-            var id = $('select[name="proforma_status"]').val();
-            // alert(id);
+        function Oppourtunity(pid = null) {
+            let id = pid ? pid : $('select[name="proforma_status"]').val();
+
             $.ajax({
-                url: "{{ action([App\Http\Controllers\Proforma::class, 'index']) }}",
+                url: "{{ route('proforma.index') }}", // Better to use named route if available
                 type: 'GET',
                 data: {
                     pstatus: id
                 },
                 success: function(response) {
-                    window.location.reload();
-
+                    // Instead of full page reload, update content dynamically (if possible)
+                    window.location.reload(); // Only if necessary
                 },
                 error: function(xhr) {
-                    var errors = xhr.responseJSON.errors;
-                    var errorString = '';
+                    let errorString = '';
+                    if (xhr.responseJSON && xhr.responseJSON.errors) {
+                        $.each(xhr.responseJSON.errors, function(key, value) {
+                            errorString += '<span class="text-danger">' + value[0] + '</span><br>';
+                        });
 
-                    for (var key in errors) {
-                        errorString += '<span class="text-danger">' + errors[key][0] + '</span><br>';
+                        $('#errorModal .error-modal').html(errorString);
+                        $('#errorModal').modal('show');
                     }
-
-                    $('#errorModal .error-modal').html(errorString);
-                    $('#errorModal').modal('show');
                 }
             });
         }
 
-        $('select[name="proforma_status"]').on('change', Oppourtunity);
-
+        // Trigger on change
+        $('select[name="proforma_status"]').on('change', function() {
+            Oppourtunity();
+        });
 
         function accountsid(selectElement) {
 

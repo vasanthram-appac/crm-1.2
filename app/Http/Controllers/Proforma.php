@@ -14,29 +14,29 @@ use DB;
 class Proforma extends Controller
 {
 
-  public function index(Request $request)
+    public function index(Request $request)
     {
-        if(request()->session()->get('role') =='user'){
+        if (request()->session()->get('role') == 'user') {
             return redirect()->to('/workreport');
         }
 
         if (request()->ajax()) {
 
-            if(request()->session()->get('proforma_status') == ""){
+            if (request()->session()->get('proforma_status') == "") {
                 request()->session()->put('proforma_status', 'open');
             }
 
-            if(isset($request->pstatus) && !empty($request->pstatus)){
+            if (isset($request->pstatus) && !empty($request->pstatus)) {
                 request()->session()->put('proforma_status', $request->pstatus);
             }
 
             $data = DB::table('proformadetails')
-            ->when(request()->session()->get('proforma_status') !== 'all', function ($query) {
-                $query->where('paymentstatus', request()->session()->get('proforma_status'));
-            })
-			// ->whereNotNull('company_id')
-            ->orderBy('invoice_no', 'desc')
-            ->get();
+                ->when(request()->session()->get('proforma_status') !== 'all', function ($query) {
+                    $query->where('paymentstatus', request()->session()->get('proforma_status'));
+                })
+                // ->whereNotNull('company_id')
+                ->orderBy('invoice_no', 'desc')
+                ->get();
 
             foreach ($data as $pdata) {
                 $emp = DB::table('regis')->where('empid', $pdata->empid)->first();
@@ -49,7 +49,7 @@ class Proforma extends Controller
                 $pdata->companyname = !empty($emp) ? $emp->company_name : '';
             }
 
-// dd($data);
+            // dd($data);
             return DataTables::of($data)
                 ->addColumn('sno', function ($row) {
                     return '';
@@ -78,18 +78,18 @@ class Proforma extends Controller
                                 <select class="paymentstatus" style="width:80px;" data-id="' . $row->id . '" data-inid="' . $row->invoice_no . '">
                                     <option value="closed" ' . ($row->paymentstatus === 'closed' ? 'selected' : '') . '>Closed</option>
                                     <option value="cancelled" ' . ($row->paymentstatus === 'cancelled' ? 'selected' : '') . '>Cancelled</option>
+                                    <option value="suspence" ' . ($row->paymentstatus === 'suspence' ? 'selected' : '') . '>Suspence</option>
                                 </select>
                                 <button class="btn btn-modal invoicestatus" data-id="' . $row->id . '" data-inid="' . $row->invoice_no . '">update</button>
                             </div>
                         ';
-
                     } else {
                         return e($row->paymentstatus);
                     }
                 })
-               
+
                 ->addColumn('action', function ($row) {
-                    $invoice=base64_encode($row->invoice_no);
+                    $invoice = base64_encode($row->invoice_no);
                     return '<div class="d-flex justify-content-start gap-3 align-items-center">
                     <a class="btn" href="' . route('pprint', ['id' => $invoice]) . '"  target="blank"><i class="fi fi-ts-user-check"></i>
 					 <span class="tooltiptext">view</span>
@@ -110,8 +110,16 @@ class Proforma extends Controller
         }
 
         $accounts = DB::table('accounts')->where('status', '!=', '0')->orderBy('company_name', 'ASC')->pluck('company_name', 'id')->toArray();
-          $accounts = ['0' => 'Select Client'] + $accounts;
-        return view('proforma/index', compact('accounts'))->render();
+        $accounts = ['0' => 'Select Client'] + $accounts;
+
+        $proformadata = DB::table('proformadetails')
+    ->select(DB::raw('COUNT(*) as total_open'), DB::raw('SUM(grosspay) as total_grosspay'))
+    ->where('paymentstatus', 'open')
+    ->first();
+
+
+
+        return view('proforma/index', compact('accounts', 'proformadata'))->render();
     }
 
     public function create(Request $request)
@@ -319,14 +327,14 @@ class Proforma extends Controller
 
     public function edit($id)
     {
-        $proforma= DB::table('proforma')->where('invoice_no',$id)->get();
+        $proforma = DB::table('proforma')->where('invoice_no', $id)->get();
 
-        $proformadetails = DB::table('proformadetails')->where('invoice_no',$id)->first();
+        $proformadetails = DB::table('proformadetails')->where('invoice_no', $id)->first();
 
-        $accounts=DB::table('accounts')->where('id',$proformadetails->company_id)->first();
+        $accounts = DB::table('accounts')->where('id', $proformadetails->company_id)->first();
 
         $gst = DB::table('global')->first();
-// dd($accounts);
+        // dd($accounts);
         return view('proforma.edit')->with(compact('proforma', 'proformadetails', 'accounts', 'gst'));
     }
 
@@ -380,7 +388,7 @@ class Proforma extends Controller
             // 'sgst1' => 'nullable|numeric|min:0',
             // 'grosspay1' => 'nullable|numeric|min:0',
             // 'taxvalue1' => 'required|in:cgst,sgst,igst',
-            
+
             // 'sgst' => 'required|numeric|min:0',
             // 'igst' => 'required|numeric|min:0',
             // 'taxvalue' => 'required|in:cgst,sgst,igst',
@@ -406,7 +414,7 @@ class Proforma extends Controller
 
         if (!empty($request->quantity_1)) {
 
-            $val1=[
+            $val1 = [
                 'company_id' => $request->company_id,
                 'empid' => $empid,
                 'invoice_date' => $request->invoice_date,
@@ -418,17 +426,17 @@ class Proforma extends Controller
                 'totalamount' => $request->totalamount_1,
             ];
 
-            if(!empty($request->updateid_1)){
-                DB::table('proforma')->where('id',$request->updateid_1)->update($val1);
-            }else{
-            DB::table('proforma')->insert($val1);
+            if (!empty($request->updateid_1)) {
+                DB::table('proforma')->where('id', $request->updateid_1)->update($val1);
+            } else {
+                DB::table('proforma')->insert($val1);
             }
         }
 
         // Item 2
         if (!empty($request->quantity_2)) {
             // dd($request->all());
-            $val2=[
+            $val2 = [
                 'company_id' => $request->company_id,
                 'empid' => $empid,
                 'invoice_date' => $request->invoice_date,
@@ -440,19 +448,18 @@ class Proforma extends Controller
                 'totalamount' => $request->totalamount_2,
             ];
 
-            
-            if(!empty($request->updateid_2)){
-                DB::table('proforma')->where('id',$request->updateid_2)->update($val2);
-            }else{
+
+            if (!empty($request->updateid_2)) {
+                DB::table('proforma')->where('id', $request->updateid_2)->update($val2);
+            } else {
                 DB::table('proforma')->insert($val2);
             }
-
         }
 
         // Item 3
         if (!empty($request->quantity_3)) {
 
-            $val3=[
+            $val3 = [
                 'company_id' => $request->company_id,
                 'empid' => $empid,
                 'invoice_date' => $request->invoice_date,
@@ -464,19 +471,18 @@ class Proforma extends Controller
                 'totalamount' => $request->totalamount_3,
             ];
 
-            
-            if(!empty($request->updateid_3)){
-                DB::table('proforma')->where('id',$request->updateid_3)->update($val3);
-            }else{
+
+            if (!empty($request->updateid_3)) {
+                DB::table('proforma')->where('id', $request->updateid_3)->update($val3);
+            } else {
                 DB::table('proforma')->insert($val3);
             }
-
         }
 
         // Item 4
         if (!empty($request->quantity_4)) {
 
-            $val4=[
+            $val4 = [
                 'company_id' => $request->company_id,
                 'empid' => $empid,
                 'invoice_date' => $request->invoice_date,
@@ -487,19 +493,18 @@ class Proforma extends Controller
                 'unit' => $request->unit_4,
                 'totalamount' => $request->totalamount_4,
             ];
-            
-            if(!empty($request->updateid_4)){
-                DB::table('proforma')->where('id',$request->updateid_4)->update($val4);
-            }else{
+
+            if (!empty($request->updateid_4)) {
+                DB::table('proforma')->where('id', $request->updateid_4)->update($val4);
+            } else {
                 DB::table('proforma')->insert($val4);
             }
-
         }
 
         // Item 5
         if (!empty($request->quantity_5)) {
 
-            $val5=[
+            $val5 = [
                 'company_id' => $request->company_id,
                 'empid' => $empid,
                 'invoice_date' => $request->invoice_date,
@@ -510,13 +515,12 @@ class Proforma extends Controller
                 'unit' => $request->unit_5,
                 'totalamount' => $request->totalamount_5,
             ];
-            
-            if(!empty($request->updateid_5)){
-                DB::table('proforma')->where('id',$request->updateid_5)->update($val5);
-            }else{
+
+            if (!empty($request->updateid_5)) {
+                DB::table('proforma')->where('id', $request->updateid_5)->update($val5);
+            } else {
                 DB::table('proforma')->insert($val5);
             }
-
         }
 
         if ($request->gsttype == 'in') {
@@ -556,7 +560,7 @@ class Proforma extends Controller
             'paymentstatus' => "open",
         ];
 
-        DB::table('proformadetails')->where('id',$id)->update($val);
+        DB::table('proformadetails')->where('id', $id)->update($val);
 
         session()->flash('secmessage', 'Proforma Invoice Updated Successfully.');
         return response()->json(['status' => 1, 'message' => 'Proforma Invoice Updated Successfully.'], 200);
@@ -564,7 +568,7 @@ class Proforma extends Controller
 
     public function destroy($id)
     {
-        
+
         $upd = DB::table('proforma')->where('id', $id)->delete();
         session()->flash('secmessage', 'Proforma Deleted Successfully!');
 
@@ -588,20 +592,22 @@ class Proforma extends Controller
         // return $this->create($request);
     }
 
-    public function print($id){
-        $id=base64_decode($id);
+    public function print($id)
+    {
+        $id = base64_decode($id);
         $proforma = DB::table('proformadetails')->where('invoice_no', $id)->first();
         $global = DB::table('global')->first();
-        $accounts= DB::table('accounts')->where('id', $proforma->company_id)->first();
+        $accounts = DB::table('accounts')->where('id', $proforma->company_id)->first();
         $pinfo = DB::table('proforma')->where('invoice_no', $id)->get();
 
-        return view('pdf.pprint')->with(compact('proforma', 'global', 'accounts','pinfo'));
+        return view('pdf.pprint')->with(compact('proforma', 'global', 'accounts', 'pinfo'));
     }
 
-    public function convertinvoice($id){
-      // dd($id);
+    public function convertinvoice($id)
+    {
+        // dd($id);
 
-        $invoi = DB::table('invoicedetails')->select('invoice_no')->orderBy('invoice_no','desc')->first(); 
+        $invoi = DB::table('invoicedetails')->select('invoice_no')->orderBy('invoice_no', 'desc')->first();
 
         $j = $invoi->invoice_no;
         $j++;
@@ -618,14 +624,14 @@ class Proforma extends Controller
         }
 
         $latestInvoice = DB::table('invoicedetails')->orderByDesc('id')->first();
- 
+
         $inv = $latestInvoice ? substr($latestInvoice->invoice_no, -4) : '';
 
         $extracted = substr($latestInvoice->invoice_no, 3, 7);
-    
+
         $common = 'AMT';
 
-        if ($inv == '' ||  (date('d-m') >= "01-04" &&  ($inv != "0001" && $extracted != $financialYear) ) ) {
+        if ($inv == '' ||  (date('d-m') >= "01-04" &&  ($inv != "0001" && $extracted != $financialYear))) {
             $inv1 = '0001';
         } else {
             $inv1 = str_pad($inv + 1, 4, '0', STR_PAD_LEFT);
@@ -633,71 +639,69 @@ class Proforma extends Controller
         // dd($extracted,$financialYear,$inv1);
         $c_id = $common . $financialYear . '/' . $inv1;
         $in_number = $c_id;
-        
+
         // new code end
 
-        $invoice = DB::table('invoicedetails')->where('invoice_no',$in_number)->count(); 
-   
+        $invoice = DB::table('invoicedetails')->where('invoice_no', $in_number)->count();
+
         if ($invoice > 0) {
             session()->flash('secmessage', 'Invoice Already Issued');
             return response()->json(['status' => 1, 'message' => 'Invoice Already Issued'], 200);
         } else {
-        
-            $proformaupdate = DB::table('proformadetails')->where('invoice_no',$id)->update(['paymentstatus' => "closed"]);
-        
-            $proforma=DB::table('proforma')->where('invoice_no',$id)->get();
 
-            if(count($proforma)>0){
-                foreach($proforma as $key=> $proforma1){
+            $proformaupdate = DB::table('proformadetails')->where('invoice_no', $id)->update(['paymentstatus' => "closed"]);
 
-                    $val1=[
-                         'company_id' => $proforma1->company_id,
-                         'empid'      => request()->session()->get('empid'),
-                         'invoice_date' => date('d-m-Y'),
-                         'invoice_no'  => $in_number,
-                         'item_no'     => $proforma1->item_no,
-                         'description' => $proforma1->description,
-                         'quantity'    => $proforma1->quantity,
-                         'unit'        => $proforma1->unit,
-                         'totalamount' => $proforma1->totalamount,
+            $proforma = DB::table('proforma')->where('invoice_no', $id)->get();
+
+            if (count($proforma) > 0) {
+                foreach ($proforma as $key => $proforma1) {
+
+                    $val1 = [
+                        'company_id' => $proforma1->company_id,
+                        'empid'      => request()->session()->get('empid'),
+                        'invoice_date' => date('d-m-Y'),
+                        'invoice_no'  => $in_number,
+                        'item_no'     => $proforma1->item_no,
+                        'description' => $proforma1->description,
+                        'quantity'    => $proforma1->quantity,
+                        'unit'        => $proforma1->unit,
+                        'totalamount' => $proforma1->totalamount,
                     ];
-                         $insert=DB::table('invoice')->insert($val1);
-
+                    $insert = DB::table('invoice')->insert($val1);
                 }
             }
 
-            $proformadetails=DB::table('proformadetails')->where('invoice_no',$id)->first();
+            $proformadetails = DB::table('proformadetails')->where('invoice_no', $id)->first();
 
-             $val2=[
-                  'company_id' => $proformadetails->company_id,
-                  'empid'      => request()->session()->get('empid'),
-                  'invoice_date' => date('d-m-Y'),
-                  'invoice_date1' => date('Y-m-d'),
-                  'invoice_no'  => $in_number,
-                  'taxvalue'     => $proformadetails->taxvalue,
-                  'cgst'     => $proformadetails->cgst,
-                  'sgst'     => $proformadetails->sgst,
-                  'igst'     => $proformadetails->igst,
-                  'gsttype'     => $proformadetails->gsttype,
-                  'principle'     => $proformadetails->principle,
-                  'amount'     => $proformadetails->amount,
-                  'specialdiscount'     => $proformadetails->specialdiscount,
-                  'netpay'     => $proformadetails->netpay,
-                  'grosspay'     => $proformadetails->grosspay,
-                  'paymentstatus'     => "open",
-                  'url'     => "",
-                  'paymentdate'     => "",
-                  'transactiontype'     => "",
+            $val2 = [
+                'company_id' => $proformadetails->company_id,
+                'empid'      => request()->session()->get('empid'),
+                'invoice_date' => date('d-m-Y'),
+                'invoice_date1' => date('Y-m-d'),
+                'invoice_no'  => $in_number,
+                'taxvalue'     => $proformadetails->taxvalue,
+                'cgst'     => $proformadetails->cgst,
+                'sgst'     => $proformadetails->sgst,
+                'igst'     => $proformadetails->igst,
+                'gsttype'     => $proformadetails->gsttype,
+                'principle'     => $proformadetails->principle,
+                'amount'     => $proformadetails->amount,
+                'specialdiscount'     => $proformadetails->specialdiscount,
+                'netpay'     => $proformadetails->netpay,
+                'grosspay'     => $proformadetails->grosspay,
+                'paymentstatus'     => "open",
+                'url'     => "",
+                'paymentdate'     => "",
+                'transactiontype'     => "",
 
-             ];
+            ];
 
-             $invoicedetails=DB::table('invoicedetails')->insert($val2);
+            $invoicedetails = DB::table('invoicedetails')->insert($val2);
 
-             $pay=DB::table('payment_list_invoice')->where('pinvoice',$id)->update(['invoiceno' => $in_number]);
+            $pay = DB::table('payment_list_invoice')->where('pinvoice', $id)->update(['invoiceno' => $in_number]);
 
-             session()->flash('secmessage', 'Invoice Converted Successfully');
-             return response()->json(['status' => 1, 'message' => 'Invoice Converted Successfully'], 200);
+            session()->flash('secmessage', 'Invoice Converted Successfully');
+            return response()->json(['status' => 1, 'message' => 'Invoice Converted Successfully'], 200);
         }
-
     }
 }

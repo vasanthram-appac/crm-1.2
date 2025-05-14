@@ -90,7 +90,7 @@ class Enquiryreport extends Controller
             $perPage = $request->get('length', 10);
             $start = $request->get('start', 0);
             $currentPage = ($start / $perPage) + 1;
-
+            $query->orderby("id", "desc");
             $data = $query->paginate($perPage, ['*'], 'page', $currentPage);
 
             // Add 'sno' (Serial Number) to the data response

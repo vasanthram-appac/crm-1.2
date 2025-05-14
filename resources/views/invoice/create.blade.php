@@ -146,63 +146,63 @@
                 <h5 class="title">Invoice Description</h5>
             </div>
             <div class="table-responsive">
-            <table class="table table-hover invoice-input">
-                <thead>
-                    <tr>
-                        <th class="thcenter">Item</th>
-                        <th class="thcenter">Description</th>
-                        <th class="thcenter">Quantity</th>
-                        <th class="thcenter">Unit Price</th>
-                        <th class="thcenter">Total</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><input id="item_no_one" type="text" name="item_no_one" value="01" class="input-mini"></td>
-                        <td><input id="description_one" type="text" name="description_one" class="input-xlarge"></td>
-                        <td><input onkeyup="sum();" id="quantity_one" type="text" name="quantity_one" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="unit_one" type="text" name="unit_one" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="totalamount_one" type="text" name="totalamount_one" class="input-mini" readonly></td>
-                    </tr>
-                    <tr>
-                        <td><input onkeyup="sum();" id="item_no_two" type="text" name="item_no_two" value="02" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="description_two" type="text" name="description_two" class="input-xlarge"></td>
-                        <td><input onkeyup="sum();" id="quantity_two" type="text" name="quantity_two" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="unit_two" type="text" name="unit_two" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="totalamount_two" type="text" name="totalamount_two" class="input-mini" readonly></td>
-                    </tr>
-                    <tr>
-                        <td><input onkeyup="sum();" id="item_no_three" type="text" name="item_no_three" value="03" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="description_three" type="text" name="description_three" class="input-xlarge"></td>
-                        <td><input onkeyup="sum();" id="quantity_three" type="text" name="quantity_three" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="unit_three" type="text" name="unit_three" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="totalamount_three" type="text" name="totalamount_three" class="input-mini" readonly></td>
-                    </tr>
-                    <tr>
-                        <td><input onkeyup="sum();" id="item_no_four" type="text" name="item_no_four" value="04" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="description_four" type="text" name="description_four" class="input-xlarge"></td>
-                        <td><input onkeyup="sum();" id="quantity_four" type="text" name="quantity_four" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="unit_four" type="text" name="unit_four" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="totalamount_four" type="text" name="totalamount_four" class="input-mini" readonly></td>
-                    </tr>
-                    <tr>
-                        <td><input onkeyup="sum();" id="item_no_five" type="text" name="item_no_five" value="05" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="description_five" type="text" name="description_five" class="input-xlarge"></td>
-                        <td><input onkeyup="sum();" id="quantity_five" type="text" name="quantity_five" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="unit_five" type="text" name="unit_five" class="input-mini"></td>
-                        <td><input onkeyup="sum();" id="totalamount_five" type="text" name="totalamount_five" class="input-mini" readonly></td>
-                    </tr>
-             
-                </tbody>
-            </table>
-			</div>
+                <table class="table table-hover invoice-input">
+                    <thead>
+                        <tr>
+                            <th class="thcenter">Item</th>
+                            <th class="thcenter">Description</th>
+                            <th class="thcenter">Quantity</th>
+                            <th class="thcenter">Unit Price</th>
+                            <th class="thcenter">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input id="item_no_one" type="text" name="item_no_one" value="01" class="input-mini"></td>
+                            <td><input id="description_one" type="text" name="description_one" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="quantity_one" type="text" name="quantity_one" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="unit_one" type="text" name="unit_one" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="totalamount_one" type="text" name="totalamount_one" class="input-mini" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><input onkeyup="sum();" id="item_no_two" type="text" name="item_no_two" value="02" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="description_two" type="text" name="description_two" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="quantity_two" type="text" name="quantity_two" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="unit_two" type="text" name="unit_two" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="totalamount_two" type="text" name="totalamount_two" class="input-mini" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><input onkeyup="sum();" id="item_no_three" type="text" name="item_no_three" value="03" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="description_three" type="text" name="description_three" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="quantity_three" type="text" name="quantity_three" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="unit_three" type="text" name="unit_three" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="totalamount_three" type="text" name="totalamount_three" class="input-mini" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><input onkeyup="sum();" id="item_no_four" type="text" name="item_no_four" value="04" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="description_four" type="text" name="description_four" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="quantity_four" type="text" name="quantity_four" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="unit_four" type="text" name="unit_four" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="totalamount_four" type="text" name="totalamount_four" class="input-mini" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><input onkeyup="sum();" id="item_no_five" type="text" name="item_no_five" value="05" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="description_five" type="text" name="description_five" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="quantity_five" type="text" name="quantity_five" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="unit_five" type="text" name="unit_five" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="totalamount_five" type="text" name="totalamount_five" class="input-mini" readonly></td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
 
             <table class="table table-hover invoice-input">
                 <thead>
 
                     <tr>
                         <th>
-                           
+
                             <input type="radio" name="gsttype" onclick="show4()" value="in"> Include GST
                             <input type="radio" name="gsttype" onclick="show5()" value="ex"> Exclude GST
                         </th>
@@ -222,32 +222,43 @@
                 <b>Principle Amount</b>
                 <input type="text" id="totalamount" name="principle" class="input-xlarge" readonly><br><br>
 
-                CGST {{ $gst->cgst }}%
-                <input type="hidden" id="cgstvalue1" name="cgst1" value="{{ $gst->cgst }}">
-                <input type="text" id="pro_cgst1" name="cgst1" class="input-xlarge" readonly><br><br>
-                SGST {{ $gst->sgst }}%
-                <input type="hidden" id="sgstvalue1" name="sgst1" value="{{ $gst->sgst }}">
-                <input type="text" id="pro_sgst1" name="sgst1" class="input-xlarge" readonly><br><br>
+                <div id="sgst1" style="display:none;overflow:hidden;">
+                    CGST {{ $gst->cgst }}%
+                    <input type="hidden" id="cgstvalue1" name="cgst1" value="{{ $gst->cgst }}">
+                    <input type="text" id="pro_cgst1" name="cgst1" class="input-xlarge" readonly><br><br>
+                    SGST {{ $gst->sgst }}%
+                    <input type="hidden" id="sgstvalue1" name="sgst1" value="{{ $gst->sgst }}">
+                    <input type="text" id="pro_sgst1" name="sgst1" class="input-xlarge" readonly><br><br>
+                </div>
+
+                <div class="mb-3" id="igst1" style="display:none;">
+                    <!--code-->
+                    IGST {{ $gst->igst }}%
+                    <input type="hidden" id="igstvalue1" name="igst1" value="{{ $gst->igst }}">
+                    <input type="text" id="pro_igst1" name="igst1" class="input-xlarge" readonly>
+                    <!--code-->
+                </div>
+
                 GST Type
-                <input class="input-xlarge" type="radio" value="sgst" name="taxvalue1">SGST/CGST
-                <input class="input-xlarge" type="radio" value="igst" name="taxvalue1">IGST<br><br>
+                <input class="input-xlarge" type="radio" value="sgst" name="taxvalue1" onclick="show6()">SGST/CGST
+                <input class="input-xlarge" type="radio" value="igst" name="taxvalue1" onclick="show7()">IGST<br><br>
 
                 <th>
                     Gross Pay
                     <input type="text" id="pro_grosspay1" name="grosspay1" class="input-xlarge" readonly>
                 </th>
                 <br>
-                <input class="btn btn-warning" type="button" onclick="add3();showButton();" value="Calculate"><br>
+                <input class="btn btn-warning mt-3" style="display:none;" type="button" onclick="add3();showButton();" value="Calculate" id="calculatei"><br>
                 <!-- <input style="display:none;" type="submit" value="Generate Invoice" class="btn btn-submit btn-large hidden-print showbuttton" name="submitproforma" id="submitproformaid1"> -->
                 <div class="text-center" id="submitproformaid1" style="display:none;">
-                        <label class="err_lbl"></label><br>
-                        <div class="btn-g2">
-                            <div></div>
-                            <div></div>
-                            <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button"> Generate Invoice </button>
-                            <button type="button" data-bs-dismiss="modal" class="frm-btn outline-btn" role="button"> Cancel </button>
-                        </div>
+                    <label class="err_lbl"></label><br>
+                    <div class="btn-g2">
+                        <div></div>
+                        <div></div>
+                        <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button"> Generate Invoice </button>
+                        <button type="button" data-bs-dismiss="modal" class="frm-btn outline-btn" role="button"> Cancel </button>
                     </div>
+                </div>
 
             </div>
 
@@ -350,84 +361,103 @@
     <!--/.Content-->
 </div>
 <script type="text/javascript">
-function show4()
-{
-document.getElementById('ingst').style.display = 'block';
-document.getElementById('outgst').style.display = 'none';
-}
-function show5()
-{
-document.getElementById('ingst').style.display = 'none';
-document.getElementById('outgst').style.display = 'block';
-}
+    function show6() {
+        document.getElementById('sgst1').style.display = 'block';
+        document.getElementById('igst1').style.display = 'none';
+        //document.getElementById("submitproformaid").style.display='block';
+        document.getElementById("calculatei").style.display = 'block';
+        document.getElementById('igstvalue1').style.display = 'none';
+    }
 
-function show1()
-{
-document.getElementById('sgst').style.display = 'block';
-document.getElementById('igst').style.display = 'none';
-//document.getElementById("submitproformaid").style.display='block';
-document.getElementById("calculate").style.display='block';
-document.getElementById('igstvalue').style.display = 'none';
-}
-function show2()
-{
-document.getElementById('igst').style.display = 'block';
-document.getElementById('sgst').style.display = 'none';
-//document.getElementById("submitproformaid").style.display='block';
-document.getElementById("calculate").style.display='block';
-document.getElementById('cgstvalue').style.display = 'none';
-document.getElementById('sgstvalue').style.display = 'none';
-}
-function show3()
-{
-document.getElementById('igst').style.display = 'none';
-document.getElementById('sgst').style.display = 'none';
-document.getElementById("calculate").style.display='block';
-document.getElementById('cgstvalue').style.display = 'none';
-document.getElementById('sgstvalue').style.display = 'none';
-}
+    function show7() {
+        document.getElementById('igst1').style.display = 'block';
+        document.getElementById('sgst1').style.display = 'none';
+        //document.getElementById("submitproformaid").style.display='block';
+        document.getElementById("calculatei").style.display = 'block';
+        document.getElementById('cgstvalue1').style.display = 'none';
+        document.getElementById('sgstvalue1').style.display = 'none';
+    }
+
+
+    function show4() {
+        document.getElementById('ingst').style.display = 'block';
+        document.getElementById('outgst').style.display = 'none';
+    }
+
+    function show5() {
+        document.getElementById('ingst').style.display = 'none';
+        document.getElementById('outgst').style.display = 'block';
+    }
+
+    function show1() {
+        document.getElementById('sgst').style.display = 'block';
+        document.getElementById('igst').style.display = 'none';
+        //document.getElementById("submitproformaid").style.display='block';
+        document.getElementById("calculate").style.display = 'block';
+        document.getElementById('igstvalue').style.display = 'none';
+    }
+
+    function show2() {
+        document.getElementById('igst').style.display = 'block';
+        document.getElementById('sgst').style.display = 'none';
+        //document.getElementById("submitproformaid").style.display='block';
+        document.getElementById("calculate").style.display = 'block';
+        document.getElementById('cgstvalue').style.display = 'none';
+        document.getElementById('sgstvalue').style.display = 'none';
+    }
+
+    function show3() {
+        document.getElementById('igst').style.display = 'none';
+        document.getElementById('sgst').style.display = 'none';
+        document.getElementById("calculate").style.display = 'block';
+        document.getElementById('cgstvalue').style.display = 'none';
+        document.getElementById('sgstvalue').style.display = 'none';
+    }
 </script>
 <script type="text/javascript">
-function add() {
-$("#pro_cgst").val((+$("#pro_netpay").val()) * (+$("#cgstvalue").val())/100);
-$("#pro_sgst").val((+$("#pro_netpay").val()) * (+$("#sgstvalue").val())/100);
-$("#pro_igst").val((+$("#pro_netpay").val()) * (+$("#igstvalue").val())/100);
-$("#pro_grosspay").val(((+$("#pro_netpay").val()) + ((+$("#pro_netpay").val())*(18/100))).toFixed(0));
+    function add() {
+        $("#pro_cgst").val((+$("#pro_netpay").val()) * (+$("#cgstvalue").val()) / 100);
+        $("#pro_sgst").val((+$("#pro_netpay").val()) * (+$("#sgstvalue").val()) / 100);
+        $("#pro_igst").val((+$("#pro_netpay").val()) * (+$("#igstvalue").val()) / 100);
+        $("#pro_grosspay").val(((+$("#pro_netpay").val()) + ((+$("#pro_netpay").val()) * (18 / 100))).toFixed(0));
 
-}
-function add1() {
-$("#pro_netpay").val((+$("#totalamount_one").val()) + (+$("#totalamount_two").val()) + (+$("#totalamount_three").val()) + (+$("#totalamount_four").val()) + (+$("#totalamount_five").val()) );
-$("#pro_grosspay").val((+$("#pro_netpay").val()));
-}
+    }
 
-function add3(){
-	$("#pro_netpay").val((+$("#totalamount_one").val()) + (+$("#totalamount_two").val()) + (+$("#totalamount_three").val()) + (+$("#totalamount_four").val()) + (+$("#totalamount_five").val()));
-	
-$("#pro_grosspay1").val((+$("#pro_netpay").val()));
-	//alert($("#totalamount_one").val());
-	$("#totalamount").val(parseFloat((+$("#pro_netpay").val()) * (84.75/100)).toFixed(0));
-	$("#pro_cgst1").val(((+$("#pro_netpay").val()) - (+$("#totalamount").val()))/2);
-	$("#pro_sgst1").val(((+$("#pro_netpay").val()) - (+$("#totalamount").val()))/2);
+    function add1() {
+        $("#pro_netpay").val((+$("#totalamount_one").val()) + (+$("#totalamount_two").val()) + (+$("#totalamount_three").val()) + (+$("#totalamount_four").val()) + (+$("#totalamount_five").val()));
+        $("#pro_grosspay").val((+$("#pro_netpay").val()));
+    }
 
-}
+    function add3() {
+        $("#pro_netpay").val((+$("#totalamount_one").val()) + (+$("#totalamount_two").val()) + (+$("#totalamount_three").val()) + (+$("#totalamount_four").val()) + (+$("#totalamount_five").val()));
+
+        $("#pro_grosspay1").val((+$("#pro_netpay").val()));
+        //alert($("#totalamount_one").val());
+        $("#totalamount").val(parseFloat((+$("#pro_netpay").val()) * (84.75 / 100)).toFixed(0));
+        $("#pro_cgst1").val(((+$("#pro_netpay").val()) - (+$("#totalamount").val())) / 2);
+        $("#pro_sgst1").val(((+$("#pro_netpay").val()) - (+$("#totalamount").val())) / 2);
+        $("#pro_igst1").val(((+$("#pro_netpay").val()) - (+$("#totalamount").val())));
+
+    }
 
 
-window.onload=function(){
-document.getElementById("submitproformaid").style.display='none';
-document.getElementById("submitproformaid1").style.display='none';
-}
-function showButton(){
- document.getElementById("submitproformaid").style.display='block';
- document.getElementById("submitproformaid1").style.display='block';
-}
-function sum() 
-{ 
-$("#totalamount_one").val(((+$("#quantity_one").val()) * (+$("#unit_one").val())).toFixed(0));	
-$("#totalamount_two").val(((+$("#quantity_two").val()) * (+$("#unit_two").val())).toFixed(0));	
-$("#totalamount_three").val(((+$("#quantity_three").val()) * (+$("#unit_three").val())).toFixed(0));	
-$("#totalamount_four").val(((+$("#quantity_four").val()) * (+$("#unit_four").val())).toFixed(0));	
-$("#totalamount_five").val(((+$("#quantity_five").val()) * (+$("#unit_five").val())).toFixed(0));	
+    window.onload = function() {
+        document.getElementById("submitproformaid").style.display = 'none';
+        document.getElementById("submitproformaid1").style.display = 'none';
+    }
 
-$("#pro_netpay").val((+$("#totalamount_one").val()) + (+$("#totalamount_two").val()) + (+$("#totalamount_three").val()) + (+$("#totalamount_four").val()) + (+$("#totalamount_five").val()));
-}
+    function showButton() {
+        document.getElementById("submitproformaid").style.display = 'block';
+        document.getElementById("submitproformaid1").style.display = 'block';
+    }
+
+    function sum() {
+        $("#totalamount_one").val(((+$("#quantity_one").val()) * (+$("#unit_one").val())).toFixed(0));
+        $("#totalamount_two").val(((+$("#quantity_two").val()) * (+$("#unit_two").val())).toFixed(0));
+        $("#totalamount_three").val(((+$("#quantity_three").val()) * (+$("#unit_three").val())).toFixed(0));
+        $("#totalamount_four").val(((+$("#quantity_four").val()) * (+$("#unit_four").val())).toFixed(0));
+        $("#totalamount_five").val(((+$("#quantity_five").val()) * (+$("#unit_five").val())).toFixed(0));
+
+        $("#pro_netpay").val((+$("#totalamount_one").val()) + (+$("#totalamount_two").val()) + (+$("#totalamount_three").val()) + (+$("#totalamount_four").val()) + (+$("#totalamount_five").val()));
+    }
 </script>

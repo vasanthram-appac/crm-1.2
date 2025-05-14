@@ -60,6 +60,9 @@
             <li class="nav-item">
                 <a class="nav-link"  href="/dmworks"><b>DM Works</b></a>
             </li>
+             <li class="nav-item">
+                <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
+            </li>
         </ul>
     </div>
 

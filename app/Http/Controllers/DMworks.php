@@ -25,14 +25,13 @@ class DMworks extends Controller
                 request()->session()->put('dmaccount', $request->dmaccount);
                 request()->session()->put('dmtype', $request->dmtype);
 
-                if($request->dmaccount == "All"){
-                  request()->session()->put('dmaccount', "");
+                if ($request->dmaccount == "All") {
+                    request()->session()->put('dmaccount', "");
                 }
 
-                 if($request->dmtype == "All"){
-                  request()->session()->put('dmtype', "");
+                if ($request->dmtype == "All") {
+                    request()->session()->put('dmtype', "");
                 }
-
             }
 
             $data = DB::table('dmworks')
@@ -119,7 +118,7 @@ class DMworks extends Controller
             'type' => 'required|not_in:0',
             'url' => [
                 'required',
-                'regex:/^(https:\/\/)?(docs|drive)\.google\.com\/(spreadsheets|document|presentation|forms|file|folders)/'
+                'regex:/^(https:\/\/)?((docs|drive)\.google\.com\/(spreadsheets|document|presentation|forms|file|folders)|(www\.)?youtube\.com\/watch\?v=|youtu\.be\/)/'
             ],
         ]);
 
@@ -137,7 +136,6 @@ class DMworks extends Controller
             'url' => $request->url,
             'type' => $request->type,
             'empid' => $empid,
-            'status' => 1
         ];
 
         // Insert data into the database

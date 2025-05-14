@@ -70,6 +70,8 @@ Route::get('/viewaccounts/{id}', [Accounts::class, 'Viewaccounts'])->name('viewa
 
 Route::get('/statusupdate/{id}/{active_status}', [Accounts::class, 'Statusupdate'])->name('statusupdate');
 
+Route::get('/downloadstatus/{id}/{download_status}', [Accounts::class, 'Downloadstatus'])->name('downloadstatus');
+
 Route::get('/keystatus/{id}/{key_status}', [Accounts::class, 'Keystatus'])->name('keystatus');
 
 Route::resource('/domain','App\Http\Controllers\Domain');
@@ -243,6 +245,8 @@ Route::resource('/dmworks','App\Http\Controllers\DMworks');
 Route::post('/dmaccountsearch/{type}/{name}/{id}', [Accounts::class, 'dmaccountsearch'])->name('dmaccountsearch');
 
 Route::get('/todaydetails', [Accounts::class, 'todaydetails'])->name('todaydetails');
+
+Route::resource('/asset_library','App\Http\Controllers\Assetlibrary');
 
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 

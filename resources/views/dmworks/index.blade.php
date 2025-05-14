@@ -59,6 +59,9 @@
             <li class="nav-item">
                 <a class="nav-link active"  href="/dmworks"><b>DM Works</b></a>
             </li>
+             <li class="nav-item">
+                <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
+            </li>
         </ul>
     </div>
     <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">

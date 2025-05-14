@@ -240,7 +240,7 @@
 
                 </div>
 
-                <div id="igst1" style="display:none;">
+                <div class="mb-3" id="igst1" style="display:none;">
                     <!--code-->
                     IGST {{ $gst->igst }}%
                     <input type="hidden" id="igstvalue1" name="igst1" value="{{ $gst->igst }}">
@@ -257,10 +257,19 @@
                     Gross Pay
                     <input type="text" id="pro_grosspay1" name="grosspay1" class="input-xlarge" readonly>
                 </th>
-                <br>
-                <input class="btn btn-warning" type="button" onclick="add3();showButton();" value="Calculate"><br>
-                <input style="display:none;" type="submit" value="Generate Proforma Invoice" class="btn btn-submit btn-large hidden-print showbuttton" name="submitproforma" id="submitproformaid1">
-
+                <br><br>
+                <input class="btn btn-warning mt-3" type="button" style="display:none;" id="calculatei" onclick="add3();showButton();" value="Calculate"><br>
+                <!-- <input style="display:none;" type="submit" value="Generate Proforma Invoice" class="btn btn-submit btn-large hidden-print showbuttton" name="submitproforma" id="submitproformaid1"> -->
+                 
+                <div class="text-center" id="submitproformaid1" style="display:none;">
+                        <label class="err_lbl"></label><br>
+                        <div class="btn-g2">
+                            <div></div>
+                            <div></div>
+                            <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button"> Generate Proforma </button>
+                            <button type="button" data-bs-dismiss="modal" class="frm-btn outline-btn" role="button"> Cancel </button>
+                        </div>
+                </div>
 
             </div>
 
@@ -392,7 +401,7 @@ function show6() {
         document.getElementById('sgst1').style.display = 'block';
         document.getElementById('igst1').style.display = 'none';
         //document.getElementById("submitproformaid").style.display='block';
-        document.getElementById("calculate").style.display = 'block';
+        document.getElementById("calculatei").style.display = 'block';
         document.getElementById('igstvalue1').style.display = 'none';
     }
 
@@ -400,7 +409,7 @@ function show6() {
         document.getElementById('igst1').style.display = 'block';
         document.getElementById('sgst1').style.display = 'none';
         //document.getElementById("submitproformaid").style.display='block';
-        document.getElementById("calculate").style.display = 'block';
+        document.getElementById("calculatei").style.display = 'block';
         document.getElementById('cgstvalue1').style.display = 'none';
         document.getElementById('sgstvalue1').style.display = 'none';
     }
