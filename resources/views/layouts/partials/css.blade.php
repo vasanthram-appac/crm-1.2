@@ -602,6 +602,8 @@ p{font-family:'inter', sans-serif !important}
 
 .dash-pie-chart .g-data{padding:0px 30px;}
 .inside-nav{border-bottom:1px solid #dee2e6;}
+.inside-nav  .nav-link b{color: #100c41 !important;font-weight: 600;}
+.inside-nav  .nav-link.active b{color:var(--lblue) !important;}
 .inside-nav  .nav-tabs{border-bottom:0px }
 .inside-nav  .nav-tabs .nav-item  a:hover{background:#fff;}
 #preback{height:fit-content;padding: 10px 20px;margin: 0px 10px 0px 0px;}
