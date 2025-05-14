@@ -81,20 +81,57 @@
                         </div>
                         <div class="menu-list-group menu-list-group-flush gap-2  menus">
 
+                           
+                            @if(request()->session()->get('role') != 'user')
 
-                            <!-- <span id="m1">
-    <div class="menu-list-group-item menu-list-group-item-action menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3">
-        <img src="{{ asset('asset/image/dashboard.png') }}" width="22" alt="">
-        <p class="mb-0">Dashboard</p><svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" viewBox="0 0 24 24">
-	<path fill="none" stroke="#616161" stroke-linecap="round" d="m9.929 4.858l6.364 6.364a1 1 0 0 1 0 1.414L9.929 19" />
-</svg>
-    </div>
-    <ul class="sub-menu">
-        <li><a class="">Menu 1</a></li>
-        <li><a class="">Menu 2</a></li>
-        <li><a class="">Menu 3</a></li>
-    </ul>
-</span> -->
+                            <span id="m1" class="home-menu  d-flex align-items-center  me-3 @if($route=='dashboard') active @else  @endif">
+                                <a href="/dashboard">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 512 512"><path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" d="M80 212v236a16 16 0 0 0 16 16h96V328a24 24 0 0 1 24-24h80a24 24 0 0 1 24 24v136h96a16 16 0 0 0 16-16V212"/><path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256m368-77V64h-48v69"/></svg>
+                                </a>
+                                <!-- <ul class="sub-menu @if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile'  || $route=='resignation'  || $route=='celebration'  || $route=='payslip' || $route=='userdashboard'  || $route=='usermodule' ) active @else  @endif">
+                    <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='profile') bg-bactive @else  @endif " href="/profile">View Profile</a></li>
+                    @if(request()->session()->get('role') != 'user')
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='user') bg-bactive @else  @endif " href="/user">Employee</a></li>
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='leaveapproval') bg-bactive @else  @endif " href="/leaveapproval">Leave Approval</a></li>
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='payslip') bg-bactive @else  @endif " href="/payslip"> Payslip</a></li>
+                        @endif
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='applyleave') bg-bactive @else  @endif " href="/applyleave">Apply Leave</a></li>
+                        
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='celebration') bg-bactive @else  @endif " href="/celebration">Celebration</a></li>
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='resignation') bg-bactive @else  @endif " href="/resignation">Resignation</a></li>
+						
+
+                    </ul> -->
+                            </span>
+                            
+                            
+                            @endif
+                   
+
+
+                        @if(request()->session()->get('role') == 'user')
+                         
+                        <span id="m1" class="home-menu  d-flex align-items-center  me-3 @if($route=='userdashboard') active @else  @endif">
+                                <a href="/userdashboard">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 512 512"><path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" d="M80 212v236a16 16 0 0 0 16 16h96V328a24 24 0 0 1 24-24h80a24 24 0 0 1 24 24v136h96a16 16 0 0 0 16-16V212"/><path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256m368-77V64h-48v69"/></svg>
+                                </a>
+                                <!-- <ul class="sub-menu @if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile'  || $route=='resignation'  || $route=='celebration'  || $route=='payslip' || $route=='userdashboard'  || $route=='usermodule' ) active @else  @endif">
+                    <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='profile') bg-bactive @else  @endif " href="/profile">View Profile</a></li>
+                    @if(request()->session()->get('role') != 'user')
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='user') bg-bactive @else  @endif " href="/user">Employee</a></li>
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='leaveapproval') bg-bactive @else  @endif " href="/leaveapproval">Leave Approval</a></li>
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='payslip') bg-bactive @else  @endif " href="/payslip"> Payslip</a></li>
+                        @endif
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='applyleave') bg-bactive @else  @endif " href="/applyleave">Apply Leave</a></li>
+                        
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='celebration') bg-bactive @else  @endif " href="/celebration">Celebration</a></li>
+                        <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='resignation') bg-bactive @else  @endif " href="/resignation">Resignation</a></li>
+						
+
+                    </ul> -->
+                            </span>
+
+                            @endif
 
                             <span id="m2" class="@if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile'  || $route=='resignation'  || $route=='celebration'  || $route=='payslip'  || $route=='usermodule') active @else  @endif">
                                 <a href="/usermodule">
@@ -254,12 +291,13 @@
                         <div class="d-flex align-items-center gap-4">
                             <div class="bell pro-d" style="height: 30px !important;">
                                 <p id="totalcount" style="position: absolute; padding-left: 30px;"></p>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 32 32"><path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 17c0-5 1-11 8-11s8 6 8 11s3 8 3 8H5s3-3 3-8m12 8s0 4-4 4s-4-4-4-4m4-22v3"/></svg>
                             </div>
 
-                            <div class="pro-div" style="width: 400px; right: 10px; top: 85px;">
+                            <div class="pro-div  notify-div" style="">
                                 <div class="side-menu-hed h-auto">
                                     <div class="menu-list-group pt-3 p-2 menu-list-group-flush gap-2  menus">
-                                        <div class=" menus">
+                                        <div class="menus">
                                             <div id="appenttoday"></div>
                                         </div>
                                     </div>
@@ -723,8 +761,11 @@
 
                 if (response.count > 0) {
                     $("#totalcount").text(response.count);
+
                     // $(".bell").css('background-color','red');
-                    $("#totalcount").css('color','green');
+                    $("#totalcount").css('color','#108dd7');
+                    $(".bell").addClass('active')
+                    $(".bell").css('position','relative');
                 }
 
                 let html = '';
@@ -773,7 +814,7 @@
                 if (response.calendar.length > 0) {
                     html += '<div><h5>Special Day</h5>';
                     response.calendar.forEach(item => {
-                        html += '<p><a href="/celebration">' + item.reason + ' - ' + item.datelist_one + '</a></p></div>';
+                        html += '<p><a href="/celebration"><strong>' + item.reason + '</strong> - ' + item.datelist_one + '</a></p></div>';
                     });
                 }
 
@@ -781,7 +822,7 @@
                 if (response.birthdayData.length > 0) {
                     html += '<div><h5>Birthdays Today</h5>';
                     response.birthdayData.forEach(item => {
-                        html += '<p><a href="/celebration"> Happy Birthday 🎉 ' + item.fname + '</a></p></div>';
+                        html += '<p><a href="/celebration"> Happy Birthday 🎉 <strong>' + item.fname + '</strong></a></p></div>';
                     });
                 } //2024-11-13
 
