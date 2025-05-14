@@ -601,7 +601,7 @@ p{font-family:'inter', sans-serif !important}
 
 
 .dash-pie-chart .g-data{padding:0px 30px;}
-.inside-nav{border-bottom:1px solid #dee2e6;}
+.inside-nav{border-bottom:1px solid #939393;}
 .inside-nav  .nav-link b{color: #100c41 !important;font-weight: 600;}
 .inside-nav  .nav-link.active b{color:var(--lblue) !important;}
 .inside-nav  .nav-tabs{border-bottom:0px }

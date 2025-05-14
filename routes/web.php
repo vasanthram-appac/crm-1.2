@@ -196,7 +196,7 @@ Route::resource('/questionnaire','App\Http\Controllers\Questionnaire');
 
 Route::resource('/documentupload','App\Http\Controllers\Documentupload');
 
-Route::resource('/inventary','App\Http\Controllers\Inventary');
+Route::resource('/invent','App\Http\Controllers\Inventary');
 
 Route::resource('/leadhistory','App\Http\Controllers\Leadhistory');
 
