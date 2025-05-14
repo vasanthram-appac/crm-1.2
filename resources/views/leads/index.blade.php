@@ -34,6 +34,7 @@
             <li class="nav-item">
                 <a class="nav-link "  href="/accounts"><b>Accounts</b></a>
             </li>
+            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') 
             <li class="nav-item">
                 <a class="nav-link "  href="/proforma"><b>Proforma</b></a>
             </li>
@@ -43,6 +44,7 @@
             <li class="nav-item">
                 <a class="nav-link"  href="/paymententry"><b>Payment Entry</b></a>
             </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link active"  href="/lead"><b>Leads</b></a>
             </li>

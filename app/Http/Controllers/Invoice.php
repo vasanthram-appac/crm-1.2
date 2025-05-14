@@ -16,9 +16,8 @@ class Invoice extends Controller
 
     public function index(Request $request)
     {
-        if(request()->session()->get('role') =='user'){
-            return redirect()->to('/workreport');
-        }
+        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') {
+       
         if (request()->ajax()) {
 
                 if(isset($request->pstatus) && !empty($request->pstatus)){
@@ -85,9 +84,13 @@ class Invoice extends Controller
         }
 
         $accounts = DB::table('accounts')->where('status', '!=', '0')->orderBy('company_name', 'ASC')->pluck('company_name', 'id')->toArray();
-		  $accounts = ['0' => 'Select Client'] + $accounts;
+		$accounts = ['0' => 'Select Client'] + $accounts;
 
         return view('invoice/index', compact('accounts'))->render();
+             
+        }else{
+            return redirect()->to('/workreport');
+        }
     }
 
     public function create(Request $request)

@@ -2,6 +2,35 @@
     #preback {
         display: none;
     }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #444;
+    line-height: 28px;
+    padding-top: 8px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 26px;
+    position: absolute;
+    top: 10px !important;
+    right: 1px;
+    width: 20px;
+}
+.select2-container .select2-selection--single {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 43px !important;
+    user-select: none;
+    -webkit-user-select: none;
+}
+.select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0;
+    position: relative;
+    vertical-align: middle;
+    width: 75% !important;
+}
 </style>
 
 <div class="row">
@@ -578,8 +607,8 @@
 
                 <div class="col-lg-5 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('dmname', 'Name*', ['class' => 'label-color py-2 '] ) !!}
-                        <select name="dmname" class="tab-sel form-select" id="dmname">
+                        {!! Form::label('dmname', 'Name*', ['class' => 'label-color py-2 d-block'] ) !!}
+                        <select name="dmname" class="tab-sel form-select select2" id="dmname">
                             <option value="All" @if(request()->session()->get('dmname') == 'All') selected @endif>All</option>
                             @if(count($dmworks)>0)
                             @foreach($dmworks as $dmwork)

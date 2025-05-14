@@ -16,9 +16,8 @@ class Paymententry extends Controller
 
     public function index(Request $request)
     {
-        if(request()->session()->get('role') =='user'){
-            return redirect()->to('/workreport');
-        }
+        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') {
+      
         if (request()->ajax()) {
             // Fetch the main payment data
             $data = DB::table('payment_list as p')
@@ -90,6 +89,9 @@ class Paymententry extends Controller
         
 
         return view('paymententry/index', compact('accounts'))->render();
+    }else{
+          return redirect()->to('/workreport');
+        }
     }
 
     public function create(Request $request)

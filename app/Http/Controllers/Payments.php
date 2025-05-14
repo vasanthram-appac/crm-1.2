@@ -40,7 +40,12 @@ class Payments extends Controller
 
         $keyaccount = DB::table('accounts')->where('status', '!=', '0')->where('active_status', 'active')->where('key_status', 1)->orderBy('accounts.id', 'ASC')->count();
 
-        return view('payments/index')->with(compact('invoice', 'proforma', 'payment', 'leads', 'opportunity', 'active', 'inactive', 'keyaccount', 'download'))->render();
+        $dmworks = DB::table('dmworks')->count();
+
+        $newnbd = DB::table('newnbd')->count();
+
+        $assetlibrary = DB::table('assetlibrary')->count();
+
+        return view('payments/index')->with(compact('invoice', 'proforma', 'payment', 'leads', 'opportunity', 'active', 'inactive', 'keyaccount', 'download','dmworks','newnbd','assetlibrary'))->render();
     }
-  
 }

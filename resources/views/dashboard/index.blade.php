@@ -36,11 +36,18 @@
 
             <div class="row admin  dash-pie-chart">
 
-            <div class="g-data ps-3"><a href="/lead">
+                <div class="g-data ps-3"><a href="/lead">
                         <div class="bio  rounded-30  piechart-leads dash-1">
                             <div class="svg-d">
 
-                            <svg id="Layer_1" enable-background="new 0 0 16 16" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs"><g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)"><g id="user" fill="#37474f"><path d="m11.021 11.594c-.733.854-1.807 1.406-3.021 1.406-1.2 0-2.265-.54-2.998-1.377-2.276.603-5.002 1.677-5.002 3.377v1h16s0-.167 0-1c0-1.753-2.717-2.819-4.979-3.406z" fill="#b1b5c3" fill-opacity="1" data-original-color="#37474fff" stroke="none" stroke-opacity="1"/><path d="m4 5c0-.995-.037-5 3.969-5s4.031 4.083 4.031 5c0 2-1.438 6-4 6s-4-3.958-4-6z" fill="#b1b5c3" fill-opacity="1" data-original-color="#37474fff" stroke="none" stroke-opacity="1"/></g></g></svg>
+                                <svg id="Layer_1" enable-background="new 0 0 16 16" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                                    <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                                        <g id="user" fill="#37474f">
+                                            <path d="m11.021 11.594c-.733.854-1.807 1.406-3.021 1.406-1.2 0-2.265-.54-2.998-1.377-2.276.603-5.002 1.677-5.002 3.377v1h16s0-.167 0-1c0-1.753-2.717-2.819-4.979-3.406z" fill="#b1b5c3" fill-opacity="1" data-original-color="#37474fff" stroke="none" stroke-opacity="1" />
+                                            <path d="m4 5c0-.995-.037-5 3.969-5s4.031 4.083 4.031 5c0 2-1.438 6-4 6s-4-3.958-4-6z" fill="#b1b5c3" fill-opacity="1" data-original-color="#37474fff" stroke="none" stroke-opacity="1" />
+                                        </g>
+                                    </g>
+                                </svg>
 
                             </div>
                             <h3 class="text-center ">Leads</h3>
@@ -52,7 +59,13 @@
                 <div class="g-data ps-3"><a href="/opportunity">
                         <div class="bio  rounded-30  piechart-leads dash-2">
                             <div class="svg-d">
-                            <svg id="Layer_1" enable-background="new 0 0 16 16" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs"><g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)"><g id="star"><path d="m8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zm4 14-4-3-4 3 1-5-4-3h5l2-5 2 5h5l-4 3z" fill="#b1b5c3" fill-opacity="1" data-original-color="#37474fff" stroke="none" stroke-opacity="1"/></g></g></svg>
+                                <svg id="Layer_1" enable-background="new 0 0 16 16" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                                    <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                                        <g id="star">
+                                            <path d="m8 0c-4.418 0-8 3.582-8 8s3.582 8 8 8 8-3.582 8-8-3.582-8-8-8zm4 14-4-3-4 3 1-5-4-3h5l2-5 2 5h5l-4 3z" fill="#b1b5c3" fill-opacity="1" data-original-color="#37474fff" stroke="none" stroke-opacity="1" />
+                                        </g>
+                                    </g>
+                                </svg>
                             </div>
                             <h3 class="text-center">Opportunity</h3>
                             <h4>{{$opportunity}}</h4>
@@ -77,7 +90,13 @@
                 <div class="g-data ps-3"><a href="/accounts">
                         <div class="bio  rounded-30  piechart-leads dash-4">
                             <div class="svg-d">
-                            <svg id="Icons" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="20" height="20" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs"><g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)"><path d="m33.983 23h7.923l1.389-5h-7.923z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/><path d="m39 2.009c-4.866 0-9.73 1.852-13.436 5.556-7.407 7.408-7.407 19.463 0 26.871 7.408 7.406 19.463 7.406 26.871 0 7.407-7.408 7.407-19.463 0-26.871-3.704-3.703-8.57-5.556-13.436-5.556zm10 15.991h-3.628l-1.389 5h4.017c.553 0 1 .447 1 1s-.447 1-1 1h-4.573l-1.463 5.268c-.123.442-.525.732-.963.732-.089 0-.179-.012-.269-.036-.532-.148-.844-.699-.696-1.231l1.315-4.732h-7.924l-1.463 5.268c-.123.442-.525.732-.963.732-.089 0-.179-.012-.269-.036-.532-.148-.844-.699-.696-1.231l1.315-4.732h-3.351c-.553 0-1-.447-1-1s.447-1 1-1h3.906l1.389-5h-4.295c-.553 0-1-.447-1-1s.447-1 1-1h4.851l1.185-4.268c.148-.532.698-.841 1.231-.696.532.148.844.699.696 1.231l-1.037 3.732h7.924l1.185-4.268c.148-.532.699-.841 1.231-.696.532.148.844.699.696 1.231l-1.037 3.732h3.073c.553 0 1 .447 1 1s-.447 1-1 1z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/><path d="m20.778 31.396-18.681 18.691c-.051.054-.095.156-.097.251v7.353c0 .168.142.31.31.31h7.381c.121-.004.189-.054.232-.097l1.89-1.891c.054-.054.098-.176.074-.299l-.777-3.92c-.065-.327.038-.666.274-.902.237-.236.575-.337.903-.272l3.92.79c.097.024.224-.014.286-.076l1.78-1.78c.06-.062.098-.184.079-.273l-.774-3.947c-.064-.328.039-.666.276-.901.236-.235.571-.336.903-.271l3.91.79c.106.023.23-.021.285-.076l5.651-5.651c-1.591-.907-3.098-2.016-4.454-3.373-1.356-1.356-2.466-2.862-3.372-4.453z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/></g></svg>
+                                <svg id="Icons" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="20" height="20" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                                    <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                                        <path d="m33.983 23h7.923l1.389-5h-7.923z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                                        <path d="m39 2.009c-4.866 0-9.73 1.852-13.436 5.556-7.407 7.408-7.407 19.463 0 26.871 7.408 7.406 19.463 7.406 26.871 0 7.407-7.408 7.407-19.463 0-26.871-3.704-3.703-8.57-5.556-13.436-5.556zm10 15.991h-3.628l-1.389 5h4.017c.553 0 1 .447 1 1s-.447 1-1 1h-4.573l-1.463 5.268c-.123.442-.525.732-.963.732-.089 0-.179-.012-.269-.036-.532-.148-.844-.699-.696-1.231l1.315-4.732h-7.924l-1.463 5.268c-.123.442-.525.732-.963.732-.089 0-.179-.012-.269-.036-.532-.148-.844-.699-.696-1.231l1.315-4.732h-3.351c-.553 0-1-.447-1-1s.447-1 1-1h3.906l1.389-5h-4.295c-.553 0-1-.447-1-1s.447-1 1-1h4.851l1.185-4.268c.148-.532.698-.841 1.231-.696.532.148.844.699.696 1.231l-1.037 3.732h7.924l1.185-4.268c.148-.532.699-.841 1.231-.696.532.148.844.699.696 1.231l-1.037 3.732h3.073c.553 0 1 .447 1 1s-.447 1-1 1z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                                        <path d="m20.778 31.396-18.681 18.691c-.051.054-.095.156-.097.251v7.353c0 .168.142.31.31.31h7.381c.121-.004.189-.054.232-.097l1.89-1.891c.054-.054.098-.176.074-.299l-.777-3.92c-.065-.327.038-.666.274-.902.237-.236.575-.337.903-.272l3.92.79c.097.024.224-.014.286-.076l1.78-1.78c.06-.062.098-.184.079-.273l-.774-3.947c-.064-.328.039-.666.276-.901.236-.235.571-.336.903-.271l3.91.79c.106.023.23-.021.285-.076l5.651-5.651c-1.591-.907-3.098-2.016-4.454-3.373-1.356-1.356-2.466-2.862-3.372-4.453z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                                    </g>
+                                </svg>
                             </div>
                             <h3 class="text-center">Key Accounts</h3>
                             <h4>{{$keyaccounts}}</h4>
@@ -87,13 +106,21 @@
                 <div class="g-data  ps-3"><a href="/enquiryreport">
                         <div class="bio  rounded-30  piechart-leads dash-5">
                             <div class="svg-d">
-                            <svg id="Capa_1" enable-background="new 0 0 512 512" height="20" viewBox="0 0 512 512" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs"><g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)"><g><path d="m315 120c-5.306 0-10.519.379-15.72.795.403 4.693.72 9.41.72 14.205 0 90.981-74.019 165-165 165-4.796 0-9.512-.317-14.205-.72-.416 5.2-.795 10.413-.795 15.72 0 107.695 87.305 197 195 197h197l-53.004-61.637c32.78-34.889 53.004-83.714 53.004-135.363 0-107.695-89.305-195-197-195z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/><path d="m270 135c0-74.559-60.441-135-135-135s-135 60.441-135 135 60.441 135 135 135 135-60.441 135-135zm-135-82c24.901 0 45 20.099 45 45 0 19.499-10.499 29.399-18.3 36.599-6.226 5.572-11.7 10.424-11.7 22.8v.601h-30v-.601c0-25.499 12.9-37.2 21.301-45 6.599-6 8.699-8.399 8.699-14.399 0-8.401-6.599-15-15-15s-15 6.599-15 15h-30c0-24.901 20.099-45 45-45zm-15 135h30v30h-30z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/></g></g></svg>
+                                <svg id="Capa_1" enable-background="new 0 0 512 512" height="20" viewBox="0 0 512 512" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                                    <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                                        <g>
+                                            <path d="m315 120c-5.306 0-10.519.379-15.72.795.403 4.693.72 9.41.72 14.205 0 90.981-74.019 165-165 165-4.796 0-9.512-.317-14.205-.72-.416 5.2-.795 10.413-.795 15.72 0 107.695 87.305 197 195 197h197l-53.004-61.637c32.78-34.889 53.004-83.714 53.004-135.363 0-107.695-89.305-195-197-195z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                                            <path d="m270 135c0-74.559-60.441-135-135-135s-135 60.441-135 135 60.441 135 135 135 135-60.441 135-135zm-135-82c24.901 0 45 20.099 45 45 0 19.499-10.499 29.399-18.3 36.599-6.226 5.572-11.7 10.424-11.7 22.8v.601h-30v-.601c0-25.499 12.9-37.2 21.301-45 6.599-6 8.699-8.399 8.699-14.399 0-8.401-6.599-15-15-15s-15 6.599-15 15h-30c0-24.901 20.099-45 45-45zm-15 135h30v30h-30z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                                        </g>
+                                    </g>
+                                </svg>
                             </div>
                             <h3 class="text-center">Enquiry</h3>
                             <h4>{{$website_enquiry_data}}</h4>
                         </div>
                     </a>
                 </div>
+                @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1')
                 <div class="g-data  ps-3"><a href="/proforma">
                         <div class="bio  rounded-30  piechart-leads dash-6">
                             <div class="svg-d">
@@ -106,6 +133,7 @@
                         </div>
                     </a>
                 </div>
+
                 <div class="g-data  ps-3"><a href="invoice">
                         <div class="bio  rounded-30  piechart-leads dash-7">
                             <div class="svg-d">
@@ -120,11 +148,10 @@
                     </a>
                 </div>
 
-
                 <div class="g-data ps-3"><a href="/paymententry">
                         <div class="bio  rounded-30  piechart-leads dash-8">
                             <div class="svg-d">
-                                <img src="/img/payment entry.png"/>
+                                <img src="/img/payment entry.png" />
                             </div>
                             <h3 class="text-center ">Payment Entry</h3>
                             <h4>{{$payment}}</h4>
@@ -132,11 +159,29 @@
                     </a>
                 </div>
 
+                <div class="g-data ps-3"><a href="/user">
+                        <div class="bio  rounded-30  piechart-leads dash-4">
+                            <div class="svg-d">
+                                <img src="/img/employee.png" />
+                            </div>
+                            <h3 class="text-center ">Employee</h3>
+                            <h4>{{$employee}}</h4>
+                        </div>
+                    </a>
+                </div>
+                @endif
 
                 <div class="g-data  ps-3"><a href="/workorderview">
                         <div class="bio  rounded-30  piechart-leads dash-9">
                             <div class="svg-d">
-                            <svg id="Layer_1" enable-background="new 0 0 468.021 468.021" height="20" viewBox="0 0 468.021 468.021" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs"><g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)"><g><path d="m434.01 392h-334.856c-6.382 0-6.34-6.919-2.731-10.036l74.478-63.964h238.549c2.966 0 5.426-2.677 5.484-5.638l2.985-154.034c.052-2.742-1.955-5.183-4.67-5.59l-52.688-7.926c-20.486 29.218-54.231 46.99-90.26 46.99-25.142 0-49.732-8.702-69.24-24.488-16.627-13.456-29.021-31.577-35.561-51.753l-35.127-5.264.155-.041-23.128-89.732c-1.619-6.291-7.283-10.524-13.77-10.524h-59.62v28h48.601l62.953 263.531-67.443 58.521c-24.613 19.487-10.322 60.948 21.033 60.948h57.756c-3.16 4-5.002 10.296-5.002 16.467 0 16.945 13.844 30.554 30.921 30.554s30.92-13.544 30.92-30.489c0-6.171-1.843-12.531-5.002-16.531h118.747c-3.16 4-5.002 10.296-5.002 16.467 0 16.945 13.844 30.554 30.921 30.554s30.921-13.544 30.921-30.489c0-6.171-1.843-12.531-5.002-16.531h54.68v-29.002z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/><path d="m270.302 0c-45.041 0-81.684 36.604-81.684 81.597s36.643 81.597 81.684 81.597 81.684-36.604 81.684-81.597-36.644-81.597-81.684-81.597zm-5.052 120.524c-5.696 6.068-15.871 5.8-21.235-.584l-24.597-29.262 21.754-18.344 14.306 17.019 42.888-45.685 20.717 19.512z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/></g></g></svg>
+                                <svg id="Layer_1" enable-background="new 0 0 468.021 468.021" height="20" viewBox="0 0 468.021 468.021" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                                    <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                                        <g>
+                                            <path d="m434.01 392h-334.856c-6.382 0-6.34-6.919-2.731-10.036l74.478-63.964h238.549c2.966 0 5.426-2.677 5.484-5.638l2.985-154.034c.052-2.742-1.955-5.183-4.67-5.59l-52.688-7.926c-20.486 29.218-54.231 46.99-90.26 46.99-25.142 0-49.732-8.702-69.24-24.488-16.627-13.456-29.021-31.577-35.561-51.753l-35.127-5.264.155-.041-23.128-89.732c-1.619-6.291-7.283-10.524-13.77-10.524h-59.62v28h48.601l62.953 263.531-67.443 58.521c-24.613 19.487-10.322 60.948 21.033 60.948h57.756c-3.16 4-5.002 10.296-5.002 16.467 0 16.945 13.844 30.554 30.921 30.554s30.92-13.544 30.92-30.489c0-6.171-1.843-12.531-5.002-16.531h118.747c-3.16 4-5.002 10.296-5.002 16.467 0 16.945 13.844 30.554 30.921 30.554s30.921-13.544 30.921-30.489c0-6.171-1.843-12.531-5.002-16.531h54.68v-29.002z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                                            <path d="m270.302 0c-45.041 0-81.684 36.604-81.684 81.597s36.643 81.597 81.684 81.597 81.684-36.604 81.684-81.597-36.644-81.597-81.684-81.597zm-5.052 120.524c-5.696 6.068-15.871 5.8-21.235-.584l-24.597-29.262 21.754-18.344 14.306 17.019 42.888-45.685 20.717 19.512z" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                                        </g>
+                                    </g>
+                                </svg>
                             </div>
                             <h3 class="text-center">Work Order</h3>
                             <h4>{{$work_order}}</h4>
@@ -159,7 +204,11 @@
                 <div class="g-data  ps-3"><a href="/employeereport">
                         <div class="bio  rounded-30  piechart-leads dash-1">
                             <div class="svg-d">
-                            <svg id="Layer_1" enable-background="new 0 0 512 512" height="20" viewBox="0 0 512 512" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs"><g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)"><path clip-rule="evenodd" d="m20.517 8h294.687v57.003c0 11.585 9.415 21 21 21h57.003v137.888c-2.127-.103-4.267-.158-6.42-.158-72.181 0-130.695 58.514-130.695 130.695s58.514 130.695 130.695 130.695c2.153 0 4.292-.056 6.42-.158v9.035c0 5.508-4.492 10-10 10h-362.69c-5.508 0-10-4.492-10-10v-476c0-5.508 4.492-10 10-10zm366.271 270.442c-22.365 0-40.496 18.131-40.496 40.496s18.131 40.496 40.496 40.496 40.496-18.131 40.496-40.496-18.13-40.496-40.496-40.496zm0-22.71c-54.508 0-98.695 44.187-98.695 98.695 0 24.248 8.75 46.45 23.258 63.632 11.076-30.965 40.671-53.133 75.438-53.133 34.774 0 64.368 22.163 75.437 53.133 14.508-17.182 23.258-39.383 23.258-63.632-.001-54.508-44.189-98.695-98.696-98.695zm0-16c-63.345 0-114.695 51.351-114.695 114.695s51.351 114.695 114.695 114.695 114.695-51.35 114.695-114.695-51.351-114.695-114.695-114.695zm-55.584-230.865v56.136c0 2.754 2.246 5 5 5h56.136c-.485-1.062-1.173-2.039-2.062-2.929l-56.145-56.145c-.889-.889-1.867-1.577-2.929-2.062zm-242.592 160.628h226.5c4.418 0 8-3.582 8-8s-3.582-8-8-8h-226.5c-4.418 0-8 3.582-8 8s3.582 8 8 8zm0-66.75h162.593c4.418 0 8-3.582 8-8s-3.582-8-8-8h-162.593c-4.418 0-8 3.582-8 8s3.582 8 8 8zm0 333.749h154.709c4.418 0 8-3.582 8-8s-3.582-8-8-8h-154.709c-4.418 0-8 3.582-8 8 0 4.419 3.582 8 8 8zm0-66.75h154.709c4.418 0 8-3.582 8-8s-3.582-8-8-8h-154.709c-4.418 0-8 3.582-8 8 0 4.419 3.582 8 8 8zm0-66.75h154.709c4.418 0 8-3.582 8-8s-3.582-8-8-8h-154.709c-4.418 0-8 3.582-8 8 0 4.419 3.582 8 8 8zm0-66.749h226.5c4.418 0 8-3.582 8-8s-3.582-8-8-8h-226.5c-4.418 0-8 3.582-8 8s3.582 8 8 8z" fill-rule="evenodd" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1"/></g></svg>
+                                <svg id="Layer_1" enable-background="new 0 0 512 512" height="20" viewBox="0 0 512 512" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                                    <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                                        <path clip-rule="evenodd" d="m20.517 8h294.687v57.003c0 11.585 9.415 21 21 21h57.003v137.888c-2.127-.103-4.267-.158-6.42-.158-72.181 0-130.695 58.514-130.695 130.695s58.514 130.695 130.695 130.695c2.153 0 4.292-.056 6.42-.158v9.035c0 5.508-4.492 10-10 10h-362.69c-5.508 0-10-4.492-10-10v-476c0-5.508 4.492-10 10-10zm366.271 270.442c-22.365 0-40.496 18.131-40.496 40.496s18.131 40.496 40.496 40.496 40.496-18.131 40.496-40.496-18.13-40.496-40.496-40.496zm0-22.71c-54.508 0-98.695 44.187-98.695 98.695 0 24.248 8.75 46.45 23.258 63.632 11.076-30.965 40.671-53.133 75.438-53.133 34.774 0 64.368 22.163 75.437 53.133 14.508-17.182 23.258-39.383 23.258-63.632-.001-54.508-44.189-98.695-98.696-98.695zm0-16c-63.345 0-114.695 51.351-114.695 114.695s51.351 114.695 114.695 114.695 114.695-51.35 114.695-114.695-51.351-114.695-114.695-114.695zm-55.584-230.865v56.136c0 2.754 2.246 5 5 5h56.136c-.485-1.062-1.173-2.039-2.062-2.929l-56.145-56.145c-.889-.889-1.867-1.577-2.929-2.062zm-242.592 160.628h226.5c4.418 0 8-3.582 8-8s-3.582-8-8-8h-226.5c-4.418 0-8 3.582-8 8s3.582 8 8 8zm0-66.75h162.593c4.418 0 8-3.582 8-8s-3.582-8-8-8h-162.593c-4.418 0-8 3.582-8 8s3.582 8 8 8zm0 333.749h154.709c4.418 0 8-3.582 8-8s-3.582-8-8-8h-154.709c-4.418 0-8 3.582-8 8 0 4.419 3.582 8 8 8zm0-66.75h154.709c4.418 0 8-3.582 8-8s-3.582-8-8-8h-154.709c-4.418 0-8 3.582-8 8 0 4.419 3.582 8 8 8zm0-66.75h154.709c4.418 0 8-3.582 8-8s-3.582-8-8-8h-154.709c-4.418 0-8 3.582-8 8 0 4.419 3.582 8 8 8zm0-66.749h226.5c4.418 0 8-3.582 8-8s-3.582-8-8-8h-226.5c-4.418 0-8 3.582-8 8s3.582 8 8 8z" fill-rule="evenodd" fill="#b1b5c3" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                                    </g>
+                                </svg>
                             </div>
                             <h3 class="text-center">Employee Report</h3>
                             <h4>{{$dailyreport}}</h4>
@@ -170,7 +219,7 @@
                 <div class="g-data ps-3"><a href="/monthlyreport">
                         <div class="bio  rounded-30  piechart-leads dash-3">
                             <div class="svg-d">
-                                <img src="/img/monthly-report.png"  />
+                                <img src="/img/monthly-report.png" />
                             </div>
                             <h3 class="text-center ">Monthly Report</h3>
                             <h4>{{$empreport}}</h4>
@@ -178,23 +227,10 @@
                     </a>
                 </div>
 
-                <div class="g-data ps-3"><a href="/user">
-                        <div class="bio  rounded-30  piechart-leads dash-4">
-                            <div class="svg-d">
-
-                            <img src="/img/employee.png"/>
-
-                            </div>
-                            <h3 class="text-center ">Employee</h3>
-                            <h4>{{$employee}}</h4>
-                        </div>
-                    </a>
-                </div>
-
                 <div class="g-data ps-3"><a href="/leaveapproval">
                         <div class="bio  rounded-30  piechart-leads dash-6">
                             <div class="svg-d">
-                            <img src="/img/approved.png"/>
+                                <img src="/img/approved.png" />
                             </div>
                             <h3 class="text-center">Leave Approved</h3>
                             <h4>{{$leaveapproved}}</h4>
@@ -206,8 +242,8 @@
                         <div class="bio  rounded-30  piechart-leads dash-1">
                             <div class="svg-d">
 
-                            <img src="/img/social-login.png" />
-                  
+                                <img src="/img/social-login.png" />
+
                             </div>
                             <h3 class="text-center ">Social Login</h3>
                             <h4>{{$social}}</h4>
@@ -570,7 +606,7 @@
 
     // Function to generate a custom tooltip
     function customTooltip(label, value) {
-         return `
+        return `
         <div style="padding: 8px 0px !important;width:100%; color: #fff; background-color: #282b32; border-radius: 5px;">
         <div style="padding: 8px 10px !important;width:80px;">
             <strong  >${month}</strong><br>
@@ -743,8 +779,8 @@
                 ]
             <?php endif; ?>
         });
-		
-		  // Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon

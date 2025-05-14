@@ -16,9 +16,7 @@ class Proforma extends Controller
 
     public function index(Request $request)
     {
-        if (request()->session()->get('role') == 'user') {
-            return redirect()->to('/workreport');
-        }
+        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') {
 
         if (request()->ajax()) {
 
@@ -116,10 +114,11 @@ class Proforma extends Controller
     ->select(DB::raw('COUNT(*) as total_open'), DB::raw('SUM(grosspay) as total_grosspay'))
     ->where('paymentstatus', 'open')
     ->first();
-
-
-
         return view('proforma/index', compact('accounts', 'proformadata'))->render();
+
+        }else{
+              return redirect()->to('/workreport');
+        }
     }
 
     public function create(Request $request)

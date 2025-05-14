@@ -17,9 +17,8 @@ class Payslip extends Controller
 
     public function index(Request $request)
     {
-        if(request()->session()->get('role') =='user'){
-            return redirect()->to('/workreport');
-        }
+        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM063' || request()->session()->get('empid') == 'AM003' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1'){
+       
         if (request()->ajax()) {
             $idValue = date('m-Y');
 
@@ -57,6 +56,10 @@ class Payslip extends Controller
         }
 
         return view('payslip.index')->render();
+             
+        }else{
+            return redirect()->to('/workreport');
+        }
     }
 
     public function create(Request $request)
