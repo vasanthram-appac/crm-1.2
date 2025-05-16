@@ -29,100 +29,103 @@
 
 <div class="appac_show"></div>
 <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
-        <a id="preback" href="javascript:history.back()">Back</a>
-        <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
-            <li class="nav-item">
-                <a class="nav-link "  href="/accounts"><b>Accounts</b></a>
-            </li>
-            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') 
-            <li class="nav-item">
-                <a class="nav-link "  href="/proforma"><b>Proforma</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="/invoice"><b>Invoice</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="/paymententry"><b>Payment Entry</b></a>
-            </li>
-            @endif
-            <li class="nav-item">
-                <a class="nav-link active"  href="/lead"><b>Leads</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="/opportunity"><b>Opportunity</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="/serverdetails"><b>Renewals</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="/newnbd"><b>New NBD</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="/dmworks"><b>DM Works</b></a>
-            </li>
-             <li class="nav-item">
-                <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
-            </li>
-        </ul>
-    </div>
+    <a id="preback" href="javascript:history.back()">Back</a>
+    <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
+        <li class="nav-item">
+            <a class="nav-link " href="/accounts"><b>Accounts</b></a>
+        </li>
+        @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1')
+        <li class="nav-item">
+            <a class="nav-link " href="/proforma"><b>Proforma</b></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/invoice"><b>Invoice</b></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/paymententry"><b>Payment Entry</b></a>
+        </li>
+        @endif
+        <li class="nav-item">
+            <a class="nav-link active" href="/lead"><b>Leads</b></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/opportunity"><b>Opportunity</b></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/serverdetails"><b>Renewals</b></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/newnbd"><b>New NBD</b></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/dmworks"><b>DM Works</b></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/required_input"><b>Required Input</b></a>
+        </li>
+    </ul>
+</div>
 <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between  align-items-center  p-15">
-        <div class="profile-head">
-            <h1 class="ch2 comp-name">Leads</h1>
-        </div>
-        <div class="justify-content-sm-end d-flex">
-                <div class=""></div>
-                <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Leads::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Lead</button>
-            </div>
+    <div class="profile-head">
+        <h1 class="ch2 comp-name">Leads</h1>
     </div>
+    <div class="justify-content-sm-end d-flex">
+        <div class=""></div>
+        <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Leads::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Lead</button>
+    </div>
+</div>
 <div class=" m-0 appac_hide col-wrap ">
 
-     <div class="lead-charthed row pt-4 row-gap-3">
+    <div class="lead-charthed row pt-4 row-gap-3">
         <div class="col-lg-12 col-xl-8 col-md-12 col-sm-12 p-0 pad-rig-30">
-       
-           <div class="bio  rounded-30  piechart-leads">
-           <div class="">
-           <h4 class="ch-2">Leads</h4>
-           </div>
-           
-            <div class="d-flex align-items-center justify-content-center  h-100   flex-direction-column ">
-          
-                <div class="chart-container mb-5">
-                    <div class="d-flex justify-content-center">
-                    <div id="chart1" class="chart"></div>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                    <div id="chart2" class="chart"></div>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                    <div id="chart3" class="chart"></div>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                    <div id="chart4" class="chart"></div>
-                    </div>
-        
-                  
+
+            <div class="bio  rounded-30  piechart-leads">
+                <div class="">
+                    <h4 class="ch-2">Leads</h4>
                 </div>
+
+                <div class="d-flex align-items-center justify-content-center  h-100   flex-direction-column ">
+
+                    <div class="chart-container mb-5">
+                        <div class="d-flex justify-content-center">
+                            <div id="chart1" class="chart"></div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div id="chart2" class="chart"></div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div id="chart3" class="chart"></div>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <div id="chart4" class="chart"></div>
+                        </div>
+
+
+                    </div>
                 </div>
-       
-</div>
+
+            </div>
         </div>
         <div class=" col-lg-12 col-xl-4 col-md-12 col-sm-12 p-0">
-        <div class="bio  rounded-30  piechart-leads h-auto lead-grap">
-           <div class="">
-           <h4 class="ch-2">Graph</h4>
-           </div>
-            
+            <div class="bio  rounded-30  piechart-leads h-auto lead-grap">
+                <div class="">
+                    <h4 class="ch-2">Graph</h4>
+                </div>
 
-            <div class="table-responsive p-0  lead-grp">
-             <div id="bar_chart"  style="width: 100%; height:250px;min-height:365px" class="p-0"></div>
+
+                <div class="table-responsive p-0  lead-grp">
+                    <div id="bar_chart" style="width: 100%; height:250px;min-height:365px" class="p-0"></div>
+                </div>
             </div>
-</div>
-        
+
+        </div>
     </div>
-    </div> 
-   
-   
-    
+
+
+
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
             <!-- <div class="add-newproduct-tab">
@@ -130,17 +133,17 @@
                     <h2 class="white-text mx-3">Leads</h2>
                 </div>
             </div> comment by vasanth-->
-            
-           
 
 
-<div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
+
+
+            <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
                 <h2>Success</h2>
             </div>
 
-       
 
-         
+
+
 
             <div class="pt-4 table-responsive p-0">
                 <table id="example" class="dataTable mt-6 table table-bordered ">
@@ -217,141 +220,172 @@
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script>
-    google.charts.load("current", { packages: ["corechart"] });
-google.charts.setOnLoadCallback(drawCharts);
- 
-var total = @json($allActivests);
-var hot = @json($Hot);
-var cold = @json($Cold);
-var Warm = @json($Warm);
-var Reject = @json($Reject);
+    google.charts.load("current", {
+        packages: ["corechart"]
+    });
+    google.charts.setOnLoadCallback(drawCharts);
+
+    var total = @json($allActivests);
+    var hot = @json($Hot);
+    var cold = @json($Cold);
+    var Warm = @json($Warm);
+    var Reject = @json($Reject);
 
 
 
 
-var hot_val =Math.round((hot.length/total.length)*100)
-var cold_val = Math.round((cold.length/total.length)*100)
-var warm_val = Math.round((Warm.length/total.length)*100)
-var reject_val = Math.round((Reject.length/total.length)*100)
+    var hot_val = Math.round((hot.length / total.length) * 100)
+    var cold_val = Math.round((cold.length / total.length) * 100)
+    var warm_val = Math.round((Warm.length / total.length) * 100)
+    var reject_val = Math.round((Reject.length / total.length) * 100)
 
 
-function drawCharts() {
-  drawSemiCircleChart("chart1", hot_val , "#5884c1", "Hot Leads");
-  drawSemiCircleChart("chart2", warm_val, "#8caacf", "Warm Leads");
-  drawSemiCircleChart("chart3", cold_val, "#7ab6db", "Cold Leads");
-  drawSemiCircleChart("chart4", reject_val, "#a4a5a7", "Rejected Leads");
-}
+    function drawCharts() {
+        drawSemiCircleChart("chart1", hot_val, "#5884c1", "Hot Leads");
+        drawSemiCircleChart("chart2", warm_val, "#8caacf", "Warm Leads");
+        drawSemiCircleChart("chart3", cold_val, "#7ab6db", "Cold Leads");
+        drawSemiCircleChart("chart4", reject_val, "#a4a5a7", "Rejected Leads");
+    }
 
-function drawSemiCircleChart(elementId, percentage, color, label ,status) {
-  const data = google.visualization.arrayToDataTable([
-    ["Label", "Value"],
-    ["Progress", percentage],
-    ["", 100 - percentage]
+    function drawSemiCircleChart(elementId, percentage, color, label, status) {
+        const data = google.visualization.arrayToDataTable([
+            ["Label", "Value"],
+            ["Progress", percentage],
+            ["", 100 - percentage]
 
-   
-  ]);
-  var status;
-  const options = {
-    animation: {
-      startup: true,
-      duration: 1500,
-      easing: 'out'
-    },
-    pieHole: 0.7,
-    pieSliceTextStyle: { color: "transparent" },
-    pieSliceBorderColor: "transparent",
-    legend: "none",
-    pieStartAngle: 230,
-    pieEndAngle: 250,
-    slices: {
-      0: { color: color },
-      1: { color: "#e6e6e6" }
-    },
-    
-  };
 
-  const chart = new google.visualization.PieChart(document.getElementById(elementId));
-  chart.draw(data, options);
+        ]);
+        var status;
+        const options = {
+            animation: {
+                startup: true,
+                duration: 1500,
+                easing: 'out'
+            },
+            pieHole: 0.7,
+            pieSliceTextStyle: {
+                color: "transparent"
+            },
+            pieSliceBorderColor: "transparent",
+            legend: "none",
+            pieStartAngle: 230,
+            pieEndAngle: 250,
+            slices: {
+                0: {
+                    color: color
+                },
+                1: {
+                    color: "#e6e6e6"
+                }
+            },
 
-  // Add the percentage label and description in the center
-  document.getElementById(elementId).innerHTML += `
+        };
+
+        const chart = new google.visualization.PieChart(document.getElementById(elementId));
+        chart.draw(data, options);
+
+        // Add the percentage label and description in the center
+        document.getElementById(elementId).innerHTML += `
     <div class="chart-label">
       <div>${percentage}%</div>
       <div class="status"></div>
       <div>${label}</div>
     </div>
   `;
-}
-
+    }
 </script>
 <script>
-const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-google.charts.load('current', {packages: ['corechart']});
-google.charts.setOnLoadCallback(drawChart);
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    google.charts.load('current', {
+        packages: ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
 
-function drawChart() {
-    // Get last 7 months' lead data from the backend
-    var leadCount = @json($leadCounts); // Data from PHP
+    function drawChart() {
+        // Get last 7 months' lead data from the backend
+        var leadCount = @json($leadCounts); // Data from PHP
 
-    const leadCounts = leadCount
-    .reverse() // Reverse the data order
-    .map(({ month, leads }) => ({
-        month: month.split(' ')[0], // Extract only the month (e.g., "Nov" from "Nov 2024")
-        leads: leads,
-    }));
+        const leadCounts = leadCount
+            .reverse() // Reverse the data order
+            .map(({
+                month,
+                leads
+            }) => ({
+                month: month.split(' ')[0], // Extract only the month (e.g., "Nov" from "Nov 2024")
+                leads: leads,
+            }));
 
-    // Prepare data for Google Charts
-    const data = google.visualization.arrayToDataTable([
-        ['Month', 'Leads', { role: 'style' }, { role: 'tooltip', p: { html: true } }],
-        ...leadCounts.map(({ month, leads }) => [
-            month, 
-            leads, 
-            '#d9e1ef', 
-            customTooltip(month, leads)
-        ])
-    ]);
+        // Prepare data for Google Charts
+        const data = google.visualization.arrayToDataTable([
+            ['Month', 'Leads', {
+                role: 'style'
+            }, {
+                role: 'tooltip',
+                p: {
+                    html: true
+                }
+            }],
+            ...leadCounts.map(({
+                month,
+                leads
+            }) => [
+                month,
+                leads,
+                '#d9e1ef',
+                customTooltip(month, leads)
+            ])
+        ]);
 
-    const options = {
-        hAxis: {
-            textStyle: { color: '#666', fontSize: 12 }
-        },
-        vAxis: {
-            minValue: 0,
-            gridlines: { color: '#eaeaea' },
-            textStyle: { color: '#666' }
-        },
-        legend: 'none',
-        chartArea: { width: '80%', height: '70%' },
-        tooltip: { isHtml: true },
-        animation: {
-            startup: true,
-            duration: 1000,
-            easing: 'out'
-        },
-        chartArea: {
-        width: '80%',
-        height: '50%',
-    },
-    };
+        const options = {
+            hAxis: {
+                textStyle: {
+                    color: '#666',
+                    fontSize: 12
+                }
+            },
+            vAxis: {
+                minValue: 0,
+                gridlines: {
+                    color: '#eaeaea'
+                },
+                textStyle: {
+                    color: '#666'
+                }
+            },
+            legend: 'none',
+            chartArea: {
+                width: '80%',
+                height: '70%'
+            },
+            tooltip: {
+                isHtml: true
+            },
+            animation: {
+                startup: true,
+                duration: 1000,
+                easing: 'out'
+            },
+            chartArea: {
+                width: '80%',
+                height: '50%',
+            },
+        };
 
-    const chart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
-    chart.draw(data, options);
-}
+        const chart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
+        chart.draw(data, options);
+    }
 
-function customTooltip(month, leads) {
-     return `
+    function customTooltip(month, leads) {
+        return `
         <div style="padding: 8px 0px !important;width:100%; color: #fff; background-color: #282b32; border-radius: 5px;">
         <div style="padding: 8px 10px !important;width:80px;">
             <strong  >${month}</strong><br>
             <span style="color: #5884c1;">●</span> ${leads} No's
         </div>
         </div>`;
-}
-
-
+    }
 </script>
 <script>
-
     $(document).ready(function() {
 
         var cat_table = $('#example').DataTable({
@@ -446,8 +480,8 @@ function customTooltip(month, leads) {
                 ]
             <?php endif; ?>
         });
-		
-		           // Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon

@@ -29,44 +29,47 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
-<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+    <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
             <li class="nav-item">
-                <a class="nav-link "  href="/accounts"><b>Accounts</b></a>
+                <a class="nav-link " href="/accounts"><b>Accounts</b></a>
             </li>
-            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') 
+            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1')
             <li class="nav-item">
-                <a class="nav-link "  href="/proforma"><b>Proforma</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="/invoice"><b>Invoice</b></a>
+                <a class="nav-link " href="/proforma"><b>Proforma</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/paymententry"><b>Payment Entry</b></a>
+                <a class="nav-link" href="/invoice"><b>Invoice</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/paymententry"><b>Payment Entry</b></a>
             </li>
             @endif
             <li class="nav-item">
-                <a class="nav-link"  href="/lead"><b>Leads</b></a>
+                <a class="nav-link" href="/lead"><b>Leads</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active"  href="/opportunity"><b>Opportunity</b></a>
+                <a class="nav-link active" href="/opportunity"><b>Opportunity</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/serverdetails"><b>Renewals</b></a>
+                <a class="nav-link" href="/serverdetails"><b>Renewals</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/newnbd"><b>New NBD</b></a>
+                <a class="nav-link" href="/newnbd"><b>New NBD</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/dmworks"><b>DM Works</b></a>
+                <a class="nav-link" href="/dmworks"><b>DM Works</b></a>
             </li>
-             <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/required_input"><b>Required Input</b></a>
             </li>
         </ul>
     </div>
-<div class="profile col-12 my-2 col-lg-12 col-xl-12 col-xxl-12">
+    <div class="profile col-12 my-2 col-lg-12 col-xl-12 col-xxl-12">
         <div class="profile-head">
             <h1 class="ch2 comp-name">Opportunity</h1>
         </div>
@@ -176,10 +179,10 @@
                     data: 'firstname',
                     name: 'firstname'
                 },
-            //   //  {
-            //         data: 'lastname',
-            //         name: 'lastname'
-            //     },//
+                //   //  {
+                //         data: 'lastname',
+                //         name: 'lastname'
+                //     },//
                 {
                     data: 'phone',
                     name: 'phone'
@@ -225,8 +228,8 @@
                 ]
             <?php endif; ?>
         });
-		
-		           // Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon

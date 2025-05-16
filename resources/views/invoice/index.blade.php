@@ -29,58 +29,61 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
-<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+    <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
             <li class="nav-item">
-                <a class="nav-link "  href="/accounts"><b>Accounts</b></a>
+                <a class="nav-link " href="/accounts"><b>Accounts</b></a>
             </li>
-            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') 
+            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1')
             <li class="nav-item">
-                <a class="nav-link "  href="/proforma"><b>Proforma</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active"  href="/invoice"><b>Invoice</b></a>
+                <a class="nav-link " href="/proforma"><b>Proforma</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/paymententry"><b>Payment Entry</b></a>
+                <a class="nav-link active" href="/invoice"><b>Invoice</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/paymententry"><b>Payment Entry</b></a>
             </li>
             @endif
             <li class="nav-item">
-                <a class="nav-link"  href="/lead"><b>Leads</b></a>
+                <a class="nav-link" href="/lead"><b>Leads</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/opportunity"><b>Opportunity</b></a>
+                <a class="nav-link" href="/opportunity"><b>Opportunity</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/serverdetails"><b>Renewals</b></a>
+                <a class="nav-link" href="/serverdetails"><b>Renewals</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/newnbd"><b>New NBD</b></a>
+                <a class="nav-link" href="/newnbd"><b>New NBD</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/dmworks"><b>DM Works</b></a>
+                <a class="nav-link" href="/dmworks"><b>DM Works</b></a>
             </li>
-             <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/required_input"><b>Required Input</b></a>
             </li>
         </ul>
     </div>
-<div class="profile  prof  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex  justify-content-between  align-items-center  p-15">
+    <div class="profile  prof  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex  justify-content-between  align-items-center  p-15">
         <div class="profile-head">
             <h1 class="ch2 comp-name m-0">Invoice</h1>
         </div>
         <div class="justify-content-sm-end search-bar d-flex w-100">
-                <div class="row  form-flex">
+            <div class="row  form-flex">
                 {!! Form::open(['route' => ['invoiceaccountsid'], 'method' => 'Post']) !!}
-                    {!! Form::label('company_name', 'Company Name', ['class' => 'label-color py-2'] ) !!}
-                    {!! Form::select('accountsid', $accounts, null, ['class' => 'form-select', 'required']) !!}
-                    <button type="submit" data-id="8" class="frm-btn pri-text-color  bcreate" role="button" data-container=".customer_modal"><i class="fa fa-plus me-1" aria-hidden="true"></i> Create </button>
-                    {!! Form::close() !!}
-                    <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 bcreateview" data-container=".customer_modal" style="display: none;" data-href="{{action([App\Http\Controllers\Invoice::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Create </button>
+                {!! Form::label('company_name', 'Company Name', ['class' => 'label-color py-2'] ) !!}
+                {!! Form::select('accountsid', $accounts, null, ['class' => 'form-select', 'required']) !!}
+                <button type="submit" data-id="8" class="frm-btn pri-text-color  bcreate" role="button" data-container=".customer_modal"><i class="fa fa-plus me-1" aria-hidden="true"></i> Create </button>
+                {!! Form::close() !!}
+                <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 bcreateview" data-container=".customer_modal" style="display: none;" data-href="{{action([App\Http\Controllers\Invoice::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Create </button>
 
-                </div>
             </div>
+        </div>
     </div>
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
@@ -112,7 +115,7 @@
                             <th class="text-grey">Client Name</th>
                             <th class="text-grey">Amount</th>
                             <th class="text-grey">Status
-                                <select class="d-block" name="invoice_status">
+                                <select class="d-block form-select" name="invoice_status">
                                     <option value="">Select</option>
                                     <option value="all" @if(request()->session()->get('invoice_status') == 'all') selected @endif>All</option>
                                     <option value="pending" @if(request()->session()->get('invoice_status') == 'pending') selected @endif>Pending</option>
@@ -171,7 +174,7 @@
             pageLength: 10,
             lengthMenu: [10, 20, 50, 100],
             ajax: "{{ action([App\Http\Controllers\Invoice::class,'index']) }}",
-          
+
             columns: [{
                     data: 'sno',
                     name: 'sno'
@@ -242,8 +245,8 @@
                 ]
             <?php endif; ?>
         });
-		
-		        // Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon
@@ -387,8 +390,8 @@
                 type: 'POST',
                 data: {
                     id: Id,
-                    inid:inid,
-                    status:status,
+                    inid: inid,
+                    status: status,
                     _token: '{{ csrf_token() }}',
 
                 },

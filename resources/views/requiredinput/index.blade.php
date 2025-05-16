@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title','Questionnaire')
+@section('title','Required Input')
 
 @section('css')
 <style>
@@ -33,51 +33,73 @@
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
             <li class="nav-item">
-                <a class="nav-link "  href="/sociallogin"><b>Social Login</b></a>
+                <a class="nav-link "  href="/accounts"><b>Accounts</b></a>
+            </li>
+            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') 
+            <li class="nav-item">
+                <a class="nav-link "  href="/proforma"><b>Proforma</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active"  href="/questionnaire"><b>Questionnaire</b></a>
+                <a class="nav-link"  href="/invoice"><b>Invoice</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/documentupload"><b>Document Upload</b></a>
+                <a class="nav-link"  href="/paymententry"><b>Payment Entry</b></a>
+            </li>
+            @endif
+            <li class="nav-item">
+                <a class="nav-link "  href="/lead"><b>Leads</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/inventary"><b>Inventory</b></a>
+                <a class="nav-link"  href="/opportunity"><b>Opportunity</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/googlesheet"><b>Google Sheet</b></a>
+                <a class="nav-link "  href="/serverdetails"><b>Renewals</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/backup"><b>Backup</b></a>
+                <a class="nav-link"  href="/newnbd"><b>New NBD</b></a>
             </li>
-           
-        </ul>
+            <li class="nav-item">
+                <a class="nav-link"  href="/dmworks"><b>DM Works</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  href="/asset_library"><b>Asset Library</b></a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link active"  href="/required_input"><b>Required Input</b></a>
+            </li>
+        </ul> 
     </div>
-    <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
+    <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">Questionnaire</h1>
+            <h1 class="ch2 comp-name">Required Input</h1>
         </div>
-        <div class="justify-content-sm-end d-flex">
-            <div class=""></div>
-            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Questionnaire::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Questionnaire</button>
+
+        <div class=" justify-content-sm-end d-flex  gap-2 flex-wrap">
+            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Requiredinput::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Input</button>
         </div>
     </div>
 
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
+            <!-- <div class="add-newproduct-tab">
+                <div class="gradient-card-header">
+                    <h2 class="white-text mx-3">Leads</h2>
+                </div>
+            </div> comment by vasanth-->
 
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
 
-
-
             <div class="p-4 table-responsive">
-                <table id="example" class="dataTable mt-6 table table-bordered ">
+                <table id="example" class="dataTable mt-6 table table-bordered">
                     <thead>
                         <tr class="bg-white">
-                            <th class="text-grey">S.No</th>
-                            <th class="text-grey">Title</th>
-                            <th class="text-grey">Sheet Download</th>
+                            <th class="text-grey">S.no</th>
+                            <th class="text-grey">Account Name</th>
+                            <th class="text-grey">Domain Name</th>
+                            <th class="text-grey">Name</th>
+                            <th class="text-grey">File</th>
+                            <th class="text-grey">Action</th>
                             <!-- Add more columns as needed -->
                         </tr>
                     </thead>
@@ -91,7 +113,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="modal fade" id="errorModal" role="dialog" style="">
         <div class="modal-dialog cascading-modal float-end me-3" role="document">
@@ -113,9 +134,7 @@
     </div>
 </div>
 
-
 @endsection
-
 
 @section('script')
 <script>
@@ -126,23 +145,33 @@
             serverSide: true,
             pageLength: 10,
             lengthMenu: [10, 20, 50, 100],
-            ajax: "{{ action([App\Http\Controllers\Questionnaire::class,'index']) }}",
+            ajax: "{{ action([App\Http\Controllers\Requiredinput::class,'index']) }}",
             columns: [{
                     data: 'sno',
                     name: 'sno'
                 },
-
                 {
-                    data: 'title',
-                    name: 'title'
+                    data: 'companyname',
+                    name: 'companyname'
                 },
                 {
-                    data: 'link',
-                    name: 'link',
+                    data: 'domainname',
+                    name: 'domainname'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'file',
+                    name: 'file'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
                     orderable: false,
                     searchable: false
                 },
-
                 // Add more columns as needed
             ],
             "drawCallback": function(settings) {
@@ -174,8 +203,8 @@
                 ]
             <?php endif; ?>
         });
-		
-		           // Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon
@@ -244,7 +273,51 @@
             });
         });
 
-     
+
+        $(document).on('click', '.conformdelete', function() {
+            var Id = $(this).data('id');
+            swal({
+                title: "Alert",
+                text: "Are you sure you want to delete the Required Input?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+
+                // timer: 4000,
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: '/requiredinput/' + Id, // Change this to your endpoint
+                        type: 'DELETE',
+                        data: {
+                            id: Id,
+                            _token: '{{ csrf_token() }}',
+
+                        },
+                        success: function(response) {
+                            $('#session_message').css('display', 'block');
+                            $('#session_message').text(response.message);
+
+                            setTimeout(function() {
+                                $('#session_message').hide();
+                            }, 5000);
+
+                            cat_table.ajax.reload();
+
+                        },
+                        error: function(error) {
+
+                            console.error(error);
+
+                        }
+                    });
+                } else {
+                    window.location.href = '/requiredinput';
+                }
+            });
+        });
+
     });
+
 </script>
 @endsection

@@ -29,6 +29,29 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
+        <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+        <a id="preback" href="javascript:history.back()">Back</a>
+        <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
+            <li class="nav-item">
+                <a class="nav-link " href="/hosting"><b>Hosting</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/domain"><b>Domain</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/email"><b>email</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/ssl"><b>SSL</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/dmcontract"><b>DM Contract</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/plans"><b>Plans</b></a>
+            </li>
+        </ul>
+    </div>
 <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
             <h1 class="ch2 comp-name">Plans</h1>
@@ -36,7 +59,7 @@
         <div class=" justify-content-sm-end d-flex  gap-2 flex-wrap">
                
 
-                <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Plans::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Hosting</button>
+                <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Plans::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Plans</button>
             </div>
     </div>
     <div class="col-lg-12 col-sm-12 p-0">

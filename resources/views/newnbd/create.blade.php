@@ -71,10 +71,21 @@
                     </div>
                 </div>
 
-               <div class="col-lg-6 col-sm-12">
+                <div class="col-lg-6 col-sm-12">
                     <div class="validate-input m-b-23 mb-2">
-                        {!! Form::label('url', 'URL *', ['class' => 'label-color py-2']) !!}
+                        {!! Form::label('url', 'URL ', ['class' => 'label-color py-2']) !!}
                         {!! Form::text('url', null, ['class' => 'form-control']) !!}
+                        <span class="focus-input100"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row m-0 mb-0">
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="validate-input m-b-23 mb-2">
+                        {!! Form::label('description', 'Description ', ['class' => 'label-color py-2']) !!}
+                        {!! Form::text('description', null, ['class' => 'form-control']) !!}
                         <span class="focus-input100"></span>
                     </div>
                 </div>
@@ -105,11 +116,10 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script type="text/javascript">
-  $(document).ready(function() {
-    $('.select2').select2({
-        dropdownParent: $('.customer_modal'), // Ensures dropdown stays inside the modal
-        width: '100%' // Makes the select box full width
+    $(document).ready(function() {
+        $('.select2').select2({
+            dropdownParent: $('.customer_modal'), // Ensures dropdown stays inside the modal
+            width: '100%' // Makes the select box full width
+        });
     });
-});
-
 </script>

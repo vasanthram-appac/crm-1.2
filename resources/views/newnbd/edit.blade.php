@@ -72,12 +72,25 @@
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="validate-input m-b-23 mb-2">
-                        {!! Form::label('url', 'URL *', ['class' => 'label-color py-2']) !!}
+                        {!! Form::label('url', 'URL ', ['class' => 'label-color py-2']) !!}
                         {!! Form::text('url', $newnbd->url, ['class' => 'form-control']) !!}
                         <span class="focus-input100"></span>
                     </div>
                 </div>
             </div>
+
+            <div class="row m-0 mb-0">
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="validate-input m-b-23 mb-2">
+                        {!! Form::label('description', 'Description ', ['class' => 'label-color py-2']) !!}
+                        {!! Form::text('description', $newnbd->description, ['class' => 'form-control']) !!}
+                        <span class="focus-input100"></span>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="text-center">
                 <label class="err_lbl"></label><br>
                 <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button">

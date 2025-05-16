@@ -4,11 +4,11 @@
             <button type="button" class="close waves-effect waves-light fs-4" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>
-            <h4 class="title">Edit Asset Library</h4>
+            <h4 class="title">Edit Required Input</h4>
         </div>
         <!--Body-->
         <div class="modal-body mb-0">
-            {!! Form::model($assetlibrary, ['route' => ['asset_library.update', $assetlibrary->id], 'method' => 'PUT']) !!}
+            {!! Form::model($requiredinput, ['route' => ['required_input.update', $requiredinput->id], 'method' => 'PUT']) !!}
             {!! Form::hidden('companyid', $accounts->id, ['class' => 'form-control']) !!}
 
             <div class="row m-0 mb-0">
@@ -24,7 +24,7 @@
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('domainname', 'Domain Name*', ['class' => 'label-color py-2']) !!}
                         {!! Form::text('domainnamevalue', $domainmaster->domainname, ['class' => 'form-control', 'readonly']) !!}
-                        {!! Form::hidden('domainname', $assetlibrary->domainname, ['class' => 'form-control', 'readonly']) !!}
+                        {!! Form::hidden('domainname', $requiredinput->domainname, ['class' => 'form-control', 'readonly']) !!}
                         <span class="focus-input100"></span>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('name', 'Name *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('name', $assetlibrary->name, ['class' => 'form-control', 'required']) !!}
+                        {!! Form::text('name', $requiredinput->name, ['class' => 'form-control', 'required']) !!}
                     </div>
                 </div>
 
@@ -45,7 +45,45 @@
                         {!! Form::file('file', null, ['class' => 'form-control', 'required']) !!}
                         <span class="focus-input100"></span>
                     </div>
-                    <a href="{{ $assetlibrary->file }}" target="blank" style="text-decoration:none;">View</a>
+                    <a href="{{ $requiredinput->file }}" target="blank" style="text-decoration:none;">View</a>
+                </div>
+
+
+
+            </div>
+
+            <div class="row m-0 mb-0">
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="alidate-input m-b-23 mb-2">
+                        {!! Form::label('type', 'Type *', ['class' => 'label-color py-2']) !!}
+                        <select name="type" id="" class="form-select">
+                            <option value="">Select Type</option>
+                            <option value="Development" @if($requiredinput->type == "Development") selected @endif>Development</option>
+                            <option value="Design" @if($requiredinput->type == "Design") selected @endif>Design</option>
+                            <option value="Promotion" @if($requiredinput->type == "Promotion") selected @endif>Promotion</option>
+                            <option value="Business" @if($requiredinput->type == "Business") selected @endif>Business</option>
+                            <option value="Others" @if($requiredinput->type == "Others") selected @endif>Others</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="alidate-input m-b-23 mb-2">
+                        {!! Form::label('worktype', 'Work Type *', ['class' => 'label-color py-2']) !!}
+                        <select name="worktype" id="" class="form-select">
+                            <option value="">Select Type</option>
+                            <option value="Client" @if($requiredinput->type == "Client") selected @endif>Client</option>
+                            <option value="Appac" @if($requiredinput->type == "Appac") selected @endif>Appac</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="alidate-input m-b-23 mb-2">
+                        {!! Form::label('description', 'Description *', ['class' => 'label-color py-2']) !!}
+                        {!! Form::text('description', $requiredinput->description, ['class' => 'form-control', 'required']) !!}
+                    </div>
                 </div>
 
             </div>

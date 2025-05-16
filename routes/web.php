@@ -196,7 +196,7 @@ Route::resource('/questionnaire','App\Http\Controllers\Questionnaire');
 
 Route::resource('/documentupload','App\Http\Controllers\Documentupload');
 
-Route::resource('/invent','App\Http\Controllers\Inventary');
+Route::resource('/inventary','App\Http\Controllers\Inventary');
 
 Route::resource('/leadhistory','App\Http\Controllers\Leadhistory');
 
@@ -247,6 +247,8 @@ Route::post('/dmaccountsearch/{type}/{name}/{id}', [Accounts::class, 'dmaccounts
 Route::get('/todaydetails', [Accounts::class, 'todaydetails'])->name('todaydetails');
 
 Route::resource('/asset_library','App\Http\Controllers\Assetlibrary');
+
+Route::resource('/required_input','App\Http\Controllers\Requiredinput');
 
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 

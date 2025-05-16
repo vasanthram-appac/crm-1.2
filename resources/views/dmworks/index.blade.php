@@ -29,40 +29,43 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
-<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+    <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
             <li class="nav-item">
-                <a class="nav-link "  href="/accounts"><b>Accounts</b></a>
+                <a class="nav-link " href="/accounts"><b>Accounts</b></a>
             </li>
-            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') 
+            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1')
             <li class="nav-item">
-                <a class="nav-link "  href="/proforma"><b>Proforma</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link"  href="/invoice"><b>Invoice</b></a>
+                <a class="nav-link " href="/proforma"><b>Proforma</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/paymententry"><b>Payment Entry</b></a>
+                <a class="nav-link" href="/invoice"><b>Invoice</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/paymententry"><b>Payment Entry</b></a>
             </li>
             @endif
             <li class="nav-item">
-                <a class="nav-link "  href="/lead"><b>Leads</b></a>
+                <a class="nav-link " href="/lead"><b>Leads</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/opportunity"><b>Opportunity</b></a>
+                <a class="nav-link" href="/opportunity"><b>Opportunity</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/serverdetails"><b>Renewals</b></a>
+                <a class="nav-link " href="/serverdetails"><b>Renewals</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/newnbd"><b>New NBD</b></a>
+                <a class="nav-link" href="/newnbd"><b>New NBD</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active"  href="/dmworks"><b>DM Works</b></a>
+                <a class="nav-link active" href="/dmworks"><b>DM Works</b></a>
             </li>
-             <li class="nav-item">
+            <li class="nav-item">
                 <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/required_input"><b>Required Input</b></a>
             </li>
         </ul>
     </div>
@@ -73,40 +76,40 @@
 
         <div class="row">
 
-        <div class="col-lg-5 col-sm-12">
-            <div class="alidate-input m-b-23 mb-2">
-                {!! Form::label('dmaccount', 'Client Name*', ['class' => 'label-color py-2 '] ) !!}
-                <select name="dmaccount" class="form-select select2" id="company_nameid" onchange="categorynameone(this.value)">
-                    <option value="All" @if(request()->session()->get('dmaccount') == 'All') selected @endif>All</option>
-                    @foreach($domainmaster as $master)
-                    <option value="{{ $master->company_name }}"
-                        @if(session()->get('dmaccount') == $master->company_name) selected @endif>
-                        {{ $master->company_name_full }}
-                    </option>
-                    @endforeach
-                </select>
+            <div class="col-lg-5 col-sm-12">
+                <div class="alidate-input m-b-23 mb-2">
+                    {!! Form::label('dmaccount', 'Client Name*', ['class' => 'label-color py-2 '] ) !!}
+                    <select name="dmaccount" class="form-select select2" id="company_nameid" onchange="categorynameone(this.value)">
+                        <option value="All" @if(request()->session()->get('dmaccount') == 'All') selected @endif>All</option>
+                        @foreach($domainmaster as $master)
+                        <option value="{{ $master->company_name }}"
+                            @if(session()->get('dmaccount') == $master->company_name) selected @endif>
+                            {{ $master->company_name_full }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-sm-12">
+                <div class="alidate-input m-b-23 mb-2">
+                    {!! Form::label('dmtype', 'Type*', ['class' => 'label-color py-2 '] ) !!}
+                    <select name="dmtype" class="tab-sel form-select" id="dmtype">
+                        <option value="All" @if(request()->session()->get('dmtype') == 'All') selected @endif>All</option>
+                        <option value="Promotion Dashboard" @if(request()->session()->get('dmtype') == 'Promotion Dashboard') selected @endif>Promotion Dashboard</option>
+                        <option value="Monthly Report" @if(request()->session()->get('dmtype') == 'Monthly Report') selected @endif>Monthly Report</option>
+                        <option value="Audit Report" @if(request()->session()->get('dmtype') == 'Audit Report') selected @endif>Audit Report</option>
+                        <option value="MR Report" @if(request()->session()->get('dmtype') == 'MR Report') selected @endif>MR Report</option>
+                        <option value="Minutes of Meeting" @if(request()->session()->get('dmtype') == 'Minutes of Meeting') selected @endif>Minutes of Meeting</option>
+                        <option value="Others" @if(request()->session()->get('dmtype') == 'Others') selected @endif>Others</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-lg-2 col-sm-12">
+                <button type="submit" class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 mt-5" onclick="Status()">Submit</button>
             </div>
         </div>
-
-        <div class="col-lg-5 col-sm-12">
-            <div class="alidate-input m-b-23 mb-2">
-                {!! Form::label('dmtype', 'Type*', ['class' => 'label-color py-2 '] ) !!}
-            <select name="dmtype" class="tab-sel form-select" id="dmtype">
-                <option value="All" @if(request()->session()->get('dmtype') == 'All') selected @endif>All</option>
-                <option value="Promotion Dashboard" @if(request()->session()->get('dmtype') == 'Promotion Dashboard') selected @endif>Promotion Dashboard</option>
-                <option value="Monthly Report" @if(request()->session()->get('dmtype') == 'Monthly Report') selected @endif>Monthly Report</option>
-                <option value="Audit Report" @if(request()->session()->get('dmtype') == 'Audit Report') selected @endif>Audit Report</option>
-                <option value="MR Report" @if(request()->session()->get('dmtype') == 'MR Report') selected @endif>MR Report</option>
-                <option value="Minutes of Meeting" @if(request()->session()->get('dmtype') == 'Minutes of Meeting') selected @endif>Minutes of Meeting</option>
-                <option value="Others" @if(request()->session()->get('dmtype') == 'Others') selected @endif>Others</option>
-            </select>
-        </div>
-        </div>
-
-        <div class="col-lg-2 col-sm-12">
-            <button type="submit" class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 mt-5" onclick="Status()">Submit</button>
-        </div>
-    </div>
 
         <div class=" justify-content-sm-end d-flex  gap-2 flex-wrap">
             <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\DMworks::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add DM Works</button>

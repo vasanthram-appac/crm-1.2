@@ -35,7 +35,7 @@
             <li class="nav-item">
                 <a class="nav-link " href="/accounts"><b>Accounts</b></a>
             </li>
-            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') 
+            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1')
             <li class="nav-item">
                 <a class="nav-link active" href="/proforma"><b>Proforma</b></a>
             </li>
@@ -63,6 +63,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/required_input"><b>Required Input</b></a>
             </li>
         </ul>
     </div>
@@ -103,7 +106,7 @@
                             <th class="text-grey">Client Name</th>
                             <th class="text-grey">Net Pay</th>
                             <th class="text-grey">Status
-                                <select class="d-block" name="proforma_status">
+                                <select class="d-block form-select" name="proforma_status">
                                     <option value="">Select</option>
                                     <option value="all" @if(request()->session()->get('proforma_status') == 'all') selected @endif>All</option>
                                     <option value="open" @if(request()->session()->get('proforma_status') == 'open') selected @endif>Open</option>
@@ -424,8 +427,8 @@
         });
 
         $('#pendingstatus').on('click', function() {
-        Oppourtunity('open');
-    });
+            Oppourtunity('open');
+        });
 
         function Oppourtunity(pid = null) {
             let id = pid ? pid : $('select[name="proforma_status"]').val();

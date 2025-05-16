@@ -323,6 +323,8 @@ class Accounts extends Controller
             ->where('company_id', $id)->get();
 
         $asset = DB::table('assetlibrary')->select('name', 'file')->where('company_name', $id)->get();
+
+        $requiredinput = DB::table('requiredinput')->select('name', 'file', 'type')->where('company_name', $id)->get();
         // for ($i = 0; $i < 7; $i++) {
         //     $month = date('m');
         //     $year = date('Y');
@@ -341,7 +343,7 @@ class Accounts extends Controller
         // }
 
         // dd($wipenq);
-        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan', 'dmworks', 'invoice', 'proforma', 'asset'));
+        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan', 'dmworks', 'invoice', 'proforma', 'asset', 'requiredinput'));
     }
 
     public function store(Request $request)
@@ -594,7 +596,9 @@ class Accounts extends Controller
 
     public function todaydetails()
     {
-        if(request()->session()->get('role') != 'user'){
+        
+    if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM063' || request()->session()->get('empid') == 'AM003' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1'){
+
         $hosting = DB::table('hosting')
             ->join('domainmaster', 'hosting.domainname', '=', 'domainmaster.id')
             ->join('accounts', 'hosting.company_name', '=', 'accounts.id')
@@ -651,10 +655,11 @@ class Accounts extends Controller
             ->whereRaw("SUBSTRING(datelist_one, 1, 5) = ?", [date('d-m')])
             ->get();
 
-        $birthdayData = DB::table('personalprofile')
-            ->select('fname')
-            ->where('dob', date('Y-m-d'))
-            ->get();
+      $birthdayData = DB::table('personalprofile')
+    ->select('fname')
+    ->whereRaw("DATE_FORMAT(dob, '%m-%d') = ?", [date('m-d')])
+    ->get();
+
 
         $count = count($hosting)+count($seo_client)+count($domain)+count($emailserver)+count($ssl_certificate)+count($calendar)+count($birthdayData);
 

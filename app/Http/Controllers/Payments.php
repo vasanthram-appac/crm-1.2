@@ -46,6 +46,8 @@ class Payments extends Controller
 
         $assetlibrary = DB::table('assetlibrary')->count();
 
-        return view('payments/index')->with(compact('invoice', 'proforma', 'payment', 'leads', 'opportunity', 'active', 'inactive', 'keyaccount', 'download','dmworks','newnbd','assetlibrary'))->render();
+        $requiredinput = DB::table('requiredinput')->count();
+
+        return view('payments/index')->with(compact('invoice', 'proforma', 'payment', 'leads', 'opportunity', 'active', 'inactive', 'keyaccount', 'download','dmworks','newnbd','assetlibrary', 'requiredinput'))->render();
     }
 }

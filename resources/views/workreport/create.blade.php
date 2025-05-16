@@ -2,54 +2,59 @@
     .wrap-input100 {
         position: relative;
     }
+	.custom-select-container {
+    position: relative;
+}
 
-    .custom-select-container {
-        position: relative;
-    }
+.custom-search-input {
+    width: 100%;
+    padding: 0.75rem 0.75rem;
+    border-radius: 0.375rem;
+    margin-bottom: 5px;
+}
 
-    .custom-search-input {
-        width: 100%;
-        padding: 0.75rem 0.75rem;
-        border-radius: 0.375rem;
-        margin-bottom: 5px;
-    }
+.custom-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-radius: 0.375rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: none; /* Initially hidden */
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+}
 
-    .custom-dropdown {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        background: white;
-        border-radius: 0.375rem;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-        display: none;
-        /* Initially hidden */
-        max-height: 200px;
-        overflow-y: auto;
-        z-index: 1000;
-        padding: 0;
-        margin: 0;
-        list-style-type: none;
-    }
+.custom-dropdown li {
+    padding: 0.5rem;
+    cursor: pointer;
+}
 
-    .custom-dropdown li {
-        padding: 0.5rem;
-        cursor: pointer;
-    }
+.custom-dropdown li:hover {
+    background-color: #f0f0f0;
+}
 
-    .custom-dropdown li:hover {
-        background-color: #f0f0f0;
-    }
-</style>
-
-<style>
     .select2-container {
     z-index: 99999 !important; /* Higher than Bootstrap modal */
 }
-.select2-container--default .select2-selection--multiple {
+.select2-container--default .select2-selection--single {
     border: 0 !important;
-    padding-bottom: 0.6rem !important;
-    padding-top: 0.25rem !important;
+padding-bottom: 2.2rem !important;
+    padding-top: 0.4rem !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+	height: 26px;
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    width: 20px;
+    padding-top: 3rem !important;
 }
 </style>
 <div class="modal-dialog cascading-modal" role="document">

@@ -73,7 +73,7 @@
                     </a>
                 </div>
 
-                <div class="g-data ps-3"><a href="/inventory">
+                <div class="g-data ps-3"><a href="/inventary">
                         <div class="bio  rounded-30  piechart-leads dash-4">
                             <div class="svg-d">
 

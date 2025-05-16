@@ -404,6 +404,7 @@
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#proforma"><b>Proforma</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#dmworks"><b>DM Works</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#assetlibrary"><b>Asset Library</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#requiredinput"><b>Required Input</b></a></li>
         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#social"><b>Social Media login</b></a></li> -->
     </ul>
 
@@ -730,7 +731,7 @@
             </div>
         </div>
 
-          <!-- Asset Library Tab -->
+          <!-- Asset Library Tab --> 
         <div id="assetlibrary" class="tab-pane fade show " role="tabpanel">
             <div class="row">
                 <div class="col-12">
@@ -743,7 +744,7 @@
                                 <thead>
                                     <tr class="bg-white border-0">
                                         <th>S.no</th>
-                                        <th class="text-grey">name</th>
+                                        <th class="text-grey">Name</th>
                                         <th class="text-grey">View</th>
                                     </tr>
                                 </thead>
@@ -754,6 +755,43 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $assets->name }}</td>
                                         <td><a class="btn" href="{{$assets->file}}" target="blank">view</a></td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- required input Tab --> 
+        <div id="requiredinput" class="tab-pane fade show " role="tabpanel">
+            <div class="row">
+                <div class="col-12">
+                    <div class="widget appac">
+                        <!-- <div class="widget-title">
+                            <h4><i class="icon-reorder"></i> Daily Work report</h4>
+                        </div> -->
+                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="bg-white border-0">
+                                        <th>S.no</th>
+                                        <th class="text-grey">Name</th>
+                                        <th class="text-grey">Type</th>
+                                        <th class="text-grey">View</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if(count($requiredinput)>0)
+                                    @foreach($requiredinput as $index => $requiredinputs)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $requiredinputs->type }}</td>
+                                        <td>{{ $requiredinputs->name }}</td>
+                                        <td><a class="btn" href="{{$requiredinputs->file}}" target="blank">view</a></td>
                                     </tr>
                                     @endforeach
                                     @endif

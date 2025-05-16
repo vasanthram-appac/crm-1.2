@@ -32,7 +32,9 @@ class Serverdetails extends Controller
 
         $seo = DB::table('seo_client')->count();
 
-        return view('serverdetails/index')->with(compact('email', 'hosting', 'ssl', 'domain', 'seo'))->render();
+        $plans = DB::table('plans')->count();
+
+        return view('serverdetails/index')->with(compact('email', 'hosting', 'ssl', 'domain', 'seo', 'plans'))->render();
     }
   
 }

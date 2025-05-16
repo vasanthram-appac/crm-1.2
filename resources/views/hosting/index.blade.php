@@ -29,36 +29,38 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
-<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+    <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
             <li class="nav-item">
-                <a class="nav-link active"  href="/hosting"><b>Hosting</b></a>
+                <a class="nav-link active" href="/hosting"><b>Hosting</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/domain"><b>Domain</b></a>
+                <a class="nav-link " href="/domain"><b>Domain</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/email"><b>email</b></a>
+                <a class="nav-link " href="/email"><b>email</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/ssl"><b>SSL</b></a>
+                <a class="nav-link " href="/ssl"><b>SSL</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/dmcontract"><b>DM Contract</b></a>
+                <a class="nav-link " href="/dmcontract"><b>DM Contract</b></a>
             </li>
-           
+            <li class="nav-item">
+                <a class="nav-link" href="/plans"><b>Plans</b></a>
+            </li>
         </ul>
     </div>
-<div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
+    <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
             <h1 class="ch2 comp-name">Hosting</h1>
         </div>
         <div class=" justify-content-sm-end d-flex  gap-2 flex-wrap">
-                <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{route('adddomain')}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Domain</button>
+            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{route('adddomain')}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Domain</button>
 
-                <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Hosting::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Hosting</button>
-            </div>
+            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Hosting::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Hosting</button>
+        </div>
     </div>
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
@@ -72,7 +74,7 @@
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
 
-            
+
 
             <div class="p-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered">
@@ -84,9 +86,9 @@
                             <th class="text-grey">Next Renewal Date</th>
                             <th class="text-grey">Day</th>
                             <th class="text-grey">Remaining Days</th>
-                            
+
                             <th class="text-grey"></th>
-                     
+
                             <th class="text-grey">Action</th>
                             <!-- Add more columns as needed -->
                         </tr>
@@ -141,7 +143,7 @@
                     data: 'sno',
                     name: 'sno'
                 },
-            
+
                 {
                     data: 'companyname',
                     name: 'companyname'
@@ -150,8 +152,8 @@
                     data: 'domainname',
                     name: 'domainname'
                 },
-             
-                    {
+
+                {
                     data: 'dateofexpire',
                     type: 'date-mm-dd', // Use the custom date type
                     orderData: 0
@@ -166,12 +168,12 @@
                     data: 'remainday1',
                     name: 'remainday1'
                 },
-             
+
                 {
                     data: '',
                     name: ''
                 },
-           
+
                 {
                     data: 'action',
                     name: 'action',
@@ -209,8 +211,8 @@
                 ]
             <?php endif; ?>
         });
-		
-		       // Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon
@@ -283,51 +285,51 @@
 
 
         $(document).on('click', '.conformdelete', function() {
-                var Id = $(this).data('id');
-                swal({
-                    title: "Alert",
-                    text: "Are you sure you want to delete the Hosting?",
-                    icon: "warning",
-                    buttons: true,
-                    dangerMode: true,
+            var Id = $(this).data('id');
+            swal({
+                title: "Alert",
+                text: "Are you sure you want to delete the Hosting?",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
 
-                    // timer: 4000,
-                }).then(function(isConfirm) {
-                    if (isConfirm) {
-                        $.ajax({
-                            url: '/hosting/' + Id, // Change this to your endpoint
-                            type: 'DELETE',
-                            data: {
-                                id: Id,
-                                _token: '{{ csrf_token() }}',
+                // timer: 4000,
+            }).then(function(isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        url: '/hosting/' + Id, // Change this to your endpoint
+                        type: 'DELETE',
+                        data: {
+                            id: Id,
+                            _token: '{{ csrf_token() }}',
 
-                            },
-                            success: function(response) {
-                                $('#session_message').css('display', 'block');
-                                $('#session_message').text(response.message);
+                        },
+                        success: function(response) {
+                            $('#session_message').css('display', 'block');
+                            $('#session_message').text(response.message);
 
-                                setTimeout(function() {
-                                    $('#session_message').hide();
-                                }, 5000);
+                            setTimeout(function() {
+                                $('#session_message').hide();
+                            }, 5000);
 
-                                cat_table.ajax.reload();
+                            cat_table.ajax.reload();
 
-                            },
-                            error: function(error) {
+                        },
+                        error: function(error) {
 
-                                console.error(error);
+                            console.error(error);
 
-                            }
-                        });
-                    } else {
-                        window.location.href = '/hosting';
-                    }
-                });
+                        }
+                    });
+                } else {
+                    window.location.href = '/hosting';
+                }
             });
+        });
 
-        
 
-        
+
+
 
 
 

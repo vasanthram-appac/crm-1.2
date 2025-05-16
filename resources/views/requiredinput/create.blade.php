@@ -35,11 +35,11 @@
             <button type="button" class="close waves-effect waves-light fs-4" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>
-            <h4 class="title">Add Asset Library</h4>
+            <h4 class="title">Add Required Input</h4>
         </div>
         <!--Body-->
         <div class="modal-body mb-0">
-            {!! Form::open(['route' => ['asset_library.store'], 'method' => 'Post']) !!}
+            {!! Form::open(['route' => ['required_input.store'], 'method' => 'Post']) !!}
 
             <div class="row m-0 mb-0">
                 <div class="col-lg-6 col-sm-12">
@@ -80,6 +80,43 @@
                         <span class="focus-input100"></span>
                     </div>
                 </div>
+
+            </div>
+
+            <div class="row m-0 mb-0">
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="alidate-input m-b-23 mb-2">
+                        {!! Form::label('type', 'Type *', ['class' => 'label-color py-2']) !!}
+                        <select name="type" id="" class="form-select">
+                            <option value="">Select Type</option>
+                            <option value="Development">Development</option>
+                            <option value="Design">Design</option>
+                            <option value="Promotion">Promotion</option>
+                            <option value="Business">Business</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="alidate-input m-b-23 mb-2">
+                        {!! Form::label('worktype', 'Work Type *', ['class' => 'label-color py-2']) !!}
+                        <select name="worktype" id="" class="form-select">
+                            <option value="">Select Type</option>
+                            <option value="Client">Client</option>
+                            <option value="Appac">Appac</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="alidate-input m-b-23 mb-2">
+                        {!! Form::label('description', 'Description *', ['class' => 'label-color py-2']) !!}
+                        {!! Form::text('description', null, ['class' => 'form-control', 'required']) !!}
+                    </div>
+                </div>
+
             </div>
 
             <!-- Add a submit button -->

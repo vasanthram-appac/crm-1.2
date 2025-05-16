@@ -106,6 +106,7 @@ class Newnbd extends Controller
             'company_name' => $request->company_name,
             'source' => $request->source,
             'url' => $request->url,
+            'description' => $request->description,
         ];
 
         $insert = DB::table('newnbd')->insert($val);
@@ -160,6 +161,7 @@ class Newnbd extends Controller
             'company_name' => $request->company_name,
             'source' => $request->source,
             'url' => $request->url,
+            'description' => $request->description,
         ];
 
         $insert = DB::table('newnbd')->where('id', $id)->update($val);
