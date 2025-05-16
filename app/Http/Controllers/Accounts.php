@@ -324,7 +324,17 @@ class Accounts extends Controller
 
         $asset = DB::table('assetlibrary')->select('name', 'file')->where('company_name', $id)->get();
 
-        $requiredinput = DB::table('requiredinput')->select('name', 'file', 'type')->where('company_name', $id)->get();
+        $requiredinput = DB::table('requiredinput')->select('name', 'file', 'type')->where('company_name', $id)->where('worktype','Client')->get();
+
+        $workprocess = DB::table('requiredinput')->select('name', 'file', 'type')->where('company_name', $id)->where('worktype','Appac')->get();
+
+        $regis = DB::table('regis')
+            ->where('status', '=', '1')
+            ->where('id', '==', '1')
+            ->where('id', '==', '6')
+            ->orderBy('fname', 'ASC')
+            ->pluck(DB::raw("CONCAT(fname, ' ', lname)"), 'empid');
+
         // for ($i = 0; $i < 7; $i++) {
         //     $month = date('m');
         //     $year = date('Y');
@@ -343,7 +353,7 @@ class Accounts extends Controller
         // }
 
         // dd($wipenq);
-        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan', 'dmworks', 'invoice', 'proforma', 'asset', 'requiredinput'));
+        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan', 'dmworks', 'invoice', 'proforma', 'asset', 'requiredinput', 'workprocess', 'regis'));
     }
 
     public function store(Request $request)
@@ -483,6 +493,16 @@ class Accounts extends Controller
             'shipping_city' => 'nullable|string|max:255',
             'shipping_state' => 'nullable|string|max:255',
             'shipping_pincode' => 'nullable|string|max:10',
+
+            'csmname' => 'nullable|string|max:70',
+            'csmphone' => 'nullable|digits:10',
+            'csmemail' => 'nullable|email|max:255',
+            'bdmname' => 'nullable|string|max:70',
+            'bdmphone' => 'nullable|digits:10',
+            'bdmemail' => 'nullable|email|max:255',
+            'mdname' => 'nullable|string|max:70',
+            'mdphone' => 'nullable|digits:10',
+            'mdemail' => 'nullable|email|max:255',
         ]);
 
         if ($validator->fails()) {
@@ -518,6 +538,16 @@ class Accounts extends Controller
             'shipping_city' => $request->shipping_city ?? $request->city,
             'shipping_state' => $request->shipping_state ?? $request->state,
             'shipping_pincode' => $request->shipping_pincode ?? $request->pincode,
+
+            'csmname' => $request->csmname,
+            'csmphone' => $request->csmphone,
+            'csmemail' => $request->csmemail,
+            'bdmname' => $request->bdmname,
+            'bdmphone' => $request->bdmphone,
+            'bdmemail' => $request->bdmemail,
+            'mdname' => $request->mdname,
+            'mdphone' => $request->mdphone,
+            'mdemail' => $request->mdemail,
         ];
 
         // Update the record in the database

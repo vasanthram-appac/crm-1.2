@@ -48,8 +48,6 @@
                     <a href="{{ $requiredinput->file }}" target="blank" style="text-decoration:none;">View</a>
                 </div>
 
-
-
             </div>
 
             <div class="row m-0 mb-0">
@@ -73,8 +71,8 @@
                         {!! Form::label('worktype', 'Work Type *', ['class' => 'label-color py-2']) !!}
                         <select name="worktype" id="" class="form-select">
                             <option value="">Select Type</option>
-                            <option value="Client" @if($requiredinput->type == "Client") selected @endif>Client</option>
-                            <option value="Appac" @if($requiredinput->type == "Appac") selected @endif>Appac</option>
+                            <option value="Client" @if($requiredinput->worktype == "Client") selected @endif>Client</option>
+                            <option value="Appac" @if($requiredinput->worktype == "Appac") selected @endif>Appac</option>
                         </select>
                     </div>
                 </div>
@@ -82,7 +80,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('description', 'Description *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('description', $requiredinput->description, ['class' => 'form-control', 'required']) !!}
+                        {!! Form::text('description', $requiredinput->description, ['class' => 'form-control']) !!}
                     </div>
                 </div>
 

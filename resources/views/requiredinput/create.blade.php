@@ -113,7 +113,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('description', 'Description *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('description', null, ['class' => 'form-control', 'required']) !!}
+                        {!! Form::text('description', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>
 

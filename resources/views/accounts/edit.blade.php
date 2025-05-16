@@ -154,7 +154,7 @@
                         {!! Form::label('shipping_phone', 'Shipping Phone*', ['class' => 'label-color py-2']) !!}
                         {!! Form::text('shipping_phone', $accounts->shipping_phone, ['class' => 'form-control', 'placeholder' => 'Enter Phone Number', 'maxlength' => '10', 'onkeypress' => 'return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))']) !!}
 
-                    </div>
+                            </div>
                     </div>
                 </div>
 
@@ -218,16 +218,100 @@
                     </div>
                 </div>
 
-                <div class="text-end">
-                    <label class="err_lbl"></label><br>
-                    <div class="btn-g2">
-                        <div></div>
-                        <div></div>
-                        {!! Form::button(' Update', ['type' => 'submit', 'class' => 'frm-btn pri-text-color']) !!}
-                        <button type="button" data-bs-dismiss="modal" class="frm-btn outline-btn" role="button"> Cancel </button>
+                <div class="" style="border-bottom: 1px solid #ccc;">
+                    <h5 class="title">Client Service (CSM)</h5>
+                </div>
+
+                <div class="row m-0 mb-0">
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="validate-input m-b-23 mb-2">
+                            {!! Form::label('csmname', 'Name', ['class' => 'label-color py-2']) !!}
+                            {!! Form::text('csmname', $accounts->csmname, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="validate-input m-b-23 mb-2">
+                            {!! Form::label('csmphone', 'Phone*', ['class' => 'label-color py-2']) !!}
+                            {!! Form::number('csmphone', $accounts->csmphone, ['class' => 'form-control', 'placeholder' => 'Enter Phone Number', 'maxlength' => '10', 'onkeypress' => 'return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))']) !!}
+                                </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="validate-input m-b-23 mb-2">
+                                {!! Form::label('csmemail', 'Email*', ['class' => 'label-color py-2']) !!}
+                                {!! Form::email('csmemail', $accounts->csmemail, ['class' => 'form-control', 'placeholder' => 'Enter Email']) !!}
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="" style="border-bottom: 1px solid #ccc;">
+                        <h5 class="title">Business Development (BDM)</h5>
+                    </div>
+
+                    <div class="row m-0 mb-0">
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="validate-input m-b-23 mb-2">
+                                {!! Form::label('bdmname', 'Name', ['class' => 'label-color py-2']) !!}
+                                {!! Form::text('bdmname', $accounts->bdmname, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="validate-input m-b-23 mb-2">
+                                {!! Form::label('bdmphone', 'Phone*', ['class' => 'label-color py-2']) !!}
+                                {!! Form::number('bdmphone', $accounts->bdmphone, ['class' => 'form-control', 'placeholder' => 'Enter Phone Number', 'maxlength' => '10', 'onkeypress' => 'return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))']) !!}
+                                    </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-12">
+                                <div class="validate-input m-b-23 mb-2">
+                                    {!! Form::label('bdmemail', 'Email*', ['class' => 'label-color py-2']) !!}
+                                    {!! Form::email('bdmemail', $accounts->bdmemail, ['class' => 'form-control', 'placeholder' => 'Enter Email']) !!}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="" style="border-bottom: 1px solid #ccc;">
+                        <h5 class="title">Managing Director (MD)</h5>
+                    </div>
+
+                    <div class="row m-0 mb-0">
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="validate-input m-b-23 mb-2">
+                                {!! Form::label('mdname', 'Name', ['class' => 'label-color py-2']) !!}
+                                {!! Form::text('mdname', $accounts->mdname, ['class' => 'form-control', 'placeholder' => 'Name']) !!}
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-sm-12">
+                            <div class="validate-input m-b-23 mb-2">
+                                {!! Form::label('mdphone', 'Phone*', ['class' => 'label-color py-2']) !!}
+                                {!! Form::number('mdphone', $accounts->mdphone, ['class' => 'form-control', 'placeholder' => 'Enter Phone Number', 'maxlength' => '10', 'onkeypress' => 'return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))']) !!}
+                                    </div>
+                            </div>
+
+                            <div class="col-lg-6 col-sm-12">
+                                <div class="validate-input m-b-23 mb-2">
+                                    {!! Form::label('mdemail', 'Email*', ['class' => 'label-color py-2']) !!}
+                                    {!! Form::email('mdemail', $accounts->mdemail, ['class' => 'form-control', 'placeholder' => 'Enter Email']) !!}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="text-end">
+                            <label class="err_lbl"></label><br>
+                            <div class="btn-g2">
+                                <div></div>
+                                <div></div>
+                                {!! Form::button(' Update', ['type' => 'submit', 'class' => 'frm-btn pri-text-color']) !!}
+                                <button type="button" data-bs-dismiss="modal" class="frm-btn outline-btn" role="button"> Cancel </button>
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
                     </div>
                 </div>
-                {!! Form::close() !!}
             </div>
-        </div>
-    </div>

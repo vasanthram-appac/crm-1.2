@@ -127,7 +127,10 @@ class Requiredinput extends Controller
             if ($request->file('file')->move($folderPath, $fileName)) {
                 $filesave = $path . $fileName;
             }
-        }
+
+        } else{
+                $filesave = "";
+            }
 
         $empid = request()->session()->get('empid');
 
