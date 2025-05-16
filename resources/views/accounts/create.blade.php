@@ -55,7 +55,73 @@
 
 
             <div class="col-lg-12 col-xl-12 col-xxl-12 pr-20 h-100 u-dash">
-
+         
+            <div class="bio  rounded-30 bg-white h-100  client-li  profile-div client-div">
+                    <div class="server-det-wrap">
+                    <div class="bg-white    client-li">
+                    <div class="widget-body">
+                        <h4>CSM</h4>
+                    </div>
+                    <div class="row experience client-li-d">
+                        <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
+                        <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
+                        <p class="client-label">Email<span>:</span><span> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->emailid }}</a></span></p>
+                        <p class="client-label">Website<span>:</span><span> <a target="_blank" href="http://{{ $accounts->website }}">{{ $accounts->website }}</a></span></p>
+                        @if(!empty($accounts->gst_number))
+                        <p class="client-label">GST Number<span>:</span><span>{{ $accounts->gst_number }}</span></p>
+                        @endif
+                        <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
+                    </div>
+                </div>
+                <div class="bg-white    client-li">
+                    <div class="widget-body">
+                        <h4>BDM</h4>
+                    </div>
+                    <div class="row experience client-li-d">
+                        <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
+                        <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
+                        <p class="client-label">Email<span>:</span><span> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->emailid }}</a></span></p>
+                        <p class="client-label">Website<span>:</span><span> <a target="_blank" href="http://{{ $accounts->website }}">{{ $accounts->website }}</a></span></p>
+                        @if(!empty($accounts->gst_number))
+                        <p class="client-label">GST Number<span>:</span><span>{{ $accounts->gst_number }}</span></p>
+                        @endif
+                        <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
+                    </div>
+                </div>
+                <div class="bg-white    client-li">
+                    <div class="widget-body">
+                        <h4>Accounts</h4>
+                    </div>
+                    <div class="row experience client-li-d">
+                        <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
+                        <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
+                        <p class="client-label">Email<span>:</span><span> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->emailid }}</a></span></p>
+                        <p class="client-label">Website<span>:</span><span> <a target="_blank" href="http://{{ $accounts->website }}">{{ $accounts->website }}</a></span></p>
+                        @if(!empty($accounts->gst_number))
+                        <p class="client-label">GST Number<span>:</span><span>{{ $accounts->gst_number }}</span></p>
+                        @endif
+                        <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
+                    </div>
+                </div>
+                <div class=" bg-white    client-li">
+                    <div class="widget-body">
+                        <h4>MD</h4>
+                    </div>
+                    <div class="row experience client-li-d">
+                        <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
+                        <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
+                        <p class="client-label">Email<span>:</span><span> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->emailid }}</a></span></p>
+                        <p class="client-label">Website<span>:</span><span> <a target="_blank" href="http://{{ $accounts->website }}">{{ $accounts->website }}</a></span></p>
+                        @if(!empty($accounts->gst_number))
+                        <p class="client-label">GST Number<span>:</span><span>{{ $accounts->gst_number }}</span></p>
+                        @endif
+                        <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
+                    </div>
+                </div>
+                    </div>
+                </div>
+                </div>
+                <div class="col-lg-12 col-xl-12 col-xxl-12 pr-20 h-100 u-dash">
                 <div class="bio  rounded-30 bg-white h-100  client-li  profile-div">
                     <div class="server-det-wrap">
                         <div class="server-d">
@@ -115,7 +181,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12 col-xl-7 col-xxl-2 pr-20 h-100   u-dash">
+            <div class="col-lg-12 col-xl-2 col-xxl-2 pr-20 h-100   u-dash">
 
                 <div class="bio  rounded-30 bg-white h-100  client-li  profile-div">
                     <h4 class="text-center">Revenue</h4>
@@ -173,7 +239,7 @@
 
 
 
-            <div class="col-lg-12  col-xl-5 col-xxl-4 pr-20 h-100   u-dash">
+            <div class="col-lg-12  col-xl-5 col-xxl-3 pr-20 h-100   u-dash">
                 <div class="bio  rounded-30 bg-white h-100  client-li ">
                     <div class="pl-sts-wordwrap p-0">
                         <div class="plan-status">
@@ -228,7 +294,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-12  col-xl-5 col-xxl-4 pr-20 h-100   u-dash">
+            <div class="col-lg-12  col-xl-5 col-xxl-3 pr-20 h-100   u-dash">
                 <div class="bio  rounded-30 bg-white h-100  client-li ">
                     <div class="pl-sts-wordwrap p-0">
                         <div class="plan-status">
@@ -293,24 +359,8 @@
                 </div>
             </div> -->
 
-            <div class="col-lg-12 col-xl-6 col-xxl-4 pr-20">
-                <div class=" bio rounded-30 bg-white    client-li">
-                    <div class="widget-body">
-                        <h4> Client Details</h4>
-                    </div>
-                    <div class="row experience client-li-d">
-                        <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
-                        <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
-                        <p class="client-label">Email<span>:</span><span> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->emailid }}</a></span></p>
-                        <p class="client-label">Website<span>:</span><span> <a target="_blank" href="http://{{ $accounts->website }}">{{ $accounts->website }}</a></span></p>
-                        @if(!empty($accounts->gst_number))
-                        <p class="client-label">GST Number<span>:</span><span>{{ $accounts->gst_number }}</span></p>
-                        @endif
-                        <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
-                    </div>
-                </div>
-            </div>
-
+           
+<!-- 
             <div class="col-lg-12 col-xl-6 col-xxl-4">
                 <div class="profile-side-box green bio rounded-30 bg-white">
                     <div class="widget-body">
@@ -329,11 +379,11 @@
                         @endif
                     </div>
                 </div>
-            </div>
+            </div> -->
 
 
 
-            <div class="col-lg-12 col-xl-6 col-xxl-4">
+            <div class="col-lg-12 col-xl-5 col-xxl-4">
                 <div class="profile-side-box green bio rounded-30 bg-white">
                     <div class="widget-body">
                         <h4>Notes</h4>
