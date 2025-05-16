@@ -1525,6 +1525,8 @@ td svg g{stroke-width:1;}
     .accounts-tab tbody tr td:nth-child(6) ,.accounts-tab tbody tr td:nth-child(5) ,.accounts-tab tbody tr td:nth-child(4) ,.accounts-tab thead tr th:nth-child(4)  ,.accounts-tab thead tr th:nth-child(5) ,.domain-tb tbody tr td:nth-child(7){
     text-align: center;
 }
+.client-div .client-li-d p {grid-template-columns: 30% 2% 69%;}
+.client-div .client-label span:nth-child(2){color:#100C41 !important} 
 
   .pro-img img{transition:0.3s linear;}
 .profile-input{
@@ -2256,7 +2258,10 @@ div[dir="ltr"][style*="position: relative;"][style*="width: 450px;"][style*="hei
     font-size: 20px !important;
 } .server-d p {
     font-size: 16px !important;
-}
+}  .client-div .server-det-wrap{grid-template-columns: repeat(3, 1fr);row-gap:20px ;}
+  }
+  @media(max-width:1260px){
+  
   }
     @media(max-width:1200px){
       .d-grid {
@@ -2323,6 +2328,7 @@ div[dir="ltr"][style*="position: relative;"][style*="width: 450px;"][style*="hei
         }
         .sidemenu ,.side-menu-hed .menu-list-group{display:block;}
         .pro-div{right:0px;}
+        .client-div .server-det-wrap{grid-template-columns: repeat(2, 1fr);}
   }
     @media(max-width:1100px){
       .mainPAge{padding:1rem 10px !important}
@@ -2348,6 +2354,13 @@ div[dir="ltr"][style*="position: relative;"][style*="width: 450px;"][style*="hei
   }
 .form-flex form {gap:10px;}
     }
+
+@media(max-width:990px){
+  .client-div .server-det-wrap {
+            grid-template-columns: repeat(1, 1fr);
+        }
+        .client-div .client-li{padding:0px;}
+}
 
 @media(max-width:901px){
 
@@ -2504,6 +2517,7 @@ padding:30px;}
         .side-menu-hed .menu-list-group{height:auto;}
         .pro-div { width: 220px;}
         #app #wrapper.active .side-menu-hed .menus span a{padding:8px 15px !important}
+        .client-div .client-li .client-li-d {padding:0px;}
 }
 
 @media(max-width:580px){
