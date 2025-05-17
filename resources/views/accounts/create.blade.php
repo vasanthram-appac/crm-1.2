@@ -64,7 +64,7 @@
                         @if(!empty($accounts->csmname) || !empty($accounts->csmphone) || !empty($accounts->csmemail))
                         <div class="bg-white    client-li">
                             <div class="widget-body">
-                                <h4>CSM</h4>
+                                <h4>Marketing Person 1</h4>
                             </div>
                             <div class="row experience client-li-d">
                                 @if($accounts->csmname) <p class="client-label">Name<span>:</span><span>{{ $accounts->csmname }}</span></p> @endif
@@ -77,7 +77,7 @@
                         @if(!empty($accounts->bdmname) || !empty($accounts->bdmphone) || !empty($accounts->bdmemail))
                         <div class="bg-white    client-li">
                             <div class="widget-body">
-                                <h4>BDM</h4>
+                                <h4>Marketing Person 2</h4>
                             </div>
                             <div class="row experience client-li-d">
                                 @if($accounts->bdmname) <p class="client-label">Name<span>:</span><span>{{ $accounts->bdmname }}</span></p> @endif
@@ -105,7 +105,7 @@
                         @if(!empty($accounts->mdname) || !empty($accounts->mdphone) || !empty($accounts->mdphone))
                         <div class=" bg-white    client-li">
                             <div class="widget-body">
-                                <h4>MD</h4>
+                                <h4>Marketing Person 3</h4>
                             </div>
                             <div class="row experience client-li-d">
                                 @if($accounts->mdname) <p class="client-label">Name<span>:</span><span>{{ $accounts->mdname }}</span></p> @endif
