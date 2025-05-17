@@ -420,25 +420,25 @@ class Accounts extends Controller
             $managermail = env('MANAGERMAIL');
 
             // // Send email
-            // Mail::send([], [], function ($message) use ($request, $bala, $managermail, $bccEmail, $infomail, $emailid, $company_name_value, $htmlContent, $empid_value2) {
-            //     // Configure email properties
-            //     $message->to($bala)
-            //            ->cc($managermail)
-            //             ->bcc($bccEmail)
-            //             ->replyTo($emailid)
-            //             ->from($infomail, $company_name_value)
-            //             ->subject($request->subject)
-            //             ->html($htmlContent);
+            Mail::send([], [], function ($message) use ($request, $bala, $managermail, $bccEmail, $infomail, $emailid, $company_name_value, $htmlContent, $empid_value2) {
+                // Configure email properties
+                $message->to($bala)
+                       ->cc($managermail)
+                        ->bcc($bccEmail)
+                        ->replyTo($emailid)
+                        ->from($infomail, $company_name_value)
+                        ->subject($request->subject)
+                        ->html($htmlContent);
 
-            //     // Add any CC emails from mail_cc array
-            //     if ($request->has('mail_cc') && count($request->mail_cc) > 0) {
-            //         foreach ($request->mail_cc as $m_email) {
-            //             if (filter_var($m_email, FILTER_VALIDATE_EMAIL)) {  // Validate CC email
-            //                 $message->cc($m_email);
-            //             }
-            //         }
-            //     }
-            // });
+                // Add any CC emails from mail_cc array
+                if ($request->has('mail_cc') && count($request->mail_cc) > 0) {
+                    foreach ($request->mail_cc as $m_email) {
+                        if (filter_var($m_email, FILTER_VALIDATE_EMAIL)) {  // Validate CC email
+                            $message->cc($m_email);
+                        }
+                    }
+                }
+            });
 
             session()->flash('secmessage', 'Notes Created Successfully.');
             return response()->json(['status' => 1, 'message' => 'Notes Created Successfully.'], 200);

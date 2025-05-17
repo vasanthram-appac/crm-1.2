@@ -80,13 +80,8 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="validate-input m-b-23 mb-2">
                         {!! Form::label('domain_source', 'Domain Source *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::select('domain_source', [
-                        '' => 'Select From List',
-                        'godaddy' => 'Godaddy',
-                        'bluehost' => 'Blue Host',
-                        'other' => 'Other',
-                        'Reseller' => 'Reseller'
-                        ], $domain->domain_source, ['class' => 'form-select', 'required']) !!}
+                        {!! Form::select('domain_source', ['' => 'Select From List', 'aws' => 'AWS', 'quadra' => 'Quadra', 'godaddy' => 'Godaddy', 'godaddyreseller' => 'Godaddy Reseller', 'bluehost' => 'Blue Host', 'other' => 'Other', 'reseller' => 'Reseller'], $domain->domain_source, ['class' => 'form-select', 'required']) !!}
+                       
                         <span class="focus-input100"></span>
                     </div>
                 </div>

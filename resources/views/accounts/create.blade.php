@@ -4,33 +4,36 @@
     }
 
     .select2-container--default .select2-selection--single .select2-selection__rendered {
-    color: #444;
-    line-height: 28px;
-    padding-top: 8px !important;
-}
-.select2-container--default .select2-selection--single .select2-selection__arrow {
-    height: 26px;
-    position: absolute;
-    top: 10px !important;
-    right: 1px;
-    width: 20px;
-}
-.select2-container .select2-selection--single {
-    box-sizing: border-box;
-    cursor: pointer;
-    display: block;
-    height: 43px !important;
-    user-select: none;
-    -webkit-user-select: none;
-}
-.select2-container {
-    box-sizing: border-box;
-    display: inline-block;
-    margin: 0;
-    position: relative;
-    vertical-align: middle;
-    width: 75% !important;
-}
+        color: #444;
+        line-height: 28px;
+        padding-top: 8px !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 26px;
+        position: absolute;
+        top: 10px !important;
+        right: 1px;
+        width: 20px;
+    }
+
+    .select2-container .select2-selection--single {
+        box-sizing: border-box;
+        cursor: pointer;
+        display: block;
+        height: 43px !important;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    .select2-container {
+        box-sizing: border-box;
+        display: inline-block;
+        margin: 0;
+        position: relative;
+        vertical-align: middle;
+        width: 75% !important;
+    }
 </style>
 
 <div class="row">
@@ -55,73 +58,67 @@
 
 
             <div class="col-lg-12 col-xl-12 col-xxl-12 pr-20 h-100 u-dash">
-         
-            <div class="bio  rounded-30 bg-white h-100  client-li  profile-div client-div">
+
+                <div class="bio  rounded-30 bg-white h-100  client-li  profile-div client-div">
                     <div class="server-det-wrap">
-                    <div class="bg-white    client-li">
-                    <div class="widget-body">
-                        <h4>CSM</h4>
-                    </div>
-                    <div class="row experience client-li-d">
-                        <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
-                        <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
-                        <p class="client-label">Email<span>:</span><span> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->emailid }}</a></span></p>
-                        <p class="client-label">Website<span>:</span><span> <a target="_blank" href="http://{{ $accounts->website }}">{{ $accounts->website }}</a></span></p>
-                        @if(!empty($accounts->gst_number))
-                        <p class="client-label">GST Number<span>:</span><span>{{ $accounts->gst_number }}</span></p>
+                        @if(!empty($accounts->csmname) || !empty($accounts->csmphone) || !empty($accounts->csmemail))
+                        <div class="bg-white    client-li">
+                            <div class="widget-body">
+                                <h4>CSM</h4>
+                            </div>
+                            <div class="row experience client-li-d">
+                                @if($accounts->csmname) <p class="client-label">Name<span>:</span><span>{{ $accounts->csmname }}</span></p> @endif
+                                @if($accounts->csmphone) <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->csmphone }}</a></span></p> @endif
+                                @if($accounts->csmemail) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->csmemail }}</a></span></p> @endif
+                            </div>
+                        </div>
                         @endif
-                        <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
-                    </div>
-                </div>
-                <div class="bg-white    client-li">
-                    <div class="widget-body">
-                        <h4>BDM</h4>
-                    </div>
-                    <div class="row experience client-li-d">
-                        <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
-                        <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
-                        <p class="client-label">Email<span>:</span><span> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->emailid }}</a></span></p>
-                        <p class="client-label">Website<span>:</span><span> <a target="_blank" href="http://{{ $accounts->website }}">{{ $accounts->website }}</a></span></p>
-                        @if(!empty($accounts->gst_number))
-                        <p class="client-label">GST Number<span>:</span><span>{{ $accounts->gst_number }}</span></p>
+
+                        @if(!empty($accounts->bdmname) || !empty($accounts->bdmphone) || !empty($accounts->bdmemail))
+                        <div class="bg-white    client-li">
+                            <div class="widget-body">
+                                <h4>BDM</h4>
+                            </div>
+                            <div class="row experience client-li-d">
+                                @if($accounts->bdmname) <p class="client-label">Name<span>:</span><span>{{ $accounts->bdmname }}</span></p> @endif
+                                @if($accounts->bdmphone) <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->bdmphone }}</a></span></p> @endif
+                                @if($accounts->bdmemail) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->bdmemail }}</a></span></p> @endif
+                            </div>
+                        </div>
                         @endif
-                        <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
-                    </div>
-                </div>
-                <div class="bg-white    client-li">
-                    <div class="widget-body">
-                        <h4>Accounts</h4>
-                    </div>
-                    <div class="row experience client-li-d">
-                        <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
-                        <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
-                        <p class="client-label">Email<span>:</span><span> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->emailid }}</a></span></p>
-                        <p class="client-label">Website<span>:</span><span> <a target="_blank" href="http://{{ $accounts->website }}">{{ $accounts->website }}</a></span></p>
-                        @if(!empty($accounts->gst_number))
-                        <p class="client-label">GST Number<span>:</span><span>{{ $accounts->gst_number }}</span></p>
+
+                        <div class="bg-white    client-li">
+                            <div class="widget-body">
+                                <h4>Accounts</h4>
+                            </div>
+                            <div class="row experience client-li-d">
+                                <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
+                                <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
+                                <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->emailid }}</a></span></p>
+                                <p class="client-label">Website<span>:</span><span> <a target="_blank" href="http://{{ $accounts->website }}">{{ $accounts->website }}</a></span></p>
+                                @if(!empty($accounts->gst_number))
+                                <p class="client-label">GST Number<span>:</span><span>{{ $accounts->gst_number }}</span></p>
+                                @endif
+                                <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
+                            </div>
+                        </div>
+                        @if(!empty($accounts->mdname) || !empty($accounts->mdphone) || !empty($accounts->mdphone))
+                        <div class=" bg-white    client-li">
+                            <div class="widget-body">
+                                <h4>MD</h4>
+                            </div>
+                            <div class="row experience client-li-d">
+                                @if($accounts->mdname) <p class="client-label">Name<span>:</span><span>{{ $accounts->mdname }}</span></p> @endif
+                                @if($accounts->mdphone) <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->mdphone }}</a></span></p> @endif
+                                @if($accounts->mdemail) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->mdemail }}</a></span></p> @endif
+                            </div>
+                        </div>
                         @endif
-                        <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
+
                     </div>
                 </div>
-                <div class=" bg-white    client-li">
-                    <div class="widget-body">
-                        <h4>MD</h4>
-                    </div>
-                    <div class="row experience client-li-d">
-                        <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
-                        <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
-                        <p class="client-label">Email<span>:</span><span> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->emailid }}</a></span></p>
-                        <p class="client-label">Website<span>:</span><span> <a target="_blank" href="http://{{ $accounts->website }}">{{ $accounts->website }}</a></span></p>
-                        @if(!empty($accounts->gst_number))
-                        <p class="client-label">GST Number<span>:</span><span>{{ $accounts->gst_number }}</span></p>
-                        @endif
-                        <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
-                    </div>
-                </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col-lg-12 col-xl-12 col-xxl-12 pr-20 h-100 u-dash">
+            </div>
+            <div class="col-lg-12 col-xl-12 col-xxl-12 pr-20 h-100 u-dash">
                 <div class="bio  rounded-30 bg-white h-100  client-li  profile-div">
                     <div class="server-det-wrap">
                         <div class="server-d">
@@ -359,8 +356,8 @@
                 </div>
             </div> -->
 
-           
-<!-- 
+
+            <!-- 
             <div class="col-lg-12 col-xl-6 col-xxl-4">
                 <div class="profile-side-box green bio rounded-30 bg-white">
                     <div class="widget-body">
@@ -453,23 +450,27 @@
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#invoice"><b>Invoice</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#proforma"><b>Proforma</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#dmworks"><b>DM Works</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#assetlibrary"><b>Asset Library</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#requiredinput"><b>Required Input</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#workprocess"><b>Work Process</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#assetlibrary"><b>Reports</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#requiredinput"><b>MOM Client</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#workprocess"><b>MOM Appac</b></a></li>
         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#social"><b>Social Media login</b></a></li> -->
-    </ul> 
+    </ul>
 
     <div class="tab-content">
+
+   
+        <!-- DataTables CSS -->
+        <link href="assets/plugins/datatables/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/datatables/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css">
+
         <!-- Accounts History Tab -->
         <div id="acchistory" class="tab-pane fade show active" role="tabpanel">
             <div class="row">
                 <div class="col-12">
                     <div class="widget appac">
-                        <!-- <div class="widget-title">
-                            <h4><i class="icon-reorder"></i> Accounts History</h4>
-                        </div> -->
                         <div class="widget-body" style="height: 500px; overflow: auto; margin:20px 0px">
-                            <table class="table table-bordered">
+                            <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap" style="width:100%">
                                 <thead>
                                     <tr class="bg-white border-0">
                                         <th>Date of Notes Created</th>
@@ -479,7 +480,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if(count($notes)>0)
+                                    @if(count($notes) > 0)
                                     @foreach($notes as $note)
                                     <tr>
                                         <td>{{ $note->datetimestamp }}</td>
@@ -496,6 +497,39 @@
                 </div>
             </div>
         </div>
+
+        <!-- DataTables JS -->
+        <script src="assets/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script src="assets/plugins/datatables/dataTables.bootstrap4.min.js"></script>
+        <script src="assets/plugins/datatables/dataTables.responsive.min.js"></script>
+        <script src="assets/plugins/datatables/responsive.bootstrap4.min.js"></script>
+
+        <!-- DataTable Initialization -->
+        <script>
+            $(document).ready(function() {
+                $('#datatable').DataTable({
+                    responsive: true,
+                    pageLength: 10,
+                    lengthMenu: [
+                        [10, 25, 50, -1],
+                        [10, 25, 50, "All"]
+                    ],
+                    language: {
+                        search: "_INPUT_",
+                        searchPlaceholder: "Search records"
+                    }
+                });
+
+                // Optional: Fix for tab if table is inside one
+                $('a[data-toggle="tab"]').on('shown.bs.tab', function(e) {
+                    $.fn.dataTable.tables({
+                        visible: true,
+                        api: true
+                    }).columns.adjust();
+                });
+            });
+        </script>
+
 
         <!-- WIP History Tab -->
         <div id="wiphistory" class="tab-pane fade show " role="tabpanel">
@@ -590,12 +624,12 @@
                                         <th>S.no</th>
                                         <th>Date</th>
                                         <th>Create By</th>
-                                        <th>Bank Name</th>
-                                        <th>Cheque No</th>
-                                        <th>NEFT</th>
                                         <th>Product/Service</th>
                                         <th>Proforma / Invoice</th>
                                         <th>Amount</th>
+                                        <th>Bank Name</th>
+                                        <th>Cheque No</th>
+                                        <th>NEFT</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -605,9 +639,6 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $payment->paydate }}</td>
                                         <td>{{ $payment->fname }}</td>
-                                        <td>{{ $payment->bankname }}</td>
-                                        <td>{{ $payment->chequeno }}</td>
-                                        <td>{{ $payment->neftnumber }}</td>
                                         <td>{{ $payment->productservice }}</td>
                                         <td>
                                             @php
@@ -624,6 +655,9 @@
                                             @endif
 
                                         <td>{{ $payment->payamount }}</td>
+                                        <td>{{ $payment->bankname }}</td>
+                                        <td>{{ $payment->chequeno }}</td>
+                                        <td>{{ $payment->neftnumber }}</td>
                                     </tr>
                                     @endforeach
                                     @endif
@@ -728,7 +762,13 @@
                                         <td>{{ $invoices->invoice_no }}</td>
                                         <td>{{ $invoices->invoice_date }}</td>
                                         <td>{{ $invoices->grosspay }}</td>
-                                        <td><a class="btn" href="' . route('iprint', ['id' => {{$invoices->invoice_no}}]) . '" target="blank"><i class="fi fi-ts-user-check"></i><span class="tooltiptext">view</span></a></td>
+                                        <td>
+                                            <a class="btn" href="{{ route('iprint', ['id' => base64_encode($invoices->invoice_no)]) }}" target="_blank">
+                                                <i class="fi fi-ts-user-check"></i>
+                                                <span class="tooltiptext">view</span>
+                                            </a>
+                                        </td>
+
                                     </tr>
                                     @endforeach
                                     @endif
@@ -770,7 +810,13 @@
                                         <td>{{ $proformas->invoice_no }}</td>
                                         <td>{{ $proformas->invoice_date }}</td>
                                         <td>{{ $proformas->grosspay }}</td>
-                                        <td><a class="btn" href="' . route('pprint', ['id' => {{$proformas->invoice_no}}]) . '" target="blank"><i class="fi fi-ts-user-check"></i><span class="tooltiptext">view</span></a></td>
+                                        <td>
+                                            <a class="btn" href="{{ route('pprint', ['id' => base64_encode($proformas->invoice_no)]) }}" target="_blank">
+                                                <i class="fi fi-ts-user-check"></i>
+                                                <span class="tooltiptext">view</span>
+                                            </a>
+                                        </td>
+
                                     </tr>
                                     @endforeach
                                     @endif
@@ -782,7 +828,7 @@
             </div>
         </div>
 
-          <!-- Asset Library Tab --> 
+        <!-- Asset Library Tab -->
         <div id="assetlibrary" class="tab-pane fade show " role="tabpanel">
             <div class="row">
                 <div class="col-12">
@@ -817,7 +863,7 @@
             </div>
         </div>
 
-        <!-- required input Tab --> 
+        <!-- required input Tab -->
         <div id="requiredinput" class="tab-pane fade show " role="tabpanel">
             <div class="row">
                 <div class="col-12">
@@ -854,7 +900,7 @@
             </div>
         </div>
 
-        <!-- work process Tab --> 
+        <!-- work process Tab -->
         <div id="workprocess" class="tab-pane fade show " role="tabpanel">
             <div class="row">
                 <div class="col-12">

@@ -62,7 +62,7 @@
                     </a>
                 </div>
 
-                <div class="g-data ps-3"><a href="/leaveapprovel">
+                <div class="g-data ps-3"><a href="/leaveapproval">
                         <div class="bio  rounded-30  piechart-leads dash-3">
                             <div class="svg-d">
                             <img src="/img/approved.png"/>

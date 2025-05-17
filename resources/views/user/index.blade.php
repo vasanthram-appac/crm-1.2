@@ -40,10 +40,10 @@
                 <a class="nav-link active" href="/user"><b>Employee</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/leaveapprovel"><b>Leave Approvel</b></a>
+                <a class="nav-link" href="/leaveapproval"><b>Leave Approvel</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/pasyslip"><b>Payslip</b></a>
+                <a class="nav-link" href="/payslip"><b>Payslip</b></a>
             </li>
             @endif
             <li class="nav-item">

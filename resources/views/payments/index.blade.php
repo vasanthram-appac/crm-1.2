@@ -195,7 +195,7 @@
                                 </svg>
                             </div>
                             <h3 class="text-center">Renewals</h3>
-                            <h4>5</h4>
+                            <h4>6</h4>
                         </div>
                     </a>
                 </div>
