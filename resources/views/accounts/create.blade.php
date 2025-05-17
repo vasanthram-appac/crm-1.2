@@ -34,6 +34,11 @@
         vertical-align: middle;
         width: 75% !important;
     }
+    #acchistory td{padding:12px 18px;}
+    #acchistory .dataTables_filter , #acchistory   .dataTables_length{margin-bottom:20px}
+    .odd {
+    background-color: #fff !important;
+}
 </style>
 
 <div class="row">
@@ -469,8 +474,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="widget appac">
-                        <div class="widget-body" style="height: 500px; overflow: auto; margin:20px 0px">
-                            <table id="datatable" class="table table-bordered table-striped dt-responsive nowrap" style="width:100%">
+                        <div class="widget-body" style=" margin:20px 0px">
+                            <table id="datatable" class="table table-bordered" style="width:100%">
                                 <thead>
                                     <tr class="bg-white border-0">
                                         <th>Date of Notes Created</th>
@@ -482,7 +487,7 @@
                                 <tbody>
                                     @if(count($notes) > 0)
                                     @foreach($notes as $note)
-                                    <tr>
+                                    <tr class="bg-white">
                                         <td>{{ $note->datetimestamp }}</td>
                                         <td>{{ $note->fname }}</td>
                                         <td>{{ $note->subject }}</td>
