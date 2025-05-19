@@ -261,6 +261,7 @@ class Workorderview extends Controller
             $founderEmail = env('FOUNDERMAIL');
             $infoMail = env('INFOMAIL');
             $managerMail = env('MANAGERMAIL');
+            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
 
             Mail::send([], [], function ($message) use (
                 $request,
@@ -271,9 +272,11 @@ class Workorderview extends Controller
                 $fquery,
                 $com_name,
                 $htmlContent,
+                $thesupportmail,
             ) {
                 // Set recipients
                 $message->to($founderEmail, $managerMail)
+                    ->cc($thesupportmail)
                     ->bcc($bccEmail)
                     ->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
                     ->from($infoMail, $fquery->fname . ' ' . $fquery->lname)
@@ -400,6 +403,7 @@ class Workorderview extends Controller
             $founderEmail = env('FOUNDERMAIL');
             $infoMail = env('INFOMAIL');
             $managerMail = env('MANAGERMAIL');
+            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
 
             Mail::send([], [], function ($message) use (
                 $request,
@@ -411,6 +415,7 @@ class Workorderview extends Controller
                 $com_name,
                 $htmlContent,
                 $checkbox1,
+                $thesupportmail,
             ) {
 
                 if ($request->status != '') {
@@ -428,6 +433,7 @@ class Workorderview extends Controller
                 }
 
                 $message->to($checkbox1)
+                    ->cc($thesupportmail)
                     ->bcc($bccEmail)
                     ->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
                     ->from($infoMail, $appname)

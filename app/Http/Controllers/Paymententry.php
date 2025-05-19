@@ -213,6 +213,7 @@ class Paymententry extends Controller
             $infoMail = env('INFOMAIL');
             $managerMail = env('MANAGERMAIL');
             $appName = env('APP_NAME');
+            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
 
                 Mail::send([], [], function ($message) use (
                     $appName,
@@ -224,9 +225,10 @@ class Paymententry extends Controller
                     $pm,
                     $com_name,
                     $targ,
+                    $thesupportmail,
                 ) {
                     $message->to($founderEmail)
-                        ->cc([$managerMail])
+                        ->cc(array_filter([$managerMail, $thesupportmail]))
                         ->bcc($bccEmail)
                         ->from($infoMail, $appName)
                         ->subject("Payment Entry Details")
@@ -388,6 +390,7 @@ class Paymententry extends Controller
             $infoMail = env('INFOMAIL');
             $managerMail = env('MANAGERMAIL');
             $appName = env('APP_NAME');
+            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
 
             Mail::send([], [], function ($message) use (
                 $appName,
@@ -398,9 +401,10 @@ class Paymententry extends Controller
                 $infoMail,
                 $com_name,
                 $acc,
+                $thesupportmail,
             ) {
                 $message->to($founderEmail)
-                    ->cc([$managerMail])
+                    ->cc(array_filter([$managerMail, $thesupportmail]))
                     ->bcc($bccEmail)
                     ->from($infoMail, $appName)
                     ->subject("Update Payment Entry Details")

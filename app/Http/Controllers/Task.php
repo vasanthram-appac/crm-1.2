@@ -218,6 +218,7 @@ class Task extends Controller
         $founderEmail = env('FOUNDERMAIL');
         $infoMail = env('INFOMAIL');
         $managerMail = env('MANAGERMAIL');
+        $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
 
         Mail::send([], [], function ($message) use (
             $request,
@@ -229,13 +230,14 @@ class Task extends Controller
             $com_name,
             $mquery1,
             $task_new,
+            $thesupportmail,
         ) {
             // Validate that $request->mail_cc is an array or provide a fallback
             $ccEmails = is_array($request->mail_cc) ? $request->mail_cc : [];
 
             // Set recipients
             $message->to($mquery1->emailid)
-                ->cc(array_merge([$founderEmail, $managerMail], $ccEmails))
+                ->cc(array_merge([$founderEmail, $managerMail, $thesupportmail], $ccEmails))
                 ->bcc($bccEmail)
                 ->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
                 ->from($infoMail, $fquery->fname . ' ' . $fquery->lname)
@@ -418,6 +420,7 @@ class Task extends Controller
         $founderEmail = env('FOUNDERMAIL');
         $infoMail = env('INFOMAIL');
         $managerMail = env('MANAGERMAIL');
+        $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
 
         Mail::send([], [], function ($message) use (
             $request,
@@ -427,13 +430,14 @@ class Task extends Controller
             $fquery,
             $com_name,
             $mquery1,
-            $task_new
+            $task_new,
+            $thesupportmail,
         ) {
             // Validate that $request->mail_cc is an array or provide a fallback
             $ccEmails = is_array($request->mail_cc) ? $request->mail_cc : [];
 
             $message->to($mquery1->emailid)
-                ->cc(array_merge([$founderEmail], $ccEmails))
+                ->cc(array_merge([$founderEmail, $thesupportmail], $ccEmails))
                 ->bcc($bccEmail)
                 ->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
                 ->from($infoMail, $fquery->fname . ' ' . $fquery->lname)

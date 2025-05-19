@@ -418,12 +418,13 @@ class Accounts extends Controller
             $bala = env('FOUNDERMAIL');
             $infomail = env('INFOMAIL');
             $managermail = env('MANAGERMAIL');
+            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
 
             // // Send email
-            Mail::send([], [], function ($message) use ($request, $bala, $managermail, $bccEmail, $infomail, $emailid, $company_name_value, $htmlContent, $empid_value2) {
+            Mail::send([], [], function ($message) use ($request, $bala, $managermail, $bccEmail, $infomail, $emailid, $company_name_value, $htmlContent, $empid_value2, $thesupportmail) {
                 // Configure email properties
                 $message->to($bala)
-                       ->cc($managermail)
+                       ->cc(array_filter([$managermail, $thesupportmail]))
                         ->bcc($bccEmail)
                         ->replyTo($emailid)
                         ->from($infomail, $company_name_value)
