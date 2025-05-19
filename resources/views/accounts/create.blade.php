@@ -769,21 +769,128 @@
 
         <!-- revenue Tab -->
         <div id="revenue" class="tab-pane fade show " role="tabpanel">
-            <div class="row">
-                <div class="col-12">
-                    <div class="widget appac">
-                        <!-- <div class="widget-title">
-                            <h4><i class="icon-reorder"></i> Daily Work report</h4>
-                        </div> -->
-                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
-                            <div class="rev-d h-100 mb-3">
-                                <div class="rev-val">
-
-                                    <p class="rev mb-0">{{$formattedNumber}}</p>
-                                    <p class="rev mb-0">{{$scale}}</p>
+            <div class="row col-wrap  mt-4">
+            <div class="col-lg-12  col-xl-5 col-xxl-3 pr-20 h-100   u-dash">
+                <div class="bio  rounded-30 bg-white h-100  client-li ">
+                    <div class="pl-sts-wordwrap p-0">
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d start">
+                                    <img src="asset/image/plan-start.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>SEO Plan Started</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plans) ? number_format($plans->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plans) ? $plans->dateofregis : ""}}</p>
                                 </div>
                             </div>
                         </div>
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d current">
+                                    <img src="asset/image/current-sts.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>SEO Current Status</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plans) ? number_format($plans->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plans) ? $plans->plansmonth : ""}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d upcom">
+                                    <img src="asset/image/renewal.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>SEO Plan Renewal</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plans) ? number_format($plans->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plans) ? $plans->dateofexpire : ""}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12  col-xl-5 col-xxl-3 pr-20 h-100   u-dash">
+                <div class="bio  rounded-30 bg-white h-100  client-li ">
+                    <div class="pl-sts-wordwrap p-0">
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d start">
+                                    <img src="asset/image/plan-start.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>AMC Plan Started</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plan) ? number_format($plan->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plan) ? $plan->dateofregis : ""}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d current">
+                                    <img src="asset/image/current-sts.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>AMC Current Status</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plan) ? number_format($plan->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plan) ? $plan->plansmonth : ""}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d upcom">
+                                    <img src="asset/image/renewal.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>AMC Plan Renewal</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plan) ? number_format($plan->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plan) ? $plan->dateofexpire : ""}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-xl-2 col-xxl-2 pr-20 h-100   u-dash">
+
+<div class="bio  rounded-30 bg-white h-100  client-li  profile-div">
+    <h4 class="text-center">Revenue</h4>
+    <div class="rev-d h-100 mb-3">
+        <div class="rev-val">
+
+            <p class="rev mb-0">{{$formattedNumber}}</p>
+            <p class="rev mb-0">{{$scale}}</p>
+        </div>
+    </div>
+
+                 
                     </div>
                 </div>
             </div>
@@ -994,7 +1101,7 @@
     </div>
 </div>
 
-<div class="row">
+<!--<div class="row">
     <div class="col-12">
 
 
@@ -1054,6 +1161,7 @@
                 </div>
             </div>
 
+
             <div class="col-lg-12  col-xl-5 col-xxl-3 pr-20 h-100   u-dash">
                 <div class="bio  rounded-30 bg-white h-100  client-li ">
                     <div class="pl-sts-wordwrap p-0">
@@ -1109,7 +1217,7 @@
                 </div>
             </div>
 
-            <!-- <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100   u-dash">
+           // <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100   u-dash">
 
                 <div class="bio  rounded-30 bg-white h-100 pb-0 client-li  profile-div">
                     <div class="table-responsive">
@@ -1117,10 +1225,10 @@
                     </div>
 
                 </div>
-            </div> -->
+            </div> //
 
-            <!-- 
-            <div class="col-lg-12 col-xl-6 col-xxl-4">
+           
+           // <div class="col-lg-12 col-xl-6 col-xxl-4">
                 <div class="profile-side-box green bio rounded-30 bg-white">
                     <div class="widget-body">
                         <h4> Account Details</h4>
@@ -1138,12 +1246,11 @@
                         @endif
                     </div>
                 </div>
-            </div> -->
-
+            </div> //
           
         </div>
     </div>
-</div>
+</div>-->
 
 </div>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
