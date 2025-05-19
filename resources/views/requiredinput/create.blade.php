@@ -85,23 +85,20 @@
 
             <div class="row m-0 mb-0">
 
-                <div class="col-lg-6 col-sm-12">
+                <!-- <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('type', 'Type *', ['class' => 'label-color py-2']) !!}
                         <select name="type" id="" class="form-select">
                             <option value="">Select Type</option>
-                            <option value="Development">Development</option>
-                            <option value="Design">Design</option>
-                            <option value="Promotion">Promotion</option>
-                            <option value="Business">Business</option>
-                            <option value="Others">Others</option>
+                            <option value="MOM">MOM</option>
+                            <option value="Input">Input</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('worktype', 'Work Type *', ['class' => 'label-color py-2']) !!}
+                        {!! Form::label('worktype', 'Work Type ', ['class' => 'label-color py-2']) !!}
                         <select name="worktype" id="" class="form-select">
                             <option value="">Select Type</option>
                             <option value="Client">Client</option>
@@ -112,8 +109,8 @@
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('description', 'Description *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('description', null, ['class' => 'form-control']) !!}
+                        {!! Form::label('description', 'Description ', ['class' => 'label-color py-2']) !!}
+                        {!! Form::textarea('description', null, ['class' => 'form-control', 'rows' => 4]) !!}
                     </div>
                 </div>
 

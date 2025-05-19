@@ -52,35 +52,33 @@
 
             <div class="row m-0 mb-0">
 
-                <div class="col-lg-6 col-sm-12">
+                <!-- <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('type', 'Type *', ['class' => 'label-color py-2']) !!}
                         <select name="type" id="" class="form-select">
                             <option value="">Select Type</option>
-                            <option value="Development" @if($requiredinput->type == "Development") selected @endif>Development</option>
-                            <option value="Design" @if($requiredinput->type == "Design") selected @endif>Design</option>
-                            <option value="Promotion" @if($requiredinput->type == "Promotion") selected @endif>Promotion</option>
-                            <option value="Business" @if($requiredinput->type == "Business") selected @endif>Business</option>
-                            <option value="Others" @if($requiredinput->type == "Others") selected @endif>Others</option>
+                            <option value="MOM" >MOM</option>
+                            <option value="Input" >Input</option>
                         </select>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('worktype', 'Work Type *', ['class' => 'label-color py-2']) !!}
+                        {!! Form::label('worktype', 'Work Type', ['class' => 'label-color py-2']) !!}
                         <select name="worktype" id="" class="form-select">
                             <option value="">Select Type</option>
                             <option value="Client" @if($requiredinput->worktype == "Client") selected @endif>Client</option>
                             <option value="Appac" @if($requiredinput->worktype == "Appac") selected @endif>Appac</option>
+                            <option value="Close" @if($requiredinput->worktype == "Close") selected @endif>Close</option>
                         </select>
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('description', 'Description *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('description', $requiredinput->description, ['class' => 'form-control']) !!}
+                        {!! Form::label('description', 'Description', ['class' => 'label-color py-2']) !!}
+                        {!! Form::textarea('description', $requiredinput->description, ['class' => 'form-control', 'rows' => 4]) !!}
                     </div>
                 </div>
 

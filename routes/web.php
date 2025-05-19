@@ -250,6 +250,8 @@ Route::resource('/asset_library','App\Http\Controllers\Assetlibrary');
 
 Route::resource('/required_input','App\Http\Controllers\Requiredinput');
 
+Route::post('/requiredinputsearch/{type}/{id}', [Accounts::class, 'requiredinputsearch'])->name('requiredinputsearch');
+
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 
 });

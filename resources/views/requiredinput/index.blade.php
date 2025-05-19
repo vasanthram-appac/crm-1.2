@@ -287,7 +287,7 @@
             }).then(function(isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: '/requiredinput/' + Id, // Change this to your endpoint
+                        url: '/required_input/' + Id, // Change this to your endpoint
                         type: 'DELETE',
                         data: {
                             id: Id,
@@ -312,7 +312,7 @@
                         }
                     });
                 } else {
-                    window.location.href = '/requiredinput';
+                    window.location.href = '/required_input';
                 }
             });
         });

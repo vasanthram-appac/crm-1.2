@@ -324,9 +324,9 @@ class Accounts extends Controller
 
         $asset = DB::table('assetlibrary')->select('name', 'file')->where('company_name', $id)->get();
 
-        $requiredinput = DB::table('requiredinput')->select('name', 'file', 'type')->where('company_name', $id)->where('worktype','Client')->get();
+        // $requiredinput = DB::table('requiredinput')->select('name', 'file', 'description')->where('company_name', $id)->where('type','Input')->get();
 
-        $workprocess = DB::table('requiredinput')->select('name', 'file', 'type')->where('company_name', $id)->where('worktype','Appac')->get();
+        // $workprocess = DB::table('requiredinput')->select('name', 'file', 'description')->where('company_name', $id)->where('type','MOM')->get();
 
         $regis = DB::table('regis')
             ->where('status', '=', '1')
@@ -353,7 +353,7 @@ class Accounts extends Controller
         // }
 
         // dd($wipenq);
-        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan', 'dmworks', 'invoice', 'proforma', 'asset', 'requiredinput', 'workprocess', 'regis'));
+        return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan', 'dmworks', 'invoice', 'proforma', 'asset', 'regis'));
     }
 
     public function store(Request $request)
@@ -619,6 +619,27 @@ class Accounts extends Controller
 
         // Fetch results
         $dmworks = $query->where('company_name', $id)->get();
+
+        // Return JSON response
+        return response()->json($dmworks);
+    }
+
+    public function requiredinputsearch($type, $id)
+    {
+       
+        // Store the parameters in session (or empty string if "All")
+        request()->session()->put('requiredinput', $type === "All" ? "" : $type);
+
+        // Build the query
+        $query = DB::table('requiredinput')
+            ->select('name', 'description', 'file');
+
+        if (!empty(request()->session()->get('requiredinput'))) {
+            $query->where('worktype', request()->session()->get('requiredinput'));
+        }
+
+        // Fetch results
+        $dmworks = $query->where('company_name', $id)->where('worktype','!=','Close')->get();
 
         // Return JSON response
         return response()->json($dmworks);

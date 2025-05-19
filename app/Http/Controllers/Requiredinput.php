@@ -94,7 +94,6 @@ class Requiredinput extends Controller
             'company_name' => 'required|string',
             'domainname' => 'required|string',
             'name' => 'required|string|max:100',
-            'type' => 'required',
             'worktype' => 'required',
             'file' => 'nullable|file|max:1024',
         ]);
@@ -140,7 +139,6 @@ class Requiredinput extends Controller
             'name' => $request->name,
             'file' => $filesave,
             'empid' => $empid,
-            'type' => $request->type,
             'worktype' => $request->worktype,
             'description' => $request->description,
         ];
@@ -154,7 +152,7 @@ class Requiredinput extends Controller
 
     public function edit($id)
     {
-        $requiredinput = DB::table('requiredinput')->select('id', 'company_name', 'domainname', 'name', 'file', 'type', 'worktype', 'description')->find($id);
+        $requiredinput = DB::table('requiredinput')->select('id', 'company_name', 'domainname', 'name', 'file', 'worktype', 'description')->find($id);
 
         $accounts = DB::table('accounts')->select('id', 'company_name')->find($requiredinput->company_name);
 
@@ -168,8 +166,7 @@ class Requiredinput extends Controller
         // Define validation rules
         $rules = [
             'name' => 'required|string|max:100',
-            'type' => 'required',
-            'worktype' => 'required',
+            'worktype'   => 'required',
         ];
 
         if ($request->hasFile('file')) {
@@ -189,7 +186,6 @@ class Requiredinput extends Controller
             'domainname' => $request->domainname,
             'name' => $request->name,
             'empid' => request()->session()->get('empid'),
-            'type' => $request->type,
             'worktype' => $request->worktype,
             'description' => $request->description,
         ];

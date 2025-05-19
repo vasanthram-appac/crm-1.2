@@ -16,7 +16,7 @@ class Workorderview extends Controller
 
     public function index(Request $request)
     {
-        if(request()->session()->get('role') =='user'){
+        if (request()->session()->get('role') == 'user') {
             return redirect()->to('/workreport');
         }
         if ($request->ajax()) {
@@ -88,17 +88,17 @@ class Workorderview extends Controller
 
                 if ($diff > 0) {
                     $work->remainday1 = $diff1 . " " . $dname . " Remaining";
-    //       $work->remainday1 = '<p style="padding: 5px 15px 6px; margin-bottom: 0; border-radius: 5px; color: black; background-color: lightgray;">' 
-    // . $diff1 . " " . $dname . " Remaining" 
-    // . '</p>';
+                    //       $work->remainday1 = '<p style="padding: 5px 15px 6px; margin-bottom: 0; border-radius: 5px; color: black; background-color: lightgray;">' 
+                    // . $diff1 . " " . $dname . " Remaining" 
+                    // . '</p>';
 
                 } elseif ($diff == 0) {
                     $work->remainday1 = 'Today is the day to finish';
                 } else {
                     // $work->remainday1 = "Work Over Due for <b>" . $diff1 . "</b> " . $dname;
-                    $work->remainday1 = '<p style="padding: 5px 15px 6px; margin-bottom: 0; border-radius: 5px; color: #D68A00; background-color: #FFF3DD;">' 
-    .'<b>'. $diff1.'</b>' . " " . $dname . " Remaining" 
-    . '</p>';;
+                    $work->remainday1 = '<p style="padding: 5px 15px 6px; margin-bottom: 0; border-radius: 5px; color: #D68A00; background-color: #FFF3DD;">'
+                        . '<b>' . $diff1 . '</b>' . " " . $dname . " Remaining"
+                        . '</p>';;
                 }
 
                 // Status labels
@@ -138,6 +138,20 @@ class Workorderview extends Controller
                         return "Completed";
                     }
                 })
+
+                ->addColumn('updatestatus', function ($row) {
+                    $designStatus = $row->design_status; // Access design_status from the $row object
+                    return '
+                           <div>
+                             <select name="design_status" class="paymentstatus" data-id="' . $row->d_id . '">
+                                    <option value="">Select From List</option>
+                                    <option value="Not yet started" ' . ($designStatus == 'Not yet started' ? 'selected' : '') . '>Not yet Started</option>
+                                    <option value="Started" ' . ($designStatus == 'Started' ? 'selected' : '') . '>Started</option>
+                                </select>
+                                <button class="btn btn-modal taskestatus" data-id="' . $row->d_id . '">update</button>
+                            </div>';
+                })
+
                 ->addColumn('status', function ($row) {
                     return $row->status_label;
                 })
@@ -145,7 +159,7 @@ class Workorderview extends Controller
                     return '<div class="d-flex  justify-ccontent-center gap-1 align-items-start"><button class="btn btn-modal" data-container=".customer_modal" data-href="' . action([Workorderview::class, 'edit'], [$row->wid]) . '">
                                 <i class="fi fi-ts-file-edit"></i>
 								<span class="tooltiptext">Edit</span>
-                            </button> <a class="d-flex align-items-center gap-1 flex-wrap btn " href="workqueryindex/' . $row->wid . '" style="text-decoration:none;"><i class="fi fi-ts-book-arrow-right"></i>'. $row->query_count .'
+                            </button> <a class="d-flex align-items-center gap-1 flex-wrap btn " href="workqueryindex/' . $row->wid . '" style="text-decoration:none;"><i class="fi fi-ts-book-arrow-right"></i>' . $row->query_count . '
 							<span class="tooltiptext ">Query</span>
 							</a></div>';
                 })
@@ -423,6 +437,9 @@ class Workorderview extends Controller
             // Success message and response
             session()->flash('secmessage', 'Work Order Details Updated Successfully.');
             return response()->json(['status' => 1, 'message' => 'Work Order Details Updated Successfully.'], 200);
+        } else {
+            session()->flash('secmessage', 'Work Order Details Updated Successfully.');
+            return response()->json(['status' => 1, 'message' => 'Work Order Details Updated Successfully.'], 200);
         }
     }
 
@@ -538,21 +555,21 @@ class Workorderview extends Controller
     public function getempid(Request $request)
     {
         $category_Id = $request->avalue;
-    
+
         // Fetch employees from the 'regis' table
         $employees = DB::table('regis')
             ->where('status', '!=', '0')
             ->where('dept_id', $category_Id)
             ->where('fname', '!=', 'Appac')
             ->get();
-    
+
         // Generate checkbox options
         $options = '';
         foreach ($employees as $employee) {
-            $options .= '<input type="checkbox" name="empid[]" value="' . $employee->id . '" /> ' 
-                      . htmlspecialchars($employee->fname . " " . $employee->lname) . '<br>';
+            $options .= '<input type="checkbox" name="empid[]" value="' . $employee->id . '" /> '
+                . htmlspecialchars($employee->fname . " " . $employee->lname) . '<br>';
         }
-    
+
         return response($options);
     }
 }

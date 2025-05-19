@@ -118,8 +118,9 @@ class DMworks extends Controller
             'type' => 'required|not_in:0',
             'url' => [
                 'required',
-                'regex:/^(https:\/\/)?((docs|drive)\.google\.com\/(spreadsheets|document|presentation|forms|file|folders)|(www\.)?youtube\.com\/watch\?v=|youtu\.be\/)/'
+                'regex:/^(https:\/\/)?((docs|drive)\.google\.com\/(spreadsheets|document|presentation|forms|file|drive\/folders)|((www\.)?youtube\.com\/watch\?v=|youtu\.be\/))/'
             ],
+
         ]);
 
 
@@ -164,7 +165,7 @@ class DMworks extends Controller
             'type' => 'required|not_in:0',
             'url' => [
                 'required',
-                'regex:/^(https:\/\/)?(docs|drive)\.google\.com\/(spreadsheets|document|presentation|forms|file|folders)/'
+                'regex:/^(https:\/\/)?((docs|drive)\.google\.com\/(spreadsheets|document|presentation|forms|file|drive\/folders)|((www\.)?youtube\.com\/watch\?v=|youtu\.be\/))/'
             ],
         ]);
 
