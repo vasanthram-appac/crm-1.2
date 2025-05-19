@@ -115,7 +115,7 @@
 @endif
 <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100 u-dash">
 
-<div class="bio  rounded-30 bg-white h-100 d-flex  client-li  profile-div client-div">
+<div class="bio  rounded-30 bg-white h-100 d-flex   client-li  profile-div client-div">
                         <div class="bg-white    client-li">
                             <div class="widget-body">
                                 <h4>Accounts</h4>
@@ -152,7 +152,7 @@
             </div>
             <div class="col-lg-12 col-xl-12 col-xxl-12 pr-20 h-100 u-dash">
                 <div class="bio  rounded-30 bg-white h-100 row col-wrap client-li col-12 profile-div  acc-domain">
-                <div class="col-lg-12 col-xl-6 col-xxl-8">
+                <div class="col-lg-12 col-xl-6 col-xxl-6">
                     <div class="server-det-wrap  two">
                         <div class="server-d">
                             <img src="asset/image/domain.png" alt="">
@@ -210,7 +210,7 @@
                         </div>
                     </div>
                     </div>
-                    <div class="col-lg-12 col-xl-6 col-xxl-4">
+                    <div class="col-lg-12 col-xl-6 col-xxl-6">
                 <div class="profile-side-box green  bg-white">
                     <div class="widget-body">
                         <h4>Notes</h4>
