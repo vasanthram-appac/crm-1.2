@@ -69,11 +69,10 @@
     <div class="col-12">
         <div class="row  col-wrap">
 
+        @if(!empty($accounts->csmname) || !empty($accounts->csmphone) || !empty($accounts->csmemail) || !empty($accounts->bdmname) || !empty($accounts->bdmphone) || !empty($accounts->bdmemail))
+            <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100 u-dash">
 
-            <div class="col-lg-12 col-xl-12 col-xxl-12 pr-20 h-100 u-dash">
-
-                <div class="bio  rounded-30 bg-white h-100  client-li  profile-div client-div">
-                    <div class="server-det-wrap">
+                <div class="bio  rounded-30 d-flex bg-white h-100  client-li  profile-div client-div">
                         @if(!empty($accounts->csmname) || !empty($accounts->csmphone) || !empty($accounts->csmemail))
                         <div class="bg-white    client-li">
                             <div class="widget-body">
@@ -111,7 +110,12 @@
                             </div>
                         </div>
                         @endif
+</div>
+</div>
+@endif
+<div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100 u-dash">
 
+<div class="bio  rounded-30 bg-white h-100 d-flex   client-li  profile-div client-div">
                         <div class="bg-white    client-li">
                             <div class="widget-body">
                                 <h4>Accounts</h4>
@@ -127,6 +131,9 @@
                                 <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
                             </div>
                         </div>
+
+                        
+
                         @if(!empty($accounts->mdname) || !empty($accounts->mdphone) || !empty($accounts->mdphone))
                         <div class=" bg-white    client-li">
                             <div class="widget-body">
@@ -140,12 +147,13 @@
                         </div>
                         @endif
 
-                    </div>
+                    
                 </div>
             </div>
             <div class="col-lg-12 col-xl-12 col-xxl-12 pr-20 h-100 u-dash">
-                <div class="bio  rounded-30 bg-white h-100  client-li  profile-div">
-                    <div class="server-det-wrap">
+                <div class="bio  rounded-30 bg-white h-100 row col-wrap client-li col-12 profile-div  acc-domain">
+                <div class="col-lg-12 col-xl-6 col-xxl-6">
+                    <div class="server-det-wrap  two">
                         <div class="server-d">
                             <img src="asset/image/domain.png" alt="">
                             <h4 class="m-0"><strong>Domain</strong> {{(count($domain) > 0) ? $domain[0]->dateofexpire : ""}}</h4>
@@ -201,6 +209,60 @@
                             </span>
                         </div>
                     </div>
+                    </div>
+                    <div class="col-lg-12 col-xl-6 col-xxl-6">
+                <div class="profile-side-box green  bg-white">
+                    <div class="widget-body">
+                        <h4>Notes</h4>
+
+                        {!! Form::open(['route' => ['accounts.store'], 'method' => 'POST']) !!}
+                        @csrf
+
+                        <input type="hidden" class="span3" id="datetimestamp" name="datetimestamp" value="{{ now()->format('M d, Y - G:i') }}" readonly>
+                        <input type="hidden" class="span3" id="employee" name="employee" value="{{ session('empid') }}" readonly>
+                        @if(!empty($accountmanager))
+                        <input type="hidden" class="span3" id="aemail" name="aemail" value="{{ $accountmanager->emailid }}" />
+                        @endif
+                        <input type="hidden" class="span3" id="company_name" name="company_name" value="{{ $accounts->id }}" readonly>
+
+
+                        <div class=" validate-input m-b-23 mb-2">
+                            {!! Form::label('subject', 'Subject', ['class' => 'label-color py-2 ']) !!}
+                            {!! Form::text('subject', null, ['class' => 'form-control', 'maxlength' => '50', 'placeholder' => 'Enter Subject']) !!}
+
+                        </div>
+
+
+                        <!-- Summary Field -->
+
+                        <div class=" validate-input m-b-23 mb-2">
+                            {!! Form::label('summary', 'Brief Description', ['class' => 'label-color py-2']) !!}
+                            {!! Form::textarea('summary', null, ['class' => 'form-control', 'rows' => '5', 'style' => 'resize:none;', 'placeholder' => 'Brief Description', 'required']) !!}
+
+                        </div>
+
+
+
+
+                        <div class=" validate-input m-b-23 mb-2">
+                            {!! Form::label('mail_cc', 'Mail to CC', ['class' => 'label-color py-2 ']) !!}
+                            {!! Form::select('mail_cc[]', $results->pluck('fname', 'emailid')->toArray(), null, ['class' => 'select2 input100 custoname border-0', 'multiple' => true, 'placeholder' => 'Select Employee']) !!}
+
+                        </div>
+
+
+                        <div class="text-end">
+                            <label class="err_lbl"></label><br>
+                            <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button">
+                                Update Info
+                            </button>
+                        </div>
+
+                        {!! Form::close() !!}
+
+                    </div>
+                </div>
+            </div>
                 </div>
             </div>
             <!-- 
@@ -297,8 +359,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="widget appac">
-                        <div class="widget-body" style=" margin:20px 0px">
-                            <table id="datatable1" class="table table-bordered" style="width:100%">
+                        <div class="widget-body"  style="height: 500px; overflow: auto;margin:20px 0px">
+                            <table id="datatable1" class="table table-bordered dataTable table-responsive" style="width:100%">
                                 <thead>
                                     <tr class="bg-white border-0">
                                         <th>Date of Notes Created</th>
@@ -1078,59 +1140,7 @@
                 </div>
             </div> -->
 
-            <div class="col-lg-12 col-xl-5 col-xxl-4">
-                <div class="profile-side-box green bio rounded-30 bg-white">
-                    <div class="widget-body">
-                        <h4>Notes</h4>
-
-                        {!! Form::open(['route' => ['accounts.store'], 'method' => 'POST']) !!}
-                        @csrf
-
-                        <input type="hidden" class="span3" id="datetimestamp" name="datetimestamp" value="{{ now()->format('M d, Y - G:i') }}" readonly>
-                        <input type="hidden" class="span3" id="employee" name="employee" value="{{ session('empid') }}" readonly>
-                        @if(!empty($accountmanager))
-                        <input type="hidden" class="span3" id="aemail" name="aemail" value="{{ $accountmanager->emailid }}" />
-                        @endif
-                        <input type="hidden" class="span3" id="company_name" name="company_name" value="{{ $accounts->id }}" readonly>
-
-
-                        <div class=" validate-input m-b-23 mb-2">
-                            {!! Form::label('subject', 'Subject', ['class' => 'label-color py-2 ']) !!}
-                            {!! Form::text('subject', null, ['class' => 'form-control', 'maxlength' => '50', 'placeholder' => 'Enter Subject']) !!}
-
-                        </div>
-
-
-                        <!-- Summary Field -->
-
-                        <div class=" validate-input m-b-23 mb-2">
-                            {!! Form::label('summary', 'Brief Description', ['class' => 'label-color py-2']) !!}
-                            {!! Form::textarea('summary', null, ['class' => 'form-control', 'rows' => '5', 'style' => 'resize:none;', 'placeholder' => 'Brief Description', 'required']) !!}
-
-                        </div>
-
-
-
-
-                        <div class=" validate-input m-b-23 mb-2">
-                            {!! Form::label('mail_cc', 'Mail to CC', ['class' => 'label-color py-2 ']) !!}
-                            {!! Form::select('mail_cc[]', $results->pluck('fname', 'emailid')->toArray(), null, ['class' => 'select2 input100 custoname border-0', 'multiple' => true, 'placeholder' => 'Select Employee']) !!}
-
-                        </div>
-
-
-                        <div class="text-end">
-                            <label class="err_lbl"></label><br>
-                            <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button">
-                                Update Info
-                            </button>
-                        </div>
-
-                        {!! Form::close() !!}
-
-                    </div>
-                </div>
-            </div>
+          
         </div>
     </div>
 </div>

@@ -1185,6 +1185,8 @@ button.close {
 .pln-sts.monr h6{color:#282830;margin-bottom:8px;}
 .pln-sts.monr div p{color:#a4a4a6 !important;margin:7px 0px !important;font-size:14px;}
 .server-det-wrap{display:grid;grid-template-columns:repeat(4,1fr);}
+.server-det-wrap.two{grid-template-columns:repeat(2,1fr);}
+.acc-domain>div{padding:0px;}
 .server-d{display:grid;gap:15px;margin:20px 10px}
 .server-d h4 strong{font-size:25px !important;}
 .server-d p{font-size:18px !important;}
