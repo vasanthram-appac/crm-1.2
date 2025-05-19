@@ -143,7 +143,7 @@ padding-bottom: 2.2rem !important;
                 <div class="col-lg-6 col-sm-12">
                     <div class="form-group">
                         {!! Form::label('start_time', 'Start Time*', ['class' => 'form-label']) !!}
-                        {!! Form::time('start_time', $lasttime, ['class' => 'form-control', 'required']) !!}
+                        {!! Form::time('start_time', null, ['class' => 'form-control', 'required']) !!}
                     </div>
                 </div>
 

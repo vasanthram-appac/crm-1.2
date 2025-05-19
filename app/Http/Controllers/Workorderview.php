@@ -33,6 +33,7 @@ class Workorderview extends Controller
                     'w.empid',
                     'w.project_description',
                     'w.work_status',
+                    'w.status',
                     'w.assigned_by',
                     'd.id as dept_id',
                     'd.department_name'
@@ -140,15 +141,15 @@ class Workorderview extends Controller
                 })
 
                 ->addColumn('updatestatus', function ($row) {
-                    $designStatus = $row->design_status; // Access design_status from the $row object
+                    $updateStatus = $row->status; // Access design_status from the $row object
                     return '
                            <div>
-                             <select name="design_status" class="paymentstatus" data-id="' . $row->d_id . '">
+                             <select name="update_status" class="paymentstatus" data-id="' . $row->wid . '">
                                     <option value="">Select From List</option>
-                                    <option value="Not yet started" ' . ($designStatus == 'Not yet started' ? 'selected' : '') . '>Not yet Started</option>
-                                    <option value="Started" ' . ($designStatus == 'Started' ? 'selected' : '') . '>Started</option>
+                                    <option value="0" ' . ($updateStatus == 0 ? 'selected' : '') . '>Approve</option>
+                                    <option value="2" ' . ($updateStatus == 2 ? 'selected' : '') . '>Reject</option>
                                 </select>
-                                <button class="btn btn-modal taskestatus" data-id="' . $row->d_id . '">update</button>
+                                <button class="btn btn-modal taskestatus" data-id="' . $row->wid . '">update</button>
                             </div>';
                 })
 
@@ -163,7 +164,7 @@ class Workorderview extends Controller
 							<span class="tooltiptext ">Query</span>
 							</a></div>';
                 })
-                ->rawColumns(['sno', 'project_description', 'company_name', 'days', 'status', 'action'])
+                ->rawColumns(['sno', 'project_description', 'company_name', 'days', 'status', 'updatestatus', 'action'])
                 ->make(true);
         }
 
@@ -380,7 +381,7 @@ class Workorderview extends Controller
 
             $com_name = $workOrder->company_name;
 
-            $project_description = str_replace(array("\r\n", "\r", "\n", "\\r", "\\n", "\\r\\n"), "<br/>", $workOrder->project_description1);
+            $project_description = str_replace(array("\r\n", "\r", "\n", "\\r", "\\n", "\\r\\n"), "<br/>", $workOrder->project_description);
 
             $fquery = DB::table('regis')->where('empid', request()->session()->get('empid'))->first();
             $fname = $fquery->fname;
@@ -572,4 +573,118 @@ class Workorderview extends Controller
 
         return response($options);
     }
+
+    public function workorderstatus(Request $request){
+
+        $id = $request->id;
+
+        if ($request->status == '0') {
+            $work_status = 'live';
+            $workstatus = 'Approved';
+        } else if ($request->status == '2') {
+            $work_status = 'Rejected';
+            $workstatus = 'Rejected';
+        } else {
+            $work_status = '';
+            $workstatus = '';
+        }
+
+        $val = [
+            'work_status' => $work_status,
+            'status' => $request->status,
+        ];
+
+        $query = DB::table('work_order')->where('id', $id)->update($val);
+
+        if ($query) {
+
+            $workOrder = DB::table('work_order as w')
+                ->join('accounts as a', 'a.id', '=', 'w.company_id')
+                ->join('department_master as d', 'd.id', '=', 'w.dept_id')
+                ->select(
+                    'a.id',
+                    'a.company_name',
+                    'w.issue_date',
+                    'w.wid as workid',
+                    'w.id as wid',
+                    'w.complete_date',
+                    'w.dead_line',
+                    'w.empid',
+                    'w.project_description',
+                    'w.work_status',
+                    'w.assigned_by',
+                    'd.id as dept_id',
+                    'd.department_name'
+                )
+                ->where('w.id', $id)
+                ->orderByDesc('w.wid')
+                ->first();
+
+            $checkbox1 = explode(',', $workOrder->empid);
+
+            $com_name = $workOrder->company_name;
+
+            $project_description = str_replace(array("\r\n", "\r", "\n", "\\r", "\\n", "\\r\\n"), "<br/>", $workOrder->project_description);
+
+            $fquery = DB::table('regis')->where('empid', request()->session()->get('empid'))->first();
+            $fname = $fquery->fname;
+            $lname = $fquery->lname;
+            $aemailid = $fquery->emailid;
+
+            $htmlContent = '<html><title>Work Order Details</title><head></head><body><table style="background:#efeded" cellpadding="0" cellspacing="0" bgcolor="#EFEDED" border="0" width="575px"><tbody><tr><td align="center"><table width="96%" cellpadding="0" cellspacing="0"border="0"><tbody><tr><td style="border-top:5px solid #1e96d3;background:#fff;margin:0;padding:20px;border-spacing:0px"><table width="100%" cellpadding="0" cellspacing="0"><tbody><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="font-size:14px;color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:center">Today Work Details</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="color:#000;font-size:13px;margin:0;font-family:Arial,Helvetica,sans-serif"> <strong> Dear Team, </strong> <br></p></td></tr><tr><td style="margin:0;padding:0 0 5px 0"><p style="font-size:13px;background-color:rgb(234,234,234);color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:left"> Work order details Updated Through CRM Portal</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><table style="font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;margin-top:10px;width:100%"><tbody><tr><td style="width:200px;padding:4px 0">Client Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $workOrder->company_name . '</td></tr><tr><td style="width:200px;padding:4px 0">Project Description:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $project_description . '</td></tr><tr><td style="width:200px;padding:4px 0">Work Assign Date</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $workOrder->issue_date . '</td></tr><tr><td style="width:200px;padding:4px 0">Assigned By</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $fname . " " . $lname . '</td></tr> ';
+            if ($request->status != '') {
+                $htmlContent .= ' <tr><td style="width:200px;padding:4px 0">' . $workstatus . ' by</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> Balakrishnan </td></tr><tr><td style="width:200px;padding:4px 0">Comments</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->comments . '</td></tr>';
+            } else {
+                $htmlContent .= '<tr><td style="width:200px;padding:4px 0">Comments</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->comments . '</td></tr>';
+            }
+            $htmlContent .= '</tbody></table></td></tr></tbody></table></td></tr><tr><td style="margin:0;padding:15px 0"></td></tr></tbody></table></td></tr></tbody></table></body></html>';
+
+            $bccEmail = env('SUPPORTMAIL');
+            $founderEmail = env('FOUNDERMAIL');
+            $infoMail = env('INFOMAIL');
+            $managerMail = env('MANAGERMAIL');
+
+            Mail::send([], [], function ($message) use (
+                $request,
+                $founderEmail,
+                $workstatus,
+                $bccEmail,
+                $infoMail,
+                $fquery,
+                $com_name,
+                $htmlContent,
+                $checkbox1,
+            ) {
+
+                if ($request->status != '') {
+                    $appname = 'Balakrishnan S';
+                } else {
+                    $appname = $fquery->fname . ' ' . $fquery->lname;
+                }
+
+                if ($request->status != '') {
+                    $subject_details = "Work Order " . $workstatus . " For ";
+                    $Subject = $subject_details . " " . $com_name . " : " . date("d-m-Y");
+                } else {
+                    $subject_details = "Work Order For ";
+                    $Subject = $subject_details . " " . $com_name . " : " . date("d-m-Y");
+                }
+
+                $message->to($checkbox1)
+                    ->bcc($bccEmail)
+                    ->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
+                    ->from($infoMail, $appname)
+                    ->subject($Subject)
+                    ->html($htmlContent);
+            });
+
+            // Success message and response
+            session()->flash('secmessage', 'Work Order Details Updated Successfully.');
+            return response()->json(['status' => 1, 'message' => 'Work Order Details Updated Successfully.'], 200);
+        } else {
+            session()->flash('secmessage', 'Work Order Details Updated Successfully.');
+            return response()->json(['status' => 1, 'message' => 'Work Order Details Updated Successfully.'], 200);
+        }
+    }
+
 }

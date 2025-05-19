@@ -22,12 +22,13 @@
         background-color: #01152b !important;
         color: #fff !important;
     }
-	    .work-order-view tbody tr td:nth-child(4) {
-  max-width: 250px;
-  overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap; 
-}
+
+    .work-order-view tbody tr td:nth-child(4) {
+        max-width: 250px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
 </style>
 @endsection
 
@@ -38,42 +39,42 @@
     <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
-        @if(request()->session()->get('role') != 'user')
+            @if(request()->session()->get('role') != 'user')
             <li class="nav-item">
-                <a class="nav-link"  href="/task"><b>Task</b></a>
+                <a class="nav-link" href="/task"><b>Task</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active"  href="/workorderview"><b>Work Order</b></a>
+                <a class="nav-link active" href="/workorderview"><b>Work Order</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/wip"><b>WIP</b></a>
+                <a class="nav-link" href="/wip"><b>WIP</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/promotion"><b>Promotion</b></a>
+                <a class="nav-link" href="/promotion"><b>Promotion</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/design"><b>Design</b></a>
+                <a class="nav-link" href="/design"><b>Design</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/content"><b>Content</b></a>
+                <a class="nav-link" href="/content"><b>Content</b></a>
             </li>
             @endif
             <li class="nav-item">
-                <a class="nav-link"  href="/taskview"><b>Task</b></a>
+                <a class="nav-link" href="/taskview"><b>Task</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  href="/workorder"><b>Work Order</b></a>
-            </li>        
+                <a class="nav-link" href="/workorder"><b>Work Order</b></a>
+            </li>
         </ul>
     </div>
-<div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
-    <div class="profile-head">
-        <h1 class="ch2 comp-name">Work Order View</h1>
-    </div>
+    <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
+        <div class="profile-head">
+            <h1 class="ch2 comp-name">Work Order View</h1>
+        </div>
         <div class="justify-content-sm-end d-flex">
-                <div class=""></div>
-                <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Workorderview::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Work Order</button>
-            </div>
+            <div class=""></div>
+            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Workorderview::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Work Order</button>
+        </div>
     </div>
 
     <div class="col-lg-12 col-sm-12 p-0">
@@ -83,7 +84,7 @@
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
 
-            
+
 
             <div class="p-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered work-order-view">
@@ -98,6 +99,7 @@
                             <th class="text-grey">Date of Issue</th>
                             <th class="text-grey">Dead Line</th>
                             <th class="text-grey">Days</th>
+                            <th class="text-grey">Update Status</th>
                             <th class="text-grey">Work Status</th>
                             <th class="text-grey">Action</th>
                             <!-- Add more columns as needed -->
@@ -189,6 +191,10 @@
                     name: 'days'
                 },
                 {
+                    data: 'updatestatus',
+                    name: 'updatestatus'
+                },
+                {
                     data: 'status',
                     name: 'status'
                 },
@@ -229,8 +235,8 @@
                 ]
             <?php endif; ?>
         });
-		
-		        // Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon
@@ -299,7 +305,39 @@
             });
         });
 
+        $(document).on('click', '.taskestatus', function() {
 
+            var Id = $(this).data('id');
+            var status = $(this).siblings('.paymentstatus').val();
+
+            $.ajax({
+                url: '/workorderstatus', // Change this to your endpoint
+                type: 'POST',
+                data: {
+                    id: Id,
+                    status: status,
+                    _token: '{{ csrf_token() }}',
+
+                },
+                success: function(response) {
+                    $('#session_message').css('display', 'block');
+                    $('#session_message').text(response.message);
+
+                    setTimeout(function() {
+                        $('#session_message').hide();
+                    }, 5000);
+
+                    cat_table.ajax.reload();
+
+                },
+                error: function(error) {
+
+                    console.error(error);
+
+                }
+            });
+
+        });
 
     });
 </script>

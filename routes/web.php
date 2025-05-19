@@ -252,6 +252,8 @@ Route::resource('/required_input','App\Http\Controllers\Requiredinput');
 
 Route::post('/requiredinputsearch/{type}/{id}', [Accounts::class, 'requiredinputsearch'])->name('requiredinputsearch');
 
+Route::post('/workorderstatus', [Workorderview::class, 'workorderstatus'])->name('workorderstatus');
+
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 
 });

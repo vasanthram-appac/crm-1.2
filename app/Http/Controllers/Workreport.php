@@ -147,21 +147,21 @@ class Workreport extends Controller
 
         $leads_list = ['0' => 'Select Option'] + $leads_list;
 
-        $lasttime = DB::table('dailyreport')
-            ->select('end')
-            ->where('report_date1', date('Y-m-d'))
-            ->orderBy('id', 'DESC')
-            ->first();
+        // $lasttime = DB::table('dailyreport')
+        //     ->select('end')
+        //     ->where('report_date1', date('Y-m-d'))
+        //     ->orderBy('id', 'DESC')
+        //     ->first();
 
-        if (!empty($lasttime)) {
+        // if (!empty($lasttime)) {
 
-            $lasttime = date('H:i', strtotime($lasttime->end . ' +1 minute'));
-        } else {
-            $lasttime = '00:00';
-        }
+        //     $lasttime = date('H:i', strtotime($lasttime->end . ' +1 minute'));
+        // } else {
+        //     $lasttime = '00:00';
+        // }
 
 
-        return view('workreport/create', compact('accounts', 'work_types', 'wip_list', 'leads_list', 'lasttime'))->render();
+        return view('workreport/create', compact('accounts', 'work_types', 'wip_list', 'leads_list'))->render();
     }
 
     public function store(Request $request)
