@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
@@ -58,7 +59,7 @@ class Accounts extends Controller
                     ->where('download_status', 'Download')
                     ->orderBy('accounts.id', 'ASC')
                     ->get();
-            }  else {
+            } else {
 
                 $data = DB::table('accounts')
                     ->where('status', '!=', '0')
@@ -107,7 +108,7 @@ class Accounts extends Controller
                         ]) . '"> ' . $nextStatus1 . ' </button>';
                 })
 
-                  ->addColumn('download_status', function ($row) {
+                ->addColumn('download_status', function ($row) {
                     // Determine the next active status based on the current status
                     $nextStatusd = $row->download_status == 'Not' ? 'Download' : 'Not';
 
@@ -424,12 +425,12 @@ class Accounts extends Controller
             Mail::send([], [], function ($message) use ($request, $bala, $managermail, $bccEmail, $infomail, $emailid, $company_name_value, $htmlContent, $empid_value2, $thesupportmail) {
                 // Configure email properties
                 $message->to($bala)
-                       ->cc(array_filter([$managermail, $thesupportmail]))
-                        ->bcc($bccEmail)
-                        ->replyTo($emailid)
-                        ->from($infomail, $company_name_value)
-                        ->subject($request->subject)
-                        ->html($htmlContent);
+                    ->cc(array_filter([$managermail, $thesupportmail]))
+                    ->bcc($bccEmail)
+                    ->replyTo($emailid)
+                    ->from($infomail, $company_name_value)
+                    ->subject($request->subject)
+                    ->html($htmlContent);
 
                 // Add any CC emails from mail_cc array
                 if ($request->has('mail_cc') && count($request->mail_cc) > 0) {
@@ -498,6 +499,9 @@ class Accounts extends Controller
             'csmname' => 'nullable|string|max:70',
             'csmphone' => 'nullable|digits:10',
             'csmemail' => 'nullable|email|max:255',
+            'csmname1' => 'nullable|string|max:70',
+            'csmphone1' => 'nullable|digits:10',
+            'csmemail1' => 'nullable|email|max:255',
             'bdmname' => 'nullable|string|max:70',
             'bdmphone' => 'nullable|digits:10',
             'bdmemail' => 'nullable|email|max:255',
@@ -543,6 +547,9 @@ class Accounts extends Controller
             'csmname' => $request->csmname,
             'csmphone' => $request->csmphone,
             'csmemail' => $request->csmemail,
+            'csmname1' => $request->csmname1,
+            'csmphone1' => $request->csmphone1,
+            'csmemail1' => $request->csmemail1,
             'bdmname' => $request->bdmname,
             'bdmphone' => $request->bdmphone,
             'bdmemail' => $request->bdmemail,
@@ -573,7 +580,7 @@ class Accounts extends Controller
         }
     }
 
-     public function Downloadstatus($id, $download_status)
+    public function Downloadstatus($id, $download_status)
     {
 
         $update = DB::table('accounts')->where('id', $id)->update(['download_status' => $download_status]);
@@ -627,7 +634,7 @@ class Accounts extends Controller
 
     public function requiredinputsearch($type, $id)
     {
-       
+
         // Store the parameters in session (or empty string if "All")
         request()->session()->put('requiredinput', $type === "All" ? "" : $type);
 
@@ -640,7 +647,7 @@ class Accounts extends Controller
         }
 
         // Fetch results
-        $dmworks = $query->where('company_name', $id)->where('worktype','!=','Close')->get();
+        $dmworks = $query->where('company_name', $id)->where('worktype', '!=', 'Close')->get();
 
         // Return JSON response
         return response()->json($dmworks);
@@ -648,54 +655,54 @@ class Accounts extends Controller
 
     public function todaydetails()
     {
-        
-    if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM063' || request()->session()->get('empid') == 'AM003' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1'){
 
-        $hosting = DB::table('hosting')
-            ->join('domainmaster', 'hosting.domainname', '=', 'domainmaster.id')
-            ->join('accounts', 'hosting.company_name', '=', 'accounts.id')
-            ->select('hosting.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(hosting.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
-            ->where('hosting.status', '0')
-            ->where('hosting.dateofexpire', date('d-m-Y'))
-            ->orderBy('id', 'ASC')
-            ->get();
+        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM063' || request()->session()->get('empid') == 'AM003' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') {
 
-        $seo_client = DB::table('seo_client')
-            ->join('domainmaster', 'seo_client.domainname', '=', 'domainmaster.id')
-            ->join('accounts', 'seo_client.company_name', '=', 'accounts.id')
-            ->select('seo_client.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(seo_client.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
-            ->where('seo_client.status', '0')
-            ->where('seo_client.dateofexpire', date('d-m-Y'))
-            ->orderBy('DateFormat', 'Desc')
-            ->get();
+            $hosting = DB::table('hosting')
+                ->join('domainmaster', 'hosting.domainname', '=', 'domainmaster.id')
+                ->join('accounts', 'hosting.company_name', '=', 'accounts.id')
+                ->select('hosting.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(hosting.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
+                ->where('hosting.status', '0')
+                ->where('hosting.dateofexpire', date('d-m-Y'))
+                ->orderBy('id', 'ASC')
+                ->get();
 
-        $domain = DB::table('domain')
-            ->join('domainmaster', 'domain.domainname', '=', 'domainmaster.id')
-            ->join('accounts', 'domain.company_name', '=', 'accounts.id')
-            ->select('domain.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(domain.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
-            ->where('domain.status', '0')
-            ->where('domain.dateofexpire', date('d-m-Y'))
-            ->orderBy('id', 'ASC')
-            ->get();
+            $seo_client = DB::table('seo_client')
+                ->join('domainmaster', 'seo_client.domainname', '=', 'domainmaster.id')
+                ->join('accounts', 'seo_client.company_name', '=', 'accounts.id')
+                ->select('seo_client.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(seo_client.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
+                ->where('seo_client.status', '0')
+                ->where('seo_client.dateofexpire', date('d-m-Y'))
+                ->orderBy('DateFormat', 'Desc')
+                ->get();
 
-        $emailserver = DB::table('emailserver')
-            ->join('domainmaster', 'emailserver.domainname', '=', 'domainmaster.id')
-            ->join('accounts', 'emailserver.company_name', '=', 'accounts.id')
-            ->select('emailserver.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(emailserver.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
-            ->where('emailserver.status', '0')
-            ->where('emailserver.dateofexpire', date('d-m-Y'))
-            ->orderBy('id', 'ASC')
-            ->get();
+            $domain = DB::table('domain')
+                ->join('domainmaster', 'domain.domainname', '=', 'domainmaster.id')
+                ->join('accounts', 'domain.company_name', '=', 'accounts.id')
+                ->select('domain.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(domain.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
+                ->where('domain.status', '0')
+                ->where('domain.dateofexpire', date('d-m-Y'))
+                ->orderBy('id', 'ASC')
+                ->get();
 
-        $ssl_certificate = DB::table('ssl_certificate')
-            ->join('domainmaster', 'ssl_certificate.domainname', '=', 'domainmaster.id')
-            ->join('accounts', 'ssl_certificate.company_name', '=', 'accounts.id')
-            ->select('ssl_certificate.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(ssl_certificate.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
-            ->where('ssl_certificate.status', '0')
-            ->where('ssl_certificate.dateofexpire', date('d-m-Y'))
-            ->orderBy('DateFormat', 'Desc')
-            ->get();
-        }else{
+            $emailserver = DB::table('emailserver')
+                ->join('domainmaster', 'emailserver.domainname', '=', 'domainmaster.id')
+                ->join('accounts', 'emailserver.company_name', '=', 'accounts.id')
+                ->select('emailserver.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(emailserver.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
+                ->where('emailserver.status', '0')
+                ->where('emailserver.dateofexpire', date('d-m-Y'))
+                ->orderBy('id', 'ASC')
+                ->get();
+
+            $ssl_certificate = DB::table('ssl_certificate')
+                ->join('domainmaster', 'ssl_certificate.domainname', '=', 'domainmaster.id')
+                ->join('accounts', 'ssl_certificate.company_name', '=', 'accounts.id')
+                ->select('ssl_certificate.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(ssl_certificate.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
+                ->where('ssl_certificate.status', '0')
+                ->where('ssl_certificate.dateofexpire', date('d-m-Y'))
+                ->orderBy('DateFormat', 'Desc')
+                ->get();
+        } else {
             $hosting = [];
             $seo_client = [];
             $domain = [];
@@ -707,24 +714,23 @@ class Accounts extends Controller
             ->whereRaw("SUBSTRING(datelist_one, 1, 5) = ?", [date('d-m')])
             ->get();
 
-      $birthdayData = DB::table('personalprofile')
-    ->select('fname')
-    ->whereRaw("DATE_FORMAT(dob, '%m-%d') = ?", [date('m-d')])
-    ->get();
+        $birthdayData = DB::table('personalprofile')
+            ->select('fname')
+            ->whereRaw("DATE_FORMAT(dob, '%m-%d') = ?", [date('m-d')])
+            ->get();
 
 
-        $count = count($hosting)+count($seo_client)+count($domain)+count($emailserver)+count($ssl_certificate)+count($calendar)+count($birthdayData);
+        $count = count($hosting) + count($seo_client) + count($domain) + count($emailserver) + count($ssl_certificate) + count($calendar) + count($birthdayData);
 
-       return response()->json([
-    'hosting' => $hosting,
-    'seo_client' => $seo_client,
-    'domain' => $domain,
-    'emailserver' => $emailserver,
-    'ssl_certificate' => $ssl_certificate,
-    'calendar' => $calendar,
-    'birthdayData' => $birthdayData,
-    'count' => $count,
-]);
-
+        return response()->json([
+            'hosting' => $hosting,
+            'seo_client' => $seo_client,
+            'domain' => $domain,
+            'emailserver' => $emailserver,
+            'ssl_certificate' => $ssl_certificate,
+            'calendar' => $calendar,
+            'birthdayData' => $birthdayData,
+            'count' => $count,
+        ]);
     }
 }

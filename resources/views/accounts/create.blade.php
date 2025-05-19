@@ -69,7 +69,7 @@
     <div class="col-12">
         <div class="row  col-wrap">
 
-        @if(!empty($accounts->csmname) || !empty($accounts->csmphone) || !empty($accounts->csmemail) || !empty($accounts->bdmname) || !empty($accounts->bdmphone) || !empty($accounts->bdmemail))
+        @if(!empty($accounts->csmname) || !empty($accounts->csmphone) || !empty($accounts->csmemail) || !empty($accounts->csmname1) || !empty($accounts->csmphone1) || !empty($accounts->csmemail1) || !empty($accounts->bdmname) || !empty($accounts->bdmphone) || !empty($accounts->bdmemail))
             <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100 u-dash">
 
                 <div class="bio  rounded-30 d-flex bg-white h-100  client-li  profile-div client-div">
@@ -84,15 +84,15 @@
                                 @if($accounts->csmemail) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->csmemail }}</a></span></p> @endif
                             </div>
 
-                            @if($accounts->id =="350")
+                           @if(!empty($accounts->csmname1) || !empty($accounts->csmphone1) || !empty($accounts->csmemail1))
                             <div class="widget-body">
-                                <h4>Marketing Person 3</h4>
+                                <h4>Marketing Person 2</h4>
                             </div>
                             <div class="row experience client-li-d">
-                                <p class="client-label">Name<span>:</span><span>Ms. Sheeba</span></p>
-                                <p class="client-label">Phone<span>:</span><span><a href="mailto:9080802614">+91 90808 02614</a></span></p>
-                                <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:sheeba@craftsmanautomation.com">sheeba@craftsmanautomation.com</a></span></p>
-                            </div>
+                             @if($accounts->csmname1) <p class="client-label">Name<span>:</span><span>{{ $accounts->csmname1 }}</span></p> @endif
+                                @if($accounts->csmphone1) <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">+91 {{ $accounts->csmphone1 }}</a></span></p> @endif
+                                @if($accounts->csmemail1) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->csmemail1 }}</a></span></p> @endif
+                           </div>
                             @endif
 
                         </div>
@@ -101,7 +101,7 @@
                         @if(!empty($accounts->bdmname) || !empty($accounts->bdmphone) || !empty($accounts->bdmemail))
                         <div class="bg-white    client-li">
                             <div class="widget-body">
-                                <h4>Marketing Person 2</h4>
+                                <h4>Marketing Person 3</h4>
                             </div>
                             <div class="row experience client-li-d">
                                 @if($accounts->bdmname) <p class="client-label">Name<span>:</span><span>{{ $accounts->bdmname }}</span></p> @endif
@@ -115,7 +115,7 @@
 @endif
 <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100 u-dash">
 
-<div class="bio  rounded-30 bg-white h-100 d-flex   client-li  profile-div client-div">
+<div class="bio  rounded-30 bg-white h-100  @if(!empty($accounts->mdname) || !empty($accounts->mdphone) || !empty($accounts->mdphone)) tt @else d-flex @endif   client-li  profile-div client-div">
                         <div class="bg-white    client-li">
                             <div class="widget-body">
                                 <h4>Accounts</h4>
