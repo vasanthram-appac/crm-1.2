@@ -72,7 +72,7 @@
         @if(!empty($accounts->csmname) || !empty($accounts->csmphone) || !empty($accounts->csmemail) || !empty($accounts->csmname1) || !empty($accounts->csmphone1) || !empty($accounts->csmemail1) || !empty($accounts->bdmname) || !empty($accounts->bdmphone) || !empty($accounts->bdmemail))
             <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100 u-dash">
 
-                <div class="bio  rounded-30 d-flex bg-white h-100  client-li  profile-div client-div">
+                <div class="bio  rounded-30  @if(!empty($accounts->csmname1) || !empty($accounts->csmphone1) || !empty($accounts->csmemail1)) server-det-wrap  two @else d-flex @endif bg-white h-100  client-li  profile-div client-div">
                         @if(!empty($accounts->csmname) || !empty($accounts->csmphone) || !empty($accounts->csmemail))
                         <div class="bg-white    client-li">
                             <div class="widget-body">
@@ -115,7 +115,7 @@
 @endif
 <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100 u-dash">
 
-<div class="bio  rounded-30 bg-white h-100  @if(!empty($accounts->mdname) || !empty($accounts->mdphone) || !empty($accounts->mdphone)) tt @else d-flex @endif   client-li  profile-div client-div">
+<div class="bio  rounded-30 bg-white h-100  @if(!empty($accounts->mdname) || !empty($accounts->mdphone) || !empty($accounts->mdphone)) server-det-wrap  two @else d-flex @endif   client-li  profile-div client-div">
                         <div class="bg-white    client-li">
                             <div class="widget-body">
                                 <h4>Accounts</h4>
