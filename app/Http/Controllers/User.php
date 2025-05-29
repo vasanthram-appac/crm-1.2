@@ -51,8 +51,10 @@ class User extends Controller
                 ->addColumn('sno', function ($row) {
                     return '';
                 })
-
-
+                 ->addColumn('empid', function ($row) {
+                    return '
+                            <button class="btn  btn-modal text-lblue viewemp" data-id="' . base64_encode($row->empid) . '">' . $row->empid . ' </button>';
+                })
                 ->addColumn('action', function ($row) {
                     return '<button class="btn  btn-modal" data-container=".customer_modal" data-href="' . action([User::class, 'edit'], [$row->id]) . '">
                  <i class="fi fi-ts-file-edit"></i> 
@@ -62,7 +64,7 @@ class User extends Controller
 					 <span class="tooltiptext">delete</span>
 					</button>';
                 })
-                ->rawColumns(['sno', 'action'])
+                ->rawColumns(['sno', 'empid', 'action'])
                 ->make(true);
         }
 

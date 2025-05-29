@@ -114,7 +114,7 @@
 
         <div class="col-lg-2 col-sm-12">
             <div class="validate-input m-b-23 mt-5 mx-5">
-                <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button" onclick="searchpayment()">
+                <button type="button" id="searchpaysubmit" data-id="8" class="frm-btn pri-text-color" role="button">
                     Submit
                 </button>
             </div>
@@ -122,7 +122,13 @@
 
         <div class="col-lg-4 col-sm-12">
             <div class="alidate-input m-b-23 mb-2">
-                <p class="fs-4 pt-5 totalamount mb-0"></p>
+                <p class="fs-4 pt-5 totalamount mb-0">
+                    @if(request()->session()->has('totalpaymententry'))
+                    RS. {{request()->session()->get('totalpaymententry')}}
+                    @else
+                    RS. 0.00
+                    @endif
+                </p>
             </div>
         </div>
     </div>
@@ -441,12 +447,10 @@
         });
     });
 
-    function searchpayment() {
-
+    $('#searchpaysubmit').on('click', function() {
         var companyname = $('[name="company_name"]').val();
         var daterange = $('[name="daterange"]').val();
 
-        // Validate required fields
         if (companyname == "" || companyname == 0) {
             alert("Please select a company name.");
             return false;
@@ -457,20 +461,32 @@
         }
 
         $.ajax({
-            url: '/searchpayment', // Change this to your endpoint
-            type: 'POST',
+            url: "{{ action([App\Http\Controllers\Paymententry::class, 'index']) }}",
+            type: 'GET',
             data: {
                 companyname: companyname,
                 daterange: daterange,
                 _token: '{{ csrf_token() }}',
             },
             success: function(response) {
-                $('.totalamount').text('Total Amount: ' + response.payment);
+                window.location.reload();
             },
-            error: function(error) {
-                console.error(error);
+            error: function(xhr) {
+                var errors = xhr.responseJSON.errors;
+                var errorString = '';
+
+                for (var key in errors) {
+                    errorString += '<span class="text-danger">' + errors[key][0] + '</span><br>';
+                }
+
+                $('#errorModal .error-modal').html(errorString);
+                $('#errorModal').modal('show');
             }
         });
+    });
+
+    function searchpayment(companyname, daterange) {
+
     }
 
     $(function() {
@@ -499,7 +515,18 @@
                 'All': [moment('01/01/2019'), moment()],
                 'Today': [moment(), moment()],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'Last Six Months': [moment().subtract(6, 'months').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'Financial Year': [
+                    moment().month() < 3 ?
+                    moment().subtract(1, 'year').startOf('year').month(3).startOf('month') // April 1 of last year
+                    :
+                    moment().startOf('year').month(3).startOf('month'), // April 1 of this year
+                    moment().month() < 3 ?
+                    moment().startOf('year').month(2).endOf('month') // March 31 of this year
+                    :
+                    moment().add(1, 'year').startOf('year').month(2).endOf('month') // March 31 of next year
+                ]
             }
         }, cb);
 

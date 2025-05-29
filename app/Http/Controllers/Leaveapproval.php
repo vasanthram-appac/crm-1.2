@@ -58,7 +58,6 @@ class Leaveapproval extends Controller
                     ->addColumn('sno', function ($row) {
                         return '';
                     })
-
                     ->addColumn('leavestatus', function ($row) {
                         switch ($row->leavestatus) {
                             case 'Pending':
@@ -72,7 +71,23 @@ class Leaveapproval extends Controller
                                 return $row->leavestatus;
                         }
                     })
-
+                    ->addColumn('updateleavestatus', function ($row) {
+                        $updateStatus = $row->leavestatus; // Access design_status from the $row object
+                        return '
+                            <div>
+                                <select name="update_status" class="paymentstatus form-select" data-id="' . $row->id . '">
+                                    <option value="">Select</option>
+                                    <option value="Approved" ' . ($updateStatus == 'Approved' ? 'selected' : '') . '>Approved </option>
+                                    <option value="Not Approved" ' . ($updateStatus == 'Not Approved' ? 'selected' : '') . '>Not Approved </option>
+                                    <option value="Pending" ' . ($updateStatus == 'Pending' ? 'selected' : '') . '>Pending </option>
+                                    <option value="Cancelled" ' . ($updateStatus == 'Cancelled' ? 'selected' : '') . '>Cancelled </option>
+                                </select>
+                                <button class="btn btn-modal taskestatus mt-1 border" data-id="' . $row->id . '">update</button>
+                            </div>';
+                    })
+                    ->addColumn('empid', function ($row) {
+                    return '<button class="btn  btn-modal text-lblue viewemp" data-id="' . base64_encode($row->empid) . '">' . $row->empid . ' </button>';
+                    })
                     ->addColumn('action', function ($row) {
                         if ($row->leavestatus == 'Pending') {
                             return '<button class="btn btn-modal" data-container=".customer_modal" data-href="' . action([Leaveapproval::class, 'edit'], [$row->id]) . '">
@@ -87,8 +102,7 @@ class Leaveapproval extends Controller
                     <button class="btn btn-modal conformdelete" data-id="' . $row->id . '"><i class="fi fi-ts-trash-xmark"></i> <span class="tooltiptext">remove</span></button>';
                         }
                     })
-
-                    ->rawColumns(['sno', 'leavestatus', 'action'])
+                    ->rawColumns(['sno', 'leavestatus', 'updateleavestatus', 'action', 'empid'])
                     ->make(true);
             }
 
@@ -135,9 +149,9 @@ class Leaveapproval extends Controller
 
                 $totalLeaves = ($leaves->noday3 ?? 0) + ($leaves->noday4 ?? 0) + ($leaves->noday5 ?? 0) + ($leaves->noday6 ?? 0);
                 $casualAvailable = 12 - ($leaves->noday5 ?? 0) - ($leaves->noday6 ?? 0) - ($leaves->noday3 ?? 0);
-
+         
                 $leaveData[] = [
-                    'id' => $employee->empid,
+                    'id' => base64_encode($employee->empid),
                     'name' => $employee->fname,
                     'total' => $totalLeaves,
                     'casual' => $leaves->noday5 ?? 0,
@@ -230,5 +244,57 @@ class Leaveapproval extends Controller
         DB::table('leaverecord')->where('id', $id)->delete();
         session()->flash('secmessage', 'Leave Deleted Successfully!');
         return response()->json(['status' => 1, 'message' => 'Leave Deleted Successfully!'], 200);
+    }
+
+    public function leavestatus(Request $request) {
+
+        $id = $request->id;
+
+        $selectrecord = DB::table('leaverecord')->find($id);
+        $approvedby = request()->session()->get('fname');
+        // dd(request()->session()->get('empid'));
+        $val = [
+            'leavestatus' => $request->status,
+            'approvedby' => $approvedby,
+            'approvaldate' => date("F j, Y, g:i a T"),
+        ];
+
+        $update = DB::table('leaverecord')->where('id', $id)->update($val);
+
+        $emprecord = DB::table('regis')->where('empid', $selectrecord->empid)->first();
+
+        $leaveTypes = [
+            '0' => 'Permission',
+            '1' => 'Compensatory leave',
+            '2' => 'WFH leave',
+            '3' => 'Half day leave',
+            '4' => 'leave',
+            '5' => 'Casual leave',
+        ];
+
+        $lt = isset($leaveTypes[$selectrecord->leavetype]) ? $leaveTypes[$selectrecord->leavetype] : '';
+
+        $bccEmail = env('SUPPORTMAIL');
+        $bccEmail = env('SUPPORTMAIL');
+        $founderEmail = env('FOUNDERMAIL');
+        $infoMail = env('INFOMAIL');
+        $managerMail = env('MANAGERMAIL');
+        $appName = env('APP_NAME');
+
+        Mail::send([], [], function ($message) use ($appName, $infoMail, $managerMail, $founderEmail, $bccEmail, $lt, $request, $approvedby, $selectrecord, $emprecord) {
+            $message->to($emprecord->emailid)
+                ->cc([$managerMail, $founderEmail])
+                ->bcc($bccEmail)
+                ->from($infoMail, $appName)
+                ->subject('Reg: Leave')
+                ->html(
+                    '<html><title>Application</title><head></head><body><table style="background:#efeded" cellpadding="0" cellspacing="0" bgcolor="#EFEDED" border="0" width="575px"><tbody><tr><td align="center"><table width="96%" cellpadding="0" cellspacing="0"border="0"><tbody><tr><td style="border-top:5px solid #1e96d3;border-bottom:5px solid #EAEAEA;background:#fff;margin:0;padding:20px;border-spacing:0px"><table width="100%" cellpadding="0" cellspacing="0"><tbody><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="font-size:14px;color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:center">LEAVE APPROVAL STATUS</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="color:#000;font-size:13px;margin:0;font-family:Arial,Helvetica,sans-serif"> <strong> Dear ' . $selectrecord->employee . ', </strong> <br></p></td></tr><tr><td style="margin:0;padding:0 0 5px 0"><p style="font-size:13px;background-color:rgb(234,234,234);color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:left"> Approval through CRM Portal </p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><table style="font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;margin-top:10px;width:100%"><tbody><tr><td style="font-size:15px;width:200px;padding:4px 0;text-align:center;color:#1e96d3;" colspan="3">Your ' . $lt . ' has been ' . $request->leavestatus . ' for the date <br> from <span style="color:#000000;">' . $selectrecord->leavedate . '</span> till <span style="color:#000000;">' . $selectrecord->leavedatetill . '</span></td> </tr><tr><td style="font-size:15px;width:200px;padding:4px 0;text-align:center;color:#1e96d3;" colspan="3">Your leave is ' . $request->leavestatus . ' by <span style="color:#000000;">' . $approvedby . '</span></td></tr><tr><td style="font-size:15px;width:200px;padding:4px 0;text-align:center;color:#1e96d3;" colspan="3">Comments: ' . $request->comments . '</td></tr>
+                    </tbody></table></td></tr></tbody></table></td></tr></tbody></table></td></tr></tbody></table></body></html>'
+                );
+        });
+
+        session()->flash('secmessage', 'Leave Status Updated Successfully.');
+        return response()->json(['status' => 1, 'message' => 'Leave Status Updated Successfully.'], 200);
+
     }
 }

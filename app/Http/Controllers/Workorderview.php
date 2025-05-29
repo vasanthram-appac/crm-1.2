@@ -19,6 +19,7 @@ class Workorderview extends Controller
         if (request()->session()->get('role') == 'user') {
             return redirect()->to('/workreport');
         }
+
         if ($request->ajax()) {
             // Fetch the main task data
             $data = DB::table('work_order as w')
@@ -110,6 +111,8 @@ class Workorderview extends Controller
                     $work->status_label = "<p style='padding: 5px 15px 6px; margin-bottom: 0; border-radius: 5px; color: #38A800 ; background-color: #F6FFF1;'>Live</p>";
                 } elseif ($work->work_status == 'Pending') {
                     $work->status_label = "<p style='padding: 5px 15px 6px; margin-bottom: 0; border-radius: 5px; color: #D68A00; background-color: #FFF3DD;'>Waiting for Approval</p>";
+                } elseif ($work->work_status == 'Hold') {
+                    $work->status_label = "<p style='padding: 5px 15px 6px; margin-bottom: 0; border-radius: 5px; color: #D68A00; background-color: #FFF3DD;'>Waiting List</p>";
                 } else {
                     $work->status_label = "<p style='font-size:11px;color: #4CAF50;font-weight: 800;text-align: center;'>"
                         . ucfirst($work->work_status) . " Date: " . $work->complete_date . "</p>"
@@ -128,7 +131,7 @@ class Workorderview extends Controller
                     return $row->project_description;
                 })
                 ->addColumn('company_name', function ($row) {
-                    return '<button class="btn btn-modal" data-container=".appac_show" data-href="'
+                    return '<button class="btn btn-modal text-lblue" data-container=".appac_show" data-href="'
                         . route('viewaccounts', ['id' => $row->aid]) . '">' . $row->company_name . '</button>';
                 })
                 ->addColumn('days', function ($row) {
@@ -144,12 +147,13 @@ class Workorderview extends Controller
                     $updateStatus = $row->status; // Access design_status from the $row object
                     return '
                            <div>
-                             <select name="update_status" class="paymentstatus" data-id="' . $row->wid . '">
-                                    <option value="">Select From List</option>
-                                    <option value="0" ' . ($updateStatus == 0 ? 'selected' : '') . '>Approve</option>
+                             <select name="update_status" class="paymentstatus form-select" data-id="' . $row->wid . '">
+                                    <option value="">Select</option>
+                                    <option value="0" ' . ($updateStatus == 0 ? 'selected' : '') . '>Approved</option>
                                     <option value="2" ' . ($updateStatus == 2 ? 'selected' : '') . '>Reject</option>
+                                    <option value="3" ' . ($updateStatus == 3 ? 'selected' : '') . '>Hold</option>
                                 </select>
-                                <button class="btn btn-modal taskestatus" data-id="' . $row->wid . '">update</button>
+                                <button class="btn btn-modal taskestatus mt-1 border" data-id="' . $row->wid . '">update</button>
                             </div>';
                 })
 
@@ -171,8 +175,6 @@ class Workorderview extends Controller
         return view('workorderview.index');
     }
 
-
-
     public function create(Request $request)
     {
         $accounts = DB::table('accounts')
@@ -185,7 +187,6 @@ class Workorderview extends Controller
 
         $department = DB::table('department_master')->pluck('department_name', 'id')->toArray();
         $department = ['0' => 'Select Option'] + $department;
-
 
         return view('workorderview/create', compact('accounts', 'department'))->render();
     }
@@ -201,8 +202,8 @@ class Workorderview extends Controller
             'dead_line' => 'required|date|after_or_equal:startdate',
             'project_description' => 'nullable|string',
             'comments' => 'nullable|string',
-            'empid' => 'required|array',
-            'empid.*' => 'exists:regis,empid',
+            // 'empid' => 'required|array',
+            // 'empid.*' => 'exists:regis,empid',
         ]);
 
         if ($validator->fails()) {
@@ -256,13 +257,21 @@ class Workorderview extends Controller
             <td style="font-weight:normal"> <a href="https://www.appacmedia.in" style="color: white;font-weight: bold;padding: 5px;text-decoration: none;background-color: #22c0cb;" >Status Update</a></td>
             </tr></tbody></table></td></tr></tbody></table></td></tr><tr><td style="margin:0;padding:15px 0"></td></tr></tbody></table></td></tr></tbody></table></body></html>';
 
+        if(request()->session()->get('dept_id') != 6){
+            $replay1 = DB::table('regis')->select('emailid')->where('empid', request()->session()->get('empid'))->first();
+            $reply = $replay1->emailid;
+        }else{
+            $reply = null;
+        }
+
+        $business = DB::table('regis')->where('dept_id', 6)->where('status',1)->pluck('emailid');
+        $thesupportmail = request()->session()->get('dept_id') == 6 ? $business->toArray() : [];
 
             $bccEmail = env('SUPPORTMAIL');
             $founderEmail = env('FOUNDERMAIL');
             $infoMail = env('INFOMAIL');
             $managerMail = env('MANAGERMAIL');
-            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
-
+        
             Mail::send([], [], function ($message) use (
                 $request,
                 $founderEmail,
@@ -273,12 +282,16 @@ class Workorderview extends Controller
                 $com_name,
                 $htmlContent,
                 $thesupportmail,
+                $reply,
             ) {
                 // Set recipients
                 $message->to($founderEmail, $managerMail)
-                    ->cc($thesupportmail)
-                    ->bcc($bccEmail)
-                    ->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
+                    ->cc(array_filter($thesupportmail))
+                    ->bcc($bccEmail);
+                    if (!empty($reply)) {
+                        $message->bcc($reply);
+                    }
+                    $message->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
                     ->from($infoMail, $fquery->fname . ' ' . $fquery->lname)
                     ->subject('Work Order Approval Request for ' . $com_name . ' : ' . now()->format('d-m-Y'))
                     ->html($htmlContent);
@@ -336,6 +349,9 @@ class Workorderview extends Controller
         } else if ($request->status == '2') {
             $work_status = 'Rejected';
             $workstatus = 'Rejected';
+        } else if ($request->status == '3') {
+            $work_status = 'Hold';
+            $workstatus = 'Hold';
         } else {
             $work_status = '';
             $workstatus = '';
@@ -399,12 +415,21 @@ class Workorderview extends Controller
             }
             $htmlContent .= '</tbody></table></td></tr></tbody></table></td></tr><tr><td style="margin:0;padding:15px 0"></td></tr></tbody></table></td></tr></tbody></table></body></html>';
 
+        if(request()->session()->get('dept_id') != 6){
+            $replay1 = DB::table('regis')->select('emailid')->where('empid', request()->session()->get('empid'))->first();
+            $reply = $replay1->emailid;
+        }else{
+            $reply = null;
+        }
+
+        $business = DB::table('regis')->where('dept_id', 6)->where('status',1)->pluck('emailid');
+        $thesupportmail = request()->session()->get('dept_id') == 6 ? $business->toArray() : [];
+
             $bccEmail = env('SUPPORTMAIL');
             $founderEmail = env('FOUNDERMAIL');
             $infoMail = env('INFOMAIL');
             $managerMail = env('MANAGERMAIL');
-            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
-
+            
             Mail::send([], [], function ($message) use (
                 $request,
                 $founderEmail,
@@ -416,6 +441,7 @@ class Workorderview extends Controller
                 $htmlContent,
                 $checkbox1,
                 $thesupportmail,
+                $reply,
             ) {
 
                 if ($request->status != '') {
@@ -433,9 +459,12 @@ class Workorderview extends Controller
                 }
 
                 $message->to($checkbox1)
-                    ->cc($thesupportmail)
-                    ->bcc($bccEmail)
-                    ->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
+                    ->cc(array_filter($thesupportmail))
+                    ->bcc($bccEmail);
+                    if (!empty($reply)) {
+                        $message->bcc($reply);
+                    }
+                    $message->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
                     ->from($infoMail, $appname)
                     ->subject($Subject)
                     ->html($htmlContent);
@@ -527,7 +556,6 @@ class Workorderview extends Controller
                                   <tr><td colspan="3" ><p>' . $task_description . '</p></td></tr>
                                   </tbody></table></td></tr></tbody></table></td></tr><tr><td style="margin:0;padding:15px  0"></td></tr></tbody></table></td></tr></tbody></table></body></html>';
 
-
             $bccEmail = env('SUPPORTMAIL');
             $founderEmail = env('FOUNDERMAIL');
             $infoMail = env('INFOMAIL');
@@ -590,9 +618,13 @@ class Workorderview extends Controller
         } else if ($request->status == '2') {
             $work_status = 'Rejected';
             $workstatus = 'Rejected';
+        } else if ($request->status == '3') {
+            $work_status = 'Hold';
+            $workstatus = 'Hold';
         } else {
             $work_status = '';
             $workstatus = '';
+        
         }
 
         $val = [

@@ -74,11 +74,13 @@
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('type', 'Type *', ['class' => 'label-color py-2']) !!}
                         <select name="type" class="form-select">
-                            <option value="0">Select Month</option>
+                            <option value="0">Select Type</option>
                             <option value="Promotion Dashboard">Promotion Dashboard</option>
                             <option value="Monthly Report">Monthly Report</option>
                             <option value="Audit Report">Audit Report</option>
                             <option value="MR Report">MR Report</option>
+                            <option value="Meta Leads">Meta Leads</option>
+                            <option value="LinkedIn Leads">LinkedIn Leads</option>
                             <option value="Minutes of Meeting">Minutes of Meeting</option>  
                             <option value="Others">Others</option>  
                         </select>

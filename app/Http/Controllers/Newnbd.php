@@ -38,7 +38,6 @@ class Newnbd extends Controller
                 ->orderByDesc('t.id')
                 ->get();
 
-
             return DataTables::of($data)
                 ->addColumn('sno', function ($row) {
                     return '';
@@ -85,10 +84,7 @@ class Newnbd extends Controller
             'email' => 'required|email|max:50',
             'company_name' => 'required',
             'source' => 'required',
-            'url' => [
-                'nullable',
-                'regex:/^(https:\/\/)?((docs|drive)\.google\.com\/(spreadsheets|document|presentation|forms|file|folders)|(www\.)?youtube\.com\/watch\?v=|youtu\.be\/)/'
-            ],
+            'url' => 'nullable|url',
 
         ]);
 
@@ -141,10 +137,7 @@ class Newnbd extends Controller
             'email' => 'required|email|max:50',
             'company_name' => 'required',
             'source' => 'required',
-            'url' => [
-                'nullable',
-                'regex:/^(https:\/\/)?((docs|drive)\.google\.com\/(spreadsheets|document|presentation|forms|file|folders)|(www\.)?youtube\.com\/watch\?v=|youtu\.be\/)/'
-            ],
+           'url' => 'nullable|url',
 
         ]);
 

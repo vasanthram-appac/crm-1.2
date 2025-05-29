@@ -16,81 +16,116 @@ class Paymententry extends Controller
 
     public function index(Request $request)
     {
+     
         if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') {
-      
-        if (request()->ajax()) {
-            // Fetch the main payment data
-            $data = DB::table('payment_list as p')
-                ->select(
-                    'p.*',
-                    'p.id as pid',
-                    'p.paydate',
-                    'a.company_name',
-                    'a.id as company_id',
-                    'r.fname',
-                    'r.lname'
-                )
-                ->join('accounts as a', 'a.id', '=', 'p.company_name')
-                ->join('regis as r', 'r.empid', '=', 'p.create_empid')
-                ->orderByDesc('p.paydate')
-                ->get();
-        
-            foreach ($data as $pay) {
-                // Fetch related invoice data for each payment
-                $invoiceData = DB::table('payment_list_invoice')->where('plist_id', $pay->pid)->get();
-        
-                $pay->proinv = [];
-                if ($invoiceData->isNotEmpty()) {
-                    foreach ($invoiceData as $invoice) {
-                        $pay->proinv[] = "<b>PI:</b> " . ($invoice->pinvoice ?? 'N/A') . "<br> <b>Ino:</b> " . ($invoice->invoiceno ?? 'N/A') . "<br>";
-                    }
-                }
-        
-                // Map payment mode to human-readable values
-                $paymentModes = [
-                    '1' => 'NEFT',
-                    '2' => 'Cheque',
-                    '3' => 'Others',
-                ];
-                $pay->paymentmode = $paymentModes[$pay->paymentmode] ?? 'Unknown';
-        
-                // Combine first and last name for account manager
-                $pay->account_manager = $pay->fname . ' ' . $pay->lname;
 
-                $paypayamount = str_replace([',', '/-'], '', $pay->payamount);
- 
-                $pay->payamount = number_format((float)$paypayamount, 2, '.', ',');
-            }
-        
-            return DataTables::of($data)
-                ->addColumn('sno', function ($row) {
-                    return '';
-                })
-                ->addColumn('proinv', function ($row) {
-                    return is_array($row->proinv) ? implode('', $row->proinv) : '';
-                })
-                ->addColumn('action', function ($row) {
-                    return '<button class="btn btn-modal" data-container=".customer_modal" data-href="' . action([Paymententry::class, 'edit'], [$row->id]) . '">
+            if (request()->ajax()) {
+                // Fetch the main payment data
+              
+                if (isset($request->companyname) && !empty($request->companyname)) {
+                    request()->session()->put('pcompanyname', $request->companyname);
+                } 
+
+                  if (isset($request->companyname) && !empty($request->companyname) && $request->companyname == "All") {
+                    request()->session()->put('pcompanyname', "");
+                } 
+
+                if (isset($request->daterange) && !empty($request->daterange)) {
+                    $daterange = explode(' - ', $request->daterange);
+                    $start_date = date('Y-m-d', strtotime($daterange[0]));
+                    $end_date = date('Y-m-d', strtotime($daterange[1]));
+                    request()->session()->put('pstart_date', $start_date);
+                    request()->session()->put('pend_date', $end_date);
+                }
+
+                $data = DB::table('payment_list as p')
+                    ->select(
+                        'p.*',
+                        'p.id as pid',
+                        'p.paydate',
+                        'a.company_name',
+                        'a.id as company_id',
+                        'r.fname',
+                        'r.lname',
+                        DB::raw("SUM(CAST(REPLACE(REPLACE(REPLACE(p.payamount, ',', ''), '/', ''), '-', '') AS UNSIGNED)) OVER () as totalpayamount")
+                    )
+                    ->join('accounts as a', 'a.id', '=', 'p.company_name')
+                    ->join('regis as r', 'r.empid', '=', 'p.create_empid')
+                    ->when(request()->session()->has('pcompanyname') && !empty(request()->session()->get('pcompanyname')) && request()->session()->get('pcompanyname') != 'All', function ($query) {
+                       
+                        $query->where('p.company_name', request()->session()->get('pcompanyname'));
+                    })
+                    ->when(request()->session()->has('pstart_date') && !empty(request()->session()->get('pstart_date')) && request()->session()->has('pend_date') && !empty(request()->session()->get('pend_date')), function ($query) {
+                       
+                        $query->whereBetween('paydate', [request()->session()->get('pstart_date'), request()->session()->get('pend_date')]);
+                    })
+                    ->orderByDesc('p.paydate')
+                    ->get();
+
+                    if(count($data) >0){
+                    $totalpayamount = number_format((float)$data[0]->totalpayamount, 2, '.', ',')  ?? 0;
+                    request()->session()->put('totalpaymententry', $totalpayamount);
+                    }else{
+                        request()->session()->put('totalpaymententry', 0);
+                    }
+
+                foreach ($data as $pay) {
+                    // Fetch related invoice data for each payment
+
+                    $invoiceData = DB::table('payment_list_invoice')->where('plist_id', $pay->pid)->get();
+
+                    $pay->proinv = [];
+                    if ($invoiceData->isNotEmpty()) {
+                        foreach ($invoiceData as $invoice) {
+                            $pay->proinv[] = "<b>PI:</b> " . ($invoice->pinvoice ?? 'N/A') . "<br> <b>Ino:</b> " . ($invoice->invoiceno ?? 'N/A') . "<br>";
+                        }
+                    }
+
+                    // Map payment mode to human-readable values
+                    $paymentModes = [
+                        '1' => 'NEFT',
+                        '2' => 'Cheque',
+                        '3' => 'Others',
+                    ];
+                    $pay->paymentmode = $paymentModes[$pay->paymentmode] ?? 'Unknown';
+
+                    // Combine first and last name for account manager
+                    $pay->account_manager = $pay->fname . ' ' . $pay->lname;
+
+                    $paypayamount = str_replace([',', '/-'], '', $pay->payamount);
+
+                    $pay->payamount = number_format((float)$paypayamount, 2, '.', ',');
+                }
+
+                return DataTables::of($data)
+                    ->addColumn('sno', function ($row) {
+                        return '';
+                    })
+                    ->addColumn('proinv', function ($row) {
+                        return is_array($row->proinv) ? implode('', $row->proinv) : '';
+                    })
+                    ->addColumn('action', function ($row) {
+                        return '<button class="btn btn-modal" data-container=".customer_modal" data-href="' . action([Paymententry::class, 'edit'], [$row->id]) . '">
                                 <i class="fi fi-ts-file-edit"></i>
 								 <span class="tooltiptext">Edit</span>
                             </button>';
-                })
-                ->rawColumns(['sno', 'proinv', 'action'])
-                ->make(true);
-        }
+                    })
+                    ->rawColumns(['sno', 'proinv', 'action'])
+                    ->make(true);
+            }
 
-        $accounts = DB::table('accounts')
-            ->where('status', 1)
-            ->where('active_status', 'active')
-            ->orderBy('company_name', 'asc')
-            ->pluck('company_name', 'id')
-            ->toArray();
-        $accounts = ['0' => 'Select Option'] + $accounts;
-        
+            $accounts = DB::table('accounts')
+                ->where('status', 1)
+                ->where('active_status', 'active')
+                ->orderBy('company_name', 'asc')
+                ->pluck('company_name', 'id')
+                ->toArray();
+            $accounts = ['0' => 'Select Option', 'All' => 'All'] + $accounts;
 
-        return view('paymententry/index', compact('accounts'))->render();
-    }else{
-          return redirect()->to('/workreport');
+
+            return view('paymententry/index', compact('accounts'))->render();
+        } else {
+            return redirect()->to('/workreport');
         }
     }
 
@@ -101,7 +136,7 @@ class Paymententry extends Controller
             ->where('status', '1')
             ->orderBy('company_name', 'ASC')
             ->pluck('company_name', 'id')->toArray();
-	$accounts=["0" => 'Select Client']+$accounts;	
+        $accounts = ["0" => 'Select Client'] + $accounts;
 
         return view('paymententry/create', compact('accounts'))->render();
     }
@@ -213,30 +248,30 @@ class Paymententry extends Controller
             $infoMail = env('INFOMAIL');
             $managerMail = env('MANAGERMAIL');
             $appName = env('APP_NAME');
-            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
+            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : null;
 
-                Mail::send([], [], function ($message) use (
-                    $appName,
-                    $request,
-                    $founderEmail,
-                    $managerMail,
-                    $bccEmail,
-                    $infoMail,
-                    $pm,
-                    $com_name,
-                    $targ,
-                    $thesupportmail,
-                ) {
-                    $message->to($founderEmail)
-                        ->cc(array_filter([$managerMail, $thesupportmail]))
-                        ->bcc($bccEmail)
-                        ->from($infoMail, $appName)
-                        ->subject("Payment Entry Details")
-                        ->html('
+            Mail::send([], [], function ($message) use (
+                $appName,
+                $request,
+                $founderEmail,
+                $managerMail,
+                $bccEmail,
+                $infoMail,
+                $pm,
+                $com_name,
+                $targ,
+                $thesupportmail,
+            ) {
+                $message->to($founderEmail)
+                    ->cc(array_filter([$managerMail, $thesupportmail]))
+                    ->bcc($bccEmail)
+                    ->from($infoMail, $appName)
+                    ->subject("Payment Entry Details")
+                    ->html('
                         <html><title></title><head></head>   <body> <table style="background:#efeded" cellpadding="0" cellspacing="0" bgcolor="#EFEDED" border="0" width="575px"><tbody><tr><td align="center"><table width="96%" cellpadding="0" cellspacing="0"border="0"><tbody><tr><td style="border-top:5px solid #1e96d3;background:#fff;margin:0;padding:20px;border-spacing:0px"><table width="100%" cellpadding="0" cellspacing="0"><tbody><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="font-size:14px;color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:center">Payment Entry Details</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="color:#000;font-size:13px;margin:0;font-family:Arial,Helvetica,sans-serif"> <strong> Hi Sir/Mam, </strong> <br></p></td></tr><tr><td style="margin:0;padding:0 0 5px 0" colspan="4"><p style="font-size:13px;background-color:rgb(234,234,234);color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:left"> Please find the Payment Entry Details</p></td></tr><tr><td style="width:200px;padding:4px 0"> Company Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $com_name . '</td></tr><tr><td style="width:200px;padding:4px 0"> Date:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->paydate . '</td></tr>
             <tr><td style="width:200px;padding:4px 0"> Amount:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->payamount . '</td></tr><tr><td style="width:200px;padding:4px 0">Payment Mode:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $pm . '</td></tr><tr><td style="width:200px;padding:4px 0">Product/Service:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->productservice . '</td></tr><tr><td style="width:200px;padding:4px 0">Comments:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->comment . '</td></tr><tr><td style="width:200px;padding:4px 0">Document Path</td><td style="padding-right:10px"> : </td><td style="font-weight:normal"> ' . $targ . ' </td></tr> </tbody></table></td></tr><tr><td style="margin:0;padding:15px  0"></td></tr></tbody></table></td></tr></tbody></table></body></html>
                     ');
-                });
+            });
 
             // Success message and response
             session()->flash('secmessage', 'Payment Details Added Successfully.');
@@ -266,7 +301,7 @@ class Paymententry extends Controller
             ->where('status', '1')
             ->orderBy('company_name', 'ASC')
             ->pluck('company_name', 'id')->toArray();
-		$accounts=["0" => 'Select Client']+$accounts;	
+        $accounts = ["0" => 'Select Client'] + $accounts;
         $paymentInvoices = DB::table('payment_list_invoice')
             ->where('plist_id', $id)
             ->get();
@@ -351,10 +386,10 @@ class Paymententry extends Controller
                 $val['document_upload'] = $target12;
             }
         }
-       
+
         $insert = DB::table('payment_list')->where('id', $id)->update($val);
 
-        $delete=DB::table('payment_list_invoice')->where('plist_id', $id)->delete();
+        $delete = DB::table('payment_list_invoice')->where('plist_id', $id)->delete();
 
         $pinv = $request->pinvoice;
 
@@ -390,7 +425,7 @@ class Paymententry extends Controller
             $infoMail = env('INFOMAIL');
             $managerMail = env('MANAGERMAIL');
             $appName = env('APP_NAME');
-            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
+            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : null;
 
             Mail::send([], [], function ($message) use (
                 $appName,
@@ -422,24 +457,28 @@ class Paymententry extends Controller
     }
 
 
-    public function searchpayment(Request $request){
+    public function searchpayment(Request $request)
+    {
         // dd($request->all());
         $daterange = explode(' - ', $request->daterange);
         $start_date = date('Y-m-d', strtotime($daterange[0]));
         $end_date = date('Y-m-d', strtotime($daterange[1]));
-        
+
         $data = DB::table('payment_list')
-        ->select(DB::raw("SUM(REPLACE(REPLACE(REPLACE(payamount, ',', ''), '/', ''), '-', '')) as payamount"))
-        ->where('company_name', $request->companyname)
-        ->whereBetween('paydate', [$start_date, $end_date])
-        ->get();
-    
-        
+            ->select(DB::raw("SUM(REPLACE(REPLACE(REPLACE(payamount, ',', ''), '/', ''), '-', '')) as payamount"))
+            ->when(
+                $request->companyname != 'All',
+                function ($query) use ($request) {
+                    return $query->where('company_name', $request->companyname);
+                }
+            )
+            ->whereBetween('paydate', [$start_date, $end_date])
+            ->get();
+
+
         $payment = number_format((float)$data[0]->payamount, 2, '.', ',')  ?? 0; // fallback to 0 if null
-        
+
         return response()->json(['payment' => $payment]);
-
     }
-
-
 }
+

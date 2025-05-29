@@ -533,7 +533,7 @@ class Applyleave extends Controller
                                                       <tr>
                                                      <td style="width:200px;padding:4px 0"></td>
                                                      <td style="padding-right:10px">  </td>
-                                                     <td style="font-weight:normal"> <a href="http://www.appacmediatech.com/leaveapproval" style="color: white;font-weight: bold;padding: 5px;text-decoration: none;background-color: #22c0cb;" >Status Update</a> </td>
+                                                     <td style="font-weight:normal"> <a href="https://www.appacmediatech.com/leaveapproval" style="color: white;font-weight: bold;padding: 5px;text-decoration: none;background-color: #22c0cb;" >Status Update</a> </td>
                                                      </tr>
                                                      </tbody>
                                                      </table>

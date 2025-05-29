@@ -1,3 +1,8 @@
+<style>
+    .wrap-input100 {
+        position: relative;
+    }
+</style>
 <div class="modal-dialog cascading-modal" role="document">
     <!--Content-->
     <div class="modal-content">
@@ -6,12 +11,13 @@
             <button type="button" class="close waves-effect waves-light fs-4" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>
-            <h4 class="title">Edit Proforma</h4>
+            <h4 class="title">Add Proforma</h4>
         </div>
         <!--Body-->
-        <div class="modal-body mb-0">
 
-            {!! Form::model($proformadetails, ['route' => ['proforma.update', $proformadetails->id], 'method' => 'PUT']) !!}
+        <div class="modal-body mb-0">
+            {!! Form::open(['route' => ['proforma.store'], 'method' => 'Post']) !!}
+
             <div class="" style="border-bottom: 1px solid #ccc;">
                 <h5 class="title">Billing Address</h5>
             </div>
@@ -73,26 +79,11 @@
             </div>
 
             <div class="row m-0 mb-0">
-
-                <div class="col-lg-6 col-sm-12">
-                    <div class="validate-input m-b-23 mb-2">
-                        {!! Form::label('paymentterms', 'State *', ['class' => 'label-color py-2']) !!}
-                        <select class="form-select" name="statename_disable" id="">
-                            <option value="">Select</option>
-                            @if(count($statename)>0)
-                            @foreach($statename as $state)
-                            <option value="{{$state->name}}" @if($state->name == $proformadetails->statename) selected @endif>{{$state->name}}</option>
-                            @endforeach
-                            @endif
-                        </select>
-                         <input type="hidden" name="statename" value="{{$proformadetails->statename}}">
-                    </div>
-                </div>
-
                 <div class="col-lg-6 col-sm-12">
                     <div class="validate-input m-b-23 mb-2">
                         {!! Form::label('paymentterms', 'Key Notes *', ['class' => 'label-color py-2']) !!}
                         {!! Form::textarea('paymentterms', null, ['class' => 'form-control', 'placeholder' => 'Key notes', 'required', 'rows'=>4]) !!}
+
                     </div>
                 </div>
 
@@ -141,14 +132,14 @@
             </div>
 
             <div class="" style="border-bottom: 1px solid #ccc;">
-                <h5 class="title">Proforma Invoice Details</h5>
+                <h5 class="title">Proforma Description</h5>
             </div>
 
             <div class="row m-0 mb-0">
                 <div class="col-lg-6 col-sm-12">
                     <div class="validate-input m-b-23 mb-2">
                         {!! Form::label('invoice_date', 'Key Notes', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('invoice_date', $proformadetails->invoice_date, ['class' => 'form-control', 'readonly']) !!}
+                        {!! Form::text('invoice_date', now()->format('d-m-Y'), ['class' => 'form-control', 'readonly']) !!}
 
                     </div>
                 </div>
@@ -156,7 +147,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="validate-input m-b-23 mb-2">
                         {!! Form::label('invoice_no', 'Reference No', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('invoice_no', $proformadetails->invoice_no, ['class' => 'form-control', 'readonly']) !!}
+                        {!! Form::text('invoice_no', $in_number, ['class' => 'form-control', 'readonly']) !!}
 
                     </div>
                 </div>
@@ -177,36 +168,62 @@
                         </tr>
                     </thead>
                     <tbody>
-
-
-
-                        @if(count($proforma)>0)
-                        @foreach($proforma as $key=>$proforma1)
                         <tr>
-                            <td><input id="item_no_{{$key+1}}" type="text" name="item_no_{{$key+1}}" value="{{$proforma1->item_no}}" class="input-mini"></td>
-                            <td><input id="description_{{$key+1}}" type="text" name="description_{{$key+1}}" value="{{$proforma1->description}}" class="input-xlarge"></td>
-                            <td><input onkeyup="sum();" id="quantity_{{$key+1}}" type="text" name="quantity_{{$key+1}}" value="{{$proforma1->quantity}}" class="input-mini"></td>
-                            <td><input onkeyup="sum();" id="unit_{{$key+1}}" type="text" name="unit_{{$key+1}}" value="{{$proforma1->unit}}" class="input-mini"></td>
-                            <td><input onkeyup="sum();" id="totalamount_{{$key+1}}" type="text" name="totalamount_{{$key+1}}" value="{{$proforma1->totalamount}}" class="input-mini" readonly></td>
-                            <input type="hidden" name="updateid_{{$key+1}}" value="{{$proforma1->id}}">
-                            <td><button class="btn btn-modal conformdelete" data-id="{{$proforma1->id}}" data-inid="{{$proforma1->invoice_no}}"><i class="fi fi-ts-trash-xmark"></i></button></td>
-
+                            <td><input id="item_no_one" type="text" name="item_no_one" value="01" class="input-mini"></td>
+                            <td><input id="description_one" type="text" name="description_one" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="quantity_one" type="text" name="quantity_one" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="unit_one" type="text" name="unit_one" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="totalamount_one" type="text" name="totalamount_one" class="input-mini" readonly></td>
                         </tr>
-                        @endforeach
-                        @endif
-
-                        @for($i = count($proforma) + 1; $i <= 5; $i++)
-                            <tr>
-                            <td><input onkeyup="sum();" id="item_no_{{$i}}" type="text" name="item_no_{{$i}}" value="0{{$i}}" class="input-mini"></td>
-                            <td><input onkeyup="sum();" id="description_{{$i}}" type="text" name="description_{{$i}}" class="input-xlarge"></td>
-                            <td><input onkeyup="sum();" id="quantity_{{$i}}" type="text" name="quantity_{{$i}}" class="input-mini"></td>
-                            <td><input onkeyup="sum();" id="unit_{{$i}}" type="text" name="unit_{{$i}}" class="input-mini"></td>
-                            <td><input onkeyup="sum();" id="totalamount_{{$i}}" type="text" name="totalamount_{{$i}}" class="input-mini" readonly></td>
-                            </tr>
-                            @endfor
-
-
-
+                        <tr>
+                            <td><input onkeyup="sum();" id="item_no_two" type="text" name="item_no_two" value="02" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="description_two" type="text" name="description_two" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="quantity_two" type="text" name="quantity_two" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="unit_two" type="text" name="unit_two" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="totalamount_two" type="text" name="totalamount_two" class="input-mini" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><input onkeyup="sum();" id="item_no_three" type="text" name="item_no_three" value="03" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="description_three" type="text" name="description_three" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="quantity_three" type="text" name="quantity_three" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="unit_three" type="text" name="unit_three" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="totalamount_three" type="text" name="totalamount_three" class="input-mini" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><input onkeyup="sum();" id="item_no_four" type="text" name="item_no_four" value="04" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="description_four" type="text" name="description_four" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="quantity_four" type="text" name="quantity_four" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="unit_four" type="text" name="unit_four" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="totalamount_four" type="text" name="totalamount_four" class="input-mini" readonly></td>
+                        </tr>
+                        <tr>
+                            <td><input onkeyup="sum();" id="item_no_five" type="text" name="item_no_five" value="05" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="description_five" type="text" name="description_five" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="quantity_five" type="text" name="quantity_five" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="unit_five" type="text" name="unit_five" class="input-mini"></td>
+                            <td><input onkeyup="sum();" id="totalamount_five" type="text" name="totalamount_five" class="input-mini" readonly></td>
+                        </tr>
+                        <!-- <tr>
+                        <td><input onkeyup="sum();" id="item_no_six" type="text" name="item_no_six" value="06" class="input-mini"></td>
+                        <td><input onkeyup="sum();" id="description_six" type="text" name="description_six" class="input-xlarge"></td>
+                        <td><input onkeyup="sum();" id="quantity_six" type="text" name="quantity_six" class="input-mini"></td>
+                        <td><input onkeyup="sum();" id="unit_six" type="text" name="unit_six" class="input-mini"></td>
+                        <td><input onkeyup="sum();" id="totalamount_six" type="text" name="totalamount_six" class="input-mini" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><input onkeyup="sum();" id="item_no_seven" type="text" name="item_no_seven" value="07" class="input-mini"></td>
+                        <td><input onkeyup="sum();" id="description_seven" type="text" name="description_seven" class="input-xlarge"></td>
+                        <td><input onkeyup="sum();" id="quantity_seven" type="text" name="quantity_seven" class="input-mini"></td>
+                        <td><input onkeyup="sum();" id="unit_seven" type="text" name="unit_seven" class="input-mini"></td>
+                        <td><input onkeyup="sum();" id="totalamount_seven" type="text" name="totalamount_seven" class="input-mini" readonly></td>
+                    </tr>
+                    <tr>
+                        <td><input onkeyup="sum();" id="item_no_eight" type="text" name="item_no_eight" value="08" class="input-mini"></td>
+                        <td><input onkeyup="sum();" id="description_eight" type="text" name="description_eight" class="input-xlarge"></td>
+                        <td><input onkeyup="sum();" id="quantity_eight" type="text" name="quantity_eight" class="input-mini"></td>
+                        <td><input onkeyup="sum();" id="unit_eight" type="text" name="unit_eight" class="input-mini"></td>
+                        <td><input onkeyup="sum();" id="totalamount_eight" type="text" name="totalamount_eight" class="input-mini" readonly></td>
+                    </tr> -->
                     </tbody>
                 </table>
             </div>
@@ -217,7 +234,7 @@
                     <tr>
                         <th class="d-flex flex-wrap gap-2">
                             Total Amount
-                            <input type="text" id="amount_pay" name="amount" class="input-xlarge" value="{{$proforma->sum('totalamount')}}" readonly>
+                            <input type="text" id="amount_pay" name="amount" class="input-xlarge" readonly>
 
                             <span><input type="radio" name="gsttype" onclick="show4()" value="in"> Include GST</span>
                             <span><input type="radio" name="gsttype" onclick="show5()" value="ex"> Exclude GST</span>
@@ -245,17 +262,15 @@
                 <input type="text" id="totalamount" name="principle" class="input-xlarge" readonly><br><br>
 
                 <div id="sgst1" style="display:none;overflow:hidden;">
-
                     CGST {{ $gst->cgst }}%
                     <input type="hidden" id="cgstvalue1" name="cgst1" value="{{ $gst->cgst }}">
                     <input type="text" id="pro_cgst1" name="cgst1" class="input-xlarge" readonly><br><br>
                     SGST {{ $gst->sgst }}%
                     <input type="hidden" id="sgstvalue1" name="sgst1" value="{{ $gst->sgst }}">
                     <input type="text" id="pro_sgst1" name="sgst1" class="input-xlarge" readonly><br><br>
-
                 </div>
 
-                <div class="mb-3" id="igst1" style="display:none;">
+                <div class="mb-3" id="igst1" style="display:none;" >
                     <!--code-->
                     IGST {{ $gst->igst }}%
                     <input type="hidden" id="igstvalue1" name="igst1" value="{{ $gst->igst }}">
@@ -263,19 +278,17 @@
                     <!--code-->
                 </div>
 
-
                 GST Type
-                <span id="spansgst1" style="display: none;"> <input class="input-xlarge" type="radio" value="sgst" onclick="show6()" name="taxvalue1" id="sgst1"> SGST/CGST </span>
-                <span id="spanigst1" style="display: none;"> <input class="input-xlarge" type="radio" value="igst" onclick="show7()" name="taxvalue1" id="igst1"> IGST </span><br><br> 
+                <input class="input-xlarge" type="radio" value="sgst" onclick="show6()" name="taxvalue1" id="sgst1">SGST/CGST
+                <input class="input-xlarge" type="radio" value="igst" onclick="show7()" name="taxvalue1" id="igst1">IGST<br><br>
 
                 <th>
                     Gross Pay
                     <input type="text" id="pro_grosspay1" name="grosspay1" class="input-xlarge" readonly>
                 </th>
-                <br><br>
-                <input class="btn btn-warning mt-3" type="button" style="display:none;" id="calculatei" onclick="add3();showButton();" value="Calculate"><br>
+                <br>
+                <input class="btn btn-warning mt-3" style="display:none;" type="button" onclick="add3();showButton();" value="Calculate" id="calculatei"><br>
                 <!-- <input style="display:none;" type="submit" value="Generate Proforma Invoice" class="btn btn-submit btn-large hidden-print showbuttton" name="submitproforma" id="submitproformaid1"> -->
-
                 <div class="text-center" id="submitproformaid1" style="display:none;">
                     <label class="err_lbl"></label><br>
                     <div class="btn-g2">
@@ -294,8 +307,8 @@
                         <th>
                             GST Type
                             @if($accounts->city != "Dubai")
-                            <span id="spansgst" style="display: none;"> <input class="input-xlarge" type="radio" onclick="show1()" value="sgst" name="taxvalue" id="sgst"> SGST/CGST </span>
-                            <span id="spanigst" style="display: none;"> <input class="input-xlarge" type="radio" onclick="show2()" value="igst" name="taxvalue" id="igst"> IGST </span>
+                            <input class="input-xlarge" type="radio" onclick="show1()" value="sgst" name="taxvalue" id="sgst"> SGST/CGST
+                            <input class="input-xlarge" type="radio" onclick="show2()" value="igst" name="taxvalue" id="igst"> IGST
                             @else
                             <input class="input-xlarge" type="radio" onclick="show3()" value="export" name="taxvalue"> EXPORT
                             @endif
@@ -364,8 +377,22 @@
 
                 </div>
 
+
             </div>
 
+
+            <!-- Add a submit button -->
+            <!-- <br>
+            <div class="text-center">
+                <label class="err_lbl"></label><br>
+                <div class="btn-g2">
+                    <div></div>
+                    <div></div>
+                    <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button"> Add </button>
+                    <button type="button" data-bs-dismiss="modal" class="frm-btn outline-btn" role="button"> Cancel </button>
+                </div>
+            </div>
+            <br> -->
             {!! Form::close() !!}
 
         </div>
@@ -375,79 +402,14 @@
 
 <script type="text/javascript">
     function show4() {
-
-        var state = $("select[name=statename_disable]").val();
-        if (state == "") {
-            alert('Please Select State Name!');
-            $("[name=gsttype]").prop("checked", false);
-            return false;
-        } else {
-             $("[name=statename]").val(state);
-            $("select[name=statename_disable]").prop("disabled", true);
-        }
-
-        if (state == "Tamil Nadu") {
-
-            $('#spanigst').hide();
-            $('#spanigst1').hide();
-            $('#spansgst').show();
-            $('#spansgst1').show();
-            show6();
-            add3();
-            showButton();
-            $("#sgst1").prop("checked", true);
-        } else {
-
-            $('#spanigst').show();
-            $('#spanigst1').show();
-            $('#spansgst').hide();
-            $('igst1').hide();
-            show7();
-            add3();
-            showButton();
-            $("#igst1").prop("checked", true);
-        }
-
         document.getElementById('ingst').style.display = 'block';
         document.getElementById('outgst').style.display = 'none';
     }
 
     function show5() {
-
-        var state = $("select[name=statename_disable]").val();
-        if (state == "") {
-            alert('Please Select State Name!');
-            $("[name=gsttype]").prop("checked", false);
-            return false;
-        } else {
-             $("[name=statename]").val(state);
-            $("select[name=statename_disable]").prop("disabled", true);
-        }
-
-        if (state == "Tamil Nadu") {
-            $('#spanigst').hide();
-            $('#spanigst1').hide();
-            $('#spansgst').show();
-            $('#spansgst1').show();
-            show1();
-            add();
-            showButton();
-            $("#sgst").prop("checked", true);
-        } else {
-            $('#spanigst').show();
-            $('#spanigst1').show();
-            $('#spansgst').hide();
-            $('#spansgst1').hide();
-            show2();
-            add();
-            showButton();
-            $("#igst").prop("checked", true);
-        }
-
         document.getElementById('ingst').style.display = 'none';
         document.getElementById('outgst').style.display = 'block';
     }
-
 
     function show1() {
         document.getElementById('sgst').style.display = 'block';
@@ -490,10 +452,13 @@
         document.getElementById('cgstvalue1').style.display = 'none';
         document.getElementById('sgstvalue1').style.display = 'none';
     }
+
+
+
 </script>
 <script type="text/javascript">
     function add() {
-        $("#pro_netpay").val((+$("#totalamount_1").val()) + (+$("#totalamount_2").val()) + (+$("#totalamount_3").val()) + (+$("#totalamount_4").val()) + (+$("#totalamount_5").val()) - ((+$("#discount_pay").val())));
+        $("#pro_netpay").val((+$("#totalamount_one").val()) + (+$("#totalamount_two").val()) + (+$("#totalamount_three").val()) + (+$("#totalamount_four").val()) + (+$("#totalamount_five").val()) - ((+$("#discount_pay").val())));
         $("#pro_cgst").val((+$("#pro_netpay").val()) * (+$("#cgstvalue").val()) / 100);
         $("#pro_sgst").val((+$("#pro_netpay").val()) * (+$("#sgstvalue").val()) / 100);
         $("#pro_igst").val((+$("#pro_netpay").val()) * (+$("#igstvalue").val()) / 100);
@@ -501,14 +466,12 @@
     }
 
     function add1() {
-        $("#pro_netpay").val((+$("#totalamount_1").val()) + (+$("#totalamount_2").val()) + (+$("#totalamount_3").val()) + (+$("#totalamount_4").val()) + (+$("#totalamount_5").val()) - ((+$("#discount_pay").val())));
+        $("#pro_netpay").val((+$("#totalamount_one").val()) + (+$("#totalamount_two").val()) + (+$("#totalamount_three").val()) + (+$("#totalamount_four").val()) + (+$("#totalamount_five").val()) - ((+$("#discount_pay").val())));
         $("#pro_grosspay").val((+$("#pro_netpay").val()));
     }
 
-
-
     function add3() {
-        $("#pro_netpay").val((+$("#totalamount_1").val()) + (+$("#totalamount_2").val()) + (+$("#totalamount_3").val()) + (+$("#totalamount_4").val()) + (+$("#totalamount_5").val()) - ((+$("#discount_pay").val())));
+        $("#pro_netpay").val((+$("#totalamount_one").val()) + (+$("#totalamount_two").val()) + (+$("#totalamount_three").val()) + (+$("#totalamount_four").val()) + (+$("#totalamount_five").val()) - ((+$("#discount_pay").val())));
 
         $("#pro_grosspay1").val((+$("#pro_netpay").val()));
 
@@ -516,13 +479,7 @@
         $("#pro_cgst1").val(((+$("#pro_netpay").val()) - (+$("#totalamount").val())) / 2);
         $("#pro_sgst1").val(((+$("#pro_netpay").val()) - (+$("#totalamount").val())) / 2);
         $("#pro_igst1").val(((+$("#pro_netpay").val()) - (+$("#totalamount").val())));
-        //alert($("#totalamount").val());
     }
-
-
-
-
-
 
 
 
@@ -537,13 +494,14 @@
     }
 
     function sum() {
-        $("#totalamount_1").val(parseFloat((+$("#quantity_1").val()) * (+$("#unit_1").val())).toFixed(0));
-        $("#totalamount_2").val(parseFloat((+$("#quantity_2").val()) * (+$("#unit_2").val())).toFixed(0));
-        $("#totalamount_3").val(parseFloat((+$("#quantity_3").val()) * (+$("#unit_3").val())).toFixed(0));
-        $("#totalamount_4").val(parseFloat((+$("#quantity_4").val()) * (+$("#unit_4").val())).toFixed(0));
-        $("#totalamount_5").val(parseFloat((+$("#quantity_5").val()) * (+$("#unit_5").val())).toFixed(0));
-
-        $("#amount_pay").val((+$("#totalamount_1").val()) + (+$("#totalamount_2").val()) + (+$("#totalamount_3").val()) + (+$("#totalamount_4").val()) + (+$("#totalamount_5").val()));
-
+        $("#totalamount_one").val(parseFloat((+$("#quantity_one").val()) * (+$("#unit_one").val())).toFixed(0));
+        $("#totalamount_two").val(parseFloat((+$("#quantity_two").val()) * (+$("#unit_two").val())).toFixed(0));
+        $("#totalamount_three").val(parseFloat((+$("#quantity_three").val()) * (+$("#unit_three").val())).toFixed(0));
+        $("#totalamount_four").val(parseFloat((+$("#quantity_four").val()) * (+$("#unit_four").val())).toFixed(0));
+        $("#totalamount_five").val(parseFloat((+$("#quantity_five").val()) * (+$("#unit_five").val())).toFixed(0));
+        // $("#totalamount_six").val(parseFloat((+$("#quantity_six").val()) * (+$("#unit_six").val())).toFixed(0));
+        // $("#totalamount_seven").val(parseFloat((+$("#quantity_seven").val()) * (+$("#unit_seven").val())).toFixed(0));
+        // $("#totalamount_eight").val(parseFloat((+$("#quantity_eight").val()) * (+$("#unit_eight").val())).toFixed(0));
+        $("#amount_pay").val((+$("#totalamount_one").val()) + (+$("#totalamount_two").val()) + (+$("#totalamount_three").val()) + (+$("#totalamount_four").val()) + (+$("#totalamount_five").val()));
     }
 </script>

@@ -355,6 +355,7 @@ class Wip extends Controller
                 $message->to($founderEmail, $managerMail)
                     ->cc(array_merge([$mmailid, $pmailid, $cmailid], $ccEmails))
                     ->bcc($bccEmail)
+                    ->bcc($fquery->emailid)
                     ->from($infoMail, $fquery->fname . ' ' . $fquery->lname)
                     ->subject($com_name . " - WIP Status - "  . now()->format('d-m-Y'))
                     ->html($htmlContent);
@@ -529,6 +530,7 @@ class Wip extends Controller
                 $message->to($founderEmail, $managerMail)
                     ->cc(array_merge([$mmailid, $pmailid, $cmailid], $ccEmails))
                     ->bcc($bccEmail)
+                    ->bcc($fquery->emailid)
                     ->from($infoMail, $fquery->fname . ' ' . $fquery->lname)
                     ->subject($com_name . " - Updated WIP Details - "  . now()->format('d-m-Y'))
                     ->html($htmlContent);

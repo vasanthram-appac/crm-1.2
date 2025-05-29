@@ -17,48 +17,52 @@ class Invoice extends Controller
     public function index(Request $request)
     {
         if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') {
-       
-        if (request()->ajax()) {
 
-                if(isset($request->pstatus) && !empty($request->pstatus)){
+            if (request()->ajax()) {
+
+                if (isset($request->pstatus) && !empty($request->pstatus)) {
                     request()->session()->put('invoice_status', $request->pstatus);
                 }
-    
+
                 $data = DB::table('invoicedetails')
-                ->when(request()->session()->has('invoice_status') && request()->session()->get('invoice_status') != 'all', function ($query) {
-                    $query->where('paymentstatus', request()->session()->get('invoice_status'));
-                })
-                ->when(request()->session()->has('invoice_status') && request()->session()->get('invoice_status') == 'all', function ($query) {
-                    
-                }, function ($query) {
-                    $query->where('paymentstatus', '!=', 'closed');
-                })
-                ->orderBy('invoice_no', 'desc')
-                ->get();
+                    ->when(request()->session()->has('invoice_status') && request()->session()->get('invoice_status') != 'all', function ($query) {
+                        $status = request()->session()->get('invoice_status');
+                        if ($status == 'pending') {
+                            $query->whereIn('paymentstatus', ['pending', 'open']);
+                        } else {
+                            $query->where('paymentstatus', $status);
+                        }
+                    })
+                    ->when(request()->session()->has('invoice_status') && request()->session()->get('invoice_status') !== 'all', function ($query) {
+                            $query->where('paymentstatus', '!=', 'closed');
+                        })
 
-            foreach ($data as $pdata) {
-                $emp = DB::table('regis')->where('empid', $pdata->empid)->first();
-                $pdata->fname = $emp->fname;
+                    ->orderBy('invoice_no', 'desc')
+                    ->get();
 
-                $pdata->grosspay = number_format((float)$pdata->grosspay, 2, '.', ',');
+                foreach ($data as $pdata) {
+                    $emp = DB::table('regis')->where('empid', $pdata->empid)->first();
+                    $pdata->fname = $emp->fname;
 
-                $emp = DB::table('accounts')->where('id', $pdata->company_id)->first();
+                    $pdata->grosspay = number_format((float)$pdata->grosspay, 2, '.', ',');
 
-                $pdata->companyname = !empty($emp) ? $emp->company_name : '';
-            }
+                    $emp = DB::table('accounts')->where('id', $pdata->company_id)->first();
 
-            // dd($data);
-            return DataTables::of($data)
-                ->addColumn('sno', function ($row) {
-                    return '';
-                })
-                ->addColumn('companyname', function ($row) {
-                    return '<button class="btn text-lblue btn-modal" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->company_id]) . '">' . $row->companyname . '</button>';
-                })
-                ->addColumn('paymentstatus', function ($row) {
-                    if ($row->paymentstatus != 'closed') {
+                    $pdata->companyname = !empty($emp) ? $emp->company_name : '';
+                }
 
-                        return '
+                // dd($data);
+                return DataTables::of($data)
+                    ->addColumn('sno', function ($row) {
+                        return '';
+                    })
+                    ->addColumn('companyname', function ($row) {
+                        return '<button class="btn text-lblue btn-modal" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->company_id]) . '">' . $row->companyname . '</button>';
+                    })
+                    ->addColumn('paymentstatus', function ($row) {
+                        if ($row->paymentstatus != 'closed') {
+
+                            return '
                             <div>
                                 <select class="paymentstatus" style="width:80px;" data-id="' . $row->id . '" data-inid="' . $row->invoice_no . '">
                                     <option value="pending" ' . ($row->paymentstatus === 'pending' ? 'selected' : '') . '>Pending</option>
@@ -69,26 +73,24 @@ class Invoice extends Controller
                                 <button class="btn btn-modal invoicestatus" data-id="' . $row->id . '" data-inid="' . $row->invoice_no . '">update</button>
                             </div>
                         ';
+                        } else {
+                            return e($row->paymentstatus);
+                        }
+                    })
 
-                    } else {
-                        return e($row->paymentstatus);
-                    }
-                })
-                
-                ->addColumn('action', function ($row) {
-                    $invoice=base64_encode($row->invoice_no);
-                    return '<a class="btn" href="' . route('iprint', ['id' => $invoice]) . '"  target="blank"><i class="fi fi-ts-user-check"></i><span class="tooltiptext">view</span></a>';
-                })
-                ->rawColumns(['sno', 'action', 'companyname', 'paymentstatus'])
-                ->make(true);
-        }
+                    ->addColumn('action', function ($row) {
+                        $invoice = base64_encode($row->invoice_no);
+                        return '<a class="btn" href="' . route('iprint', ['id' => $invoice]) . '"  target="blank"><i class="fi fi-ts-user-check"></i><span class="tooltiptext">view</span></a>';
+                    })
+                    ->rawColumns(['sno', 'action', 'companyname', 'paymentstatus'])
+                    ->make(true);
+            }
 
-        $accounts = DB::table('accounts')->where('status', '!=', '0')->orderBy('company_name', 'ASC')->pluck('company_name', 'id')->toArray();
-		$accounts = ['0' => 'Select Client'] + $accounts;
+            $accounts = DB::table('accounts')->where('status', '!=', '0')->orderBy('company_name', 'ASC')->pluck('company_name', 'id')->toArray();
+            $accounts = ['0' => 'Select Client'] + $accounts;
 
-        return view('invoice/index', compact('accounts'))->render();
-             
-        }else{
+            return view('invoice/index', compact('accounts'))->render();
+        } else {
             return redirect()->to('/workreport');
         }
     }
@@ -116,7 +118,7 @@ class Invoice extends Controller
 
         $common = 'AMT';
 
-        if ($inv == '' ||  (date('d-m') >= "01-04" ||  ($inv != "0001" && $extracted != $financialYear) ) ) {
+        if ($inv == '' ||  (date('d-m') >= "01-04" ||  ($inv != "0001" && $extracted != $financialYear))) {
             $inv1 = '0001';
         } else {
             $inv1 = str_pad($inv + 1, 4, '0', STR_PAD_LEFT);
@@ -342,7 +344,7 @@ class Invoice extends Controller
 
     public function print($id)
     {
-       $id=base64_decode($id);
+        $id = base64_decode($id);
 
         $invoice = DB::table('invoicedetails')->where('invoice_no', $id)->first();
         $global = DB::table('global')->first();
@@ -351,6 +353,4 @@ class Invoice extends Controller
 
         return view('pdf.iprint')->with(compact('invoice', 'global', 'accounts', 'iinfo'));
     }
-
-    
 }

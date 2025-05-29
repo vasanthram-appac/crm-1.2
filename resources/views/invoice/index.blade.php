@@ -73,7 +73,7 @@
         <div class="profile-head">
             <h1 class="ch2 comp-name m-0">Invoice</h1>
         </div>
-        <div class="justify-content-sm-end search-bar d-flex w-100">
+        <!-- <div class="justify-content-sm-end search-bar d-flex w-100">
             <div class="row  form-flex">
                 {!! Form::open(['route' => ['invoiceaccountsid'], 'method' => 'Post']) !!}
                 {!! Form::label('company_name', 'Company Name', ['class' => 'label-color py-2'] ) !!}
@@ -83,7 +83,7 @@
                 <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 bcreateview" data-container=".customer_modal" style="display: none;" data-href="{{action([App\Http\Controllers\Invoice::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Create </button>
 
             </div>
-        </div>
+        </div> -->
     </div>
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">

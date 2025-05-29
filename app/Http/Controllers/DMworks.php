@@ -63,7 +63,7 @@ class DMworks extends Controller
                     return '<button class="btn text-lblue btn-modal" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->company_name]) . '">' . $row->companyname . '</button>';
                 })
                 ->addColumn('domainname', function ($row) {
-                    return '<a href="http://' . $row->domainname . '" target="_blank" style="text-decoration:none;">' . $row->domainname . '</a>';
+                    return '<a href="https://' . $row->domainname . '" target="_blank" style="text-decoration:none;">' . $row->domainname . '</a>';
                 })
                 ->addColumn('url', function ($row) {
                     return '<a href="' . $row->url . '" target="blank" style="text-decoration:none;">View</a>';
@@ -118,8 +118,8 @@ class DMworks extends Controller
             'type' => 'required|not_in:0',
             'url' => [
                 'required',
-                'regex:/^(https:\/\/)?((docs|drive)\.google\.com\/(spreadsheets|document|presentation|forms|file|drive\/folders)|((www\.)?youtube\.com\/watch\?v=|youtu\.be\/))/'
-            ],
+                'regex:/^https:\/\/(docs\.google\.com\/(spreadsheets|document|presentation|forms)\/|drive\.google\.com\/(file\/d\/|drive(\/u\/\d+)?\/folders\/)|(www\.)?youtube\.com\/watch\?v=|youtu\.be\/)/'
+            ]
 
         ]);
 
@@ -165,8 +165,9 @@ class DMworks extends Controller
             'type' => 'required|not_in:0',
             'url' => [
                 'required',
-                'regex:/^(https:\/\/)?((docs|drive)\.google\.com\/(spreadsheets|document|presentation|forms|file|drive\/folders)|((www\.)?youtube\.com\/watch\?v=|youtu\.be\/))/'
-            ],
+                'regex:/^https:\/\/(docs\.google\.com\/(spreadsheets|document|presentation|forms)\/|drive\.google\.com\/(file\/d\/|drive(\/u\/\d+)?\/folders\/)|(www\.)?youtube\.com\/watch\?v=|youtu\.be\/)/'
+            ]
+
         ]);
 
         if ($validator->fails()) {

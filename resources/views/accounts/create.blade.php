@@ -545,6 +545,8 @@
                             <option value="Monthly Report" @if(request()->session()->get('dmtypea') == 'Monthly Report') selected @endif>Monthly Report</option>
                             <option value="Audit Report" @if(request()->session()->get('dmtypea') == 'Audit Report') selected @endif>Audit Report</option>
                             <option value="MR Report" @if(request()->session()->get('dmtypea') == 'MR Report') selected @endif>MR Report</option>
+                            <option value="Meta Leads" @if(request()->session()->get('dmtypea') == 'Meta Leads') selected @endif>Meta Leads</option>
+                            <option value="LinkedIn Leads" @if(request()->session()->get('dmtypea') == 'LinkedIn Leads') selected @endif>LinkedIn Leads</option>
                             <option value="Minutes of Meeting" @if(request()->session()->get('dmtypea') == 'Minutes of Meeting') selected @endif>Minutes of Meeting</option>
                             <option value="Others" @if(request()->session()->get('dmtypea') == 'Others') selected @endif>Others</option>
                         </select>

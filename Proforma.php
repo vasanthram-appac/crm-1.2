@@ -141,15 +141,12 @@ class Proforma extends Controller
         $j++;
 
         $in_number = $j;
-
-        $statename = DB::table('statemaster')->orderBy('sorder_id','ASC')->get();
-
-        return view('proforma/create', compact('accounts', 'in_number', 'gst', 'statename'))->render();
+        return view('proforma/create', compact('accounts', 'in_number', 'gst'))->render();
     }
 
     public function store(Request $request)
     {
-        // dd($request->all());
+        // dd($request->all()); 
         // Validate the request inputs
         $validator = Validator::make($request->all(), [
             'company_id' => 'required|integer|exists:accounts,id',
@@ -190,7 +187,6 @@ class Proforma extends Controller
             'specialdiscount' => 'nullable|numeric|min:0',
             'netpay' => 'required|numeric|min:0',
             'principle' => 'nullable|string|max:255',
-            'statename' => 'required',
 
             // 'cgst1' => 'nullable|numeric|min:0',
             // 'sgst1' => 'nullable|numeric|min:0',
@@ -294,14 +290,14 @@ class Proforma extends Controller
         }
 
         if ($request->gsttype == 'in') {
-            $taxvalue = ($request->statename == 'Tamil Nadu')? 'sgst' : 'igst';
+            $taxvalue = $request->taxvalue1;
             $igst = $request->igst1;
             $cgst = $request->cgst1;
             $sgst = $request->sgst1;
             $grosspay = $request->grosspay1;
             $amount = $request->netpay;
         } else {
-            $taxvalue = ($request->statename == 'Tamil Nadu')? 'sgst' : 'igst';
+            $taxvalue = $request->taxvalue;
             $igst = $request->igst;
             $cgst = $request->cgst;
             $sgst = $request->sgst;
@@ -328,7 +324,6 @@ class Proforma extends Controller
             'paymentterms' => $request->paymentterms,
             'url' => '',
             'paymentstatus' => "open",
-            'statename' => $request->statename,
         ];
 
         DB::table('proformadetails')->insert($val);
@@ -346,16 +341,13 @@ class Proforma extends Controller
         $accounts = DB::table('accounts')->where('id', $proformadetails->company_id)->first();
 
         $gst = DB::table('global')->first();
-
-        $statename = DB::table('statemaster')->orderBy('sorder_id','ASC')->get();
-
         // dd($accounts);
-        return view('proforma.edit')->with(compact('proforma', 'proformadetails', 'accounts', 'gst', 'statename'));
+        return view('proforma.edit')->with(compact('proforma', 'proformadetails', 'accounts', 'gst'));
     }
 
     public function update(Request $request, $id)
     {
-      
+        // dd($request->all()); 
         // Validate the request inputs
         $validator = Validator::make($request->all(), [
             'company_id' => 'required|integer|exists:accounts,id',
@@ -396,13 +388,14 @@ class Proforma extends Controller
             'specialdiscount' => 'nullable|numeric|min:0',
             'netpay' => 'required|numeric|min:0',
             'principle' => 'nullable|string|max:255',
-            'statename' => 'required',
 
             // 'cgst' => 'required|numeric|min:0',
+
             // 'cgst1' => 'nullable|numeric|min:0',
             // 'sgst1' => 'nullable|numeric|min:0',
             // 'grosspay1' => 'nullable|numeric|min:0',
             // 'taxvalue1' => 'required|in:cgst,sgst,igst',
+
             // 'sgst' => 'required|numeric|min:0',
             // 'igst' => 'required|numeric|min:0',
             // 'taxvalue' => 'required|in:cgst,sgst,igst',
@@ -538,14 +531,14 @@ class Proforma extends Controller
         }
 
         if ($request->gsttype == 'in') {
-            $taxvalue = ($request->statename == 'Tamil Nadu')? 'sgst' : 'igst';
+            $taxvalue = $request->taxvalue1;
             $igst = $request->igst1;
             $cgst = $request->cgst1;
             $sgst = $request->sgst1;
             $grosspay = $request->grosspay1;
             $amount = $request->netpay;
         } else {
-            $taxvalue = ($request->statename == 'Tamil Nadu')? 'sgst' : 'igst';
+            $taxvalue = $request->taxvalue;
             $igst = $request->igst;
             $cgst = $request->cgst;
             $sgst = $request->sgst;
@@ -704,7 +697,6 @@ class Proforma extends Controller
                 'netpay'     => $proformadetails->netpay,
                 'grosspay'     => $proformadetails->grosspay,
                 'paymentstatus'     => "open",
-                'paymentterms' => $proformadetails->paymentterms,
                 'url'     => "",
                 'paymentdate'     => "",
                 'transactiontype'     => "",

@@ -16,7 +16,14 @@ class Profile extends Controller
 
     public function index(Request $request)
     {
-        $user = DB::table('regis')->select('id', 'fname', 'lname', 'mno', 'emptype', 'role', 'status', 'emailid', 'dept_id', 'empid', 'duration')->where('empid',request()->session()->get('empid'))->first();
+
+        if(isset($request->id) && !empty($request->id)){
+             $emid = base64_decode($request->id);
+        }else{
+             $emid = request()->session()->get('empid');
+        }
+
+        $user = DB::table('regis')->select('id', 'fname', 'lname', 'mno', 'emptype', 'role', 'status', 'emailid', 'dept_id', 'empid', 'duration')->where('empid',$emid)->first();
 
         $profile = DB::table('personalprofile')->where('empid', $user->empid)->first();
 

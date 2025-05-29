@@ -22,6 +22,9 @@
         background-color: #01152b !important;
         color: #fff !important;
     }
+    .leadcl-status{
+        cursor: pointer;
+    }
 </style>
 @endsection
 
@@ -90,21 +93,21 @@
                 <div class="d-flex align-items-center justify-content-center  h-100   flex-direction-column ">
 
                     <div class="chart-container mb-5">
-                        <div class="d-flex justify-content-center">
+                        <div class="leadcl-status" data-status="All"> <button class="btn bg-primary text-white ft-15 pri-text-color m-0 ">All</button> </div>
+                        <div class="d-flex justify-content-center leadcl-status" data-status="Hot">
                             <div id="chart1" class="chart"></div>
                         </div>
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center leadcl-status" data-status="Warm">
                             <div id="chart2" class="chart"></div>
                         </div>
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center leadcl-status" data-status="Cold">
                             <div id="chart3" class="chart"></div>
                         </div>
-                        <div class="d-flex justify-content-center">
+                        <div class="d-flex justify-content-center leadcl-status" data-status="Reject">
                             <div id="chart4" class="chart"></div>
                         </div>
-
-
                     </div>
+
                 </div>
 
             </div>
@@ -124,26 +127,12 @@
         </div>
     </div>
 
-
-
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
-            <!-- <div class="add-newproduct-tab">
-                <div class="gradient-card-header">
-                    <h2 class="white-text mx-3">Leads</h2>
-                </div>
-            </div> comment by vasanth-->
-
-
-
-
+   
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
                 <h2>Success</h2>
             </div>
-
-
-
-
 
             <div class="pt-4 table-responsive p-0">
                 <table id="example" class="dataTable mt-6 table table-bordered ">
@@ -386,6 +375,12 @@
     }
 </script>
 <script>
+
+          $(document).on('click', '.viewemp', function() {
+            var empid = $(this).data('id');
+            window.location.href = "/profile?id=" + empid;
+        });
+
     $(document).ready(function() {
 
         var cat_table = $('#example').DataTable({
@@ -583,9 +578,21 @@
 
         $('select[name="oppourtunity_status"]').on('change', Oppourtunity);
 
-        function Status() {
+        $('.leadcl-status').on('click', function(){
 
-            var status = $('select[name="lead_status"]').val();
+           var status= $(this).data('status');
+
+           Status(status);
+
+        });
+
+        function Status(stat=null) {
+
+            if(stat){
+                var status = stat;
+            }else{
+                var status = $('select[name="lead_status"]').val();
+            }
 
             $.ajax({
                 url: "{{ action([App\Http\Controllers\Leads::class, 'index']) }}",

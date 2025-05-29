@@ -110,7 +110,7 @@
                             <th class="text-grey">Company Name</th>
                             <th class="text-grey">City</th>
                             <th class="text-grey">Assigned To</th>
-                            <th class="text-grey">Managed By</th>
+                            <th class="text-grey">Assigned Name</th>
                             <th class="text-grey">Status
 
                                 <select name="account_status" class="tab-sel form-select" id="account_status">
@@ -129,7 +129,7 @@
                             </th>
 
                             <th class="text-grey">Key Account</th>
-                            <th class="text-grey">Download Account</th>
+                            <!-- <th class="text-grey">Download Account</th> -->
                             <th class="text-grey">Action</th>
                             <!-- Add more columns as needed -->
                         </tr>
@@ -204,8 +204,8 @@
                     name: 'assignedto'
                 },
                 {
-                    data: 'accountmanager',
-                    name: 'accountmanager'
+                    data: 'assignedname',
+                    name: 'assignedname'
                 },
                 {
                     data: 'active_status',
@@ -216,10 +216,10 @@
                     data: 'key_status',
                     name: 'key_status'
                 },
-                {
-                    data: 'download_status',
-                    name: 'download_status'
-                },
+                // {
+                //     data: 'download_status',
+                //     name: 'download_status'
+                // },
                 {
                     data: 'action',
                     name: 'action',
@@ -303,14 +303,15 @@
                             window.location.reload();
                         }, 2000);
                     } else {
-
+                        var cid = response.cid;
                         $('.customer_modal').modal('hide');
-                        $('.appac_show').hide();
-                        $('.appac_hide').show();
+                        // $('.appac_show').hide();
+                        // $('.appac_hide').show();
                         cat_table.ajax.reload(null, false); // Prevents table state reset on reload
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 500);
+                        // setTimeout(function() {
+                        //     window.location.reload();
+                        // }, 500);
+                       $('[data-cid="' + cid + '"]').trigger('click');
                     }
 
 
@@ -332,6 +333,13 @@
                 }
             });
         });
+
+        // Use event delegation since the buttons are loaded dynamically
+        $(document).on('click', '.viewemp', function() {
+            var empid = $(this).data('id');
+            window.location.href = "/profile?id=" + empid;
+        });
+
 
         function Status() {
 

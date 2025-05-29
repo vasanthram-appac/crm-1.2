@@ -100,6 +100,8 @@
                         <option value="Monthly Report" @if(request()->session()->get('dmtype') == 'Monthly Report') selected @endif>Monthly Report</option>
                         <option value="Audit Report" @if(request()->session()->get('dmtype') == 'Audit Report') selected @endif>Audit Report</option>
                         <option value="MR Report" @if(request()->session()->get('dmtype') == 'MR Report') selected @endif>MR Report</option>
+                        <option value="Meta Leads" @if(request()->session()->get('dmtype') == 'Meta Leads') selected @endif>Meta Leads</option>
+                        <option value="LinkedIn Leads" @if(request()->session()->get('dmtype') == 'LinkedIn Leads') selected @endif>LinkedIn Leads</option>
                         <option value="Minutes of Meeting" @if(request()->session()->get('dmtype') == 'Minutes of Meeting') selected @endif>Minutes of Meeting</option>
                         <option value="Others" @if(request()->session()->get('dmtype') == 'Others') selected @endif>Others</option>
                     </select>
@@ -376,7 +378,7 @@
                 dmtype: dmtype
             },
             success: function(response) {
-                window.location.reload();
+                // window.location.reload();
             },
             error: function(xhr) {
                 var errors = xhr.responseJSON.errors;

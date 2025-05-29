@@ -216,6 +216,17 @@
                         {!! Form::select('accountmanager', $accountmanager, $accounts->accountmanager, ['class' => 'form-control']) !!}
                         <span class="focus-input100"></span>
                     </div>
+
+                    <div class="col-lg-6 col-sm-12">
+                        {!! Form::label('download_status', 'Download Status', ['class' => 'label-color py-2']) !!}
+                        <select name="download_status" id="download_status" class="form-select">
+                         <option value="">Select</option>
+                         <option value="Download" {{ $accounts->download_status == 'Download' ? 'selected' : '' }}>Download</option>
+                         <option value="Not" {{ $accounts->download_status == 'Not' ? 'selected' : '' }}>Not</option>
+                        </select>
+                        <span class="focus-input100"></span>
+                    </div>
+
                 </div>
 
                 <div class="" style="border-bottom: 1px solid #ccc;">

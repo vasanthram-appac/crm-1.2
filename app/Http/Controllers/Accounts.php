@@ -17,12 +17,12 @@ class Accounts extends Controller
     public function index(Request $request)
     {
 
-        // dd($request->all());
+      
         if (request()->session()->get('role') == 'user') {
             return redirect()->to('/workreport');
         }
         if (request()->ajax()) {
-
+//   dd($request->all());
             if (request()->session()->get('active_status') == "") {
                 request()->session()->put('active_status', '1');
             }
@@ -70,13 +70,28 @@ class Accounts extends Controller
             }
             // dd($data);
 
+            if(count($data)>0){
+
+                foreach($data as $datas){
+
+                    $assname = DB::table('regis')->select('fname','lname')->where('empid',$datas->assignedto)->first();
+
+                    $datas->assignedname = $assname ? $assname->fname . ' ' . $assname->lname : '';
+
+                }
+
+            }
+
             return DataTables::of($data)
                 ->addColumn('sno', function ($row) {
                     return '';
                 })
                 ->addColumn('company_name', function ($row) {
+                    return '<button class="btn  btn-modal text-lblue" data-cid="'.$row->id.'" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->id]) . '">' . $row->company_name . ' </button>';
+                })
+                 ->addColumn('assignedto', function ($row) {
                     return '
-                            <button class="btn  btn-modal" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->id]) . '">' . $row->company_name . ' </button>';
+                            <button class="btn  btn-modal text-lblue viewemp" data-id="' . base64_encode($row->assignedto) . '">' . $row->assignedto . ' </button>';
                 })
                 ->addColumn('active_status', function ($row) {
                     // Determine the next active status based on the current status
@@ -128,7 +143,7 @@ class Accounts extends Controller
 					  <span class="tooltiptext">Edit</span>
 					 </button>';
                 })
-                ->rawColumns(['sno', 'action', 'active_status', 'key_status', 'company_name', 'download_status'])
+                ->rawColumns(['sno', 'action', 'active_status', 'key_status', 'company_name', 'download_status', 'assignedto'])
                 ->make(true);
         }
 
@@ -316,12 +331,12 @@ class Accounts extends Controller
         $invoice = DB::table('invoicedetails')
             ->join('regis', 'invoicedetails.empid', 'regis.empid')
             ->select('regis.fname', 'invoicedetails.invoice_no', 'invoicedetails.invoice_date', 'invoicedetails.grosspay')
-            ->where('company_id', $id)->get();
+            ->where('company_id', $id)->orderBy('invoicedetails.id', 'desc')->get();
 
         $proforma = DB::table('proformadetails')
             ->join('regis', 'proformadetails.empid', 'regis.empid')
             ->select('regis.fname', 'proformadetails.invoice_no', 'proformadetails.invoice_date', 'proformadetails.grosspay')
-            ->where('company_id', $id)->get();
+            ->where('company_id', $id)->orderBy('proformadetails.id', 'desc')->get();
 
         $asset = DB::table('assetlibrary')->select('name', 'file')->where('company_name', $id)->get();
 
@@ -419,7 +434,7 @@ class Accounts extends Controller
             $bala = env('FOUNDERMAIL');
             $infomail = env('INFOMAIL');
             $managermail = env('MANAGERMAIL');
-            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
+            $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : null;
 
             // // Send email
             Mail::send([], [], function ($message) use ($request, $bala, $managermail, $bccEmail, $infomail, $emailid, $company_name_value, $htmlContent, $empid_value2, $thesupportmail) {
@@ -443,10 +458,10 @@ class Accounts extends Controller
             });
 
             session()->flash('secmessage', 'Notes Created Successfully.');
-            return response()->json(['status' => 1, 'message' => 'Notes Created Successfully.'], 200);
+            return response()->json(['status' => 1, 'message' => 'Notes Created Successfully.', 'cid' => $request->company_name], 200);
         } else {
             session()->flash('secmessage', 'Notes Not Created Successfully.');
-            return response()->json(['status' => 0, 'message' => 'Notes Not Created Successfully.'], 200);
+            return response()->json(['status' => 0, 'message' => 'Notes Not Created Successfully.', 'cid' => $request->company_name], 200);
         }
     }
 
@@ -556,6 +571,7 @@ class Accounts extends Controller
             'mdname' => $request->mdname,
             'mdphone' => $request->mdphone,
             'mdemail' => $request->mdemail,
+            'download_status' => $request->download_status,
         ];
 
         // Update the record in the database

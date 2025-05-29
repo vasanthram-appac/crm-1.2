@@ -70,8 +70,8 @@ class Taskview extends Controller
                 // Add task status information
                 if (in_array($task->task_status, ['assigned', 'reopen'])) {
                     $task->status_label =
-                        '<div>
-                           <select class="paymentstatus" style="width:80px;" data-id="' . $task->tid . '" >
+                        '   <div>
+                            <select class="paymentstatus" style="width:80px;" data-id="' . $task->tid . '" >
                                     <option value="assigned" ' . ($task->task_status === 'assigned' ? 'selected' : '') . '>Assigned</option>
                                     <option value="completed" ' . ($task->task_status === 'completed' ? 'selected' : '') . '>Completed</option>
                             </select>

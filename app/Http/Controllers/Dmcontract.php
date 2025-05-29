@@ -81,7 +81,7 @@ class Dmcontract extends Controller
                     return '<button class="btn text-lblue btn-modal" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->company_name]) . '">' . $row->companyname . '</button>';
                 })
                 ->addColumn('domainname', function ($row) {
-                    return '<a href="http://' . $row->domainname . '" target="_blank" style="text-decoration:none;">' . $row->domainname . '</a>';
+                    return '<a href="https://' . $row->domainname . '" target="_blank" style="text-decoration:none;">' . $row->domainname . '</a>';
                 })
                 ->addColumn('remainday1', function ($row) {
 

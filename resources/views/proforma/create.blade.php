@@ -2,6 +2,26 @@
     .wrap-input100 {
         position: relative;
     }
+
+    .select2-container {
+        z-index: 99999 !important;
+        /* Higher than Bootstrap modal */
+    }
+
+    .select2-container--default .select2-selection--single {
+        border: 0 !important;
+        padding-bottom: 2.2rem !important;
+        padding-top: 0.4rem !important;
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: 26px;
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        width: 20px;
+        padding-top: 3rem !important;
+    }
 </style>
 <div class="modal-dialog cascading-modal" role="document">
     <!--Content-->
@@ -72,18 +92,33 @@
                     <div class="validate-input m-b-23 mb-2">
                         {!! Form::label('gst_number', 'GST Number', ['class' => 'label-color py-2']) !!}
                         {!! Form::text('gst_number', $accounts->gst_number, ['class' => 'form-control', 'readonly']) !!}
-
                     </div>
                 </div>
                 @endif
             </div>
 
             <div class="row m-0 mb-0">
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="validate-input m-b-23 mb-2">
+                        {!! Form::label('statename', 'State *', ['class' => 'label-color py-2']) !!}
+
+                        <select class="form-select" name="statename_disable" id="">
+                            <option value="">Select</option>
+                            @if(count($statename)>0)
+                            @foreach($statename as $state)
+                            <option value="{{$state->name}}">{{$state->name}}</option>
+                            @endforeach
+                            @endif
+                        </select>
+                    <input type="hidden" name="statename">
+                    </div>
+                </div>
+
                 <div class="col-lg-6 col-sm-12">
                     <div class="validate-input m-b-23 mb-2">
                         {!! Form::label('paymentterms', 'Key Notes *', ['class' => 'label-color py-2']) !!}
                         {!! Form::textarea('paymentterms', null, ['class' => 'form-control', 'placeholder' => 'Key notes', 'required', 'rows'=>4]) !!}
-
                     </div>
                 </div>
 
@@ -99,7 +134,6 @@
                         {!! Form::label('company_name', 'Company Name', ['class' => 'label-color py-2'] ) !!}
                         {!! Form::hidden('company_id', $accounts->id , ['class' => 'form-control', 'readonly']) !!}
                         {!! Form::text('company_name', $accounts->company_name , ['class' => 'form-control', 'readonly']) !!}
-
                     </div>
                 </div>
 
@@ -107,7 +141,6 @@
                     <div class="validate-input m-b-23 mb-2">
                         {!! Form::label('shipping_address', 'Address', ['class' => 'label-color py-2']) !!}
                         {!! Form::textarea('shipping_address', $accounts->shipping_address ?? $accounts->address , ['class' => 'form-control', 'readonly', 'rows'=>4]) !!}
-
                     </div>
                 </div>
             </div>
@@ -117,7 +150,6 @@
                     <div class="validate-input m-b-23 mb-2">
                         {!! Form::label('shipping_phone', 'Shipping Phone', ['class' => 'label-color py-2']) !!}
                         {!! Form::text('shipping_phone', $accounts->shipping_phone ?? $accounts->phone , ['class' => 'form-control', 'readonly']) !!}
-
                     </div>
                 </div>
 
@@ -125,10 +157,8 @@
                     <div class="validate-input m-b-23 mb-2">
                         {!! Form::label('shipping_pincode', 'Shipping Pincode', ['class' => 'label-color py-2']) !!}
                         {!! Form::text('shipping_pincode', $accounts->shipping_pincode ?? $accounts->pincode , ['class' => 'form-control', 'readonly']) !!}
-
                     </div>
                 </div>
-
             </div>
 
             <div class="" style="border-bottom: 1px solid #ccc;">
@@ -256,7 +286,6 @@
                     </tr>
             </table>
 
-
             <div class="table table-hover invoice-input" id="ingst" style="display:none;">
                 <b>Principle Amount</b>
                 <input type="text" id="totalamount" name="principle" class="input-xlarge" readonly><br><br>
@@ -270,7 +299,7 @@
                     <input type="text" id="pro_sgst1" name="sgst1" class="input-xlarge" readonly><br><br>
                 </div>
 
-                <div class="mb-3" id="igst1" style="display:none;" >
+                <div class="mb-3" id="igst1" style="display:none;">
                     <!--code-->
                     IGST {{ $gst->igst }}%
                     <input type="hidden" id="igstvalue1" name="igst1" value="{{ $gst->igst }}">
@@ -279,9 +308,9 @@
                 </div>
 
                 GST Type
-                <input class="input-xlarge" type="radio" value="sgst" onclick="show6()" name="taxvalue1" id="sgst1">SGST/CGST
-                <input class="input-xlarge" type="radio" value="igst" onclick="show7()" name="taxvalue1" id="igst1">IGST<br><br>
-
+                <span id="spansgst1" style="display: none;"> <input class="input-xlarge" type="radio" value="sgst" onclick="show6()" name="taxvalue1" id="sgst1"> SGST/CGST </span>
+                <span id="spanigst1" style="display: none;"> <input class="input-xlarge" type="radio" value="igst" onclick="show7()" name="taxvalue1" id="igst1"> IGST </span><br><br>
+                <input type="hidden" name="taxvalue1">
                 <th>
                     Gross Pay
                     <input type="text" id="pro_grosspay1" name="grosspay1" class="input-xlarge" readonly>
@@ -307,8 +336,8 @@
                         <th>
                             GST Type
                             @if($accounts->city != "Dubai")
-                            <input class="input-xlarge" type="radio" onclick="show1()" value="sgst" name="taxvalue" id="sgst"> SGST/CGST
-                            <input class="input-xlarge" type="radio" onclick="show2()" value="igst" name="taxvalue" id="igst"> IGST
+                            <span id="spansgst" style="display: none;"> <input class="input-xlarge" type="radio" onclick="show1()" value="sgst" name="taxvalue" id="sgst"> SGST/CGST </span>
+                            <span id="spanigst" style="display: none;"> <input class="input-xlarge" type="radio" onclick="show2()" value="igst" name="taxvalue" id="igst"> IGST </span>
                             @else
                             <input class="input-xlarge" type="radio" onclick="show3()" value="export" name="taxvalue"> EXPORT
                             @endif
@@ -376,10 +405,7 @@
                     @endif
 
                 </div>
-
-
             </div>
-
 
             <!-- Add a submit button -->
             <!-- <br>
@@ -400,13 +426,71 @@
     <!--/.Content-->
 </div>
 
+</script>
 <script type="text/javascript">
     function show4() {
+
+        var state = $("select[name=statename_disable]").val();
+        if (state == "") {
+            alert('Please Select State Name!');
+            $("[name=gsttype]").prop("checked", false);
+            return false;
+        } else {
+            $("[name=statename]").val(state);
+            $("select[name=statename_disable]").prop("disabled", true);
+        }
+
+        if (state == "Tamil Nadu") {
+
+            $('#spanigst').hide();
+            $('#spanigst1').hide();
+            $('#spansgst').show();
+            $('#spansgst1').show();
+            show6();
+            add3();showButton();
+
+        } else {
+            
+            $('#spanigst').show();
+            $('#spanigst1').show();
+            $('#spansgst').hide();
+            $('#spansgst1').hide();
+            show7();
+            add3();showButton();
+
+        }
         document.getElementById('ingst').style.display = 'block';
         document.getElementById('outgst').style.display = 'none';
     }
 
     function show5() {
+
+        var state = $("select[name=statename_disable]").val();
+        if (state == "") {
+            alert('Please Select State Name!');
+            $("[name=gsttype]").prop("checked", false);
+            return false;
+        } else {
+             $("[name=statename]").val(state);
+            $("select[name=statename_disable]").prop("disabled", true);
+        }
+
+        if (state == "Tamil Nadu") {
+            $('#spanigst').hide();
+            $('#spanigst1').hide();
+             $('#spansgst').show();
+            $('#spansgst1').show();
+            show1();
+            add();showButton();
+        } else {
+            $('#spanigst').show();
+            $('#spanigst1').show();
+            $('#spansgst').hide();
+            $('#spansgst1').hide();
+            show2();
+            add();showButton();
+        }
+
         document.getElementById('ingst').style.display = 'none';
         document.getElementById('outgst').style.display = 'block';
     }
@@ -420,12 +504,14 @@
     }
 
     function show2() {
+
         document.getElementById('igst').style.display = 'block';
         document.getElementById('sgst').style.display = 'none';
         //document.getElementById("submitproformaid").style.display='block';
         document.getElementById("calculate").style.display = 'block';
         document.getElementById('cgstvalue').style.display = 'none';
         document.getElementById('sgstvalue').style.display = 'none';
+
     }
 
     function show3() {
@@ -452,9 +538,6 @@
         document.getElementById('cgstvalue1').style.display = 'none';
         document.getElementById('sgstvalue1').style.display = 'none';
     }
-
-
-
 </script>
 <script type="text/javascript">
     function add() {

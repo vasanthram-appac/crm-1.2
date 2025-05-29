@@ -24,7 +24,7 @@ use App\Http\Controllers\Offerletter;
 use App\Http\Controllers\Webproposal;
 use App\Http\Controllers\Digitalproposal;
 use App\Http\Controllers\Paymententry;
-
+use App\Http\Controllers\Leaveapproval;
 
 
 /*
@@ -253,6 +253,8 @@ Route::resource('/required_input','App\Http\Controllers\Requiredinput');
 Route::post('/requiredinputsearch/{type}/{id}', [Accounts::class, 'requiredinputsearch'])->name('requiredinputsearch');
 
 Route::post('/workorderstatus', [Workorderview::class, 'workorderstatus'])->name('workorderstatus');
+
+Route::post('/leavestatus', [Leaveapproval::class, 'leavestatus'])->name('leavestatus');
 
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 

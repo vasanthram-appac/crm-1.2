@@ -43,18 +43,19 @@
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('type', 'Type *', ['class' => 'label-color py-2']) !!}
                         <select name="type" class="form-select">
-                            <option value="0" {{ $dmworks->type == '0' ? 'selected' : '' }}>Select Month</option>
+                            <option value="0" {{ $dmworks->type == '0' ? 'selected' : '' }}>Select Type</option>
                             <option value="Promotion Dashboard" {{ $dmworks->type == 'Promotion Dashboard' ? 'selected' : '' }}>Promotion Dashboard</option>
                             <option value="Monthly Report" {{ $dmworks->type == 'Monthly Report' ? 'selected' : '' }}>Monthly Report</option>
                             <option value="Audit Report" {{ $dmworks->type == 'Audit Report' ? 'selected' : '' }}>Audit Report</option>
                             <option value="MR Report" {{ $dmworks->type == 'MR Report' ? 'selected' : '' }}>MR Report</option>
+                            <option value="Meta Leads" {{ $dmworks->type == 'Meta Leads' ? 'selected' : '' }}>Meta Leads</option>
+                            <option value="LinkedIn Leads" {{ $dmworks->type == 'LinkedIn Leads' ? 'selected' : '' }}>LinkedIn Leads</option>
                             <option value="Minutes of Meeting" {{ $dmworks->type == 'Minutes of Meeting' ? 'selected' : '' }}>Minutes of Meeting</option>
                             <option value="Others" {{ $dmworks->type == 'Others' ? 'selected' : '' }}>Others</option>
                         </select>
-
                     </div>
                 </div>
-
+                
             </div>
 
             <div class="row m-0 mb-0">

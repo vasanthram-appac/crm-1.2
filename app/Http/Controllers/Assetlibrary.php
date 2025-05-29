@@ -42,7 +42,7 @@ class Assetlibrary extends Controller
                     return '<button class="btn text-lblue btn-modal" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->company_name]) . '">' . $row->companyname . '</button>';
                 })
                 ->addColumn('domainname', function ($row) {
-                    return '<a href="http://' . $row->domainname . '" target="_blank" style="text-decoration:none;">' . $row->domainname . '</a>';
+                    return '<a href="https://' . $row->domainname . '" target="_blank" style="text-decoration:none;">' . $row->domainname . '</a>';
                 })
                 ->addColumn('file', function ($row) {
                     return '<a href="' . $row->file . '" target="blank" style="text-decoration:none;">View</a>';

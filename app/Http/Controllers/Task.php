@@ -211,14 +211,21 @@ class Task extends Controller
         $com_name = $mcompany->company_name;
 
         $mquery1 = DB::table('regis')->where('empid', $request->empid)->first();
-
         $fquery = DB::table('regis')->where('empid', request()->session()->get('empid'))->first();
+        if(request()->session()->get('dept_id') != 6){
+            $replay1 = DB::table('regis')->select('emailid')->where('empid', request()->session()->get('empid'))->first();
+            $reply = $replay1->emailid ?? null;
+        }else{
+            $reply = null;
+        }
+
+        $business = DB::table('regis')->where('dept_id', 6)->where('status',1)->pluck('emailid');
+        $thesupportmail = request()->session()->get('dept_id') == 6 ? $business->toArray() : [];
 
         $bccEmail = env('SUPPORTMAIL');
         $founderEmail = env('FOUNDERMAIL');
         $infoMail = env('INFOMAIL');
         $managerMail = env('MANAGERMAIL');
-        $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
 
         Mail::send([], [], function ($message) use (
             $request,
@@ -231,17 +238,24 @@ class Task extends Controller
             $mquery1,
             $task_new,
             $thesupportmail,
+            $reply,
         ) {
             // Validate that $request->mail_cc is an array or provide a fallback
             $ccEmails = is_array($request->mail_cc) ? $request->mail_cc : [];
-
+            // $ccList = array_filter([$founderEmail, $managerMail, $thesupportmail, ...$ccEmails]);
+                   
+       $ccList = array_filter(array_merge( array_filter([$founderEmail, $managerMail]),$thesupportmail, $ccEmails));
+ 
             // Set recipients
             $message->to($mquery1->emailid)
-                ->cc(array_merge([$founderEmail, $managerMail, $thesupportmail], $ccEmails))
-                ->bcc($bccEmail)
-                ->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
+                ->cc($ccList)
+                ->bcc($bccEmail);
+                if (!empty($reply)) {
+    $message->bcc($reply);
+}
+                $message->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
                 ->from($infoMail, $fquery->fname . ' ' . $fquery->lname)
-                ->subject('Task For ' . $com_name . ' : ' . date('d-m-Y', strtotime($request->task_startdate)))
+                ->subject('Task For '.$request->task_name.' - ' . $com_name . ' : ' . date('d-m-Y', strtotime($request->task_startdate)))
                         ->html(' <html>
                         <head>
                             <title>Task Details</title>
@@ -416,12 +430,21 @@ class Task extends Controller
 
         $fquery = DB::table('regis')->where('empid', request()->session()->get('empid'))->first();
 
+        if(request()->session()->get('dept_id') != 6){
+            $replay1 = DB::table('regis')->select('emailid')->where('empid', request()->session()->get('empid'))->first();
+            $reply = $replay1->emailid ?? null;
+        }else{
+            $reply = null;
+        }
+
+        $business = DB::table('regis')->where('dept_id', 6)->where('status',1)->pluck('emailid');
+        $thesupportmail = request()->session()->get('dept_id') == 6 ? $business->toArray() : [];
+
         $bccEmail = env('SUPPORTMAIL');
         $founderEmail = env('FOUNDERMAIL');
         $infoMail = env('INFOMAIL');
         $managerMail = env('MANAGERMAIL');
-        $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : '';
-
+      
         Mail::send([], [], function ($message) use (
             $request,
             $founderEmail,
@@ -432,17 +455,25 @@ class Task extends Controller
             $mquery1,
             $task_new,
             $thesupportmail,
+            $reply,
+            $managerMail,
         ) {
             // Validate that $request->mail_cc is an array or provide a fallback
             $ccEmails = is_array($request->mail_cc) ? $request->mail_cc : [];
+            // $ccList = array_filter([$founderEmail, $thesupportmail, ...$ccEmails]);
+     
+            $ccList = array_filter(array_merge( array_filter([$founderEmail, $managerMail]),$thesupportmail,$ccEmails));
 
             $message->to($mquery1->emailid)
-                ->cc(array_merge([$founderEmail, $thesupportmail], $ccEmails))
-                ->bcc($bccEmail)
-                ->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
+                ->cc($ccList)
+                ->bcc($bccEmail);
+                if (!empty($reply)) {
+                    $message->bcc($reply);
+                }
+                $message->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
                 ->from($infoMail, $fquery->fname . ' ' . $fquery->lname)
-                ->subject('Task For ' . $com_name . ' : ' . date('d-m-Y', strtotime($request->task_startdate)))
-                ->html(' <html><title>Task Update Details</title><head></head><body><table style="background:#efeded" cellpadding="0" cellspacing="0" bgcolor="#EFEDED" border="0" width="575px"><tbody><tr><td align="center"><table width="96%" cellpadding="0" cellspacing="0"border="0"><tbody><tr><td style="border-top:5px solid #1e96d3;background:#fff;margin:0;padding:20px;border-spacing:0px"><table width="100%" cellpadding="0" cellspacing="0"><tbody><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="font-size: 18px;color: rgb(239, 12, 12);    font-family: Arial,Helvetica,sans-serif;font-weight: 800;line-height: 1.5em;    margin: 0px;padding: 0.4em;text-align: center;">Task Update Details</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="color:#000;font-size:13px;margin:0;font-family:Arial,Helvetica,sans-serif"> <strong> Dear ' . htmlspecialchars($mquery1->fname . ' ' . $mquery1->lname) . ', </strong> <br></p></td></tr><tr><td style="margin:0;padding:0 0 5px 0"><p style="font-size:13px;background-color:rgb(234,234,234);color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:left"> Task details Updated Through CRM Portal</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><table style="font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;margin-top:10px;width:100%"><tbody><tr><td style="width:200px;padding:4px 0">Client Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . htmlspecialchars($com_name) . '</td></tr><tr><td style="width:200px;padding:4px 0">Task Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . htmlspecialchars($request->task_name) . '</td></tr><tr><td style="width:200px;padding:4px 0">Task Assign Date</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . htmlspecialchars(date('d-m-Y', strtotime($request->task_duedate))) . '</td></tr><tr><td style="width:200px;padding:4px 0">Task Description</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . nl2br(htmlspecialchars($task_new)) . '</td></tr><tr><td style="width:200px;padding:4px 0">Assigned By</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . htmlspecialchars($fquery->fname . ' ' . $fquery->lname) . '</td></tr></tbody></table></td></tr></tbody></table></td></tr><tr><td style="margin:0;padding:15px 0"></td></tr></tbody></table></td></tr></tbody></table></body></html>
+                ->subject('Task For '.$request->task_name.' - ' . $com_name . ' : ' . date('d-m-Y', strtotime($request->task_startdate)))
+                ->html('<html><title>Task Update Details</title><head></head><body><table style="background:#efeded" cellpadding="0" cellspacing="0" bgcolor="#EFEDED" border="0" width="575px"><tbody><tr><td align="center"><table width="96%" cellpadding="0" cellspacing="0"border="0"><tbody><tr><td style="border-top:5px solid #1e96d3;background:#fff;margin:0;padding:20px;border-spacing:0px"><table width="100%" cellpadding="0" cellspacing="0"><tbody><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="font-size: 18px;color: rgb(239, 12, 12);    font-family: Arial,Helvetica,sans-serif;font-weight: 800;line-height: 1.5em;    margin: 0px;padding: 0.4em;text-align: center;">Task Update Details</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="color:#000;font-size:13px;margin:0;font-family:Arial,Helvetica,sans-serif"> <strong> Dear ' . htmlspecialchars($mquery1->fname . ' ' . $mquery1->lname) . ', </strong> <br></p></td></tr><tr><td style="margin:0;padding:0 0 5px 0"><p style="font-size:13px;background-color:rgb(234,234,234);color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:left"> Task details Updated Through CRM Portal</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><table style="font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;margin-top:10px;width:100%"><tbody><tr><td style="width:200px;padding:4px 0">Client Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . htmlspecialchars($com_name) . '</td></tr><tr><td style="width:200px;padding:4px 0">Task Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . htmlspecialchars($request->task_name) . '</td></tr><tr><td style="width:200px;padding:4px 0">Task Assign Date</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . htmlspecialchars(date('d-m-Y', strtotime($request->task_duedate))) . '</td></tr><tr><td style="width:200px;padding:4px 0">Task Description</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . nl2br(htmlspecialchars($task_new)) . '</td></tr><tr><td style="width:200px;padding:4px 0">Assigned By</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . htmlspecialchars($fquery->fname . ' ' . $fquery->lname) . '</td></tr></tbody></table></td></tr></tbody></table></td></tr><tr><td style="margin:0;padding:15px 0"></td></tr></tbody></table></td></tr></tbody></table></body></html>
                         ');
         });
 
