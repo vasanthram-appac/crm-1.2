@@ -74,21 +74,52 @@
             <h1 class="ch2 comp-name">Accounts</h1>
         </div>
     </div>
-    <!-- <div class="lead-charthed d-flex flex-wrap pt-4">
-        <div class="col-lg-8 col-md-8 col-sm-12 p-0 pr-30">
-            <div class="d-flex align-items-center justify-content-center piechart-leads">
-                <div class="chart-container">
-                    <div id="chart1" class="chart"></div>
-                    <div id="chart2" class="chart"></div>
-                    <div id="chart3" class="chart"></div>
-                    <div id="chart4" class="chart"></div>
+    <div class=" m-0 appac_hide col-wrap ">
+    <div class="lead-charthed row pt-4 row-gap-3">
+        <div class="col-lg-12 col-xl-8 col-md-12 col-sm-12 p-0 pad-rig-30">
+
+            <div class="bio  rounded-30  piechart-leads">
+                <div class="">
+                    <h4 class="ch-2">Leads</h4>
                 </div>
+
+                <div class="d-flex align-items-center justify-content-center  h-100   flex-direction-column ">
+
+                    <div class="chart-container mb-5">
+                        <div class="leadcl-status" data-status="All"> <button class="btn bg-primary text-white ft-15 pri-text-color m-0 ">All</button> </div>
+                        <div class="d-flex justify-content-center leadcl-status" data-status="Hot">
+                            <div id="chart1" class="chart"></div>
+                        </div>
+                        <div class="d-flex justify-content-center leadcl-status" data-status="Warm">
+                            <div id="chart2" class="chart"></div>
+                        </div>
+                        <div class="d-flex justify-content-center leadcl-status" data-status="Cold">
+                            <div id="chart3" class="chart"></div>
+                        </div>
+                        <div class="d-flex justify-content-center leadcl-status" data-status="Reject">
+                            <div id="chart4" class="chart"></div>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 p-0">
-            <div id="bar_chart"></div>
+        <div class=" col-lg-12 col-xl-4 col-md-12 col-sm-12 p-0">
+            <div class="bio  rounded-30  piechart-leads h-auto lead-grap">
+                <div class="">
+                    <h4 class="ch-2">Graph</h4>
+                </div>
+
+
+                <div class="table-responsive p-0  lead-grp">
+                    <div id="bar_chart" style="width: 100%; height:250px;min-height:365px" class="p-0"></div>
+                </div>
+            </div>
+
         </div>
-    </div> -->
+    </div> 
+    </div> 
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
             <!-- <div class="add-newproduct-tab">
@@ -169,7 +200,81 @@
 
 
 @section('script')
+<script>
+    google.charts.load("current", {
+        packages: ["corechart"]
+    });
+    google.charts.setOnLoadCallback(drawCharts);
 
+    var total = @json($allActivests);
+    var hot = @json($Hot);
+    var cold = @json($Cold);
+    var Warm = @json($Warm);
+    var Reject = @json($Reject);
+
+
+
+
+    var hot_val = Math.round((hot.length / total.length) * 100)
+    var cold_val = Math.round((cold.length / total.length) * 100)
+    var warm_val = Math.round((Warm.length / total.length) * 100)
+    var reject_val = Math.round((Reject.length / total.length) * 100)
+
+
+    function drawCharts() {
+        drawSemiCircleChart("chart1", hot_val, "#5884c1", "Hot Leads");
+        drawSemiCircleChart("chart2", warm_val, "#8caacf", "Warm Leads");
+        drawSemiCircleChart("chart3", cold_val, "#7ab6db", "Cold Leads");
+        drawSemiCircleChart("chart4", reject_val, "#a4a5a7", "Rejected Leads");
+    }
+
+    function drawSemiCircleChart(elementId, percentage, color, label, status) {
+        const data = google.visualization.arrayToDataTable([
+            ["Label", "Value"],
+            ["Progress", percentage],
+            ["", 100 - percentage]
+
+
+        ]);
+        var status;
+        const options = {
+            animation: {
+                startup: true,
+                duration: 1500,
+                easing: 'out'
+            },
+            pieHole: 0.7,
+            pieSliceTextStyle: {
+                color: "transparent"
+            },
+            pieSliceBorderColor: "transparent",
+            legend: "none",
+            pieStartAngle: 230,
+            pieEndAngle: 250,
+            slices: {
+                0: {
+                    color: color
+                },
+                1: {
+                    color: "#e6e6e6"
+                }
+            },
+
+        };
+
+        const chart = new google.visualization.PieChart(document.getElementById(elementId));
+        chart.draw(data, options);
+
+        // Add the percentage label and description in the center
+        document.getElementById(elementId).innerHTML += `
+    <div class="chart-label">
+      <div>${percentage}%</div>
+      <div class="status"></div>
+      <div>${label}</div>
+    </div>
+  `;
+    }
+</script>
 <script>
     // document.addEventListener("DOMContentLoaded", function () {
     //     // Check if a session flash message exists
