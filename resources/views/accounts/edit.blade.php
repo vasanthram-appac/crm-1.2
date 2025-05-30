@@ -212,7 +212,7 @@
 
                 <div class="row m-0 mb-0">
                     <div class="col-lg-6 col-sm-12">
-                        {!! Form::label('accountmanager', 'Opportunity Stage', ['class' => 'label-color py-2']) !!}
+                        {!! Form::label('accountmanager', 'Managed By', ['class' => 'label-color py-2']) !!}
                         {!! Form::select('accountmanager', $accountmanager, $accounts->accountmanager, ['class' => 'form-control']) !!}
                         <span class="focus-input100"></span>
                     </div>

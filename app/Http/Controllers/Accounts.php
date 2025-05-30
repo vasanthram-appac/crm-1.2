@@ -472,7 +472,7 @@ class Accounts extends Controller
 
         $accounts = DB::table('accounts')->where('id', $id)->first();
 
-        $assignedto =  DB::table('regis')->where('status', 1)->orderBy('regis.fname', 'ASC')->pluck('fname', 'empid');
+        $assignedto =  DB::table('regis')->where('status', 1)->whereIn('dept_id', [6, 1])->orderBy('regis.fname', 'ASC')->pluck('fname', 'empid');
 
         $accountmanager =  DB::table('regis')->where('status', '!=', 0)->pluck('fname', 'empid');
 
