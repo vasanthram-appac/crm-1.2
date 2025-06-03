@@ -129,3 +129,23 @@
         </div>
     </div>
 </div>
+
+<script>
+$('#pm').on('change', function() {
+  //  alert( this.value ); // or $(this).val()
+  if(this.value == "1") {
+    $('#neft').show();
+    $('#chq').hide();
+	$("#pi").attr('required', true);
+  } else if(this.value == "2") {
+    $('#neft').hide();
+    $('#chq').show();
+	$("#pi").attr('required', true);
+  }
+  else{
+	  $('#neft').hide();
+    $('#chq').hide();
+     $("#pi").attr('required', false);
+  }
+});
+</script>

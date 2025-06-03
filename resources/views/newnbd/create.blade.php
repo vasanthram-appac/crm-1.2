@@ -89,6 +89,14 @@
                         <span class="focus-input100"></span>
                     </div>
                 </div>
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="validate-input m-b-23 mb-2">
+                        {!! Form::label('date', 'Date*', ['class' => 'label-color py-2']) !!}
+                        {!! Form::date('date', null, ['class' => 'form-control']) !!}
+                        <span class="focus-input100"></span>
+                    </div>
+                </div>
             </div>
 
             <!-- Add a submit button -->

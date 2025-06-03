@@ -1600,6 +1600,8 @@ td, td a, td button, .text-lblue {font-size:14px !important;}
 
 padding-left:15px;
 padding-right:15px;
+ height: 600px;
+overflow: hidden scroll;
 }
 .pro-div.notify-div div{width:100%; box-shadow: 0px 0px;}
 #appenttoday{display:flex;

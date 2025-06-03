@@ -32,6 +32,7 @@ class Newnbd extends Controller
                     't.company_name as companyname',
                     't.source',
                     't.url',
+                    't.date',
                     't.id as tid'
                 )
                 ->join('regis as r', 'r.empid', '=', 't.empid')
@@ -49,13 +50,20 @@ class Newnbd extends Controller
                         return '';
                     }
                 })
+                 ->addColumn('date', function ($row) {
+                    if (!empty($row->date)) {
+                        return  date('d-m-Y', strtotime($row->date));
+                    } else {
+                        return '';
+                    }
+                })
                 ->addColumn('action', function ($row) {
                     return '<button class="btn btn-modal" data-container=".customer_modal" data-href="' . action([Newnbd::class, 'edit'], [$row->tid]) . '">
                                 <i class="fi fi-ts-file-edit"></i>
 								<span class="tooltiptext  last">edit</span>
                             </button>';
                 })
-                ->rawColumns(['sno', 'url', 'action'])
+                ->rawColumns(['sno', 'url', 'action', 'date'])
                 ->make(true);
         }
 
@@ -85,14 +93,12 @@ class Newnbd extends Controller
             'company_name' => 'required',
             'source' => 'required',
             'url' => 'nullable|url',
-
+            'date' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
-        // dd($request->all());
 
         $val = [
             'empid' => request()->session()->get('empid'),
@@ -103,6 +109,7 @@ class Newnbd extends Controller
             'source' => $request->source,
             'url' => $request->url,
             'description' => $request->description,
+            'date' => $request->date,
         ];
 
         $insert = DB::table('newnbd')->insert($val);
@@ -137,7 +144,7 @@ class Newnbd extends Controller
             'email' => 'required|email|max:50',
             'company_name' => 'required',
             'source' => 'required',
-           'url' => 'nullable|url',
+            'url' => 'nullable|url',
 
         ]);
 
@@ -155,6 +162,7 @@ class Newnbd extends Controller
             'source' => $request->source,
             'url' => $request->url,
             'description' => $request->description,
+            'date' => $request->date,
         ];
 
         $insert = DB::table('newnbd')->where('id', $id)->update($val);

@@ -156,7 +156,7 @@
     <!--/.Content-->
 </div>
 
-<!-- <script>
+<script>
 $('#pm').on('change', function() {
   //  alert( this.value ); // or $(this).val()
   if(this.value == "1") {
@@ -174,4 +174,4 @@ $('#pm').on('change', function() {
      $("#pi").attr('required', false);
   }
 });
-</script> -->
+</script>

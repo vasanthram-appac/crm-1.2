@@ -256,8 +256,16 @@ Route::post('/workorderstatus', [Workorderview::class, 'workorderstatus'])->name
 
 Route::post('/leavestatus', [Leaveapproval::class, 'leavestatus'])->name('leavestatus');
 
+
+
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 
+});
+
+Route::resource('/newnbdquestioner','App\Http\Controllers\Newnbdquestioner');
+
+Route::get('/nbd-questioner', function () {
+    return view('newnbdquestioner/create');
 });
 
 

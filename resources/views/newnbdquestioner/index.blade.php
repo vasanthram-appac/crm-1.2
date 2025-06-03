@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title','New NBD')
+@section('title','New NBD Questioner')
 
 @section('css')
 <style>
@@ -71,12 +71,12 @@
     </div>
     <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">New NBD / <a class="ch2 comp-name" href="/newnbdquestioner">New NBD Questioner</a></h1>
+            <h1 class="ch2 comp-name">New NBD Questioner / <a class="ch2 comp-name" href="/newnbd">New NBD</a></h1>
         </div>
-        <div class="justify-content-sm-end d-flex">
+        <!-- <div class="justify-content-sm-end d-flex">
             <div class=""></div>
             <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Newnbd::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add New NBD</button>
-        </div>
+        </div> -->
     </div>
 
     <div class="col-lg-12 col-sm-12 p-0">
@@ -90,15 +90,16 @@
                     <thead>
                         <tr class="bg-white">
                             <th class="text-grey">S.No</th>
-                            <th class="text-grey">Date</th>
                             <th class="text-grey">Name</th>
                             <th class="text-grey">Email</th>
                             <th class="text-grey">Mobile</th>
-                            <th class="text-grey">Company Name</th>
-                            <th class="text-grey">Employee</th>
-                            <th class="text-grey">Source</th>
-                            <th class="text-grey">View</th>
-                            <th class="text-grey">Action</th>
+                            <th class="text-grey">Business Name</th>
+                            <th class="text-grey">Turnover</th>
+                            <th class="text-grey">Website</th>
+                            <th class="text-grey">Business Type</th>
+                            <th class="text-grey">Scope Of Work</th>
+                            <th class="text-grey">Monthly Budget</th>
+                            <th class="text-grey">Description</th>
                         </tr>
                     </thead>
                 </table>
@@ -146,14 +147,10 @@
             serverSide: true,
             pageLength: 10,
             lengthMenu: [10, 20, 50, 100],
-            ajax: "{{ action([App\Http\Controllers\Newnbd::class,'index']) }}",
+            ajax: "{{ action([App\Http\Controllers\Newnbdquestioner::class,'index']) }}",
             columns: [{
                     data: 'sno',
                     name: 'sno'
-                },
-                 {
-                    data: 'date',
-                    name: 'date'
                 },
                 {
                     data: 'name',
@@ -168,27 +165,34 @@
                     name: 'mobile'
                 },
                 {
-                    data: 'companyname',
-                    name: 'companyname'
+                    data: 'business_name',
+                    name: 'business_name'
+                },
+                 {
+                    data: 'turnover',
+                    name: 'turnover'
                 },
                 {
-                    data: 'fname',
-                    name: 'fname'
+                    data: 'website_link',
+                    name: 'website_link'
                 },
                 {
-                    data: 'source',
-                    name: 'source'
+                    data: 'business_type',
+                    name: 'business_type'
                 },
-                {
-                    data: 'url',
-                    name: 'url'
+                 {
+                    data: 'scope_of_work',
+                    name: 'scope_of_work'
                 },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
+                  {
+                    data: 'monthly_budget',
+                    name: 'monthly_budget'
                 },
+                 {
+                    data: 'description',
+                    name: 'description'
+                },
+                
                 // Add more columns as needed
             ],
             "drawCallback": function(settings) {

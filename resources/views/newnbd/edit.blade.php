@@ -56,7 +56,6 @@
             </div>
 
             <div class="row m-0 mb-0">
-
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('source', 'Source*', ['class' => 'label-color py-2']) !!}
@@ -80,11 +79,18 @@
             </div>
 
             <div class="row m-0 mb-0">
-
                 <div class="col-lg-6 col-sm-12">
                     <div class="validate-input m-b-23 mb-2">
                         {!! Form::label('description', 'Description ', ['class' => 'label-color py-2']) !!}
                         {!! Form::text('description', $newnbd->description, ['class' => 'form-control']) !!}
+                        <span class="focus-input100"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12">
+                    <div class="validate-input m-b-23 mb-2">
+                        {!! Form::label('date', 'Date*', ['class' => 'label-color py-2']) !!}
+                        {!! Form::date('date', $newnbd->date, ['class' => 'form-control']) !!}
                         <span class="focus-input100"></span>
                     </div>
                 </div>

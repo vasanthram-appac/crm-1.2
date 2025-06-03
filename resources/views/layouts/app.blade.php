@@ -81,12 +81,15 @@
                         </div>
                         <div class="menu-list-group menu-list-group-flush gap-2  menus">
 
-                           
+
                             @if(request()->session()->get('role') != 'user')
 
                             <span id="m1" class="home-menu  d-flex align-items-center  me-3 @if($route=='dashboard') active @else  @endif">
                                 <a href="/dashboard">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 512 512"><path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" d="M80 212v236a16 16 0 0 0 16 16h96V328a24 24 0 0 1 24-24h80a24 24 0 0 1 24 24v136h96a16 16 0 0 0 16-16V212"/><path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256m368-77V64h-48v69"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 512 512">
+                                        <path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" d="M80 212v236a16 16 0 0 0 16 16h96V328a24 24 0 0 1 24-24h80a24 24 0 0 1 24 24v136h96a16 16 0 0 0 16-16V212" />
+                                        <path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256m368-77V64h-48v69" />
+                                    </svg>
                                 </a>
                                 <!-- <ul class="sub-menu @if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile'  || $route=='resignation'  || $route=='celebration'  || $route=='payslip' || $route=='userdashboard'  || $route=='usermodule' ) active @else  @endif">
                     <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='profile') bg-bactive @else  @endif " href="/profile">View Profile</a></li>
@@ -103,17 +106,20 @@
 
                     </ul> -->
                             </span>
-                            
-                            
+
+
                             @endif
-                   
 
 
-                        @if(request()->session()->get('role') == 'user')
-                         
-                        <span id="m1" class="home-menu  d-flex align-items-center  me-3 @if($route=='userdashboard') active @else  @endif">
+
+                            @if(request()->session()->get('role') == 'user')
+
+                            <span id="m1" class="home-menu  d-flex align-items-center  me-3 @if($route=='userdashboard') active @else  @endif">
                                 <a href="/userdashboard">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 512 512"><path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" d="M80 212v236a16 16 0 0 0 16 16h96V328a24 24 0 0 1 24-24h80a24 24 0 0 1 24 24v136h96a16 16 0 0 0 16-16V212"/><path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256m368-77V64h-48v69"/></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 512 512">
+                                        <path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" d="M80 212v236a16 16 0 0 0 16 16h96V328a24 24 0 0 1 24-24h80a24 24 0 0 1 24 24v136h96a16 16 0 0 0 16-16V212" />
+                                        <path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="25" d="M480 256L266.89 52c-5-5.28-16.69-5.34-21.78 0L32 256m368-77V64h-48v69" />
+                                    </svg>
                                 </a>
                                 <!-- <ul class="sub-menu @if($route=='user' || $route=='applyleave' || $route=='leaveapproval' || $route=='profile'  || $route=='resignation'  || $route=='celebration'  || $route=='payslip' || $route=='userdashboard'  || $route=='usermodule' ) active @else  @endif">
                     <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='profile') bg-bactive @else  @endif " href="/profile">View Profile</a></li>
@@ -291,7 +297,9 @@
                         <div class="d-flex align-items-center gap-4">
                             <div class="bell pro-d" style="height: 30px !important;">
                                 <p id="totalcount" style="position: absolute; padding-left: 30px;"></p>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 32 32"><path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 17c0-5 1-11 8-11s8 6 8 11s3 8 3 8H5s3-3 3-8m12 8s0 4-4 4s-4-4-4-4m4-22v3"/></svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30px" height="30px" viewBox="0 0 32 32">
+                                    <path fill="none" stroke="#7d7c8c" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M8 17c0-5 1-11 8-11s8 6 8 11s3 8 3 8H5s3-3 3-8m12 8s0 4-4 4s-4-4-4-4m4-22v3" />
+                                </svg>
                             </div>
 
                             <div class="pro-div  notify-div" style="">
@@ -670,7 +678,7 @@
                 <div class="lgrey-bg  w-100  ">
                     <div class="container">
                         <!--<a href="javascript:window.location.reload()">Back</a>-->
-                    
+
                         <main class="py-2">
                             @yield('content')
 
@@ -763,9 +771,9 @@
                     $("#totalcount").text(response.count);
 
                     // $(".bell").css('background-color','red');
-                    $("#totalcount").css('color','#108dd7');
+                    $("#totalcount").css('color', '#108dd7');
                     $(".bell").addClass('active')
-                    $(".bell").css('position','relative');
+                    $(".bell").css('position', 'relative');
                 }
 
                 let html = '';
@@ -807,6 +815,13 @@
                     html += '<div><h5>SSL Certificate Expiry</h5>';
                     response.ssl_certificate.forEach(item => {
                         html += '<p><a href="/ssl"><strong>' + item.companyname + '</strong> - ' + item.DateFormat + '</a></p></div>';
+                    });
+                }
+
+                if (response.task.length > 0) {
+                    html += '<div><h5>Task Expiry</h5>';
+                    response.task.forEach(item => {
+                        html += '<p><a href="/task"><strong>' + item.task_name + '</strong> - ' + item.task_duedate + '-' + item.fname + '</a></p></div>';
                     });
                 }
 

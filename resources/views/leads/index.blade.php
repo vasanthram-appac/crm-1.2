@@ -620,8 +620,6 @@
 
         $('select[name="lead_status"]').on('change', Status);
 
-
-
     });
 </script>
 @endsection

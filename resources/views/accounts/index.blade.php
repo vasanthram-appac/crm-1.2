@@ -22,6 +22,9 @@
         background-color: #01152b !important;
         color: #fff !important;
     }
+    .leadcl-status{
+        cursor: pointer;
+    }
 </style>
 @endsection
 
@@ -76,27 +79,29 @@
     </div>
     <div class=" m-0 appac_hide col-wrap ">
     <div class="lead-charthed row pt-4 row-gap-3">
-        <div class="col-lg-12 col-xl-8 col-md-12 col-sm-12 p-0 pad-rig-30">
+        <div class="col-lg-12 col-xl-10 col-md-12 col-sm-12 p-0 pad-rig-30">
 
             <div class="bio  rounded-30  piechart-leads">
                 <div class="">
-                    <h4 class="ch-2">Leads</h4>
+                    <h4 class="ch-2">Accounts</h4>
                 </div>
 
                 <div class="d-flex align-items-center justify-content-center  h-100   flex-direction-column ">
 
                     <div class="chart-container mb-5">
-                        <div class="leadcl-status" data-status="All"> <button class="btn bg-primary text-white ft-15 pri-text-color m-0 ">All</button> </div>
-                        <div class="d-flex justify-content-center leadcl-status" data-status="Hot">
+                        <div class="leadcl-status" data-status="All"> 
+                            <button class="btn bg-primary text-white ft-15 pri-text-color m-0 ">All</button> 
+                        </div>
+                        <div class="d-flex justify-content-center leadcl-status" data-status="1">
                             <div id="chart1" class="chart"></div>
                         </div>
-                        <div class="d-flex justify-content-center leadcl-status" data-status="Warm">
+                        <div class="d-flex justify-content-center leadcl-status" data-status="active">
                             <div id="chart2" class="chart"></div>
                         </div>
-                        <div class="d-flex justify-content-center leadcl-status" data-status="Cold">
+                        <div class="d-flex justify-content-center leadcl-status" data-status="inactive">
                             <div id="chart3" class="chart"></div>
                         </div>
-                        <div class="d-flex justify-content-center leadcl-status" data-status="Reject">
+                        <div class="d-flex justify-content-center leadcl-status" data-status="Download">
                             <div id="chart4" class="chart"></div>
                         </div>
                     </div>
@@ -105,19 +110,7 @@
 
             </div>
         </div>
-        <div class=" col-lg-12 col-xl-4 col-md-12 col-sm-12 p-0">
-            <div class="bio  rounded-30  piechart-leads h-auto lead-grap">
-                <div class="">
-                    <h4 class="ch-2">Graph</h4>
-                </div>
-
-
-                <div class="table-responsive p-0  lead-grp">
-                    <div id="bar_chart" style="width: 100%; height:250px;min-height:365px" class="p-0"></div>
-                </div>
-            </div>
-
-        </div>
+  
     </div> 
     </div> 
     <div class="col-lg-12 col-sm-12 p-0">
@@ -151,9 +144,9 @@
                                     <option value="active" @if(request()->session()->get('active_status') == 'active') selected @endif>Active Accounts</option>
                                     <option value="inactive" @if(request()->session()->get('active_status') == 'inactive') selected @endif>Inactive Accounts</option>
                                     <option value="Download" @if(request()->session()->get('active_status') == 'Download') selected @endif>Download Accounts</option>
-                                    <option value="AM001" @if(request()->session()->get('active_status') == 'AM001') selected @endif>Assigned to Balakrishnan</option>
+                                    <!-- <option value="AM001" @if(request()->session()->get('active_status') == 'AM001') selected @endif>Assigned to Balakrishnan</option>
                                     <option value="AM081" @if(request()->session()->get('active_status') == 'AM081') selected @endif>Assigned to Deepak</option>
-                                    <option value="AM088" @if(request()->session()->get('active_status') == 'AM088') selected @endif>Assigned to Teresa</option>
+                                    <option value="AM088" @if(request()->session()->get('active_status') == 'AM088') selected @endif>Assigned to Teresa</option> -->
                                 </select>
 
 
@@ -207,10 +200,10 @@
     google.charts.setOnLoadCallback(drawCharts);
 
     var total = @json($allActivests);
-    var hot = @json($Hot);
-    var cold = @json($Cold);
-    var Warm = @json($Warm);
-    var Reject = @json($Reject);
+    var hot = @json($key);
+    var cold = @json($active);
+    var Warm = @json($inactive);
+    var Reject = @json($download);
 
 
 
@@ -222,10 +215,10 @@
 
 
     function drawCharts() {
-        drawSemiCircleChart("chart1", hot_val, "#5884c1", "Hot Leads");
-        drawSemiCircleChart("chart2", warm_val, "#8caacf", "Warm Leads");
-        drawSemiCircleChart("chart3", cold_val, "#7ab6db", "Cold Leads");
-        drawSemiCircleChart("chart4", reject_val, "#a4a5a7", "Rejected Leads");
+        drawSemiCircleChart("chart1", hot_val, "#5884c1", "Key Accounts");
+        drawSemiCircleChart("chart2", warm_val, "#8caacf", "Active Accouns");
+        drawSemiCircleChart("chart3", cold_val, "#7ab6db", "Inactive Accounts");
+        drawSemiCircleChart("chart4", reject_val, "#a4a5a7", "Download Accounts");
     }
 
     function drawSemiCircleChart(elementId, percentage, color, label, status) {
@@ -274,6 +267,8 @@
     </div>
   `;
     }
+
+    
 </script>
 <script>
     // document.addEventListener("DOMContentLoaded", function () {
@@ -445,35 +440,46 @@
             window.location.href = "/profile?id=" + empid;
         });
 
+       $(document).ready(function() {
+    // Trigger on clicking a status button
+    $('.leadcl-status').on('click', function() {
+        var status = $(this).data('status');
+        fetchStatus(status);
+    });
 
-        function Status() {
+    // Trigger on changing the account_status dropdown
+    $('select[name="account_status"]').on('change', function() {
+        var status = $(this).val();
+        fetchStatus(status);
+    });
 
-            var status = $('select[name="account_status"]').val();
+    // Fetch status via AJAX
+    function fetchStatus(status) {
+        $.ajax({
+            url: "{{ action([App\Http\Controllers\Accounts::class, 'index']) }}",
+            type: 'GET',
+            data: {
+                status: status
+            },
+            success: function(response) {
+                window.location.reload(); // You may want to update the DOM instead of reloading
+            },
+            error: function(xhr) {
+                var errors = xhr.responseJSON?.errors || {};
+                var errorString = '';
 
-            $.ajax({
-                url: "{{ action([App\Http\Controllers\Accounts::class, 'index']) }}",
-                type: 'GET',
-                data: {
-                    status: status
-                },
-                success: function(response) {
-                    window.location.reload();
-                },
-                error: function(xhr) {
-                    var errors = xhr.responseJSON.errors;
-                    var errorString = '';
-
-                    for (var key in errors) {
+                for (var key in errors) {
+                    if (errors[key].length) {
                         errorString += '<span class="text-danger">' + errors[key][0] + '</span><br>';
                     }
-
-                    $('#errorModal .error-modal').html(errorString);
-                    $('#errorModal').modal('show');
                 }
-            });
-        }
 
-        $('select[name="account_status"]').on('change', Status);
+                $('#errorModal .error-modal').html(errorString);
+                $('#errorModal').modal('show');
+            }
+        });
+    }
+});
 
 
     });

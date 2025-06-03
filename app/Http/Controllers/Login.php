@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Yajra\DataTables\DataTables;
@@ -15,14 +16,14 @@ class Login extends Controller
 {
 
     public function index()
-    {		
+    {
         request()->session()->put('serverip', request()->header('X-Forwarded-For'));
 
         if (request()->session()->has('empid') && request()->session()->get('empid') != null && request()->session()->get('otp') == null) {
             // dd(request()->session()->get('customer_id'));
-              if(request()->session()->get('role') !='user'){
+            if (request()->session()->get('role') != 'user') {
                 return redirect()->to('/dashboard');
-            }else{
+            } else {
                 return redirect()->to('/userdashboard');
             }
         } else {
@@ -32,23 +33,23 @@ class Login extends Controller
 
     public function Login(Request $request)
     {
- 
+
         if (env('IPADDRESS') == request()->session()->get('serverip')) {
 
             $user = DB::table('regis')->where('empid', $request->username)->where('status', 1)->get();
 
             if (request()->session()->has('empid') && request()->session()->get('empid') != null) {
-                
-            if(request()->session()->get('role') !='user'){
-                return redirect()->to('/dashboard');
-            }else{
-                return redirect()->to('/userdashboard');
-            }
+
+                if (request()->session()->get('role') != 'user') {
+                    return redirect()->to('/dashboard');
+                } else {
+                    return redirect()->to('/userdashboard');
+                }
             } else {
 
                 // if (count($user) > 0 && Hash::check($request->password, $user[0]->password)) {
-					
-					if (count($user) > 0 && base64_encode($request->password) == $user[0]->password) {
+
+                if (count($user) > 0 && base64_encode($request->password) == $user[0]->password) {
 
                     $token = implode('-', str_split(substr(strtolower(md5(microtime() . rand(1000, 9999))), 0, 30), 6));
 
@@ -72,14 +73,14 @@ class Login extends Controller
                     request()->session()->put('login_time_stamp', time());
 
                     $photo = DB::table('documentsupload')->where('empid', $user[0]->empid)->first();
-                    request()->session()->put('profilephoto',$photo->photo);
-                    request()->session()->put('avatarphoto',$photo->avatar);
-                    
-            if($user[0]->role !='user'){
-                return redirect()->to('/dashboard');
-            }else{
-                return redirect()->to('/userdashboard');
-            }
+                    request()->session()->put('profilephoto', $photo->photo);
+                    request()->session()->put('avatarphoto', $photo->avatar);
+
+                    if ($user[0]->role != 'user') {
+                        return redirect()->to('/dashboard');
+                    } else {
+                        return redirect()->to('/userdashboard');
+                    }
                 } else {
                     return redirect()->back()->with('secmessage', 'Invalid Username and Password');
                 }
@@ -91,12 +92,11 @@ class Login extends Controller
             // dd($user->password);
             if (request()->session()->has('empid') && request()->session()->get('empid') != null) {
 
-            if(request()->session()->get('role') !='user'){
-                return redirect()->to('/dashboard');
-            }else{
-                return redirect()->to('/userdashboard');
-            }
-
+                if (request()->session()->get('role') != 'user') {
+                    return redirect()->to('/dashboard');
+                } else {
+                    return redirect()->to('/userdashboard');
+                }
             } else {
 
                 if (count($user) > 0) {
@@ -111,22 +111,22 @@ class Login extends Controller
 
                     $replyToEmail = env('TECHADMINMAIL');
                     $cc = env('FOUNDERMAIL');
-       
-                    $infomail = env('INFOMAIL');
-                    $appname= env('APP_NAME');
 
-                //     Mail::send([], [], function ($message) use ($email, $infomail, $fname, $lname, $otp, $appname) {
-                //         $message->to($email) 
-                //             // ->bcc($bccEmail) 
-                //             ->replyTo($infomail) 
-                //             ->from($infomail, $appname) 
-                //             ->subject('OTP for verification') 
-                //             ->html('
-                //     <span style="margin-top:50px;"></span>
-                //     Dear ' . $fname . ' ' . $lname . ',<br><br>
-                //     Thanks for your interest. Your OTP is ' . $otp . ' for verification from Appac Media.<br>
-                // '); // Set the HTML content directly
-                //     });
+                    $infomail = env('INFOMAIL');
+                    $appname = env('APP_NAME');
+
+                    // Mail::send([], [], function ($message) use ($email, $infomail, $fname, $lname, $otp, $appname) {
+                    //     $message->to($email) 
+                    //         // ->bcc($bccEmail) 
+                    //         ->replyTo($infomail) 
+                    //         ->from($infomail, $appname) 
+                    //         ->subject('OTP for verification') 
+                    //         ->html('
+                    // <span style="margin-top:50px;"></span>
+                    // Dear ' . $fname . ' ' . $lname . ',<br><br>
+                    // Thanks for your interest. Your OTP is ' . $otp . ' for verification from Appac Media.<br>
+                    // '); // Set the HTML content directly
+                    // });
 
                     request()->session()->put('otp', $otp);
                     request()->session()->put('empid', $user[0]->empid);
@@ -182,17 +182,17 @@ class Login extends Controller
             request()->session()->put('login_time_stamp', time());
 
             $photo = DB::table('documentsupload')->where('empid', $user[0]->empid)->first();
-            request()->session()->put('profilephoto',$photo->photo);
-            request()->session()->put('avatarphoto',$photo->avatar);
+            request()->session()->put('profilephoto', $photo->photo);
+            request()->session()->put('avatarphoto', $photo->avatar);
 
             $bccEmail = env('SUPPORTMAIL');
             $replyToEmail = env('TECHADMINMAIL');
             $cc = env('FOUNDERMAIL');
             $ip = request()->session()->get('empid');
             $infomail = env('INFOMAIL');
-            $appname= env('APP_NAME');
+            $appname = env('APP_NAME');
             $managermail = env('MANAGERMAIL');
-            
+
             // Mail::send([], [], function ($message) use ($cc, $replyToEmail, $bccEmail, $managermail, $fname, $lname, $ip, $infomail, $appname) {
             //     $message->to($replyToEmail)
             //             ->cc($cc)
@@ -209,12 +209,11 @@ class Login extends Controller
             //             ); // Set the HTML content directly
             // });
 
-            if($user[0]->role !='user'){
+            if ($user[0]->role != 'user') {
                 return redirect()->to('/dashboard');
-            }else{
+            } else {
                 return redirect()->to('/userdashboard');
             }
-            
         } else {
             return redirect()->back()->with('secmessage', 'Invalid OTP');
         }

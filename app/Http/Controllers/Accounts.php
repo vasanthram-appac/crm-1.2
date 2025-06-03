@@ -17,12 +17,11 @@ class Accounts extends Controller
     public function index(Request $request)
     {
 
-      
         if (request()->session()->get('role') == 'user') {
             return redirect()->to('/workreport');
         }
         if (request()->ajax()) {
-//   dd($request->all());
+            //   dd($request->all());
             if (request()->session()->get('active_status') == "") {
                 request()->session()->put('active_status', '1');
             }
@@ -70,16 +69,14 @@ class Accounts extends Controller
             }
             // dd($data);
 
-            if(count($data)>0){
+            if (count($data) > 0) {
 
-                foreach($data as $datas){
+                foreach ($data as $datas) {
 
-                    $assname = DB::table('regis')->select('fname','lname')->where('empid',$datas->assignedto)->first();
+                    $assname = DB::table('regis')->select('fname', 'lname')->where('empid', $datas->assignedto)->first();
 
                     $datas->assignedname = $assname ? $assname->fname . ' ' . $assname->lname : '';
-
                 }
-
             }
 
             return DataTables::of($data)
@@ -87,9 +84,9 @@ class Accounts extends Controller
                     return '';
                 })
                 ->addColumn('company_name', function ($row) {
-                    return '<button class="btn  btn-modal text-lblue" data-cid="'.$row->id.'" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->id]) . '">' . $row->company_name . ' </button>';
+                    return '<button class="btn  btn-modal text-lblue" data-cid="' . $row->id . '" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->id]) . '">' . $row->company_name . ' </button>';
                 })
-                 ->addColumn('assignedto', function ($row) {
+                ->addColumn('assignedto', function ($row) {
                     return '
                             <button class="btn  btn-modal text-lblue viewemp" data-id="' . base64_encode($row->assignedto) . '">' . $row->assignedto . ' </button>';
                 })
@@ -147,7 +144,15 @@ class Accounts extends Controller
                 ->make(true);
         }
 
-        return view('accounts/index')->render();
+        $allActivests = DB::table('accounts')->where('status', '!=', '0')->get();
+
+        $key =  DB::table('accounts')->where('status', '!=', '0')->where('active_status', 'active')->where('key_status', 1)->orderBy('accounts.id', 'ASC')->get();
+
+        $active = DB::table('accounts')->where('status', '!=', '0')->where('active_status', 'active')->orderBy('accounts.id', 'ASC')->get();
+        $inactive = DB::table('accounts')->where('status', '!=', '0')->where('active_status', 'inactive')->orderBy('accounts.id', 'ASC')->get();
+        $download = DB::table('accounts')->where('status', '!=', '0')->where('download_status', 'Download')->orderBy('accounts.id', 'ASC')->get();
+
+        return view('accounts/index')->with(compact('allActivests', 'key', 'active', 'inactive', 'download'))->render();
     }
 
     public function Viewaccounts($id)
@@ -718,12 +723,36 @@ class Accounts extends Controller
                 ->where('ssl_certificate.dateofexpire', date('d-m-Y'))
                 ->orderBy('DateFormat', 'Desc')
                 ->get();
+
+            $task = DB::table('task_management as t')
+                ->join('regis', 't.empid', '=', 'regis.empid')
+                ->select('t.task_name', 't.task_duedate', 'regis.fname', 'regis.lname')
+                ->whereRaw("STR_TO_DATE(t.task_duedate, '%d-%m-%Y') < ?", [date('Y-m-d')])
+                ->where('t.task_duedate', '!=', '')
+                ->whereNotIn('t.task_status', ['completed', 'closed'])
+                ->where('regis.status', 1)
+                ->orderBY('t.taskid','desc')
+                ->get();
+// dd($task);
         } else {
+
             $hosting = [];
             $seo_client = [];
             $domain = [];
             $emailserver = [];
             $ssl_certificate = [];
+
+            $task = DB::table('task_management as t')
+                ->join('regis', 't.empid', '=', 'regis.empid')
+                ->select('t.task_name', 't.task_duedate', 'regis.fname', 'regis.lname')
+                ->whereRaw("STR_TO_DATE(t.task_duedate, '%d-%m-%Y') < ?", [date('Y-m-d')])
+                ->where('t.task_duedate', '!=', '')
+                ->where('regis.empid', request()->session()->get('empid'))
+                ->whereNotIn('t.task_status', ['completed', 'closed'])
+                ->where('regis.status', 1)
+                ->orderBY('t.taskid','desc')
+                ->get();
+
         }
 
         $calendar = DB::table('calendar')
@@ -735,8 +764,8 @@ class Accounts extends Controller
             ->whereRaw("DATE_FORMAT(dob, '%m-%d') = ?", [date('m-d')])
             ->get();
 
-
-        $count = count($hosting) + count($seo_client) + count($domain) + count($emailserver) + count($ssl_certificate) + count($calendar) + count($birthdayData);
+        $count = count($hosting) + count($seo_client) + count($domain) + count($emailserver) + count($ssl_certificate) + count($calendar) +
+         count($birthdayData) + count($task);
 
         return response()->json([
             'hosting' => $hosting,
@@ -746,6 +775,7 @@ class Accounts extends Controller
             'ssl_certificate' => $ssl_certificate,
             'calendar' => $calendar,
             'birthdayData' => $birthdayData,
+            'task' => $task,
             'count' => $count,
         ]);
     }
