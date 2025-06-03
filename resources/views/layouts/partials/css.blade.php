@@ -1192,7 +1192,9 @@ button.close {
 .server-d p{font-size:18px !important;}
 .server-d .ser-type{color:#6097b9 !important;font-weight:500;text-transform:capitalize;}
 .server-d h4{font-size:15px !important;}
-
+.tab-two{display:none;border-bottom:none}
+.tab-two.active{display:flex}
+.no-bg .nav-link.active{background:none;}
 
 
 

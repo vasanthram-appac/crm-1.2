@@ -330,7 +330,7 @@
 <!-- Tabbed Content for History, Reports, Payments -->
 <div class="row pt-4">
     <!-- <h2 class="ch2 fw-600">History Details</h2> -->
-    <ul class="nav nav-tabs px-4" role="tablist">
+    <ul class="nav nav-tabs px-4 acc-tab" role="tablist">
         <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#acchistory"><b>Accounts History</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#wiphistory"><b>WIP History</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#scope"><b>Scope</b></a></li>
@@ -338,13 +338,17 @@
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#dmworks"><b>DM Works</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#assetlibrary"><b>Asset Library</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#requiredinput"><b>Input Required</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#payment"><b>Payment Details</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#proforma"><b>Proforma</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#invoice"><b>Invoice</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#tbtwo"><b>Payment Details</b></a></li>
+
         @if(request()->session()->get('empid') == "AM001" || request()->session()->get('empid') == "AM090" || request()->session()->get('empid') == "admin")
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#revenue"><b>Revenue</b></a></li>
         @endif
         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#social"><b>Social Media login</b></a></li> -->
+    </ul>
+    <ul id="tbtwo" class="nav nav-tabs px-4  tab-two no-bg mt-3 no-border" role="tablist">
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#payment"><b>Payment Details</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#proforma"><b>Proforma</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#invoice"><b>Invoice</b></a></li>
     </ul>
 
     <div class="tab-content">
@@ -1369,6 +1373,12 @@
     });
 </script>
 
+<script>
+    $('.acc-tab li a').on('click', function () {
+  $('.tab-two.active').removeClass('active');
+});
+
+</script>
 
 <script type="text/javascript">
     google.charts.load('current', {
