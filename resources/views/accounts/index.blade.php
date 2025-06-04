@@ -133,7 +133,6 @@
                             <th class="text-grey">S.no</th>
                             <th class="text-grey">Company Name</th>
                             <th class="text-grey">City</th>
-                            <th class="text-grey">Assigned To</th>
                             <th class="text-grey">Assigned Name</th>
                             <th class="text-grey">Status
 
@@ -205,14 +204,10 @@
     var Warm = @json($inactive);
     var Reject = @json($download);
 
-
-
-
     var hot_val = Math.round((hot.length / total.length) * 100)
     var cold_val = Math.round((cold.length / total.length) * 100)
     var warm_val = Math.round((Warm.length / total.length) * 100)
     var reject_val = Math.round((Reject.length / total.length) * 100)
-
 
     function drawCharts() {
         drawSemiCircleChart("chart1", hot_val, "#5884c1", "Key Accounts");
@@ -298,10 +293,6 @@
                 {
                     data: 'city',
                     name: 'city'
-                },
-                {
-                    data: 'assignedto',
-                    name: 'assignedto'
                 },
                 {
                     data: 'assignedname',

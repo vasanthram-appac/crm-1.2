@@ -462,7 +462,7 @@
                     </a>
                 </div>
                 <div class="d-flex gap-2 p-0 my-2">
-                    <a href="pdf/ratecard/download/Appac-Best-Practices-New-10-24.pdf" target="_blank" class="rate-link w-100">
+                    <a href="pdf/ratecard/download/Appac Web Best Practices & Process Flow.pdf" target="_blank" class="rate-link w-100">
                         <div class="d-flex justify-content-between p-0 w-100">
                             <p class="p-0  m-0">Proposal - Appac Best Pratices</p>
 

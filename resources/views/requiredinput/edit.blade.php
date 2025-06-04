@@ -76,6 +76,14 @@
                 </div>
 
                 <div class="col-lg-6 col-sm-12">
+                    <div class="validate-input m-b-23 mb-2">
+                        {!! Form::label('url', 'URL *', ['class' => 'label-color py-2']) !!}
+                        {!! Form::text('url', $requiredinput->url, ['class' => 'form-control', 'required']) !!}
+                        <span class="focus-input100"></span>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('description', 'Description', ['class' => 'label-color py-2']) !!}
                         {!! Form::textarea('description', $requiredinput->description, ['class' => 'form-control', 'rows' => 4]) !!}

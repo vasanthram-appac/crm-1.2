@@ -99,6 +99,7 @@
                             <th class="text-grey">Domain Name</th>
                             <th class="text-grey">Name</th>
                             <th class="text-grey">File</th>
+                            <th class="text-grey">URL</th>
                             <th class="text-grey">Action</th>
                             <!-- Add more columns as needed -->
                         </tr>
@@ -165,6 +166,10 @@
                 {
                     data: 'file',
                     name: 'file'
+                },
+                {
+                    data: 'url',
+                    name: 'url'
                 },
                 {
                     data: 'action',

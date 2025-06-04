@@ -45,7 +45,18 @@ class Requiredinput extends Controller
                     return '<a href="http://' . $row->domainname . '" target="_blank" style="text-decoration:none;">' . $row->domainname . '</a>';
                 })
                 ->addColumn('file', function ($row) {
+                if($row->file){
                     return '<a href="' . $row->file . '" target="blank" style="text-decoration:none;">View</a>';
+                }else{
+                    return '';
+                }
+                })
+                ->addColumn('url', function ($row) {
+                if($row->url){
+                    return '<a href="' . $row->url . '" target="blank" style="text-decoration:none;">View</a>';
+                      }else{
+                    return '';
+                }
                 })
                 ->addColumn('action', function ($row) {
                     return '<button class="btn btn-modal" data-container=".customer_modal" data-href="' . action([Requiredinput::class, 'edit'], [$row->id]) . '"><i class="fi fi-ts-file-edit"></i>
@@ -55,7 +66,7 @@ class Requiredinput extends Controller
 					<span class="tooltiptext">delete</span>
 					</button>';
                 })
-                ->rawColumns(['sno', 'companyname', 'domainname', 'file', 'action'])
+                ->rawColumns(['sno', 'companyname', 'domainname', 'file', 'url', 'action'])
                 ->make(true);
         }
 
@@ -96,6 +107,10 @@ class Requiredinput extends Controller
             'name' => 'required|string|max:100',
             'worktype' => 'required',
             'file' => 'nullable|file|max:1024',
+              'url' => [
+                'nullable',
+                'regex:/^https:\/\/(docs\.google\.com\/(spreadsheets|document|presentation|forms)\/|drive\.google\.com\/(file\/d\/|drive(\/u\/\d+)?\/folders\/)|(www\.)?youtube\.com\/watch\?v=|youtu\.be\/)/'
+            ]
         ]);
 
         if ($validator->fails()) {
@@ -141,6 +156,7 @@ class Requiredinput extends Controller
             'empid' => $empid,
             'worktype' => $request->worktype,
             'description' => $request->description,
+            'url' => $request->url,
         ];
 
         // Insert data into the database
@@ -152,7 +168,7 @@ class Requiredinput extends Controller
 
     public function edit($id)
     {
-        $requiredinput = DB::table('requiredinput')->select('id', 'company_name', 'domainname', 'name', 'file', 'worktype', 'description')->find($id);
+        $requiredinput = DB::table('requiredinput')->select('id', 'company_name', 'domainname', 'name', 'file', 'worktype', 'description', 'url')->find($id);
 
         $accounts = DB::table('accounts')->select('id', 'company_name')->find($requiredinput->company_name);
 
@@ -167,6 +183,10 @@ class Requiredinput extends Controller
         $rules = [
             'name' => 'required|string|max:100',
             'worktype'   => 'required',
+            'url' => [
+                'nullable',
+                'regex:/^https:\/\/(docs\.google\.com\/(spreadsheets|document|presentation|forms)\/|drive\.google\.com\/(file\/d\/|drive(\/u\/\d+)?\/folders\/)|(www\.)?youtube\.com\/watch\?v=|youtu\.be\/)/'
+            ]
         ];
 
         if ($request->hasFile('file')) {
@@ -188,6 +208,7 @@ class Requiredinput extends Controller
             'empid' => request()->session()->get('empid'),
             'worktype' => $request->worktype,
             'description' => $request->description,
+            'url' => $request->url,
         ];
 
         if ($request->hasFile('file')) {

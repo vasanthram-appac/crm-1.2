@@ -34,7 +34,7 @@
         <ul class="nav nav-tabs my-4 justify-content-end mb-0">
             @if(request()->session()->get('role') != 'user')
             <li class="nav-item">
-                <a class="nav-link active com ad-btn" href="/task"><b>Task</b></a>
+                <a class="nav-link active com ad-btn" href="/task"><b>Create Task</b></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/workorderview"><b>Work Order</b></a>
@@ -56,7 +56,7 @@
                 <a class="nav-link" href="/taskview"><b>Task View</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/workorder"><b>Work Order</b></a>
+                <a class="nav-link" href="/workorder"><b>Work Order View</b></a>
             </li>
         </ul>
     </div>

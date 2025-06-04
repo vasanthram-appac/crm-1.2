@@ -15,7 +15,6 @@ use DB;
 class Monthlyreport extends Controller
 {
 
-
     public function index(Request $request)
     {
         if(request()->session()->get('role') =='user'){
@@ -24,10 +23,8 @@ class Monthlyreport extends Controller
         $gdata = '';
         if (request()->ajax()) {
 
-
             $mdata = request()->session()->get('client');
          
-      
             $emp = isset($mdata['emp']) 
             ? (is_array($mdata['emp']) ? $mdata['emp'] : [$mdata['emp']]) 
             : [];
@@ -74,24 +71,18 @@ class Monthlyreport extends Controller
                 ->orderBy('dailyreport.id', 'asc')
                 ->get();
 
-
             $graph_data1 = $data;
 
             if ($data) {
                
-                $totalHours = 0; // Initialize a variable to store total hours
-                $hoursList = []; // Array to store all `w_hours` values
+                $totalHours = 0; 
+                $hoursList = []; 
 
                 foreach ($data as $item) {
-                    
                     $wHours = (int)$item->dept_id;
-
-                    // Cast `w_hours` to integer for calculations
-                    $hoursList[] = $wHours; // Add to the list
-                    $totalHours += $wHours; // Aggregate total hours
+                    $hoursList[] = $wHours; 
+                    $totalHours += $wHours; 
                 }
-
-                // Debugging: Check extracted hours and total hours
 
                 $totals = [
                     'Management' => ['hours' => 0, 'minutes' => 0],
@@ -140,12 +131,10 @@ class Monthlyreport extends Controller
                         $totals['Client']['minutes'] += $totalMinutes;
                     }
 
-                    // Update the total for all departments
                     $totals['All']['hours'] += $totalHours;
                     $totals['All']['minutes'] += $totalMinutes;
                 }
 
-                // Normalize minutes into hours for all departments
                 foreach ($totals as $key => $values) {
                     $extraHours = intdiv($values['minutes'], 60);
                     $totals[$key]['hours'] += $extraHours;
@@ -154,22 +143,14 @@ class Monthlyreport extends Controller
 
                 session()->put('gdata', json_encode($totals));
 
-
                 // dd(session('gdata'));
 
             };
-
-
-
-            
-
-            // Debugging: Output the total hours
 
             return DataTables::of($data)
                 ->addColumn('sno', function ($row) {
                     return '';
                 })
-
                 ->rawColumns(['sno'])
                 ->make(true);
         }
@@ -178,7 +159,6 @@ class Monthlyreport extends Controller
         $clients = ['all' => 'All'] + $clients->toArray();
         $prom_clients = DB::table('accounts')->where('status', '1')->where('active_status', 'active')->where('promotion', '1')->orderBy('company_name', 'asc')->pluck('company_name', 'id');
 
-        //error
         $mdata = request()->session()->get('client');
 
         $clientn = DB::table('accounts')
@@ -190,14 +170,12 @@ class Monthlyreport extends Controller
             ->get(['company_name']);
 
         // dd($clientn);
-        // Ensure there is at least one result
+
         if (!empty($mdata) && count($clientn) > 0) {
             $clientname = "of {$clientn[0]->company_name}";
         } else {
             $clientname = "of ALL Clients";
         }
-
-        //for date range 
 
         if (!empty($mdata['daterange'])) {
 
@@ -207,12 +185,7 @@ class Monthlyreport extends Controller
             $daterange = now()->format('d M Y');
         }
 
-
-
-
-
         $employe = request()->session()->get('emp');
-
 
         $empl = DB::table('regis')
             ->where('status', '!=', '0')
@@ -231,36 +204,26 @@ class Monthlyreport extends Controller
 
         $department_master = DB::table('department_master')->pluck('department_name', 'id');
 
-
         return view('monthlyreport/index', compact('user', 'department_master', 'clients', 'prom_clients', 'empl', 'gdata', 'clientname', 'employe', 'daterange'))->render();
     }
-
 
     public function store(Request $request)
     {
 
         // if($request->type=='client'){
-
         $validator = Validator::make($request->all(), [
-
             'client' => 'required|string',  // Optional array if chosen
             'daterange' => 'required',
             'emp' => 'required'
-            // Optional string if chosen
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
         request()->session()->put('client', $request->all());
         // request()->session()->put('promotion','');
-
-
-
         // }
         // else{
-
         //     $validator = Validator::make($request->all(), [
-
         //         'pclient' => 'required|string',  // Optional array if chosen
         //         'pdaterange' => 'required',
         //         'pemp'=> 'required' // Optional string if chosen
@@ -270,11 +233,10 @@ class Monthlyreport extends Controller
         //     }
         //     request()->session()->put('promotion',$request->all());
         //     request()->session()->put('client','');
-
         // }
-
 
         // Return data as JSON or pass it to a view
         return redirect()->route('monthlyreport.index');
+
     }
 }

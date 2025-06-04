@@ -81,7 +81,7 @@ class Profile extends Controller
             'actype' => 'required|in:Savings account,Current account,Salary Account',
             'ifsccode' => 'required|max:15',
             'panno' => 'required|max:20',
-            'salary' => 'required|max:15',
+            // 'salary' => 'required|max:15',
         ]);
 
         if (!empty($request->photo)) {

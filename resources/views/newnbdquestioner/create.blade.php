@@ -189,7 +189,7 @@ select:focus {
             <div class="row">
                 <div class="col-lg-8 m-auto p-3">
                     <div class="container">
-					<h1>Need & Scope Analysis</h1>
+					<h1>Need and Scope Analysis</h1>
                         <form class="ques-frm" method="POST" id="quesfrm">
                             @csrf
                             <div class="mb-3">

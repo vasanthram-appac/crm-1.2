@@ -20,7 +20,7 @@ class Workreport extends Controller
         if (request()->ajax()) {
             $data = DB::table('dailyreport')
                 ->where('empid', request()->session()->get('empid'))
-                ->orderBy('id', 'DESC')
+                ->orderByRaw("STR_TO_DATE(report_date, '%d-%m-%Y') DESC")
                 ->limit(200)
                 ->get();
 

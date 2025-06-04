@@ -76,8 +76,6 @@
                                 {!! Form::select('client', $clients, null, ['class' => 'form-select select2', 'placeholder' => 'Select a client']) !!}
                             </div>
 
-
-
                             <div class="control-group mb-2">
                                 {!! Form::label('reportrange', 'Select Date Range', ['class' => 'label-color control-label mb-2']) !!}
                                 <input type="text" name="daterange" id="reportrange" class="form-control" />
@@ -86,8 +84,6 @@
                                 {!! Form::label('employe', 'Select Employees', ['class' => 'label-color control-label mb-2']) !!}
                                 {!! Form::select('emp[]', $empl, null, ['class' => 'form-select select2','placeholder' => 'Select a employee', 'multiple' => 'multiple']) !!}
                             </div>
-
-
 
                             <div class="text-end">
                                 <label class="err_lbl"></label><br>
@@ -143,18 +139,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
             <div class="p-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered">
@@ -303,7 +287,6 @@
     google.charts.setOnLoadCallback(drawChart);
 
     const gdata = @json($gdata); // Ensure PHP passes valid data
-    console.log(gdata); // Debugging
 
     function drawChart2() {
         const data = google.visualization.arrayToDataTable([
@@ -398,7 +381,6 @@
                 end: end.format('YYYY-MM-DD') // Same format for end date
             };
 
-
         }
 
         $('#reportrange').daterangepicker({
@@ -433,8 +415,6 @@
                 start: start.format('YYYY-MM-DD'), // Convert to YYYY-MM-DD format for comparison
                 end: end.format('YYYY-MM-DD') // Same format for end date
             };
-
-
         }
 
         $('#reportrange1').daterangepicker({
@@ -541,18 +521,16 @@
             ]
         });
 		
-		           // Add an icon to the search input
+		// Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon
         $('.dataTables_filter').prepend('<i class="fas fa-search position-absolute" style="left: 30px; top: 50%; transform: translateY(-50%); color: #999;"></i>');
-
         $('.dataTables_filter').addClass('mb-3');
         $('#example_info').addClass('mt-2');
         $('#example_paginate').addClass('mt-3');
         $('.dt-buttons').addClass('ps-2');
         $('#example_wrapper').addClass('overflow-x-auto');
-
 
         $(document).on('submit', 'form', function(e) {
             e.preventDefault();

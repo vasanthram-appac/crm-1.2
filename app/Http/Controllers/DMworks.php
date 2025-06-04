@@ -167,7 +167,6 @@ class DMworks extends Controller
                 'required',
                 'regex:/^https:\/\/(docs\.google\.com\/(spreadsheets|document|presentation|forms)\/|drive\.google\.com\/(file\/d\/|drive(\/u\/\d+)?\/folders\/)|(www\.)?youtube\.com\/watch\?v=|youtu\.be\/)/'
             ]
-
         ]);
 
         if ($validator->fails()) {
