@@ -464,8 +464,7 @@
                 <div class="d-flex gap-2 p-0 my-2">
                     <a href="pdf/ratecard/download/Appac Web Best Practices & Process Flow.pdf" target="_blank" class="rate-link w-100">
                         <div class="d-flex justify-content-between p-0 w-100">
-                            <p class="p-0  m-0">Proposal - Appac Best Pratices</p>
-
+                            <p class="p-0  m-0"> Appac Best Pratices & Process Flow</p>
                             <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24">
                                 <g fill="none" stroke="#666666" stroke-width="0.9">
                                     <circle cx="12" cy="12" r="3" />

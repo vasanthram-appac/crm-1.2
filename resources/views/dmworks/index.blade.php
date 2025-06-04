@@ -109,7 +109,7 @@
             </div>
 
             <div class="col-lg-2 col-sm-12">
-                <button type="submit" class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 mt-5" onclick="Status()">Submit</button>
+                <button type="button" class="btn bg-primary text-white ft-15 pri-text-color m-0 mt-5" onclick="dmstatus()">Submit</button>
             </div>
         </div>
 
@@ -365,7 +365,7 @@
 
     });
 
-    function Status() {
+    function dmstatus() {
 
         var dmaccount = $('select[name="dmaccount"]').val();
         var dmtype = $('select[name="dmtype"]').val();
@@ -378,7 +378,7 @@
                 dmtype: dmtype
             },
             success: function(response) {
-                // window.location.reload();
+                 window.location.reload();
             },
             error: function(xhr) {
                 var errors = xhr.responseJSON.errors;

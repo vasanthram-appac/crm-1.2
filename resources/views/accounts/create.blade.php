@@ -347,11 +347,7 @@
         @endif
         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#social"><b>Social Media login</b></a></li> -->
     </ul>
-    <ul id="tbtwo" class="nav nav-tabs px-4  tab-two no-bg mt-3 no-border" role="tablist">
-        <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#payment"><b>Payment Details</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#proforma"><b>Proforma</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#invoice"><b>Invoice</b></a></li>
-    </ul>
+
 
     <div class="tab-content">
 
@@ -392,6 +388,183 @@
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div id="tbtwo" class="tab-pane fade show" role="tabpanel">
+
+            <ul class="nav nav-tabs px-4  tab-two no-bg mt-3 no-border" role="tablist">
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#payment"><b>Payment Details</b></a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#proforma"><b>Proforma</b></a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#invoice"><b>Invoice</b></a></li>
+            </ul>
+
+            <div class="tab-content">
+                <!-- Payment Details Tab -->
+                <div id="payment" class="tab-pane fade show active" role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget appac">
+                                <!-- <div class="widget-title">
+                            <h4><i class="icon-reorder"></i> Payment Details</h4>
+                        </div> -->
+                                <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
+                                    <table class="table table-bordered datatable4">
+                                        <thead>
+                                            <tr class="bg-white border-0">
+                                                <th>S.no</th>
+                                                <th>Date</th>
+                                                <th>Create By</th>
+                                                <th>Product/Service</th>
+                                                <th>Proforma / Invoice</th>
+                                                <th>Amount</th>
+                                                <th>Bank Name</th>
+                                                <th>Cheque No</th>
+                                                <th>NEFT</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if(count($payments)>0)
+                                            @foreach($payments as $index => $payment)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $payment->paydate }}</td>
+                                                <td>{{ $payment->fname }}</td>
+                                                <td>{{ $payment->productservice }}</td>
+                                                <td>
+                                                    @php
+                                                    $inno = base64_encode($payment->invoiceno);
+                                                    $pno = base64_encode($payment->pinvoice);
+                                                    @endphp
+                                                    @if($payment->pinvoice && $payment->invoiceno)
+                                                    <b>PI:</b> <a href="{{ url('pprint/' . $pno) }}" target="_blank">{{ $payment->pinvoice }}</a><br>
+                                                    <b>Ino:</b> <a href="{{ url('iprint/' . $inno) }}" target="_blank">{{ $payment->invoiceno }}</a><br>
+                                                    @elseif($payment->pinvoice)
+                                                    <b>PI:</b> <a href="{{ url('pprint/' . $pno) }}" target="_blank">{{ $payment->pinvoice }}</a><br>
+                                                    @elseif($payment->invoiceno)
+                                                    <b>Ino:</b> <a href="{{ url('iprint/' . $inno) }}" target="_blank">{{ $payment->invoiceno }}</a><br>
+                                                    @endif
+
+                                                <td>{{ $payment->payamount }}</td>
+                                                <td>{{ $payment->bankname }}</td>
+                                                <td>{{ $payment->chequeno }}</td>
+                                                <td>{{ $payment->neftnumber }}</td>
+                                            </tr>
+                                            @endforeach
+                                            @endif
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="9" align="right"><b>Total Amount: Rs: {{ $totalPay }}</b></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Invoice Tab -->
+                <div id="invoice" class="tab-pane fade show " role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget appac">
+                                <!-- <div class="widget-title">
+                            <h4><i class="icon-reorder"></i> Daily Work report</h4>
+                        </div> -->
+                                <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
+                                    <table id="datatable6" class="table table-bordered">
+                                        <thead>
+                                            <tr class="bg-white border-0">
+                                                <th>S.no</th>
+                                                <th class="text-grey">Created By</th>
+                                                <th class="text-grey">Invoice No</th>
+                                                <th class="text-grey">Invoice Date</th>
+                                                <th class="text-grey">Amount</th>
+                                                <th class="text-grey">View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            @if(count($invoice) > 0)
+                                            @foreach($invoice as $index => $invoices)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $invoices->fname }}</td>
+                                                <td>{{ $invoices->invoice_no }}</td>
+                                                <td>{{ $invoices->invoice_date }}</td>
+                                                <td>{{ $invoices->grosspay }}</td>
+                                                <td>
+                                                    <a class="btn" href="{{ route('iprint', ['id' => base64_encode($invoices->invoice_no)]) }}" target="_blank">
+                                                        <i class="fi fi-ts-user-check"></i>
+                                                        <span class="tooltiptext">view</span>
+                                                    </a>
+                                                </td>
+
+                                            </tr>
+                                            @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proforma Tab -->
+                <div id="proforma" class="tab-pane fade show " role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget appac">
+                                <!-- <div class="widget-title">
+                            <h4><i class="icon-reorder"></i> Daily Work report</h4>
+                        </div> -->
+                                <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
+                                    <table id="datatable7" class="table table-bordered">
+                                        <thead>
+                                            <tr class="bg-white border-0">
+                                                <th>S.no</th>
+                                                <th class="text-grey">Created By</th>
+                                                <th class="text-grey">Invoice No</th>
+                                                <th class="text-grey">Invoice Date</th>
+                                                <th class="text-grey">Amount</th>
+                                                <th class="text-grey">View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if(count($proforma)>0)
+                                            @foreach($proforma as $index => $proformas)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $proformas->fname }}</td>
+                                                <td>{{ $proformas->invoice_no }}</td>
+                                                <td>{{ $proformas->invoice_date }}</td>
+                                                <td>{{ $proformas->grosspay }}</td>
+                                                <td>
+                                                    <a class="btn" href="{{ route('pprint', ['id' => base64_encode($proformas->invoice_no)]) }}" target="_blank">
+                                                        <i class="fi fi-ts-user-check"></i>
+                                                        <span class="tooltiptext">view</span>
+                                                    </a>
+                                                </td>
+
+                                            </tr>
+                                            @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
         </div>
 
         <!-- working hours Tab -->
@@ -518,71 +691,7 @@
             </div>
         </div>
 
-        <!-- Payment Details Tab -->
-        <div id="payment" class="tab-pane fade show active" role="tabpanel">
-            <div class="row">
-                <div class="col-12">
-                    <div class="widget appac">
-                        <!-- <div class="widget-title">
-                            <h4><i class="icon-reorder"></i> Payment Details</h4>
-                        </div> -->
-                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
-                            <table class="table table-bordered datatable4">
-                                <thead>
-                                    <tr class="bg-white border-0">
-                                        <th>S.no</th>
-                                        <th>Date</th>
-                                        <th>Create By</th>
-                                        <th>Product/Service</th>
-                                        <th>Proforma / Invoice</th>
-                                        <th>Amount</th>
-                                        <th>Bank Name</th>
-                                        <th>Cheque No</th>
-                                        <th>NEFT</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if(count($payments)>0)
-                                    @foreach($payments as $index => $payment)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $payment->paydate }}</td>
-                                        <td>{{ $payment->fname }}</td>
-                                        <td>{{ $payment->productservice }}</td>
-                                        <td>
-                                            @php
-                                            $inno = base64_encode($payment->invoiceno);
-                                            $pno = base64_encode($payment->pinvoice);
-                                            @endphp
-                                            @if($payment->pinvoice && $payment->invoiceno)
-                                            <b>PI:</b> <a href="{{ url('pprint/' . $pno) }}" target="_blank">{{ $payment->pinvoice }}</a><br>
-                                            <b>Ino:</b> <a href="{{ url('iprint/' . $inno) }}" target="_blank">{{ $payment->invoiceno }}</a><br>
-                                            @elseif($payment->pinvoice)
-                                            <b>PI:</b> <a href="{{ url('pprint/' . $pno) }}" target="_blank">{{ $payment->pinvoice }}</a><br>
-                                            @elseif($payment->invoiceno)
-                                            <b>Ino:</b> <a href="{{ url('iprint/' . $inno) }}" target="_blank">{{ $payment->invoiceno }}</a><br>
-                                            @endif
 
-                                        <td>{{ $payment->payamount }}</td>
-                                        <td>{{ $payment->bankname }}</td>
-                                        <td>{{ $payment->chequeno }}</td>
-                                        <td>{{ $payment->neftnumber }}</td>
-                                    </tr>
-                                    @endforeach
-                                    @endif
-
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="9" align="right"><b>Total Amount: Rs: {{ $totalPay }}</b></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- DM Works Report Tab -->
         <div id="dmworks" class="tab-pane fade show " role="tabpanel">
@@ -646,101 +755,7 @@
             </div>
         </div>
 
-        <!-- Invoice Tab -->
-        <div id="invoice" class="tab-pane fade show " role="tabpanel">
-            <div class="row">
-                <div class="col-12">
-                    <div class="widget appac">
-                        <!-- <div class="widget-title">
-                            <h4><i class="icon-reorder"></i> Daily Work report</h4>
-                        </div> -->
-                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
-                            <table id="datatable6" class="table table-bordered">
-                                <thead>
-                                    <tr class="bg-white border-0">
-                                        <th>S.no</th>
-                                        <th class="text-grey">Created By</th>
-                                        <th class="text-grey">Invoice No</th>
-                                        <th class="text-grey">Invoice Date</th>
-                                        <th class="text-grey">Amount</th>
-                                        <th class="text-grey">View</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
 
-                                    @if(count($invoice) > 0)
-                                    @foreach($invoice as $index => $invoices)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $invoices->fname }}</td>
-                                        <td>{{ $invoices->invoice_no }}</td>
-                                        <td>{{ $invoices->invoice_date }}</td>
-                                        <td>{{ $invoices->grosspay }}</td>
-                                        <td>
-                                            <a class="btn" href="{{ route('iprint', ['id' => base64_encode($invoices->invoice_no)]) }}" target="_blank">
-                                                <i class="fi fi-ts-user-check"></i>
-                                                <span class="tooltiptext">view</span>
-                                            </a>
-                                        </td>
-
-                                    </tr>
-                                    @endforeach
-                                    @endif
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Proforma Tab -->
-        <div id="proforma" class="tab-pane fade show " role="tabpanel">
-            <div class="row">
-                <div class="col-12">
-                    <div class="widget appac">
-                        <!-- <div class="widget-title">
-                            <h4><i class="icon-reorder"></i> Daily Work report</h4>
-                        </div> -->
-                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
-                            <table id="datatable7" class="table table-bordered">
-                                <thead>
-                                    <tr class="bg-white border-0">
-                                        <th>S.no</th>
-                                        <th class="text-grey">Created By</th>
-                                        <th class="text-grey">Invoice No</th>
-                                        <th class="text-grey">Invoice Date</th>
-                                        <th class="text-grey">Amount</th>
-                                        <th class="text-grey">View</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if(count($proforma)>0)
-                                    @foreach($proforma as $index => $proformas)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $proformas->fname }}</td>
-                                        <td>{{ $proformas->invoice_no }}</td>
-                                        <td>{{ $proformas->invoice_date }}</td>
-                                        <td>{{ $proformas->grosspay }}</td>
-                                        <td>
-                                            <a class="btn" href="{{ route('pprint', ['id' => base64_encode($proformas->invoice_no)]) }}" target="_blank">
-                                                <i class="fi fi-ts-user-check"></i>
-                                                <span class="tooltiptext">view</span>
-                                            </a>
-                                        </td>
-
-                                    </tr>
-                                    @endforeach
-                                    @endif
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <!-- Asset Library Tab -->
         <div id="assetlibrary" class="tab-pane fade show " role="tabpanel">
@@ -776,8 +791,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <!-- required input Tab -->
         <div id="requiredinput" class="tab-pane fade show " role="tabpanel">
@@ -946,7 +959,6 @@
                             </div>
                         </div>
 
-
                     </div>
                 </div>
             </div>
@@ -983,7 +995,6 @@
                                         <th>Username</th>
                                         <th>Password</th>
                                         <th>Remark</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -1430,7 +1441,7 @@
         });
     }
 
-     function totalhours(dmtypea = null, company_name = null) {
+    function totalhours(dmtypea = null, company_name = null) {
         dmtypea = dmtypea ?? $('select[name="requiredtype"]').val();
         company_name = company_name ?? $('[name="company_name"]').val();
 
@@ -1496,7 +1507,6 @@
     $('.acc-tab li a').on('click', function() {
         $('.tab-two.active').removeClass('active');
     });
-    
 </script>
 
 <script type="text/javascript">

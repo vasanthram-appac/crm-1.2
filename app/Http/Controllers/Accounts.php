@@ -180,11 +180,7 @@ class Accounts extends Controller
 
         $today = date('m-Y');
 
-        if($id == '350'){
-           $today1 = date('M-y', strtotime('-1 month'));
-        }else{
             $today1 = date('m-Y', strtotime('-1 month'));
-        }
         
         $reports = DB::table('dailyreport as d')
             ->join('accounts as a', 'd.client', '=', 'a.id')

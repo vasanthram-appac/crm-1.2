@@ -82,7 +82,7 @@
                             </div>
                             <div class="control-group mb-2">
                                 {!! Form::label('employe', 'Select Employees', ['class' => 'label-color control-label mb-2']) !!}
-                                {!! Form::select('emp[]', $empl, null, ['class' => 'form-select select2','placeholder' => 'Select a employee', 'multiple' => 'multiple']) !!}
+                                {!! Form::select('emp[]', $empl, null, ['class' => 'form-select select2', 'multiple' => 'multiple']) !!}
                             </div>
 
                             <div class="text-end">
