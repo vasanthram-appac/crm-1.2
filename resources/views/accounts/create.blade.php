@@ -69,200 +69,200 @@
     <div class="col-12">
         <div class="row  col-wrap">
 
-            @if(!empty($accounts->csmname) || !empty($accounts->csmphone) || !empty($accounts->csmemail) || !empty($accounts->csmname1) || !empty($accounts->csmphone1) || !empty($accounts->csmemail1) || !empty($accounts->bdmname) || !empty($accounts->bdmphone) || !empty($accounts->bdmemail))
+        @if(!empty($accounts->csmname) || !empty($accounts->csmphone) || !empty($accounts->csmemail) || !empty($accounts->csmname1) || !empty($accounts->csmphone1) || !empty($accounts->csmemail1) || !empty($accounts->bdmname) || !empty($accounts->bdmphone) || !empty($accounts->bdmemail))
             <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100 u-dash">
 
                 <div class="bio  rounded-30  @if(!empty($accounts->csmname1) || !empty($accounts->csmphone1) || !empty($accounts->csmemail1)) server-det-wrap  two @else d-flex @endif bg-white h-100  client-li  profile-div client-div">
-                    @if(!empty($accounts->csmname) || !empty($accounts->csmphone) || !empty($accounts->csmemail))
-                    <div class="bg-white    client-li">
-                        <div class="widget-body">
-                            <h4>Marketing Person 1</h4>
-                        </div>
-                        <div class="row experience client-li-d">
-                            @if($accounts->csmname) <p class="client-label">Name<span>:</span><span>{{ $accounts->csmname }}</span></p> @endif
-                            @if($accounts->csmphone) <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">+91 {{ $accounts->csmphone }}</a></span></p> @endif
-                            @if($accounts->csmemail) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->csmemail }}</a></span></p> @endif
-                        </div>
+                        @if(!empty($accounts->csmname) || !empty($accounts->csmphone) || !empty($accounts->csmemail))
+                        <div class="bg-white    client-li">
+                            <div class="widget-body">
+                                <h4>Marketing Person 1</h4>
+                            </div>
+                            <div class="row experience client-li-d">
+                                @if($accounts->csmname) <p class="client-label">Name<span>:</span><span>{{ $accounts->csmname }}</span></p> @endif
+                                @if($accounts->csmphone) <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">+91 {{ $accounts->csmphone }}</a></span></p> @endif
+                                @if($accounts->csmemail) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->csmemail }}</a></span></p> @endif
+                            </div>
 
-                        @if(!empty($accounts->csmname1) || !empty($accounts->csmphone1) || !empty($accounts->csmemail1))
-                        <div class="widget-body">
-                            <h4>Marketing Person 2</h4>
-                        </div>
-                        <div class="row experience client-li-d">
-                            @if($accounts->csmname1) <p class="client-label">Name<span>:</span><span>{{ $accounts->csmname1 }}</span></p> @endif
-                            @if($accounts->csmphone1) <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">+91 {{ $accounts->csmphone1 }}</a></span></p> @endif
-                            @if($accounts->csmemail1) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->csmemail1 }}</a></span></p> @endif
+                           @if(!empty($accounts->csmname1) || !empty($accounts->csmphone1) || !empty($accounts->csmemail1))
+                            <div class="widget-body">
+                                <h4>Marketing Person 2</h4>
+                            </div>
+                            <div class="row experience client-li-d">
+                             @if($accounts->csmname1) <p class="client-label">Name<span>:</span><span>{{ $accounts->csmname1 }}</span></p> @endif
+                                @if($accounts->csmphone1) <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">+91 {{ $accounts->csmphone1 }}</a></span></p> @endif
+                                @if($accounts->csmemail1) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->csmemail1 }}</a></span></p> @endif
+                           </div>
+                            @endif
+
                         </div>
                         @endif
 
-                    </div>
-                    @endif
-
-                    @if(!empty($accounts->bdmname) || !empty($accounts->bdmphone) || !empty($accounts->bdmemail))
-                    <div class="bg-white    client-li">
-                        <div class="widget-body">
-                            <h4>Marketing Person 3</h4>
+                        @if(!empty($accounts->bdmname) || !empty($accounts->bdmphone) || !empty($accounts->bdmemail))
+                        <div class="bg-white    client-li">
+                            <div class="widget-body">
+                                <h4>Marketing Person 3</h4>
+                            </div>
+                            <div class="row experience client-li-d">
+                                @if($accounts->bdmname) <p class="client-label">Name<span>:</span><span>{{ $accounts->bdmname }}</span></p> @endif
+                                @if($accounts->bdmphone) <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">+91 {{ $accounts->bdmphone }}</a></span></p> @endif
+                                @if($accounts->bdmemail) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->bdmemail }}</a></span></p> @endif
+                            </div>
                         </div>
-                        <div class="row experience client-li-d">
-                            @if($accounts->bdmname) <p class="client-label">Name<span>:</span><span>{{ $accounts->bdmname }}</span></p> @endif
-                            @if($accounts->bdmphone) <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">+91 {{ $accounts->bdmphone }}</a></span></p> @endif
-                            @if($accounts->bdmemail) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->bdmemail }}</a></span></p> @endif
+                        @endif
+</div>
+</div>
+@endif
+<div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100 u-dash">
+
+<div class="bio  rounded-30 bg-white h-100  @if(!empty($accounts->mdname) || !empty($accounts->mdphone) || !empty($accounts->mdphone)) server-det-wrap  two @else d-flex @endif   client-li  profile-div client-div">
+                        <div class="bg-white    client-li">
+                            <div class="widget-body">
+                                <h4>Accounts</h4>
+                            </div>
+                            <div class="row experience client-li-d">
+                                <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
+                                <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
+                                <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->emailid }}</a></span></p>
+                                <p class="client-label">Website<span>:</span><span> <a target="_blank" href="http://{{ $accounts->website }}">{{ $accounts->website }}</a></span></p>
+                                @if(!empty($accounts->gst_number))
+                                <p class="client-label">GST Number<span>:</span><span>{{ $accounts->gst_number }}</span></p>
+                                @endif
+                                <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
+                            </div>
                         </div>
-                    </div>
-                    @endif
-                </div>
-            </div>
-            @endif
-            <div class="col-lg-12 col-xl-12 col-xxl-6 pr-20 h-100 u-dash">
 
-                <div class="bio  rounded-30 bg-white h-100  @if(!empty($accounts->mdname) || !empty($accounts->mdphone) || !empty($accounts->mdphone)) server-det-wrap  two @else d-flex @endif   client-li  profile-div client-div">
-                    <div class="bg-white    client-li">
-                        <div class="widget-body">
-                            <h4>Accounts</h4>
+                        
+
+                        @if(!empty($accounts->mdname) || !empty($accounts->mdphone) || !empty($accounts->mdphone))
+                        <div class=" bg-white    client-li">
+                            <div class="widget-body">
+                                <h4>Management </h4>
+                            </div>
+                            <div class="row experience client-li-d">
+                                @if($accounts->mdname) <p class="client-label">Name<span>:</span><span>{{ $accounts->mdname }}</span></p> @endif
+                                @if($accounts->mdphone) <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">+91 {{ $accounts->mdphone }}</a></span></p> @endif
+                                @if($accounts->mdemail) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->mdemail }}</a></span></p> @endif
+                            </div>
                         </div>
-                        <div class="row experience client-li-d">
-                            <p class="client-label">Name<span>:</span><span>{{ $accounts->title }} {{ $accounts->firstname }} {{ $accounts->lastname }}</span></p>
-                            <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">{{ $accounts->stdcode }} {{ $accounts->phone }}</a></span></p>
-                            <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->emailid }}</a></span></p>
-                            <p class="client-label">Website<span>:</span><span> <a target="_blank" href="http://{{ $accounts->website }}">{{ $accounts->website }}</a></span></p>
-                            @if(!empty($accounts->gst_number))
-                            <p class="client-label">GST Number<span>:</span><span>{{ $accounts->gst_number }}</span></p>
-                            @endif
-                            <p class="client-label">Address<span>:</span><span>{!! $accounts->address !!}</span></p>
-                        </div>
-                    </div>
+                        @endif
 
-
-
-                    @if(!empty($accounts->mdname) || !empty($accounts->mdphone) || !empty($accounts->mdphone))
-                    <div class=" bg-white    client-li">
-                        <div class="widget-body">
-                            <h4>Management </h4>
-                        </div>
-                        <div class="row experience client-li-d">
-                            @if($accounts->mdname) <p class="client-label">Name<span>:</span><span>{{ $accounts->mdname }}</span></p> @endif
-                            @if($accounts->mdphone) <p class="client-label">Phone<span>:</span><span><a href="mailto:{{ $accounts->phone }}">+91 {{ $accounts->mdphone }}</a></span></p> @endif
-                            @if($accounts->mdemail) <p class="client-label">Email<span>:</span><span class="text-truncate"> <a href="mailto:{{ $accounts->emailid }}">{{ $accounts->mdemail }}</a></span></p> @endif
-                        </div>
-                    </div>
-                    @endif
-
-
+                    
                 </div>
             </div>
             <div class="col-lg-12 col-xl-12 col-xxl-12 pr-20 h-100 u-dash">
                 <div class="bio  rounded-30 bg-white h-100 row col-wrap client-li col-12 profile-div  acc-domain">
-                    <div class="col-lg-12 col-xl-6 col-xxl-6">
-                        <div class="server-det-wrap  two">
-                            <div class="server-d">
-                                <img src="asset/image/domain.png" alt="">
-                                <h4 class="m-0"><strong>Domain</strong> {{(count($domain) > 0) ? $domain[0]->dateofexpire : ""}}</h4>
-                                <span class="d-flex gap-3 align-items-center">
-                                    <p class="ser-type m-0">
-                                        @if(count($domain) > 0)
-                                        {{ $domain[0]->domain_manager }}
-                                        @else
-                                        Domain Manager
-                                        @endif
-                                    </p>|
-                                    <p class="ser-val m-0">
-                                        @if(count($domain) > 0)
-                                        {{ $domain[0]->domain_source }}
-                                        @else
-                                        Source
-                                        @endif
-                                    </p>
-                                </span>
-                            </div>
-                            <div class="server-d">
-                                <img src="asset/image/hoisiting.png" alt="">
-                                <h4 class="m-0"><strong>Web Hosting</strong> {{($hosting) ? $hosting->dateofexpire : ""}}</h4>
-                                <span class="d-flex gap-3 align-items-center">
-                                    <p class="ser-type m-0">{{($hosting) ? $hosting->hosting_manager : "Server"}}</p>|<p class="ser-val m-0">{{($hosting) ? $hosting->hosting_source : "Host"}}</p>
-                                </span>
-                            </div>
-                            <div class="server-d">
-                                <img src="asset/image/email.png" alt="">
-                                <h4 class="m-0"><strong>Email</strong> {{($email) ? $email->dateofexpire : ""}}</h4>
-                                <span class="d-flex gap-3 align-items-center">
-                                    <p class="ser-type m-0">{{($email) ? $email->vendorname : "Server"}}</p>|<p class="ser-val m-0">{{($email)?$email->noofemailid:0}}</p>
-                                </span>
-                            </div>
-                            <div class="server-d">
-                                <img src="asset/image/domain.png" alt="">
-                                <h4 class="m-0"><strong>SSL</strong> {{(count($ssl) > 0) ? $ssl[0]->dateofexpire : ""}}</h4>
-                                <span class="d-flex gap-3 align-items-center">
-                                    <p class="ser-type m-0">
-                                        @if(count($ssl) > 0)
-                                        {{ $ssl[0]->Source }}
-                                        @else
-                                        Source
-                                        @endif
-                                    </p>|
-                                    <p class="ser-val m-0">
-                                        @if(count($ssl) > 0)
-                                        {{ $ssl[0]->D_month }}
-                                        @else
-                                        Month
-                                        @endif
-                                    </p>
-                                </span>
-                            </div>
+                <div class="col-lg-12 col-xl-6 col-xxl-6">
+                    <div class="server-det-wrap  two">
+                        <div class="server-d">
+                            <img src="asset/image/domain.png" alt="">
+                            <h4 class="m-0"><strong>Domain</strong> {{(count($domain) > 0) ? $domain[0]->dateofexpire : ""}}</h4>
+                            <span class="d-flex gap-3 align-items-center">
+                                <p class="ser-type m-0">
+                                    @if(count($domain) > 0)
+                                    {{ $domain[0]->domain_manager }}
+                                    @else
+                                    Domain Manager
+                                    @endif
+                                </p>|
+                                <p class="ser-val m-0">
+                                    @if(count($domain) > 0)
+                                    {{ $domain[0]->domain_source }}
+                                    @else
+                                    Source
+                                    @endif
+                                </p>
+                            </span>
+                        </div>
+                        <div class="server-d">
+                            <img src="asset/image/hoisiting.png" alt="">
+                            <h4 class="m-0"><strong>Web Hosting</strong> {{($hosting) ? $hosting->dateofexpire : ""}}</h4>
+                            <span class="d-flex gap-3 align-items-center">
+                                <p class="ser-type m-0">{{($hosting) ? $hosting->hosting_manager : "Server"}}</p>|<p class="ser-val m-0">{{($hosting) ? $hosting->hosting_source : "Host"}}</p>
+                            </span>
+                        </div>
+                        <div class="server-d">
+                            <img src="asset/image/email.png" alt="">
+                            <h4 class="m-0"><strong>Email</strong> {{($email) ? $email->dateofexpire : ""}}</h4>
+                            <span class="d-flex gap-3 align-items-center">
+                                <p class="ser-type m-0">{{($email) ? $email->vendorname : "Server"}}</p>|<p class="ser-val m-0">{{($email)?$email->noofemailid:0}}</p>
+                            </span>
+                        </div>
+                        <div class="server-d">
+                            <img src="asset/image/domain.png" alt="">
+                            <h4 class="m-0"><strong>SSL</strong> {{(count($ssl) > 0) ? $ssl[0]->dateofexpire : ""}}</h4>
+                            <span class="d-flex gap-3 align-items-center">
+                                <p class="ser-type m-0">
+                                    @if(count($ssl) > 0)
+                                    {{ $ssl[0]->Source }}
+                                    @else
+                                    Source
+                                    @endif
+                                </p>|
+                                <p class="ser-val m-0">
+                                    @if(count($ssl) > 0)
+                                    {{ $ssl[0]->D_month }}
+                                    @else
+                                    Month
+                                    @endif
+                                </p>
+                            </span>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-xl-6 col-xxl-6">
-                        <div class="profile-side-box green  bg-white">
-                            <div class="widget-body">
-                                <h4>Notes</h4>
-
-                                {!! Form::open(['route' => ['accounts.store'], 'method' => 'POST']) !!}
-                                @csrf
-
-                                <input type="hidden" class="span3" id="datetimestamp" name="datetimestamp" value="{{ now()->format('M d, Y - G:i') }}" readonly>
-                                <input type="hidden" class="span3" id="employee" name="employee" value="{{ session('empid') }}" readonly>
-                                @if(!empty($accountmanager))
-                                <input type="hidden" class="span3" id="aemail" name="aemail" value="{{ $accountmanager->emailid }}" />
-                                @endif
-                                <input type="hidden" class="span3" id="company_name" name="company_name" value="{{ $accounts->id }}" readonly>
-
-
-                                <div class=" validate-input m-b-23 mb-2">
-                                    {!! Form::label('subject', 'Subject', ['class' => 'label-color py-2 ']) !!}
-                                    {!! Form::text('subject', null, ['class' => 'form-control', 'maxlength' => '50', 'placeholder' => 'Enter Subject']) !!}
-
-                                </div>
-
-
-                                <!-- Summary Field -->
-
-                                <div class=" validate-input m-b-23 mb-2">
-                                    {!! Form::label('summary', 'Brief Description', ['class' => 'label-color py-2']) !!}
-                                    {!! Form::textarea('summary', null, ['class' => 'form-control', 'rows' => '5', 'style' => 'resize:none;', 'placeholder' => 'Brief Description', 'required']) !!}
-
-                                </div>
-
-
-
-
-                                <div class=" validate-input m-b-23 mb-2">
-                                    {!! Form::label('mail_cc', 'Mail to CC', ['class' => 'label-color py-2 ']) !!}
-                                    {!! Form::select('mail_cc[]', $results->pluck('fname', 'emailid')->toArray(), null, ['class' => 'select2 input100 custoname border-0', 'multiple' => true, 'placeholder' => 'Select Employee']) !!}
-
-                                </div>
-
-
-                                <div class="text-end">
-                                    <label class="err_lbl"></label><br>
-                                    <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button">
-                                        Update Info
-                                    </button>
-                                </div>
-
-                                {!! Form::close() !!}
-
-                            </div>
-                        </div>
                     </div>
+                    <div class="col-lg-12 col-xl-6 col-xxl-6">
+                <div class="profile-side-box green  bg-white">
+                    <div class="widget-body">
+                        <h4>Notes</h4>
+
+                        {!! Form::open(['route' => ['accounts.store'], 'method' => 'POST']) !!}
+                        @csrf
+
+                        <input type="hidden" class="span3" id="datetimestamp" name="datetimestamp" value="{{ now()->format('M d, Y - G:i') }}" readonly>
+                        <input type="hidden" class="span3" id="employee" name="employee" value="{{ session('empid') }}" readonly>
+                        @if(!empty($accountmanager))
+                        <input type="hidden" class="span3" id="aemail" name="aemail" value="{{ $accountmanager->emailid }}" />
+                        @endif
+                        <input type="hidden" class="span3" id="company_name" name="company_name" value="{{ $accounts->id }}" readonly>
+
+
+                        <div class=" validate-input m-b-23 mb-2">
+                            {!! Form::label('subject', 'Subject', ['class' => 'label-color py-2 ']) !!}
+                            {!! Form::text('subject', null, ['class' => 'form-control', 'maxlength' => '50', 'placeholder' => 'Enter Subject']) !!}
+
+                        </div>
+
+
+                        <!-- Summary Field -->
+
+                        <div class=" validate-input m-b-23 mb-2">
+                            {!! Form::label('summary', 'Brief Description', ['class' => 'label-color py-2']) !!}
+                            {!! Form::textarea('summary', null, ['class' => 'form-control', 'rows' => '5', 'style' => 'resize:none;', 'placeholder' => 'Brief Description', 'required']) !!}
+
+                        </div>
+
+
+
+
+                        <div class=" validate-input m-b-23 mb-2">
+                            {!! Form::label('mail_cc', 'Mail to CC', ['class' => 'label-color py-2 ']) !!}
+                            {!! Form::select('mail_cc[]', $results->pluck('fname', 'emailid')->toArray(), null, ['class' => 'select2 input100 custoname border-0', 'multiple' => true, 'placeholder' => 'Select Employee']) !!}
+
+                        </div>
+
+
+                        <div class="text-end">
+                            <label class="err_lbl"></label><br>
+                            <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button">
+                                Update Info
+                            </button>
+                        </div>
+
+                        {!! Form::close() !!}
+
+                    </div>
+                </div>
+            </div>
                 </div>
             </div>
             <!-- 
@@ -332,17 +332,15 @@
     <!-- <h2 class="ch2 fw-600">History Details</h2> -->
     <ul class="nav nav-tabs px-4 acc-tab" role="tablist">
         <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#acchistory"><b>Accounts History</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#workinghours"><b>Working Hours</b></a></li>
-        <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#wiphistory"><b>WIP History</b></a></li> -->
-        <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#scope"><b>Scope</b></a></li> -->
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#wiphistory"><b>WIP History</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#scope"><b>Scope</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#report"><b>Daily Work report</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#dmworks"><b>DM Works</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#assetlibrary"><b>Asset Library</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#requiredinput"><b>Input Required</b></a></li>
-        @if($accounts->id != '350')
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#tbtwo"><b>Billing</b></a></li>
-        @endif
-        @if(request()->session()->get('empid') == "AM001" || request()->session()->get('empid') == "AM090" )
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#tbtwo"><b>Payment Details</b></a></li>
+
+        @if(request()->session()->get('empid') == "AM001" || request()->session()->get('empid') == "AM090" || request()->session()->get('empid') == "admin")
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#revenue"><b>Revenue</b></a></li>
         @endif
         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#social"><b>Social Media login</b></a></li> -->
@@ -361,7 +359,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="widget appac">
-                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
+                        <div class="widget-body"  style="height: 500px; overflow: auto;margin:20px 0px">
                             <table id="datatable1" class="table table-bordered dataTable table-responsive" style="width:100%">
                                 <thead>
                                     <tr class="bg-white border-0">
@@ -663,9 +661,9 @@
                                         <th>S.no</th>
                                         <th>Date of Report</th>
                                         <th>Employee Name</th>
-                                        <th>Subject</th>
-                                        <th>Description</th>
+                                        <th>Project Name</th>
                                         <th>Total Working Time</th>
+                                        <th>Status</th>
                                         <th>Submit Time</th>
                                     </tr>
                                 </thead>
@@ -677,8 +675,8 @@
                                         <td>{{ $report->report_date }}</td>
                                         <td>{{ $report->fname }} {{ $report->lname }}</td>
                                         <td>{{ $report->project_name }}</td>
-                                        <td>{{ $report->status }}</td>
                                         <td>{{ $report->total_time }}</td>
+                                        <td>{{ $report->status }}</td>
                                         <td>{{ $report->submit_time }}</td>
                                     </tr>
                                     @endforeach
@@ -821,9 +819,7 @@
                                             <th>S.no</th>
                                             <th class="text-grey">Name</th>
                                             <th class="text-grey">Description</th>
-                                            <th class="text-grey">Sheet</th>
                                             <th class="text-grey">View</th>
-
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -839,125 +835,120 @@
         <!-- revenue Tab -->
         <div id="revenue" class="tab-pane fade show " role="tabpanel">
             <div class="row col-wrap  mt-4">
-                <div class="col-lg-12  col-xl-5 col-xxl-3 pr-20 h-100   u-dash">
-                    <div class="bio  rounded-30 bg-white h-100  client-li ">
-                        <div class="pl-sts-wordwrap p-0">
-                            <div class="plan-status">
-                                <div class="pl-icon">
-                                    <div class="ic-d start">
-                                        <img src="asset/image/plan-start.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="pln-sts">
-                                    <h5>SEO Plan Started</h5>
-                                    <div class="d-flex gap-3 flex-wrap  p-0">
-                                        <span class="d-flex gap-1 ">
-                                            <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plans) ? number_format($plans->amount ?? 0,2) : ""}}</p>
-                                        </span> |
-                                        <p class="pl-date">{{ ($plans) ? $plans->dateofregis : ""}}</p>
-                                    </div>
+            <div class="col-lg-12  col-xl-5 col-xxl-3 pr-20 h-100   u-dash">
+                <div class="bio  rounded-30 bg-white h-100  client-li ">
+                    <div class="pl-sts-wordwrap p-0">
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d start">
+                                    <img src="asset/image/plan-start.png" alt="">
                                 </div>
                             </div>
-                            <div class="plan-status">
-                                <div class="pl-icon">
-                                    <div class="ic-d current">
-                                        <img src="asset/image/current-sts.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="pln-sts">
-                                    <h5>SEO Current Status</h5>
-                                    <div class="d-flex gap-3 flex-wrap  p-0">
-                                        <span class="d-flex gap-1 ">
-                                            <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plans) ? number_format($plans->amount ?? 0,2) : ""}}</p>
-                                        </span> |
-                                        <p class="pl-date">{{ ($plans) ? $plans->plansmonth : ""}}</p>
-                                    </div>
+                            <div class="pln-sts">
+                                <h5>SEO Plan Started</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plans) ? number_format($plans->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plans) ? $plans->dateofregis : ""}}</p>
                                 </div>
                             </div>
-                            <div class="plan-status">
-                                <div class="pl-icon">
-                                    <div class="ic-d upcom">
-                                        <img src="asset/image/renewal.png" alt="">
-                                    </div>
+                        </div>
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d current">
+                                    <img src="asset/image/current-sts.png" alt="">
                                 </div>
-                                <div class="pln-sts">
-                                    <h5>SEO Plan Renewal</h5>
-                                    <div class="d-flex gap-3 flex-wrap  p-0">
-                                        <span class="d-flex gap-1 ">
-                                            <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plans) ? number_format($plans->amount ?? 0,2) : ""}}</p>
-                                        </span> |
-                                        <p class="pl-date">{{ ($plans) ? $plans->dateofexpire : ""}}</p>
-                                    </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>SEO Current Status</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plans) ? number_format($plans->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plans) ? $plans->plansmonth : ""}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d upcom">
+                                    <img src="asset/image/renewal.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>SEO Plan Renewal</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plans) ? number_format($plans->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plans) ? $plans->dateofexpire : ""}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12  col-xl-5 col-xxl-3 pr-20 h-100   u-dash">
-                    <div class="bio  rounded-30 bg-white h-100  client-li ">
-                        <div class="pl-sts-wordwrap p-0">
-                            <div class="plan-status">
-                                <div class="pl-icon">
-                                    <div class="ic-d start">
-                                        <img src="asset/image/plan-start.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="pln-sts">
-                                    <h5>AMC Plan Started</h5>
-                                    <div class="d-flex gap-3 flex-wrap  p-0">
-                                        <span class="d-flex gap-1 ">
-                                            <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plan) ? number_format($plan->amount ?? 0,2) : ""}}</p>
-                                        </span> |
-                                        <p class="pl-date">{{ ($plan) ? $plan->dateofregis : ""}}</p>
-                                    </div>
+            </div>
+            <div class="col-lg-12  col-xl-5 col-xxl-3 pr-20 h-100   u-dash">
+                <div class="bio  rounded-30 bg-white h-100  client-li ">
+                    <div class="pl-sts-wordwrap p-0">
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d start">
+                                    <img src="asset/image/plan-start.png" alt="">
                                 </div>
                             </div>
-                            <div class="plan-status">
-                                <div class="pl-icon">
-                                    <div class="ic-d current">
-                                        <img src="asset/image/current-sts.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="pln-sts">
-                                    <h5>AMC Current Status</h5>
-                                    <div class="d-flex gap-3 flex-wrap  p-0">
-                                        <span class="d-flex gap-1 ">
-                                            <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plan) ? number_format($plan->amount ?? 0,2) : ""}}</p>
-                                        </span> |
-                                        <p class="pl-date">{{ ($plan) ? $plan->plansmonth : ""}}</p>
-                                    </div>
+                            <div class="pln-sts">
+                                <h5>AMC Plan Started</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plan) ? number_format($plan->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plan) ? $plan->dateofregis : ""}}</p>
                                 </div>
                             </div>
-                            <div class="plan-status">
-                                <div class="pl-icon">
-                                    <div class="ic-d upcom">
-                                        <img src="asset/image/renewal.png" alt="">
-                                    </div>
+                        </div>
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d current">
+                                    <img src="asset/image/current-sts.png" alt="">
                                 </div>
-                                <div class="pln-sts">
-                                    <h5>AMC Plan Renewal</h5>
-                                    <div class="d-flex gap-3 flex-wrap  p-0">
-                                        <span class="d-flex gap-1 ">
-                                            <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plan) ? number_format($plan->amount ?? 0,2) : ""}}</p>
-                                        </span> |
-                                        <p class="pl-date">{{ ($plan) ? $plan->dateofexpire : ""}}</p>
-                                    </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>AMC Current Status</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plan) ? number_format($plan->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plan) ? $plan->plansmonth : ""}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="plan-status">
+                            <div class="pl-icon">
+                                <div class="ic-d upcom">
+                                    <img src="asset/image/renewal.png" alt="">
+                                </div>
+                            </div>
+                            <div class="pln-sts">
+                                <h5>AMC Plan Renewal</h5>
+                                <div class="d-flex gap-3 flex-wrap  p-0">
+                                    <span class="d-flex gap-1 ">
+                                        <p class="pl-p-h">Price</p> : <p class="pl-p">{{ ($plan) ? number_format($plan->amount ?? 0,2) : ""}}</p>
+                                    </span> |
+                                    <p class="pl-date">{{ ($plan) ? $plan->dateofexpire : ""}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-12 col-xl-2 col-xxl-2 pr-20 h-100   u-dash">
+            </div>
+            <div class="col-lg-12 col-xl-2 col-xxl-2 pr-20 h-100   u-dash">
 
-                    <div class="bio  rounded-30 bg-white h-100  client-li  profile-div">
-                        <h4 class="text-center">Revenue</h4>
-                        <div class="rev-d h-100 mb-3">
-                            <div class="rev-val">
-
-                                <p class="rev mb-0">{{$formattedNumber}}</p>
-                                <p class="rev mb-0">{{$scale}}</p>
-                            </div>
-                        </div>
+<div class="bio  rounded-30 bg-white h-100  client-li  profile-div">
+    <h4 class="text-center">Revenue</h4>
+    <div class="rev-d h-100 mb-3">
+        <div class="rev-val">
 
                     </div>
                 </div>
@@ -1320,13 +1311,9 @@
 </div>-->
 
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
-<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 <script type="text/javascript">
@@ -1406,12 +1393,6 @@
                         tableBody += '<td>' + (index + 1) + '</td>';
                         tableBody += '<td>' + item.name + '</td>';
                         tableBody += '<td>' + item.description + '</td>';
-
-                        if (item.url) {
-                            tableBody += '<td><a href="' + item.url + '" target="blank" style="text-decoration:none;">View</a></td>';
-                        } else {
-                            tableBody += '<td> </td>';
-                        }
                         if (item.file) {
                             tableBody += '<td><a href="' + item.file + '" target="blank" style="text-decoration:none;">View</a></td>';
                         } else {
@@ -1588,40 +1569,4 @@
         var chart = new google.visualization.ComboChart(document.getElementById('combo_chart_div'));
         chart.draw(data, options);
     }
-</script>
-
-<script>
-    $(function() {
-        var start = moment('01/01/2019');
-        var end = moment();
-
-        function cb(start, end) {
-            // Set the value of the input field
-            $('#reportrange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
-
-            // Send selected date range to server via AJAX
-            var daterange = {
-                start: start.format('YYYY-MM-DD'), // Convert to YYYY-MM-DD format for comparison
-                end: end.format('YYYY-MM-DD') // Same format for end date
-            };
-
-        }
-
-        $('#reportrange').daterangepicker({
-            autoUpdateInput: false,
-            startDate: start,
-            endDate: end,
-            locale: {
-                format: 'MM/DD/YYYY'
-            },
-            ranges: {
-                'All': [moment('01/01/2019'), moment()],
-                'Today': [moment(), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            }
-        }, cb);
-
-        cb(start, end);
-    });
 </script>
