@@ -340,7 +340,7 @@
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#assetlibrary"><b>Asset Library</b></a></li>
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#requiredinput"><b>Input Required</b></a></li>
         @if($accounts->id != '350')
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#tbtwo"><b>Billing</b></a></li>
+        <li class="nav-item"><a class="nav-link bill  bl2" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#tbtwo"><b>Billing</b></a></li>
         @endif
         @if(request()->session()->get('empid') == "AM001" || request()->session()->get('empid') == "AM090" )
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#revenue"><b>Revenue</b></a></li>
@@ -348,9 +348,9 @@
         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#social"><b>Social Media login</b></a></li> -->
     </ul>
     <ul id="tbtwo" class="nav nav-tabs px-4  tab-two no-bg mt-3 no-border" role="tablist">
-        <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#payment"><b>Payment Details</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#proforma"><b>Proforma</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#invoice"><b>Invoice</b></a></li>
+        <li class="nav-item"><a class="nav-link bill active" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#payment"><b>Payment Details</b></a></li>
+        <li class="nav-item"><a class="nav-link bill" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#proforma"><b>Proforma</b></a></li>
+        <li class="nav-item"><a class="nav-link bill" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#invoice"><b>Invoice</b></a></li>
     </ul>
 
     <div class="tab-content">
@@ -1493,10 +1493,23 @@
 </script>
 
 <script>
-    $('.acc-tab li a').on('click', function() {
-        $('.tab-two.active').removeClass('active');
-    });
-    
+ // Remove 'active' class from .tab-two when any .nav-link is clicked
+$('.nav-link').on('click', function () {
+  // Only remove if it's not the .bill link
+  if (!$(this).hasClass('bill')) {
+    $('.tab-two.active').removeClass('active');
+  }
+  if(!$(this).is('#payment')){
+      $('.tab-pane').removeClass('active');
+    }
+
+});
+
+$('.bl2').on('click',function(){
+
+    $('#payment').addClass('active');
+})
+
 </script>
 
 <script type="text/javascript">
