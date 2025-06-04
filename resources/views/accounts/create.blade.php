@@ -348,7 +348,7 @@
         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#social"><b>Social Media login</b></a></li> -->
     </ul>
     <ul id="tbtwo" class="nav nav-tabs px-4  tab-two no-bg mt-3 no-border" role="tablist">
-        <li class="nav-item"><a class="nav-link bill active" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#payment"><b>Payment Details</b></a></li>
+        <li class="nav-item"><a class="nav-link bill active pay" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#payment"><b>Payment Details</b></a></li>
         <li class="nav-item"><a class="nav-link bill" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#proforma"><b>Proforma</b></a></li>
         <li class="nav-item"><a class="nav-link bill" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#invoice"><b>Invoice</b></a></li>
     </ul>
@@ -1505,10 +1505,17 @@ $('.nav-link').on('click', function () {
 
 });
 
-$('.bl2').on('click',function(){
+$('.bl2').on('click', function () {
+  $('#payment').addClass('active');
+  $('.pay').addClass('active');
+  
+  // If this element has classes 'nav-item' and 'pay'
+  if (!$(this).hasClass('pay')) {
+      $('.nav-link').removeClass('active');
+      $('.pay').addClass('active');
+  }
+});
 
-    $('#payment').addClass('active');
-})
 
 </script>
 
