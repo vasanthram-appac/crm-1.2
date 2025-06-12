@@ -24,7 +24,7 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
-<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+    <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs my-4 justify-content-end mb-0">
             <li class="nav-item">
@@ -47,12 +47,12 @@
             $empid = request()->session()->get('empid');
             @endphp
             @if(in_array($empid, ['AM001', 'AM090']))
-            
+
             <li class="nav-item">
                 <a class="nav-link" href="/fiscal"><b>Fiscal</b></a>
             </li>
             @endif
-            @endif        
+            @endif
         </ul>
     </div>
     <div class="col-12">
@@ -60,7 +60,7 @@
             <div class="col-lg-12 col-xl-6 col-xxl-4 pr-20">
                 <div class="bio  rounded-30 bg-white  client-li">
                     <div class=" row" id="firstRow">
-                    <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;"></div>
+                        <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;"></div>
                         <div class="widget-body">
                             <h4>Client Wise Enquiry Report</h4>
                             {!! Form::open(['id' => 'form1', 'class' => 'form-filter']) !!}
@@ -70,7 +70,7 @@
                                 <input type="text" name="daterange" id="reportrange" class="form-control" />
                             </div>
 
-                            <div class="control-group mb-2">                               
+                            <div class="control-group mb-2">
                                 {!! Form::label('website', 'Client Website', ['class' => 'label-color control-label mb-2']) !!}
                                 {!! Form::select('website', ['' => 'All Websites'] + $websites->toArray(), null, ['class' => 'span6 form-control select2']) !!}
                             </div>
@@ -81,7 +81,7 @@
                                 {!! Form::label('pro_website', 'Promotion Website', ['class' => 'label-color control-label mb-2']) !!}
                                 {!! Form::select('pro_website', ['' => 'All Websites'] + $pro_websites->pluck('comp_website', 'comp_website')->toArray(), null, ['class' => 'span6 form-control select2']) !!}
                             </div>
-                      
+
                             <div class="text-end">
                                 <label class="err_lbl"></label><br>
                                 <div class="btn-g2">
@@ -91,30 +91,30 @@
                                 </div>
                             </div>
                             {!! Form::close() !!}
-                        </div>                       
+                        </div>
                     </div>
-                </div>        
-            </div> 
-            
+                </div>
+            </div>
+
             <div class=" col-lg-12 col-xl-4 col-md-12 col-sm-12">
                 <div class="bio  rounded-30  piechart-leads">
                     <div class="">
                         <h4 class="ch-2">Month Wise Enquiry Details</h4>
-                    </div>                               
-                    <div class="table-responsive p-0">
-                        <div id="bar_chart"  style="width: 100%; height:100%;min-height:365px" class="p-0"></div>
                     </div>
-                </div>                         
+                    <div class="table-responsive p-0">
+                        <div id="bar_chart" style="width: 100%; height:100%;min-height:365px" class="p-0"></div>
+                    </div>
+                </div>
             </div>
             <div class=" col-lg-12 col-xl-4 col-md-12 col-sm-12">
                 <div class="bio  rounded-30  piechart-leads">
                     <div class="">
                         <h4 class="ch-2">Total Enquiry Details</h4>
-                    </div>                               
+                    </div>
                     <div class=" p-0">
                         <div id="piechart_3d" style="width: 100%; height:100%;min-height:365px;text-align:center;margin:auto" class="p-0"></div>
                     </div>
-                </div>                         
+                </div>
             </div>
         </div>
     </div>
@@ -129,11 +129,11 @@
                     <th class="text-grey">Subject</th>
                     <th class="text-grey">City</th>
                     <th class="text-grey">Message</th>
-                    <th class="text-grey">Date</th>               
+                    <th class="text-grey">Date</th>
                 </tr>
             </thead>
         </table>
-    </div>       
+    </div>
     <div class="modal fade" id="errorModal" role="dialog">
         <div class="modal-dialog cascading-modal float-end me-3" role="document">
             <div class="modal-content">
@@ -167,13 +167,13 @@
         // Apply Select2 to elements with the "select2" class
         $('.select2').select2({
             placeholder: "Select a Website", // Placeholder text
-            allowClear: true                 // Option to clear the selection
+            allowClear: true // Option to clear the selection
         });
     });
 </script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         // Set start and end dates to the current month
         var start = moment().startOf('month'); // Start of the current month
         var end = moment().endOf('month'); // End of the current month
@@ -185,7 +185,7 @@
         }
 
         // Activate form dynamically on button click
-        $('.frm-btn').on('click', function (e) {
+        $('.frm-btn').on('click', function(e) {
             e.preventDefault();
             $('.form-filter').removeClass('active'); // Remove active class from all forms
             $(this).closest('form').addClass('active'); // Add active class to the clicked form's parent
@@ -197,21 +197,21 @@
             serverSide: true,
             pageLength: 10,
             lengthMenu: [10, 20, 50, 100],
-            ajax: function (data, callback, settings) {
+            ajax: function(data, callback, settings) {
                 var activeForm = $('form.active');
                 var filterData = {
                     daterange: activeForm.find('input[name="daterange"]').val(),
                     website: activeForm.find('select[name="website"]').val(),
                     pro_website: activeForm.find('select[name="pro_website"]').val(),
-                    draw: settings.iDraw, 
-                    start: settings._iDisplayStart, 
-                    length: settings._iDisplayLength 
+                    draw: settings.iDraw,
+                    start: settings._iDisplayStart,
+                    length: settings._iDisplayLength
                 };
 
                 $.ajax({
                     url: "{{ action([App\Http\Controllers\Enquiryreport::class, 'index']) }}",
                     data: filterData,
-                    success: function (response) {
+                    success: function(response) {
                         // Process table data
                         callback({
                             draw: response.draw,
@@ -219,12 +219,12 @@
                             recordsFiltered: response.recordsFiltered,
                             data: response.data
                         });
-                   
-                        drawChart(response.enquiryCounts);  
-                        drawChart2(response.totalEnquiries);                  
-                        
+
+                        drawChart(response.enquiryCounts);
+                        drawChart2(response.totalEnquiries);
+
                     },
-                    error: function (xhr) {
+                    error: function(xhr) {
                         var response = xhr.responseJSON;
                         console.log(xhr); // Log the error to inspect the response
 
@@ -235,7 +235,7 @@
                         if (xhr.status === 422) { // Validation errors are 422
                             var errors = response.errors;
                             var errorString = '';
-                            $.each(errors, function (key, value) {
+                            $.each(errors, function(key, value) {
                                 errorString += '<span class="text-danger">' + value[0] + '</span><br>';
                             });
 
@@ -248,20 +248,45 @@
                     }
                 });
             },
-            columns: [
-                { data: 'sno', name: 'S.no' },
-                { data: 'name', name: 'Name' },
-                { data: 'email', name: 'Email' },
-                { data: 'mobile', name: 'Mobile Number' },
-                { data: 'subject', name: 'Subject' },
-                { data: 'city', name: 'City' },
-                { data: 'message', name: 'Message' },
-                { data: 'enquiry_date', name: 'Date' }
+            columns: [{
+                    data: 'sno',
+                    name: 'S.no'
+                },
+                {
+                    data: 'name',
+                    name: 'Name'
+                },
+                {
+                    data: 'email',
+                    name: 'Email'
+                },
+                {
+                    data: 'mobile',
+                    name: 'Mobile Number'
+                },
+                {
+                    data: 'subject',
+                    name: 'Subject'
+                },
+                {
+                    data: 'city',
+                    name: 'City'
+                },
+                {
+                    data: 'message',
+                    name: 'Message'
+                },
+                {
+                    data: 'enquiry_date',
+                    name: 'Date'
+                }
             ],
-            drawCallback: function (settings) {
+            drawCallback: function(settings) {
                 var api = this.api();
                 var pageInfo = api.page.info();
-                api.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+                api.column(0, {
+                    page: 'current'
+                }).nodes().each(function(cell, i) {
                     cell.innerHTML = pageInfo.start + i + 1;
                 });
             },
@@ -271,74 +296,104 @@
                 searchPlaceholder: 'Search'
             },
             dom: 'lBfrtip',
-            buttons: [
-                { extend: 'csv', text: 'Export CSV' },
-                { extend: 'excel', text: 'Export Excel' },
+            buttons: [{
+                    extend: 'csv',
+                    text: 'Export CSV'
+                },
+                {
+                    extend: 'excel',
+                    text: 'Export Excel'
+                },
                 'colvis'
             ]
         });
 
         // Form submission handler
-        $('form.form-filter').on('submit', function (e) {
-            e.preventDefault();  
+        $('form.form-filter').on('submit', function(e) {
+            e.preventDefault();
             cat_table.ajax.reload();
         });
 
         // Initialize the date range picker
         $('#reportrange').daterangepicker({
+            showDropdowns: true,
             autoUpdateInput: false,
-            startDate: start,
-            endDate: end,
+            linkedCalendars: false, // ✅ This prevents the end calendar from jumping when you pick the start date
+            startDate: moment('01/01/2020', 'MM/DD/YYYY'),
+            endDate: moment('01/01/2025', 'MM/DD/YYYY'),
+            minDate: '01/01/2000',
+            maxDate: '12/31/2030',
             locale: {
                 format: 'MM/DD/YYYY',
-                cancelLabel: 'Clear',
+                cancelLabel: 'Clear'
             },
             ranges: {
                 'All': [moment('01/01/2019'), moment()],
                 'Today': [moment(), moment()],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-                'Last 3 Months': [moment().subtract(2, 'months').startOf('month'), moment().endOf('month')],
-                'Last 6 Months': [moment().subtract(5, 'months').startOf('month'), moment().endOf('month')],
+                'Last 3 Months': [moment().subtract(3, 'months').startOf('month'), moment().endOf('month')],
+                'Last 6 Months': [moment().subtract(6, 'months').startOf('month'), moment().endOf('month')],
                 'Last 12 Months': [moment().subtract(11, 'months').startOf('month'), moment().endOf('month')],
-            },
-            minYear: 2019, // Minimum year allowed for selection
-            maxYear: moment().year(), // Maximum year allowed is the current year
-        }, cb);
+            }
+        }, function(start, end) {
+            $('#reportrange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+        });
 
         // Set default range to the current month
         cb(start, end);
     });
 
     // Google Chart
-    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.load('current', {
+        packages: ['corechart']
+    });
     google.charts.setOnLoadCallback(drawChart);
     google.charts.setOnLoadCallback(drawChart2);
 
     function drawChart(enquiryCounts) {
         // Prepare the data for Google Charts
         const data = google.visualization.arrayToDataTable([
-            ['Month', 'Enquiries', { role: 'style' }, { role: 'tooltip', p: { html: true } }],
-            ...enquiryCounts.map(({ month, enquiries }) => [
-                month,  
-                enquiries,  
-                '#d9e1ef',  
-                customTooltip(month, enquiries)  
+            ['Month', 'Enquiries', {
+                role: 'style'
+            }, {
+                role: 'tooltip',
+                p: {
+                    html: true
+                }
+            }],
+            ...enquiryCounts.map(({
+                month,
+                enquiries
+            }) => [
+                month,
+                enquiries,
+                '#d9e1ef',
+                customTooltip(month, enquiries)
             ])
         ]);
 
         const options = {
             hAxis: {
                 title: 'Month',
-                textStyle: { color: '#666', fontSize: 12 }
+                textStyle: {
+                    color: '#666',
+                    fontSize: 12
+                }
             },
             vAxis: {
                 minValue: 0,
-                gridlines: { color: '#eaeaea' },
-                textStyle: { color: '#666' },
+                gridlines: {
+                    color: '#eaeaea'
+                },
+                textStyle: {
+                    color: '#666'
+                },
             },
             legend: 'none',
-            tooltip: { isHtml: true },
+            tooltip: {
+                isHtml: true
+            },
             animation: {
                 startup: true,
                 duration: 1000,
@@ -357,7 +412,7 @@
 
     // Custom tooltip function
     function customTooltip(month, enquiries) {
-    return `
+        return `
         <div style="padding: 8px 10px; color: #fff; background-color: #888; border-radius: 4px;">
             <strong>${month}</strong><br>
             ${enquiries} Enquiries
@@ -366,7 +421,7 @@
 
     // Function to draw the pie chart
     function drawChart2(totalEnquiries) {
-        console.log(totalEnquiries); 
+        console.log(totalEnquiries);
 
         const container = document.getElementById("piechart_3d");
         if (!container) {
@@ -377,7 +432,13 @@
         const data = new google.visualization.DataTable();
         data.addColumn("string", "Month");
         data.addColumn("number", "Enquiries");
-        data.addColumn({ type: "string", role: "tooltip", p: { html: true } });
+        data.addColumn({
+            type: "string",
+            role: "tooltip",
+            p: {
+                html: true
+            }
+        });
 
         // Add rows of data to the table
         totalEnquiries.forEach(item => {
@@ -395,37 +456,32 @@
         const options = {
             is3D: true,
             sliceVisibilityThreshold: 0,
-            animation: { duration: 1000, easing: "out" },
+            animation: {
+                duration: 1000,
+                easing: "out"
+            },
             colors: ["#708094", "#01377E", "B9B7C8", "#5784C1", "#2F416A"],
-            tooltip: { isHtml: true },
+            tooltip: {
+                isHtml: true
+            },
             pieSliceText: "label",
-            legend: { position: "top", alignment: "center", textStyle: { fontSize: 12 } },
-            chartArea: { width: "80%", height: "80%" },
+            legend: {
+                position: "top",
+                alignment: "center",
+                textStyle: {
+                    fontSize: 12
+                }
+            },
+            chartArea: {
+                width: "80%",
+                height: "80%"
+            },
         };
 
         const chart = new google.visualization.PieChart(container);
         chart.draw(data, options);
     }
-       
 </script>
 
 
 @endsection
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

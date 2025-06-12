@@ -62,6 +62,7 @@ class Newnbdquestioner extends Controller
             'business_type' => 'required|string',
             'monthly_budget' => 'required|string',
             'description' => 'required|string|max:1000',
+            'other' => 'required_if:business_type,Others|string|max:500',
         ]);
 
         $validator->after(function ($validator) use ($request) {
@@ -97,6 +98,10 @@ class Newnbdquestioner extends Controller
             'monthly_budget' => $request->monthly_budget,
         ];
 
+        if ($request->business_type == "Others") {
+            $val['other'] = $request->other;
+        }
+
         $insert = DB::table('newnbdquestioner')->insert($val);
 
 
@@ -112,7 +117,10 @@ class Newnbdquestioner extends Controller
          <tr><td style="width:200px;padding:4px 0">Business Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->business_name . ' </td></tr>
          <tr><td style="width:200px;padding:4px 0">Turnover</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->turnover . '</td></tr>
 
-        <tr><td style="width:200px;padding:4px 0">Business Yype</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->business_type . '</td></tr>';
+        <tr><td style="width:200px;padding:4px 0">Business Type</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->business_type . '</td></tr>';
+        if ($request->business_type == "Others") {
+            $htmlContent .= '<tr><td style="width:200px;padding:4px 0">Others</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->other . '</td></tr>';
+        }
 
         $scopeFields = [
             $request->scope_of_work ?? null,

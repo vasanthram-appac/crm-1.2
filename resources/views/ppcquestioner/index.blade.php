@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title','New NBD Questioner')
+@section('title','PPC Questioner')
 
 @section('css')
 <style>
@@ -71,7 +71,7 @@
     </div>
     <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">New NBD Questioner / <a class="ch2 comp-name" href="/newnbd">New NBD</a> / <a class="ch2 comp-name" href="/ppcquestioner">PPC Questioner</a></h1>
+            <h1 class="ch2 comp-name">PPC Questioner / <a class="ch2 comp-name" href="/newnbd">New NBD</a> / <a class="ch2 comp-name" href="/newnbdquestioner">New NBD Questioner</a></h1>
         </div>
         <!-- <div class="justify-content-sm-end d-flex">
             <div class=""></div>
@@ -90,17 +90,17 @@
                     <thead>
                         <tr class="bg-white">
                             <th class="text-grey">S.No</th>
-                            <th class="text-grey">Name</th>
-                            <th class="text-grey">Email</th>
-                            <th class="text-grey">Mobile</th>
-                            <th class="text-grey">Business Name</th>
-                            <th class="text-grey">Turnover</th>
+                            <th class="text-grey">Company Name</th>
+                            <th class="text-grey">Target Product</th>
+                            <th class="text-grey">Target Locations</th>
+                            <!-- <th class="text-grey">Target Audience</th>
+                            <th class="text-grey">Competitors</th> -->
+                            <th class="text-grey">Campaign Suggestions</th>
+                            <th class="text-grey">Campaign Goal</th>
+                            <th class="text-grey">PPC Campaign</th>
                             <th class="text-grey">Website</th>
-                            <th class="text-grey">Business Type</th>
-                            <th class="text-grey">Others</th>
-                            <th class="text-grey">Scope Of Work</th>
-                            <th class="text-grey">Monthly Budget</th>
-                            <th class="text-grey">Description</th>
+                            <th class="text-grey">Landing Page URL</th>
+                            <th class="text-grey">Action</th>
                         </tr>
                     </thead>
                 </table>
@@ -134,10 +134,7 @@
         </div>
     </div>
 </div>
-
-
 @endsection
-
 
 @section('script')
 <script>
@@ -146,56 +143,57 @@
         var cat_table = $('#example').DataTable({
             processing: true,
             serverSide: true,
+            autoWidth: true,
             pageLength: 10,
             lengthMenu: [10, 20, 50, 100],
-            ajax: "{{ action([App\Http\Controllers\Newnbdquestioner::class,'index']) }}",
+            ajax: "{{ action([App\Http\Controllers\Ppcquestioner::class,'index']) }}",
             columns: [{
                     data: 'sno',
                     name: 'sno'
                 },
                 {
-                    data: 'name',
-                    name: 'name'
+                    data: 'company_name',
+                    name: 'company_name'
                 },
                 {
-                    data: 'email',
-                    name: 'email'
+                    data: 'target_products',
+                    name: 'target_products'
                 },
                 {
-                    data: 'mobile',
-                    name: 'mobile'
+                    data: 'target_locations',
+                    name: 'target_locations'
+                },
+                // {
+                //     data: 'target_audience',
+                //     name: 'target_audience'
+                // },
+                //  {
+                //     data: 'competitors',
+                //     name: 'competitors'
+                // },
+                {
+                    data: 'campaign_suggestions',
+                    name: 'campaign_suggestions'
                 },
                 {
-                    data: 'business_name',
-                    name: 'business_name'
+                    data: 'campaign_goal',
+                    name: 'campaign_goal'
                 },
                  {
-                    data: 'turnover',
-                    name: 'turnover'
+                    data: 'ppc_campaign',
+                    name: 'ppc_campaign'
                 },
                 {
-                    data: 'website_link',
-                    name: 'website_link'
+                    data: 'website',
+                    name: 'website'
                 },
                 {
-                    data: 'business_type',
-                    name: 'business_type'
+                    data: 'landing_page_URL',
+                    name: 'landing_page_URL'
                 },
                 {
-                    data: 'other',
-                    name: 'other'
-                },
-                 {
-                    data: 'scope_of_work',
-                    name: 'scope_of_work'
-                },
-                  {
-                    data: 'monthly_budget',
-                    name: 'monthly_budget'
-                },
-                 {
-                    data: 'description',
-                    name: 'description'
+                    data: 'action',
+                    name: 'action'
                 },
                 
                 // Add more columns as needed

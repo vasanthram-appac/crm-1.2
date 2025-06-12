@@ -70,13 +70,19 @@ class Taskview extends Controller
                 // Add task status information
                 if (in_array($task->task_status, ['assigned', 'reopen'])) {
                     $task->status_label =
-                        '   <div>
-                            <select class="paymentstatus" style="width:80px;" data-id="' . $task->tid . '" >
-                                    <option value="assigned" ' . ($task->task_status === 'assigned' ? 'selected' : '') . '>Assigned</option>
-                                    <option value="completed" ' . ($task->task_status === 'completed' ? 'selected' : '') . '>Completed</option>
-                            </select>
-                                <button class="btn btn-modal taskestatus" data-id="' . $task->tid . '">update</button>
-                            </div>';
+                        '<button class="btn btn-modal" data-container=".customer_modal" data-href="' . action([Taskview::class, 'edit'], [$task->tid]) . '">
+                                <i class="fi fi-ts-file-edit"></i>
+								<span class="tooltiptext  last">Complete</span>
+                            </button>';
+
+                    // $task->status_label =
+                    //     '<div>
+                    //        <select class="paymentstatus" style="width:80px;" data-id="' . $task->tid . '" >
+                    //                 <option value="assigned" ' . ($task->task_status === 'assigned' ? 'selected' : '') . '>Assigned</option>
+                    //                 <option value="completed" ' . ($task->task_status === 'completed' ? 'selected' : '') . '>Completed</option>
+                    //         </select>
+                    //             <button class="btn btn-modal taskestatus" data-id="' . $task->tid . '">update</button>
+                    //         </div>';
 
                     $task->priority_label = $priorityLabels[$task->priority] ?? '';
                 } elseif ($task->task_status == 'Closed') {
@@ -94,7 +100,6 @@ class Taskview extends Controller
                 ->addColumn('sno', function ($row) {
                     return '';
                 })
-
                 ->addColumn('status', function ($row) {
                     return $row->status_label . ' ' . $row->priority_label;
                 })
@@ -108,24 +113,158 @@ class Taskview extends Controller
         return view('taskview.index');
     }
 
+
+    public function edit($id)
+    {
+        $task = DB::table('task_management')->where('id', $id)->first();
+
+        $empid = request()->session()->get('empid');
+
+        return view('taskview/edit', compact('task', 'empid'))->render();
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $empid = request()->session()->get('empid');
+        $emp = DB::table('task_management')->where('id', $id)->where('empid', $empid)->count();
+
+        if ($emp > 0) {
+
+            $validator = Validator::make($request->all(), [
+                'status' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json(['errors' => $validator->errors()], 422);
+            }
+
+            if ($request->status == 'completed') {
+
+                $data = [
+                    'empid' => $empid,
+                    'task_id' => $id,
+                    'dept_id' => request()->session()->get('dept_id'),
+                    'remark' => $request->remark,
+                    'design_checking' => $request->design_checking,
+                    'spelling_check' => $request->spelling_check,
+                    'space_symbols_checking' => $request->space_symbols_checking,
+                    'overall_content_checking' => $request->overall_content_checking,
+                    'cta_checking' => $request->cta_checking,
+                    'overall_letter_alighment' => $request->overall_letter_alighment,
+                    'logo_checking' => $request->logo_checking,
+                    'title_case' => $request->title_case,
+                ];
+
+                $task = DB::table('taskqc')->where('empid', $empid)->where('task_id', $id)->count();
+
+                if ($task > 0) {
+                    $res = DB::table('taskqc')->where('empid', $empid)->where('task_id', $id)->update($data);
+                } else {
+                    $res = DB::table('taskqc')->insert($data);
+                }
+                // dd($res);
+                $val = [
+                    'task_enddate' => date('d-m-Y'),
+                    'task_status' => $request->status,
+                    'status' => "1",
+                ];
+
+                $result = DB::table('task_management')->where('id', $id)->update($val);
+
+                $task_enddate = DB::table('task_management')
+                    ->select('task_management.*', 'accounts.company_name')
+                    ->join('accounts', 'task_management.company_id', '=', 'accounts.id')
+                    ->where('task_management.id', $id) // Specify the table for the id
+                    ->first();
+
+                $fquery = DB::table('regis')->where('empid', $task_enddate->assigned_by)->first();
+
+                $equery1 = DB::table('regis')->where('empid', request()->session()->get('empid',))->first();
+
+                if ($result) {
+
+                    $htmlContent = '<html><title>Task Details</title><head></head><body><table style="background:#efeded" cellpadding="0" cellspacing="0" bgcolor="#EFEDED" border="0" width="575px"><tbody><tr><td align="center"><table width="96%" cellpadding="0" cellspacing="0"border="0"><tbody><tr><td style="border-top:5px solid #1e96d3;background:#fff;margin:0;padding:20px;border-spacing:0px"><table width="100%" cellpadding="0" cellspacing="0"><tbody><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="font-size:14px;color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:center">Task complete Details</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="color:#000;font-size:13px;margin:0;font-family:Arial,Helvetica,sans-serif"> <strong> Dear Sir, </strong> <br></p></td></tr><tr><td style="margin:0;padding:0 0 5px 0"><p style="font-size:13px;background-color:rgb(234,234,234);color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:left"> Task Completed details Updated Through CRM Portal</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><table style="font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;margin-top:10px;width:100%"><tbody><tr><td style="width:200px;padding:4px 0">Client Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $task_enddate->company_name . '</td></tr><tr><td style="width:200px;padding:4px 0">Task Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $task_enddate->task_name . '</td></tr><tr><td style="width:200px;padding:4px 0">Task Assign Date</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $task_enddate->task_startdate . '</td></tr><tr><td style="width:200px;padding:4px 0">Complete Date</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . date('d-m-Y', time()) . '</td></tr></tbody></table></td></tr></tbody></table></td></tr><tr><td style="margin:0;padding:15px 0"></td></tr></tbody></table></td></tr></tbody></table></body></html>';
+
+                    $bccEmail = env('SUPPORTMAIL');
+                    $founderEmail = env('FOUNDERMAIL');
+                    $infoMail = env('INFOMAIL');
+                    $managerMail = env('MANAGERMAIL');
+
+                    Mail::send([], [], function ($message) use (
+
+                        $founderEmail,
+                        $managerMail,
+                        $bccEmail,
+                        $infoMail,
+                        $fquery,
+                        $equery1,
+                        $htmlContent,
+                    ) {
+                        $projectmail = in_array($equery1->dept_id, [2, 3]) ? 'project@appacmedia.com' : null;
+                        // Set recipients
+                        $message->to($fquery->emailid)
+                            ->cc(array_merge([$founderEmail, $managerMail, $projectmail]))
+                            ->bcc($bccEmail)
+                            ->from($infoMail, $equery1->fname)
+                            ->subject('Task Completed ' . date('d-m-Y', time()))
+                            ->html($htmlContent);
+                    });
+
+                    session()->flash('secmessage', 'Status Updated Successfully.');
+                    return response()->json(['status' => 1, 'message' => 'Status Updated Successfully.'], 200);
+                } else {
+                    session()->flash('secmessage', 'Status Updated Successfully.');
+                    return response()->json(['status' => 1, 'message' => 'Status Updated Successfully.'], 200);
+                }
+            }
+        } else {
+
+            $data = [
+                    'empid' => $empid,
+                    'task_id' => $id,
+                    'dept_id' => request()->session()->get('dept_id'),
+                    'remark' => $request->remark,
+                    'design_checking' => $request->design_checking,
+                    'spelling_check' => $request->spelling_check,
+                    'space_symbols_checking' => $request->space_symbols_checking,
+                    'overall_content_checking' => $request->overall_content_checking,
+                    'cta_checking' => $request->cta_checking,
+                    'overall_letter_alighment' => $request->overall_letter_alighment,
+                    'logo_checking' => $request->logo_checking,
+                    'title_case' => $request->title_case,
+                ];
+
+            $task = DB::table('taskqc')->where('empid', $empid)->where('task_id', $id)->count();
+
+            if ($task > 0) {
+                $res = DB::table('taskqc')->where('empid', $empid)->where('task_id', $id)->update($data);
+            } else {
+                $res = DB::table('taskqc')->insert($data);
+            }
+
+            session()->flash('secmessage', 'Status Updated Successfully.');
+            return response()->json(['status' => 1, 'message' => 'Status Updated Successfully.'], 200);
+        }
+    }
+
     public function taskcompletestatus(Request $request)
     {
-    
+
         if ($request->status == 'completed') {
             $val = [
                 'task_enddate' => date('d-m-Y'),
                 'task_status' => $request->status,
                 'status' => "1",
-
             ];
             // dd($request->all());
             $result = DB::table('task_management')->where('id', $request->id)->update($val);
 
             $task_enddate = DB::table('task_management')
-            ->select('task_management.*', 'accounts.company_name')
-            ->join('accounts', 'task_management.company_id', '=', 'accounts.id')
-            ->where('task_management.id', $request->id) // Specify the table for the id
-            ->first();
+                ->select('task_management.*', 'accounts.company_name')
+                ->join('accounts', 'task_management.company_id', '=', 'accounts.id')
+                ->where('task_management.id', $request->id) // Specify the table for the id
+                ->first();
 
             $fquery = DB::table('regis')->where('empid', $task_enddate->assigned_by)->first();
 
@@ -138,9 +277,9 @@ class Taskview extends Controller
                 $founderEmail = env('FOUNDERMAIL');
                 $infoMail = env('INFOMAIL');
                 $managerMail = env('MANAGERMAIL');
-    
+
                 Mail::send([], [], function ($message) use (
-    
+
                     $founderEmail,
                     $managerMail,
                     $bccEmail,
@@ -167,9 +306,8 @@ class Taskview extends Controller
             }
         } else {
 
-               session()->flash('secmessage', 'Status Updated Successfully.');
-                return response()->json(['status' => 1, 'message' => 'Status Updated Successfully.'], 200);
+            session()->flash('secmessage', 'Status Updated Successfully.');
+            return response()->json(['status' => 1, 'message' => 'Status Updated Successfully.'], 200);
         }
-
     }
 }

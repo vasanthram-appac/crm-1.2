@@ -30,8 +30,17 @@ class Leadhistory extends Controller
                 }
             }
 
-            $query = DB::table('notes')->orderBy('id', 'DESC');
-            $db_date = 'submitdate';
+            $query = DB::table('notes')
+                ->select(
+                    'notes.*',
+                    'regis.fname',
+                    'accounts.company_name as companyname'
+                )
+                ->join('regis', 'notes.employee', '=', 'regis.empid')
+                ->join('accounts', 'notes.company_name', '=', 'accounts.id')
+                ->orderBy('notes.id', 'DESC');
+
+            $db_date = 'notes.submitdate';
 
             $website = $request->input('website');
             $employee = $request->input('employee');
@@ -57,11 +66,11 @@ class Leadhistory extends Controller
             }
 
             if ($request->has('website') && !empty($request->website)) {
-                $query->where('company_name', $request->website);
+                $query->where('notes.company_name', $request->website);
             }
 
             if ($request->has('employee') && !empty($request->employee)) {
-                $query->where('employee', $request->employee);
+                $query->where('notes.employee', $request->employee);
             }
 
             // Pagination
@@ -99,17 +108,16 @@ class Leadhistory extends Controller
                 $regis1 = DB::table('regis')->whereIn('dept_id', ['6', '1'])->where('status', '1')->get();
 
                 foreach ($regis1 as $regi) {
-        
+
                     $leadsHistory = DB::table('leads_history')
-                    ->where('empid', $regi->empid)
-                    ->whereBetween("submit_date", [$startDate, $endDate]);
+                        ->where('empid', $regi->empid)
+                        ->whereBetween("submit_date", [$startDate, $endDate]);
 
                     $totallead[] = [
                         'name' => $regi->fname,
                         'count' => $leadsHistory->count(),
                     ];
                 }
-
             } else {
 
                 $regis = DB::table('regis')->whereNotIn('empid', ['AM001', 'AM002'])->whereIn('dept_id', ['6', '1'])->where('status', '1')->get();
@@ -131,8 +139,8 @@ class Leadhistory extends Controller
                 foreach ($regis1 as $regi) {
 
                     $leadsHistory = DB::table('leads_history')
-                    ->where('empid', $regi->empid)
-                    ->whereBetween("submit_date", [date('Y-m-01'), date('Y-m-t')]);
+                        ->where('empid', $regi->empid)
+                        ->whereBetween("submit_date", [date('Y-m-01'), date('Y-m-t')]);
 
                     $totallead[] = [
                         'name' => $regi->fname,

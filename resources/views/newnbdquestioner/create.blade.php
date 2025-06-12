@@ -28,7 +28,7 @@
         .header-sec {
             position: sticky;
             top: 0px;
-			z-index:9999;
+            z-index: 9999;
         }
 
         .frm-sec {
@@ -38,7 +38,7 @@
         .header-sec {
             background: #fff;
             border-bottom: 2px solid #2c8fcd;
-			box-shadow:0px 8px 7px #d9d9d99e;
+            box-shadow: 0px 8px 7px #d9d9d99e;
         }
 
         .breadcrumbs {
@@ -73,43 +73,85 @@
 
         .g-recaptcha div {
             padding: 0px !important;
-    position: relative;
-    margin: 0px !important;
-    transform: scale(0.8);
-    width: fit-content !important;
-    position: relative;
-    margin-left: -20px !important;
-    margin: 15px 0px;
-    left: 12px;
+            position: relative;
+            margin: 0px !important;
+            transform: scale(0.8);
+            width: fit-content !important;
+            position: relative;
+            margin-left: -20px !important;
+            margin: 15px 0px;
+            left: 12px;
         }
 
         /* .ques-frm{display:grid;grid-template-columns:47% 47%;justify-content:space-between;} */
-		 .ques-frm{padding: 20px  0px;background: #fff;margin-top: 30px;}
+        .ques-frm {
+            padding: 20px 0px;
+            background: #fff;
+            margin-top: 30px;
+        }
+
         .ques-frm div {
             background: #fff;
-            padding:30px 40px  10px;
+            padding: 30px 40px 10px;
             font-family: 'Inter', sans-serif;
             font-size: 15px;
-			position:relative;
+            position: relative;
         }
-		.btn.btn-primary{display: flex;text-align: center;padding: 5px 20px 7px;border-radius: 25px;margin: auto;}
-	
-		 .ques-frm .mb-3{margin-bottom:0px!important}
-		.ques-frm div input ,.ques-frm div select{height:50px;}
-		input:focus ,textarea:focus {
-  background-color: #e8f0fe6e !important; 
-    border-color: #86b7fe !important;
-}
-select:focus {
- background-color: #e8f0fe6e !important; 
-  border-color: #86b7fe !important;
- box-shadow:none !important;
-}
-			 .ques-frm div label{position:absolute;background:#fff;left: 50px;top: 20px;padding:0px 5px;}
-	 .ques-frm #scope_of_work_group  label,.ques-frm #monthly_budget_group  label,.ques-frm div .check-box label{position:relative;background:#fff;left: 0px;top: 0px;margin-bottom: 10px;}
-.ques-frm #scope_of_work_group input ,.ques-frm #monthly_budget_group input{height:auto;}
+
+        .btn.btn-primary {
+            display: flex;
+            text-align: center;
+            padding: 5px 20px 7px;
+            border-radius: 25px;
+            margin: auto;
+        }
+
+        .ques-frm .mb-3 {
+            margin-bottom: 0px !important
+        }
+
+        .ques-frm div input,
+        .ques-frm div select {
+            height: 50px;
+        }
+
+        input:focus,
+        textarea:focus {
+            background-color: #e8f0fe6e !important;
+            border-color: #86b7fe !important;
+        }
+
+        select:focus {
+            background-color: #e8f0fe6e !important;
+            border-color: #86b7fe !important;
+            box-shadow: none !important;
+        }
+
+        .ques-frm div label {
+            position: absolute;
+            background: #fff;
+            left: 50px;
+            top: 20px;
+            padding: 0px 5px;
+        }
+
+        .ques-frm #scope_of_work_group label,
+        .ques-frm #monthly_budget_group label,
+        .ques-frm div .check-box label {
+            position: relative;
+            background: #fff;
+            left: 0px;
+            top: 0px;
+            margin-bottom: 10px;
+        }
+
+        .ques-frm #scope_of_work_group input,
+        .ques-frm #monthly_budget_group input {
+            height: auto;
+        }
+
         .ques-frm textarea {
-			padding-top:15px;
+            padding-top: 15px;
             font-size: 14px;
         }
 
@@ -171,7 +213,7 @@ select:focus {
             <div>
                 <a href=""><img src="https://www.appacmedia.com/images/appac-logo.svg" class="img-fluid" width="160px" alt=""></a>
             </div>
-           <!-- <div>
+            <!-- <div>
                 <p class="m-0 breadcrumbs">/ Paid Marketing Questionaire</p>
             </div> -->
         </div>
@@ -189,7 +231,7 @@ select:focus {
             <div class="row">
                 <div class="col-lg-8 m-auto p-3">
                     <div class="container">
-					<h1>Need and Scope Analysis</h1>
+                        <h1>Need and Scope Analysis</h1>
                         <form class="ques-frm" method="POST" id="quesfrm">
                             @csrf
                             <div class="mb-3">
@@ -216,13 +258,21 @@ select:focus {
                                 <label class="mb-2" for="turnover">Turnover <span style=color:red;>*</span></label>
                                 <input class="form-control" name="turnover" placeholder="" id="turnover" maxlength="50" required>
                             </div>
+
                             <div class="mb-3">
                                 <label class="mb-2" for="business_type">Business TypeL <span style=color:red;>*</span></label>
                                 <select name="business_type" id="business_type" class="form-select">
                                     <option value="">Select Type</option>
                                     <option value="B2B - Manufacturing">B2B - Manufacturing</option>
                                     <option value="Healthcare">Healthcare</option>
+                                    <option value="Realestate">Realestate</option>
+                                    <option value="Others">Others</option>
                                 </select>
+                            </div>
+
+                            <div class="mb-3" id="other_type_div" style="display: none;">
+                                <label class="mb-2" for="other_type">Others</label>
+                                <input type="text" name="other" id="other_type" class="form-control" placeholder="Enter other business type">
                             </div>
 
                             <div class="mb-3" id="scope_of_work_group">
@@ -241,15 +291,15 @@ select:focus {
                             </div>
 
                             <div class="mb-3" id="monthly_budget_group">
-                                <label class="mb-2" for="target_audience">Monthly Budget <span style="color:red;">*</span></label><br><br>
-                                <input type="checkbox" id="monthly_budget" name="monthly_budget" value="50k to 1 Lakh" class="budget-group">
-                                <label for="monthly_budget"> 50k to 1 lakh</label><br>
+                                <label class="mb-2" for="target_audience">Monthly Budget(INR) <span style="color:red;">*</span></label><br><br>
+                                <input type="checkbox" id="monthly_budget" name="monthly_budget" value="50,000 to 1,00,000" class="budget-group">
+                                <label for="monthly_budget"> 50,000 to 1,00,000</label><br>
 
-                                <input type="checkbox" id="monthly_budget1" name="monthly_budget" value="1 Lakh - 2 Lakh" class="budget-group">
-                                <label for="monthly_budget1"> 1 Lakh - 2 Lakh</label><br>
+                                <input type="checkbox" id="monthly_budget1" name="monthly_budget" value="1,00,000 - 2,00,000" class="budget-group">
+                                <label for="monthly_budget1"> 1,00,000 - 2,00,000</label><br>
 
-                                <input type="checkbox" id="monthly_budget2" name="monthly_budget" value="2 Lakh - 5 Lakh" class="budget-group">
-                                <label for="monthly_budget2"> 2 lakh - 5 lakh</label>
+                                <input type="checkbox" id="monthly_budget2" name="monthly_budget" value="2,00,000 - 5,00,000" class="budget-group">
+                                <label for="monthly_budget2"> 2,00,000 - 5,00,000</label>
                             </div>
 
                             <div class="mb-3">
@@ -273,6 +323,19 @@ select:focus {
     <script src="https://www.google.com/recaptcha/api.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#business_type').change(function() {
+            if ($(this).val() === 'Others') {
+                $('#other_type_div').show();
+            } else {
+                $('#other_type_div').hide();
+                $('#other_type').val(''); // Optional: clear field if not needed
+            }
+        });
+    });
+</script>
 
     <script>
         $(document).ready(function() {
@@ -304,7 +367,7 @@ select:focus {
                     type: 'POST',
                     data: $(this).serialize(),
                     dataType: "json",
-                     beforeSend: function() {
+                    beforeSend: function() {
                         $("#applyBtn").text("Submitting...").prop("disabled", true);
                     },
                     success: function(response) {

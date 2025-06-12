@@ -331,8 +331,8 @@
 <div class="row pt-4">
     <!-- <h2 class="ch2 fw-600">History Details</h2> -->
     <ul class="nav nav-tabs px-4 acc-tab" role="tablist">
-        <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#acchistory"><b>Accounts History</b></a></li>
-        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#workinghours"><b>Working Hours</b></a></li>
+        <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" href="#acchistory" id="liacchistory"><b>Accounts History</b></a></li>
+        <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" data-toggle="tab" href="#workinghours"><b>Working Hours</b></a></li>
         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#wiphistory"><b>WIP History</b></a></li> -->
         <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#scope"><b>Scope</b></a></li> -->
         <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#report"><b>Daily Work report</b></a></li>
@@ -357,7 +357,7 @@
         <link href="assets/plugins/datatables/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css">
 
         <!-- Accounts History Tab -->
-        <div id="acchistory" class="tab-pane fade show active" role="tabpanel">
+        <div id="acchistory" class="tab-pane fade show" role="tabpanel">
             <div class="row">
                 <div class="col-12">
                     <div class="widget appac">
@@ -398,184 +398,184 @@
                 <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" data-toggle="tab" href="#invoice"><b>Invoice</b></a></li>
             </ul>
 
-             <div class="tab-content">
-<!-- Payment Details Tab -->
-        <div id="payment" class="tab-pane fade show active" role="tabpanel">
-            <div class="row">
-                <div class="col-12">
-                    <div class="widget appac">
-                        <!-- <div class="widget-title">
+            <div class="tab-content">
+                <!-- Payment Details Tab -->
+                <div id="payment" class="tab-pane fade show active" role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget appac">
+                                <!-- <div class="widget-title">
                             <h4><i class="icon-reorder"></i> Payment Details</h4>
                         </div> -->
-                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
-                            <table class="table table-bordered datatable4">
-                                <thead>
-                                    <tr class="bg-white border-0">
-                                        <th>S.no</th>
-                                        <th>Date</th>
-                                        <th>Create By</th>
-                                        <th>Product/Service</th>
-                                        <th>Proforma / Invoice</th>
-                                        <th>Amount</th>
-                                        <th>Bank Name</th>
-                                        <th>Cheque No</th>
-                                        <th>NEFT</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if(count($payments)>0)
-                                    @foreach($payments as $index => $payment)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $payment->paydate }}</td>
-                                        <td>{{ $payment->fname }}</td>
-                                        <td>{{ $payment->productservice }}</td>
-                                        <td>
-                                            @php
-                                            $inno = base64_encode($payment->invoiceno);
-                                            $pno = base64_encode($payment->pinvoice);
-                                            @endphp
-                                            @if($payment->pinvoice && $payment->invoiceno)
-                                            <b>PI:</b> <a href="{{ url('pprint/' . $pno) }}" target="_blank">{{ $payment->pinvoice }}</a><br>
-                                            <b>Ino:</b> <a href="{{ url('iprint/' . $inno) }}" target="_blank">{{ $payment->invoiceno }}</a><br>
-                                            @elseif($payment->pinvoice)
-                                            <b>PI:</b> <a href="{{ url('pprint/' . $pno) }}" target="_blank">{{ $payment->pinvoice }}</a><br>
-                                            @elseif($payment->invoiceno)
-                                            <b>Ino:</b> <a href="{{ url('iprint/' . $inno) }}" target="_blank">{{ $payment->invoiceno }}</a><br>
+                                <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
+                                    <table class="table table-bordered datatable4">
+                                        <thead>
+                                            <tr class="bg-white border-0">
+                                                <th>S.no</th>
+                                                <th>Date</th>
+                                                <th>Create By</th>
+                                                <th>Product/Service</th>
+                                                <th>Proforma / Invoice</th>
+                                                <th>Amount</th>
+                                                <th>Bank Name</th>
+                                                <th>Cheque No</th>
+                                                <th>NEFT</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if(count($payments)>0)
+                                            @foreach($payments as $index => $payment)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $payment->paydate }}</td>
+                                                <td>{{ $payment->fname }}</td>
+                                                <td>{{ $payment->productservice }}</td>
+                                                <td>
+                                                    @php
+                                                    $inno = base64_encode($payment->invoiceno);
+                                                    $pno = base64_encode($payment->pinvoice);
+                                                    @endphp
+                                                    @if($payment->pinvoice && $payment->invoiceno)
+                                                    <b>PI:</b> <a href="{{ url('pprint/' . $pno) }}" target="_blank">{{ $payment->pinvoice }}</a><br>
+                                                    <b>Ino:</b> <a href="{{ url('iprint/' . $inno) }}" target="_blank">{{ $payment->invoiceno }}</a><br>
+                                                    @elseif($payment->pinvoice)
+                                                    <b>PI:</b> <a href="{{ url('pprint/' . $pno) }}" target="_blank">{{ $payment->pinvoice }}</a><br>
+                                                    @elseif($payment->invoiceno)
+                                                    <b>Ino:</b> <a href="{{ url('iprint/' . $inno) }}" target="_blank">{{ $payment->invoiceno }}</a><br>
+                                                    @endif
+
+                                                <td>{{ $payment->payamount }}</td>
+                                                <td>{{ $payment->bankname }}</td>
+                                                <td>{{ $payment->chequeno }}</td>
+                                                <td>{{ $payment->neftnumber }}</td>
+                                            </tr>
+                                            @endforeach
                                             @endif
 
-                                        <td>{{ $payment->payamount }}</td>
-                                        <td>{{ $payment->bankname }}</td>
-                                        <td>{{ $payment->chequeno }}</td>
-                                        <td>{{ $payment->neftnumber }}</td>
-                                    </tr>
-                                    @endforeach
-                                    @endif
-
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="9" align="right"><b>Total Amount: Rs: {{ $totalPay }}</b></td>
-                                    </tr>
-                                </tfoot>
-                            </table>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="9" align="right"><b>Total Amount: Rs: {{ $totalPay }}</b></td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-         <!-- Invoice Tab -->
-        <div id="invoice" class="tab-pane fade show " role="tabpanel">
-            <div class="row">
-                <div class="col-12">
-                    <div class="widget appac">
-                        <!-- <div class="widget-title">
+                <!-- Invoice Tab -->
+                <div id="invoice" class="tab-pane fade show " role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget appac">
+                                <!-- <div class="widget-title">
                             <h4><i class="icon-reorder"></i> Daily Work report</h4>
                         </div> -->
-                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
-                            <table id="datatable6" class="table table-bordered">
-                                <thead>
-                                    <tr class="bg-white border-0">
-                                        <th>S.no</th>
-                                        <th class="text-grey">Created By</th>
-                                        <th class="text-grey">Invoice No</th>
-                                        <th class="text-grey">Invoice Date</th>
-                                        <th class="text-grey">Amount</th>
-                                        <th class="text-grey">View</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                                <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
+                                    <table id="datatable6" class="table table-bordered">
+                                        <thead>
+                                            <tr class="bg-white border-0">
+                                                <th>S.no</th>
+                                                <th class="text-grey">Created By</th>
+                                                <th class="text-grey">Invoice No</th>
+                                                <th class="text-grey">Invoice Date</th>
+                                                <th class="text-grey">Amount</th>
+                                                <th class="text-grey">View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                    @if(count($invoice) > 0)
-                                    @foreach($invoice as $index => $invoices)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $invoices->fname }}</td>
-                                        <td>{{ $invoices->invoice_no }}</td>
-                                        <td>{{ $invoices->invoice_date }}</td>
-                                        <td>{{ $invoices->grosspay }}</td>
-                                        <td>
-                                            <a class="btn" href="{{ route('iprint', ['id' => base64_encode($invoices->invoice_no)]) }}" target="_blank">
-                                                <i class="fi fi-ts-user-check"></i>
-                                                <span class="tooltiptext">view</span>
-                                            </a>
-                                        </td>
+                                            @if(count($invoice) > 0)
+                                            @foreach($invoice as $index => $invoices)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $invoices->fname }}</td>
+                                                <td>{{ $invoices->invoice_no }}</td>
+                                                <td>{{ $invoices->invoice_date }}</td>
+                                                <td>{{ $invoices->grosspay }}</td>
+                                                <td>
+                                                    <a class="btn" href="{{ route('iprint', ['id' => base64_encode($invoices->invoice_no)]) }}" target="_blank">
+                                                        <i class="fi fi-ts-user-check"></i>
+                                                        <span class="tooltiptext">view</span>
+                                                    </a>
+                                                </td>
 
-                                    </tr>
-                                    @endforeach
-                                    @endif
-                                </tbody>
-                            </table>
+                                            </tr>
+                                            @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
 
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- Proforma Tab -->
-        <div id="proforma" class="tab-pane fade show " role="tabpanel">
-            <div class="row">
-                <div class="col-12">
-                    <div class="widget appac">
-                        <!-- <div class="widget-title">
+                <!-- Proforma Tab -->
+                <div id="proforma" class="tab-pane fade show " role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget appac">
+                                <!-- <div class="widget-title">
                             <h4><i class="icon-reorder"></i> Daily Work report</h4>
                         </div> -->
-                        <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
-                            <table id="datatable7" class="table table-bordered">
-                                <thead>
-                                    <tr class="bg-white border-0">
-                                        <th>S.no</th>
-                                        <th class="text-grey">Created By</th>
-                                        <th class="text-grey">Invoice No</th>
-                                        <th class="text-grey">Invoice Date</th>
-                                        <th class="text-grey">Amount</th>
-                                        <th class="text-grey">View</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if(count($proforma)>0)
-                                    @foreach($proforma as $index => $proformas)
-                                    <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $proformas->fname }}</td>
-                                        <td>{{ $proformas->invoice_no }}</td>
-                                        <td>{{ $proformas->invoice_date }}</td>
-                                        <td>{{ $proformas->grosspay }}</td>
-                                        <td>
-                                            <a class="btn" href="{{ route('pprint', ['id' => base64_encode($proformas->invoice_no)]) }}" target="_blank">
-                                                <i class="fi fi-ts-user-check"></i>
-                                                <span class="tooltiptext">view</span>
-                                            </a>
-                                        </td>
+                                <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
+                                    <table id="datatable7" class="table table-bordered">
+                                        <thead>
+                                            <tr class="bg-white border-0">
+                                                <th>S.no</th>
+                                                <th class="text-grey">Created By</th>
+                                                <th class="text-grey">Invoice No</th>
+                                                <th class="text-grey">Invoice Date</th>
+                                                <th class="text-grey">Amount</th>
+                                                <th class="text-grey">View</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if(count($proforma)>0)
+                                            @foreach($proforma as $index => $proformas)
+                                            <tr>
+                                                <td>{{ $index + 1 }}</td>
+                                                <td>{{ $proformas->fname }}</td>
+                                                <td>{{ $proformas->invoice_no }}</td>
+                                                <td>{{ $proformas->invoice_date }}</td>
+                                                <td>{{ $proformas->grosspay }}</td>
+                                                <td>
+                                                    <a class="btn" href="{{ route('pprint', ['id' => base64_encode($proformas->invoice_no)]) }}" target="_blank">
+                                                        <i class="fi fi-ts-user-check"></i>
+                                                        <span class="tooltiptext">view</span>
+                                                    </a>
+                                                </td>
 
-                                    </tr>
-                                    @endforeach
-                                    @endif
-                                </tbody>
-                            </table>
+                                            </tr>
+                                            @endforeach
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-             </div>
+            </div>
 
 
 
         </div>
 
         <!-- working hours Tab -->
-        <div id="workinghours" class="tab-pane fade show" role="tabpanel">
+        <div id="workinghours" class="tab-pane fade show active" role="tabpanel">
             <div class="row">
 
-                <div class="col-12">
+                <!-- <div class="col-12">
                     <a href="/monthlyreport" class="btn bg-primary pri-text-color m-0 mb-3 float-end">View More</a>
-                </div>
+                </div> -->
 
-                <!-- <div class="col-lg-5 col-sm-12">
+                <div class="col-lg-5 col-sm-12">
                     <div class="control-group mb-2">
                         {!! Form::label('reportrange', 'Select Date Range', ['class' => 'label-color control-label mb-2']) !!}
                         <input type="text" name="daterange" id="reportrange" class="form-control" />
@@ -584,32 +584,38 @@
 
                 <div class="col-lg-2 col-sm-12">
                     <button type="submit" class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" style="margin-top: 2.0rem !important;" onclick="totalhours()">Submit</button>
-                </div> -->
+                </div>
 
                 <div class="col-12">
                     <div class="widget appac">
                         <div class="widget-body" style="height: 500px; overflow: auto;margin:20px 0px">
-                            <table id="datatable1" class="table table-bordered dataTable table-responsive" style="width:100%">
-                                <thead>
-                                    <tr class="bg-white border-0">
-                                        <th>Department</th>
-                                        <th>Hours</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @if(count($totals) > 0)
-                                    @foreach($totals as $department => $time)
-                                    <tr class="bg-white">
-                                        <td>{{ $department }}</td>
-                                        <td>{{ $time['hours'] }} Hours {{ $time['minutes'] }} Minutes</td>
-                                    </tr>
-                                    @endforeach
-                                    @endif
-                                </tbody>
-                            </table>
+
+                            <div class="row">
+
+                                <div class="col-lg-4">
+                                    <table id="datatableh" class="table table-bordered dataTable table-responsive" style="width:100%">
+                                        <thead>
+                                            <tr class="bg-white border-0">
+                                                <th>Department</th>
+                                                <th>Hours</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="col-lg-8">
+                                    <div id="piechart_3d" style="width: auto;height:100%;min-height:365px;text-align:center;margin:auto"></div>
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
 
@@ -691,7 +697,7 @@
             </div>
         </div>
 
-        
+
 
         <!-- DM Works Report Tab -->
         <div id="dmworks" class="tab-pane fade show " role="tabpanel">
@@ -755,7 +761,7 @@
             </div>
         </div>
 
-       
+
 
         <!-- Asset Library Tab -->
         <div id="assetlibrary" class="tab-pane fade show " role="tabpanel">
@@ -822,7 +828,7 @@
                                             <th class="text-grey">Name</th>
                                             <th class="text-grey">Description</th>
                                             <th class="text-grey">Sheet</th>
-                                            <th class="text-grey">View</th>
+                                            <th class="text-grey">Document</th>
 
                                         </tr>
                                     </thead>
@@ -1048,8 +1054,6 @@
                         });
                     }
                 });
-
-
 
                 $('#datatable5').each(function() {
                     $(this).DataTable({
@@ -1321,10 +1325,19 @@
 
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
-<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script> -->
+
+<!-- Moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+<!-- Daterangepicker CSS and JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker@3.1/daterangepicker.css">
+<script src="https://cdn.jsdelivr.net/npm/daterangepicker@3.1/daterangepicker.min.js"></script>
+
+<script src="https://www.gstatic.com/charts/loader.js"></script>
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -1334,6 +1347,10 @@
         var company_name = $('[name="company_name"]').val();
         Status("All", "All", company_name);
         requiredinput("All", company_name);
+        totalhours("", company_name);
+        setTimeout(function() {
+            $('#liacchistory').tab('show');
+        }, 800); 
     });
 
     function Status(dmtypea = null, dmname = null, company_name = null) {
@@ -1441,8 +1458,8 @@
         });
     }
 
-    function totalhours(dmtypea = null, company_name = null) {
-        dmtypea = dmtypea ?? $('select[name="requiredtype"]').val();
+    function totalhours(daterange = null, company_name = null) {
+        daterange = daterange ?? $('[name="daterange"]').val();
         company_name = company_name ?? $('[name="company_name"]').val();
 
         $.ajaxSetup({
@@ -1452,37 +1469,31 @@
         });
 
         $.ajax({
-            url: "/totalhourssearch/" + dmtypea + "/" + company_name,
+            url: "/totalhourssearch",
+            data: {
+                daterange: daterange,
+                id: company_name,
+            },
             type: 'POST',
             success: function(response) {
-                var tableBody = '';
+    
+                let tableBody = '';
 
-                if (response.length > 0) {
-                    $.each(response, function(index, item) {
-                        tableBody += '<tr>';
-                        tableBody += '<td>' + (index + 1) + '</td>';
-                        tableBody += '<td>' + item.name + '</td>';
-                        tableBody += '<td>' + item.description + '</td>';
+                // Dynamically build the rows
+                $.each(response, function(department, time) {
+                    if (time.hours > 0 || time.minutes > 0) {
+                        tableBody += `
+                        <tr class="bg-white">
+                            <td>${department}</td>
+                            <td>${time.hours} Hours ${time.minutes} Minutes</td>
+                        </tr>
+                    `;
+                    }
+                });
 
-                        if (item.url) {
-                            tableBody += '<td><a href="' + item.url + '" target="blank" style="text-decoration:none;">View</a></td>';
-                        } else {
-                            tableBody += '<td> </td>';
-                        }
-                        if (item.file) {
-                            tableBody += '<td><a href="' + item.file + '" target="blank" style="text-decoration:none;">View</a></td>';
-                        } else {
-                            tableBody += '<td> </td>';
-                        }
-                        tableBody += '</tr>';
-                    });
-                } else {
-                    tableBody = '<tr><td colspan="4" class="text-center">No records found.</td></tr>';
-                }
-
-                $("#tableri").show();
-
-                $("#tableriworks tbody").html(tableBody);
+                $('#datatableh').show();
+                $('#datatableh tbody').html(tableBody);
+                drawChart(response);
             },
             error: function(xhr) {
                 var errors = xhr.responseJSON.errors;
@@ -1501,6 +1512,89 @@
     $(document).ready(function() {
         $('.select2').select2(); // Initialize select2
     });
+
+    google.charts.load("current", {
+        packages: ["corechart"]
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart(gdata) {
+        const data = google.visualization.arrayToDataTable([
+            ["Task", "Hours", {
+                role: "tooltip",
+                type: "string",
+                p: {
+                    html: true
+                }
+            }],
+            [
+                "Management",
+                gdata.Management?.hours + gdata.Management?.minutes / 60 || 0.01,
+                `Management: ${gdata.Management?.hours || 0} Hours . ${gdata.Management?.minutes || 0} mins`,
+            ],
+            [
+                "Design",
+                gdata.Design?.hours + gdata.Design?.minutes / 60 || 0.01,
+                `Design: ${gdata.Design?.hours || 0} Hours . ${gdata.Design?.minutes || 0} mins`,
+            ],
+            [
+                "Development",
+                gdata.Development?.hours + gdata.Development?.minutes / 60 || 0.01,
+                `Development: ${gdata.Development?.hours || 0} Hours . ${gdata.Development?.minutes || 0} mins`,
+            ],
+            [
+                "Promotion",
+                gdata.Promotion?.hours + gdata.Promotion?.minutes / 60 || 0.01,
+                `Promotion: ${gdata.Promotion?.hours || 0} Hours . ${gdata.Promotion?.minutes || 0} mins`,
+            ],
+            [
+                "ContentWriter",
+                gdata.ContentWriter?.hours + gdata.ContentWriter?.minutes / 60 || 0.01,
+                `ContentWriter: ${gdata.ContentWriter?.hours || 0} Hours . ${gdata.ContentWriter?.minutes || 0} mins`,
+            ],
+            [
+                "Marketing",
+                gdata.Marketing?.hours + gdata.Marketing?.minutes / 60 || 0.01,
+                `Marketing: ${gdata.Marketing?.hours || 0} Hours . ${gdata.Marketing?.minutes || 0} mins`,
+            ],
+            [
+                "Client",
+                gdata.Client?.hours + gdata.Client?.minutes / 60 || 0.01,
+                `Client: ${gdata.Client?.hours || 0} Hours . ${gdata.Client?.minutes || 0} mins`,
+            ],
+
+        ]);
+
+        const options = {
+            is3D: true,
+            animation: {
+                duration: 1000,
+                easing: "out"
+            },
+            colors: ["#708094", "#01377E", "B9B7C8", "#5784C1", "#2F416A", "#3E5B82", "#6A8BB3"],
+            tooltip: {
+                isHtml: true
+            },
+            pieSliceText: "label",
+            legend: {
+                position: "top",
+                alignment: "center",
+                maxLines: 3,
+                textStyle: {
+                    fontSize: 12
+                }
+            },
+            chartArea: {
+                width: "90%",
+                height: "75%"
+            },
+        };
+
+        const chart = new google.visualization.PieChart(
+            document.getElementById("piechart_3d")
+        );
+        chart.draw(data, options);
+    }
 </script>
 
 <script>
@@ -1591,37 +1685,45 @@
 </script>
 
 <script>
-    $(function() {
-        var start = moment('01/01/2019');
-        var end = moment();
+$(function() {
+    var start = moment('01/01/2020', 'MM/DD/YYYY');
+    var end = moment('01/01/2025', 'MM/DD/YYYY');
 
-        function cb(start, end) {
-            // Set the value of the input field
-            $('#reportrange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+    function cb(start, end) {
+        $('#reportrange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+    }
 
-            // Send selected date range to server via AJAX
-            var daterange = {
-                start: start.format('YYYY-MM-DD'), // Convert to YYYY-MM-DD format for comparison
-                end: end.format('YYYY-MM-DD') // Same format for end date
-            };
+   $('#reportrange').daterangepicker({
+    showDropdowns: true,
+    autoUpdateInput: false,
+    linkedCalendars: false, // ✅ This prevents the end calendar from jumping when you pick the start date
+    startDate: moment('01/01/2020', 'MM/DD/YYYY'),
+    endDate: moment('01/01/2025', 'MM/DD/YYYY'),
+    minDate: '01/01/2000',
+    maxDate: '12/31/2030',
+    locale: {
+        format: 'MM/DD/YYYY',
+        cancelLabel: 'Clear'
+    },
+    ranges: {
+        'All': [moment('01/01/2019'), moment()],
+        'Today': [moment(), moment()],
+        'This Month': [moment().startOf('month'), moment().endOf('month')],
+        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+        'Last 3 Months': [moment().subtract(3, 'months').startOf('month'), moment().endOf('month')],
+        'Last 6 Months': [moment().subtract(6, 'months').startOf('month'), moment().endOf('month')],
+        'Last 12 Months': [moment().subtract(11, 'months').startOf('month'), moment().endOf('month')],
+    }
+}, function(start, end) {
+    $('#reportrange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+});
 
-        }
 
-        $('#reportrange').daterangepicker({
-            autoUpdateInput: false,
-            startDate: start,
-            endDate: end,
-            locale: {
-                format: 'MM/DD/YYYY'
-            },
-            ranges: {
-                'All': [moment('01/01/2019'), moment()],
-                'Today': [moment(), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            }
-        }, cb);
+    cb(start, end);
 
-        cb(start, end);
+    $('#reportrange').on('cancel.daterangepicker', function(ev, picker) {
+        $(this).val('');
     });
+});
 </script>
+

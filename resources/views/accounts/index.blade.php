@@ -133,7 +133,14 @@
                             <th class="text-grey">S.no</th>
                             <th class="text-grey">Company Name</th>
                             <th class="text-grey">City</th>
-                            <th class="text-grey">Assigned Name</th>
+                            <th class="text-grey">Assigned Name
+                                 <select name="empaccount_status" class="tab-sel form-select" id="account_status">
+                                    <option value="">Select</option>
+                                    <option value="All" @if(request()->session()->get('empactive_status') == 'All') selected @endif>All</option>
+                                    <option value="AM081" @if(request()->session()->get('empactive_status') == 'AM081') selected @endif>Assigned to Deepak</option>
+                                    <option value="AM088" @if(request()->session()->get('empactive_status') == 'AM088') selected @endif>Assigned to Teresa</option>
+                                </select>
+                            </th>
                             <th class="text-grey">Status
 
                                 <select name="account_status" class="tab-sel form-select" id="account_status">
@@ -296,7 +303,8 @@
                 },
                 {
                     data: 'assignedname',
-                    name: 'assignedname'
+                    name: 'assignedname',
+                    orderable: false
                 },
                 {
                     data: 'active_status',
@@ -470,9 +478,46 @@
             }
         });
     }
+
+    $('select[name="empaccount_status"]').on('change', function() {
+        var status = $(this).val();
+        fetchStatusemp(status);
+    });
+
+    // Fetch status via AJAX
+    function fetchStatusemp(status) {
+        $.ajax({
+            url: "{{ action([App\Http\Controllers\Accounts::class, 'index']) }}",
+            type: 'GET',
+            data: {
+                empstatus: status
+            },
+            success: function(response) {
+                window.location.reload(); // You may want to update the DOM instead of reloading
+            },
+            error: function(xhr) {
+                var errors = xhr.responseJSON?.errors || {};
+                var errorString = '';
+
+                for (var key in errors) {
+                    if (errors[key].length) {
+                        errorString += '<span class="text-danger">' + errors[key][0] + '</span><br>';
+                    }
+                }
+
+                $('#errorModal .error-modal').html(errorString);
+                $('#errorModal').modal('show');
+            }
+        });
+    }
+
+
+});
 });
 
 
-    });
+
+
+
 </script>
 @endsection

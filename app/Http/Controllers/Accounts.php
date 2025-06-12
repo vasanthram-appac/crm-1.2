@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Mail;
 use DB;
 
 class Accounts extends Controller
-{ 
+{
 
     public function index(Request $request)
     {
@@ -22,51 +22,65 @@ class Accounts extends Controller
         }
         if (request()->ajax()) {
             //   dd($request->all());
-            if (request()->session()->get('active_status') == "") {
+
+            // Set default session values if not set
+            if (!request()->session()->has('active_status') || request()->session()->get('active_status') == "") {
                 request()->session()->put('active_status', '1');
             }
 
-            if (isset($request->status) && !empty($request->status)) {
+            if (!request()->session()->has('empactive_status') || request()->session()->get('empactive_status') == "") {
+                request()->session()->put('empactive_status', 'All');
+            }
+
+            // Update session values from request if provided
+            if (!empty($request->status)) {
                 request()->session()->put('active_status', $request->status);
             }
 
-            if (request()->session()->get('active_status') == 'All') {
-
-                $data = DB::table('accounts')
-                    ->where('status', '!=', '0')
-                    ->orderBy('accounts.id', 'ASC')
-                    ->get();
-            } elseif (request()->session()->get('active_status') == 'active' || request()->session()->get('active_status') == 'inactive') {
-
-                $data = DB::table('accounts')
-                    ->where('status', '!=', '0')
-                    ->where('active_status', request()->session()->get('active_status'))
-                    ->orderBy('accounts.id', 'ASC')
-                    ->get();
-            } elseif (request()->session()->get('active_status') == '1') {
-
-                $data = DB::table('accounts')
-                    ->where('status', '!=', '0')
-                    ->where('active_status', 'active')
-                    ->where('key_status', 1)
-                    ->orderBy('accounts.order_id', 'ASC')
-                    ->get();
-            } elseif (request()->session()->get('active_status') == 'Download') {
-
-                $data = DB::table('accounts')
-                    ->where('status', '!=', '0')
-                    ->where('download_status', 'Download')
-                    ->orderBy('accounts.id', 'ASC')
-                    ->get();
-            } else {
-
-                $data = DB::table('accounts')
-                    ->where('status', '!=', '0')
-                    ->where('active_status', 'active')
-                    ->where('assignedto', request()->session()->get('active_status'))
-                    ->orderBy('accounts.id', 'ASC')
-                    ->get();
+            if (!empty($request->empstatus)) {
+                request()->session()->put('empactive_status', $request->empstatus);
             }
+
+            $activeStatus = request()->session()->get('active_status');
+            $empStatus = request()->session()->get('empactive_status');
+
+            $query = DB::table('accounts')
+                ->where('status', '!=', '0');
+
+            // Add filters based on active_status
+            switch ($activeStatus) {
+                case 'All':
+                    // No additional filter
+                    break;
+
+                case 'active':
+                case 'inactive':
+                    $query->where('active_status', $activeStatus);
+                    break;
+
+                case '1':
+                    $query->where('active_status', 'active')->where('key_status', 1);
+                    break;
+
+                case 'Download':
+                    $query->where('download_status', 'Download');
+                    break;
+
+                default:
+                    $query->where('active_status', 'active');
+                    break;
+            }
+
+            // Filter by assigned employee if not 'All'
+            if ($empStatus != "All") {
+                $query->where('assignedto', $empStatus);
+            }
+
+            // Choose ordering column based on status
+            $orderByColumn = ($activeStatus == '1') ? 'accounts.order_id' : 'accounts.id';
+
+            $data = $query->orderBy($orderByColumn, 'ASC')->get();
+
             // dd($data);
 
             if (count($data) > 0) {
@@ -180,8 +194,8 @@ class Accounts extends Controller
 
         $today = date('m-Y');
 
-            $today1 = date('m-Y', strtotime('-1 month'));
-        
+        $today1 = date('m-Y', strtotime('-1 month'));
+
         $reports = DB::table('dailyreport as d')
             ->join('accounts as a', 'd.client', '=', 'a.id')
             ->join('regis as r', 'd.empid', '=', 'r.empid')
@@ -200,7 +214,7 @@ class Accounts extends Controller
                 'r.lname'
             )
             ->where('d.client', $id)
-           // ->where('d.enquiry_month', $today)
+            // ->where('d.enquiry_month', $today)
             ->where('d.enquiry_month', $today1)
             ->orderBy('d.id', 'desc')->get();
 
@@ -361,96 +375,92 @@ class Accounts extends Controller
             ->orderBy('fname', 'ASC')
             ->pluck(DB::raw("CONCAT(fname, ' ', lname)"), 'empid');
 
-                $data = DB::table('dailyreport')
-                ->join('accounts', 'dailyreport.client', '=', 'accounts.id')
-                ->join('regis', 'dailyreport.empid', '=', 'regis.empid')
-                ->select(
-                    'dailyreport.*',
-                    'accounts.company_name as company_name_account',
-                    DB::raw("CONCAT(regis.fname, ' ', regis.lname) as emp_fullname"),
-                    DB::raw("CONCAT(dailyreport.w_hours, ' Hours ', dailyreport.w_mins, ' Minutes') as total_time")
-                )
-               ->where('dailyreport.enquiry_month', $today1)
-               ->where('dailyreport.client', $id)
-               ->orWhere('dailyreport.wipid', $id)
-                ->orderBy('dailyreport.id', 'asc')
-                ->get();
-            
-            $graph_data1 = $data;
+        $data = DB::table('dailyreport')
+            ->join('accounts', 'dailyreport.client', '=', 'accounts.id')
+            ->join('regis', 'dailyreport.empid', '=', 'regis.empid')
+            ->select(
+                'dailyreport.*',
+                'accounts.company_name as company_name_account',
+                DB::raw("CONCAT(regis.fname, ' ', regis.lname) as emp_fullname"),
+                DB::raw("CONCAT(dailyreport.w_hours, ' Hours ', dailyreport.w_mins, ' Minutes') as total_time")
+            )
+            ->where('dailyreport.enquiry_month', $today1)
+            ->where('dailyreport.client', $id)
+            ->orWhere('dailyreport.wipid', $id)
+            ->orderBy('dailyreport.id', 'asc')
+            ->get();
 
-            if ($data) {
-               
-                $totalHours = 0; // Initialize a variable to store total hours
-                $hoursList = []; // Array to store all `w_hours` values
+        if ($data) {
 
-                foreach ($data as $item) {
-                    
-                    $wHours = (int)$item->dept_id;
+            $totalHours = 0; // Initialize a variable to store total hours
+            $hoursList = []; // Array to store all `w_hours` values
 
-                    // Cast `w_hours` to integer for calculations
-                    $hoursList[] = $wHours; // Add to the list
-                    $totalHours += $wHours; // Aggregate total hours
+            foreach ($data as $item) {
+
+                $wHours = (int)$item->dept_id;
+
+                // Cast `w_hours` to integer for calculations
+                $hoursList[] = $wHours; // Add to the list
+                $totalHours += $wHours; // Aggregate total hours
+            }
+
+            // Debugging: Check extracted hours and total hours
+
+            $totals = [
+                'Management' => ['hours' => 0, 'minutes' => 0],
+                'Design' => ['hours' => 0, 'minutes' => 0],
+                'Development' => ['hours' => 0, 'minutes' => 0],
+                'Promotion' => ['hours' => 0, 'minutes' => 0],
+                'ContentWriter' => ['hours' => 0, 'minutes' => 0],
+                'Marketing' => ['hours' => 0, 'minutes' => 0],
+                'Client' => ['hours' => 0, 'minutes' => 0],
+
+            ];
+
+            foreach ($data as $item) {
+                $totalMinutes = (int)$item->w_mins;
+                $totalHours = (int)$item->w_hours;
+
+                // Update department-specific totals
+                if ($item->dept_id == '1') {
+                    $totals['Management']['hours'] += $totalHours;
+                    $totals['Management']['minutes'] += $totalMinutes;
                 }
-
-                // Debugging: Check extracted hours and total hours
-
-                $totals = [
-                    'Management' => ['hours' => 0, 'minutes' => 0],
-                    'Design' => ['hours' => 0, 'minutes' => 0],
-                    'Development' => ['hours' => 0, 'minutes' => 0],
-                    'Promotion' => ['hours' => 0, 'minutes' => 0],
-                    'ContentWriter' => ['hours' => 0, 'minutes' => 0],
-                    'Marketing' => ['hours' => 0, 'minutes' => 0],
-                    'Client' => ['hours' => 0, 'minutes' => 0],
-                   
-                ];
-
-                foreach ($data as $item) {
-                    $totalMinutes = (int)$item->w_mins;
-                    $totalHours = (int)$item->w_hours;
-
-                    // Update department-specific totals
-                    if ($item->dept_id == '1') {
-                        $totals['Management']['hours'] += $totalHours;
-                        $totals['Management']['minutes'] += $totalMinutes;
-                    }
-                    if ($item->dept_id == '2') {
-                        $totals['Design']['hours'] += $totalHours;
-                        $totals['Design']['minutes'] += $totalMinutes;
-                    }
-                    if ($item->dept_id == '3') {
-                        $totals['Development']['hours'] += $totalHours;
-                        $totals['Development']['minutes'] += $totalMinutes;
-                    }
-                    if ($item->dept_id == '4') {
-                        $totals['Promotion']['hours'] += $totalHours;
-                        $totals['Promotion']['minutes'] += $totalMinutes;
-                    }
-                    if ($item->dept_id == '5') {
-                        $totals['ContentWriter']['hours'] += $totalHours;
-                        $totals['ContentWriter']['minutes'] += $totalMinutes;
-                    }
-                    if ($item->dept_id == '6') {
-
-                        $totals['Marketing']['hours'] += $totalHours;
-                        $totals['Marketing']['minutes'] += $totalMinutes;
-                    }
-                    if ($item->dept_id == '7') {
-
-                        $totals['Client']['hours'] += $totalHours;
-                        $totals['Client']['minutes'] += $totalMinutes;
-                    }
-
+                if ($item->dept_id == '2') {
+                    $totals['Design']['hours'] += $totalHours;
+                    $totals['Design']['minutes'] += $totalMinutes;
                 }
-
-                // Normalize minutes into hours for all departments
-                foreach ($totals as $key => $values) {
-                    $extraHours = intdiv($values['minutes'], 60);
-                    $totals[$key]['hours'] += $extraHours;
-                    $totals[$key]['minutes'] = $values['minutes'] % 60;
+                if ($item->dept_id == '3') {
+                    $totals['Development']['hours'] += $totalHours;
+                    $totals['Development']['minutes'] += $totalMinutes;
                 }
+                if ($item->dept_id == '4') {
+                    $totals['Promotion']['hours'] += $totalHours;
+                    $totals['Promotion']['minutes'] += $totalMinutes;
+                }
+                if ($item->dept_id == '5') {
+                    $totals['ContentWriter']['hours'] += $totalHours;
+                    $totals['ContentWriter']['minutes'] += $totalMinutes;
+                }
+                if ($item->dept_id == '6') {
 
-            };
+                    $totals['Marketing']['hours'] += $totalHours;
+                    $totals['Marketing']['minutes'] += $totalMinutes;
+                }
+                if ($item->dept_id == '7') {
+
+                    $totals['Client']['hours'] += $totalHours;
+                    $totals['Client']['minutes'] += $totalMinutes;
+                }
+            }
+
+            // Normalize minutes into hours for all departments
+            foreach ($totals as $key => $values) {
+                $extraHours = intdiv($values['minutes'], 60);
+                $totals[$key]['hours'] += $extraHours;
+                $totals[$key]['minutes'] = $values['minutes'] % 60;
+            }
+        };
 
 
 
@@ -471,7 +481,7 @@ class Accounts extends Controller
         //     ];
         // }
 
-     
+
         return view('accounts.create')->with(compact('accounts', 'managedby', 'accountmanager', 'results', 'notes', 'history', 'reports', 'payments', 'totalPay', 'viewquery', 'formattedNumber', 'scale', 'domain', 'email', 'ssl', 'hosting', 'plans', 'plan', 'dmworks', 'invoice', 'proforma', 'asset', 'regis', 'totals'));
     }
 
@@ -772,6 +782,108 @@ class Accounts extends Controller
         return response()->json($dmworks);
     }
 
+    public function totalhourssearch(Request $request)
+    {
+        $id = $request->id;
+
+        if (!empty($request->daterange)) {
+            $daterange = explode(' - ', $request->daterange);
+            $start_date = date('Y-m-d', strtotime($daterange[0]));
+            $end_date = date('Y-m-d', strtotime($daterange[1]));
+        } else {
+            $daterange = "01/01/2019 - 12/23/2024";
+            $start_date = "2019-01-01";
+            $end_date = "2024-23-12";
+        }
+
+        $data = DB::table('dailyreport')
+            ->when($daterange, function ($query) use ($start_date, $end_date) {
+                return $query->whereBetween('report_date1', [$start_date, $end_date])
+                    ->orderBy('report_date1', 'asc');
+            }, function ($query) {
+                return $query->whereYear('report_date1', date('Y'))
+                    ->whereMonth('report_date1', date('m', strtotime('-1 month')))
+                    ->orderBy('report_date1', 'desc');
+            })
+            ->where('client', $id)
+            ->orWhere('wipid', $id)
+            ->get();
+
+        if ($data) {
+
+            $totalHours = 0; // Initialize a variable to store total hours
+            $hoursList = []; // Array to store all `w_hours` values
+
+            foreach ($data as $item) {
+
+                $wHours = (int)$item->dept_id;
+
+                // Cast `w_hours` to integer for calculations
+                $hoursList[] = $wHours; // Add to the list
+                $totalHours += $wHours; // Aggregate total hours
+            }
+
+            // Debugging: Check extracted hours and total hours
+
+            $totals = [
+                'Management' => ['hours' => 0, 'minutes' => 0],
+                'Design' => ['hours' => 0, 'minutes' => 0],
+                'Development' => ['hours' => 0, 'minutes' => 0],
+                'Promotion' => ['hours' => 0, 'minutes' => 0],
+                'ContentWriter' => ['hours' => 0, 'minutes' => 0],
+                'Marketing' => ['hours' => 0, 'minutes' => 0],
+                'Client' => ['hours' => 0, 'minutes' => 0],
+
+            ];
+
+            foreach ($data as $item) {
+                $totalMinutes = (int)$item->w_mins;
+                $totalHours = (int)$item->w_hours;
+
+                // Update department-specific totals
+                if ($item->dept_id == '1') {
+                    $totals['Management']['hours'] += $totalHours;
+                    $totals['Management']['minutes'] += $totalMinutes;
+                }
+                if ($item->dept_id == '2') {
+                    $totals['Design']['hours'] += $totalHours;
+                    $totals['Design']['minutes'] += $totalMinutes;
+                }
+                if ($item->dept_id == '3') {
+                    $totals['Development']['hours'] += $totalHours;
+                    $totals['Development']['minutes'] += $totalMinutes;
+                }
+                if ($item->dept_id == '4') {
+                    $totals['Promotion']['hours'] += $totalHours;
+                    $totals['Promotion']['minutes'] += $totalMinutes;
+                }
+                if ($item->dept_id == '5') {
+                    $totals['ContentWriter']['hours'] += $totalHours;
+                    $totals['ContentWriter']['minutes'] += $totalMinutes;
+                }
+                if ($item->dept_id == '6') {
+
+                    $totals['Marketing']['hours'] += $totalHours;
+                    $totals['Marketing']['minutes'] += $totalMinutes;
+                }
+                if ($item->dept_id == '7') {
+
+                    $totals['Client']['hours'] += $totalHours;
+                    $totals['Client']['minutes'] += $totalMinutes;
+                }
+            }
+
+            // Normalize minutes into hours for all departments
+            foreach ($totals as $key => $values) {
+                $extraHours = intdiv($values['minutes'], 60);
+                $totals[$key]['hours'] += $extraHours;
+                $totals[$key]['minutes'] = $values['minutes'] % 60;
+            }
+        };
+
+        return response()->json($totals);
+    }
+
     public function todaydetails()
     {
 
@@ -829,9 +941,9 @@ class Accounts extends Controller
                 ->where('t.task_duedate', '!=', '')
                 ->whereNotIn('t.task_status', ['completed', 'closed'])
                 ->where('regis.status', 1)
-                ->orderBY('t.taskid','desc')
+                ->orderBY('t.taskid', 'desc')
                 ->get();
-// dd($task);
+            // dd($task);
         } else {
 
             $hosting = [];
@@ -848,9 +960,8 @@ class Accounts extends Controller
                 ->where('regis.empid', request()->session()->get('empid'))
                 ->whereNotIn('t.task_status', ['completed', 'closed'])
                 ->where('regis.status', 1)
-                ->orderBY('t.taskid','desc')
+                ->orderBY('t.taskid', 'desc')
                 ->get();
-
         }
 
         $calendar = DB::table('calendar')
@@ -863,7 +974,7 @@ class Accounts extends Controller
             ->get();
 
         $count = count($hosting) + count($seo_client) + count($domain) + count($emailserver) + count($ssl_certificate) + count($calendar) +
-         count($birthdayData) + count($task);
+            count($birthdayData) + count($task);
 
         return response()->json([
             'hosting' => $hosting,

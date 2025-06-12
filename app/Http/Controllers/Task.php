@@ -112,15 +112,25 @@ class Task extends Controller
                 ->addColumn('status', function ($row) {
                     return $row->status_label . ' ' . $row->priority_label;
                 })
+
+                 ->addColumn('approved', function ($row) {
+                    return ' <button class="btn btn-modal text-lblue" data-container=".customer_modal" data-href="' . action([Taskview::class, 'edit'], [$row->tid]) . '">
+                                Click
+                            </button>';
+                })
                 ->addColumn('action', function ($row) {
                     return '<button class="btn btn-modal" data-container=".customer_modal" data-href="' . action([Task::class, 'edit'], [$row->tid]) . '">
                                 <i class="fi fi-ts-file-edit"></i>
 								<span class="tooltiptext  last">edit</span>
-                            </button> <a class="d-flex align-items-center gap-1 flex-wrap btn" href="queryindex/' . $row->tid . '" style="text-decoration:none;"><i class="fi fi-ts-book-arrow-right"></i><b>' . $row->query_count . '
+                            </button>
+                            <button class="btn btn-modal text-lblue" data-container=".customer_modal" data-href="' . route('taskapprovalview', ['id' => $row->tid]) . '">
+                                View
+                            </button>
+                            <a class="d-flex align-items-center gap-1 flex-wrap btn" href="queryindex/' . $row->tid . '" style="text-decoration:none;"><i class="fi fi-ts-book-arrow-right"></i><b>' . $row->query_count . '
 							<span class="tooltiptext  last">Query</span>
 							</a>';
                 })
-                ->rawColumns(['sno', 'company_name', 'status', 'action'])
+                ->rawColumns(['sno', 'company_name', 'status', 'action', 'approved'])
                 ->make(true);
         }
 
@@ -597,5 +607,12 @@ class Task extends Controller
         return response()->json(['status' => 1, 'message' => 'Status Updated Successfully.'], 200);
     }
 
+    public function taskapprovalview($id){
+
+        $task = DB::table('taskqc')->select('taskqc.*','regis.fname')->where('taskqc.task_id', $id)
+        ->join('regis', 'taskqc.empid','regis.empid')->get();
+
+        return view('task/taskapprovalview', compact('task'))->render();
+    }
 
 }

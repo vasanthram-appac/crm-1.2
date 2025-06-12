@@ -1576,10 +1576,10 @@ td, td a, td button, .text-lblue {font-size:14px !important;}
   cursor:default;
 }
 .bell.active{cursor:pointer;}
-#totalcount{
-  position:absolute;
-  right:-7px;
-  top:0px;
+#totalcount {
+    position: absolute;
+    right: -10px;
+    top: -13px;
 }
 .bell.active::after {
   position: absolute;

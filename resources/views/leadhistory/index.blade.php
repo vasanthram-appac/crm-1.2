@@ -24,7 +24,7 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
-<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+    <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs my-4 justify-content-end mb-0">
             <li class="nav-item">
@@ -47,12 +47,12 @@
             $empid = request()->session()->get('empid');
             @endphp
             @if(in_array($empid, ['AM001', 'AM090']))
-            
+
             <li class="nav-item">
                 <a class="nav-link" href="/fiscal"><b>Fiscal</b></a>
             </li>
             @endif
-            @endif        
+            @endif
         </ul>
     </div>
     <div class="col-12">
@@ -123,7 +123,7 @@
                     <th class="text-grey">S.no</th>
                     <th class="text-grey">Emp.Name</th>
                     <th class="text-grey">Company</th>
-                    <th class="text-grey">Summary</th>
+                    <th class="text-grey" style="width:490px !important;">Summary</th>
                     <th class="text-grey">Subject</th>
                     <th class="text-grey">Date</th>
                 </tr>
@@ -249,12 +249,12 @@
                     name: 'sno'
                 },
                 {
-                    data: 'employee',
-                    name: 'employee'
+                    data: 'fname',
+                    name: 'fname'
                 },
                 {
-                    data: 'company_name',
-                    name: 'company_name'
+                    data: 'companyname',
+                    name: 'companyname'
                 },
                 {
                     data: 'summary',
@@ -304,25 +304,29 @@
 
         // Initialize the date range picker
         $('#reportrange').daterangepicker({
+            showDropdowns: true,
             autoUpdateInput: false,
-            startDate: start,
-            endDate: end,
+            linkedCalendars: false, // ✅ This prevents the end calendar from jumping when you pick the start date
+            startDate: moment('01/01/2020', 'MM/DD/YYYY'),
+            endDate: moment('01/01/2025', 'MM/DD/YYYY'),
+            minDate: '01/01/2000',
+            maxDate: '12/31/2030',
             locale: {
                 format: 'MM/DD/YYYY',
-                cancelLabel: 'Clear',
+                cancelLabel: 'Clear'
             },
             ranges: {
                 'All': [moment('01/01/2019'), moment()],
                 'Today': [moment(), moment()],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-                'Last 3 Months': [moment().subtract(2, 'months').startOf('month'), moment().endOf('month')],
-                'Last 6 Months': [moment().subtract(5, 'months').startOf('month'), moment().endOf('month')],
+                'Last 3 Months': [moment().subtract(3, 'months').startOf('month'), moment().endOf('month')],
+                'Last 6 Months': [moment().subtract(6, 'months').startOf('month'), moment().endOf('month')],
                 'Last 12 Months': [moment().subtract(11, 'months').startOf('month'), moment().endOf('month')],
-            },
-            minYear: 2019, // Minimum year allowed for selection
-            maxYear: moment().year(), // Maximum year allowed is the current year
-        }, cb);
+            }
+        }, function(start, end) {
+            $('#reportrange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+        });
 
         // Set default range to the current month
         cb(start, end);

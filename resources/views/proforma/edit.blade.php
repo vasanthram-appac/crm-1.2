@@ -81,7 +81,8 @@
                             <option value="">Select</option>
                             @if(count($statename)>0)
                             @foreach($statename as $state)
-                            <option value="{{$state->name}}" @if($state->name == $proformadetails->statename) selected @endif>{{$state->name}}</option>
+                            <option value="{{$state->name}}"  @if(isset($proformadetails->statename) && $state->name == $proformadetails->statename) selected 
+                                @elseif(isset($accounts->state) && $state->name == $accounts->state) selected @endif>{{$state->name}}</option>
                             @endforeach
                             @endif
                         </select>

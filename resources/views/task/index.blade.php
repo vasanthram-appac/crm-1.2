@@ -111,6 +111,7 @@
                             <th class="text-grey">Assigned to Employee</th>
                             <th class="text-grey">Assigned By</th>
                             <th class="text-grey">Task Status</th>
+                            <th class="text-grey">Approved</th>
                             <th class="text-grey">Action</th>
                             <!-- Add more columns as needed -->
                         </tr>
@@ -195,7 +196,10 @@
                     data: 'status',
                     name: 'status'
                 },
-                
+                {
+                    data: 'approved',
+                    name: 'approved'
+                },
                 {
                     data: 'action',
                     name: 'action',

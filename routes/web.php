@@ -25,7 +25,7 @@ use App\Http\Controllers\Webproposal;
 use App\Http\Controllers\Digitalproposal;
 use App\Http\Controllers\Paymententry;
 use App\Http\Controllers\Leaveapproval;
-
+use App\Http\Controllers\Newnbd;
 
 /*
 |--------------------------------------------------------------------------
@@ -256,7 +256,15 @@ Route::post('/workorderstatus', [Workorderview::class, 'workorderstatus'])->name
 
 Route::post('/leavestatus', [Leaveapproval::class, 'leavestatus'])->name('leavestatus');
 
+Route::post('/totalhourssearch', [Accounts::class, 'totalhourssearch'])->name('totalhourssearch');
 
+Route::resource('/ppcquestioner','App\Http\Controllers\Ppcquestioner');
+
+Route::get('/convertlead/{id}', [Newnbd::class, 'Convertlead'])->name('convertlead');
+
+Route::post('/savelead', [Newnbd::class, 'Savelead'])->name('savelead');
+
+Route::get('/taskapprovalview/{id}', [Task::class, 'taskapprovalview'])->name('taskapprovalview');
 
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 
@@ -267,7 +275,6 @@ Route::resource('/newnbdquestioner','App\Http\Controllers\Newnbdquestioner');
 Route::get('/nbd-questioner', function () {
     return view('newnbdquestioner/create');
 });
-
 
 Route::get('/viewofferletter/{id}', [Offerletter::class, 'viewofferletter'])->name('viewofferletter');
 

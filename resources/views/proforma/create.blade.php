@@ -107,7 +107,7 @@
                             <option value="">Select</option>
                             @if(count($statename)>0)
                             @foreach($statename as $state)
-                            <option value="{{$state->name}}">{{$state->name}}</option>
+                            <option value="{{$state->name}}" @if($state->name == $accounts->state) selected @endif>{{$state->name}}</option>
                             @endforeach
                             @endif
                         </select>

@@ -383,20 +383,45 @@
 
         }
 
+        // $('#reportrange').daterangepicker({
+        //     autoUpdateInput: false,
+        //     startDate: start,
+        //     endDate: end,
+        //     locale: {
+        //         format: 'MM/DD/YYYY'
+        //     },
+        //     ranges: {
+        //         'All': [moment('01/01/2019'), moment()],
+        //         'Today': [moment(), moment()],
+        //         'This Month': [moment().startOf('month'), moment().endOf('month')],
+        //         'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        //     }
+        // }, cb);
+
         $('#reportrange').daterangepicker({
-            autoUpdateInput: false,
-            startDate: start,
-            endDate: end,
-            locale: {
-                format: 'MM/DD/YYYY'
-            },
-            ranges: {
-                'All': [moment('01/01/2019'), moment()],
-                'Today': [moment(), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-            }
-        }, cb);
+    showDropdowns: true,
+    autoUpdateInput: false,
+    linkedCalendars: false, // ✅ This prevents the end calendar from jumping when you pick the start date
+    startDate: moment('01/01/2020', 'MM/DD/YYYY'),
+    endDate: moment('01/01/2025', 'MM/DD/YYYY'),
+    minDate: '01/01/2000',
+    maxDate: '12/31/2030',
+    locale: {
+        format: 'MM/DD/YYYY',
+        cancelLabel: 'Clear'
+    },
+    ranges: {
+        'All': [moment('01/01/2019'), moment()],
+        'Today': [moment(), moment()],
+        'This Month': [moment().startOf('month'), moment().endOf('month')],
+        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+        'Last 3 Months': [moment().subtract(3, 'months').startOf('month'), moment().endOf('month')],
+        'Last 6 Months': [moment().subtract(6, 'months').startOf('month'), moment().endOf('month')],
+        'Last 12 Months': [moment().subtract(11, 'months').startOf('month'), moment().endOf('month')],
+    }
+}, function(start, end) {
+    $('#reportrange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+});
 
         cb(start, end);
     });

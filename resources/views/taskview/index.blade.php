@@ -96,8 +96,6 @@
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
 
-            
-
             <div class="p-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered ">
                     <thead>
