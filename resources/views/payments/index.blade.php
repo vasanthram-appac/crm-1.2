@@ -108,7 +108,7 @@
                         </div>
                     </a>
                 </div>
-                @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1')
+                @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
                 <div class="g-data ps-3"><a href="/proforma">
                         <div class="bio  rounded-30  piechart-leads dash-4">
                             <div class="svg-d">
@@ -258,6 +258,21 @@
                             </div>
                             <h3 class="text-center">Required Input</h3>
                             <h4>{{$requiredinput}}</h4>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="g-data ps-3"><a href="/expocustomer">
+                        <div class="bio  rounded-30  piechart-leads dash-4">
+                            <div class="svg-d">
+                                <svg id="Layer_1" height="20" viewBox="0 0 512 512" width="20" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                                    <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                                        <path d="m469.5 344.67a14.34 14.34 0 0 1 -14.344 14.33h-72.356c-3.915-76.761-67.6-138-145.287-138-77.742 0-141.423 61.239-145.338 138h-35.331a14.341 14.341 0 0 1 -14.344-14.33v-314.339a14.341 14.341 0 0 1 14.344-14.331h104.531a13.81 13.81 0 0 1 12.925 8.213l35.048 74.287a18.607 18.607 0 0 0 16.934 10.732h228.874a14.34 14.34 0 0 1 14.34 14.33v221.108zm-12.6-251.389v-45.981a18.744 18.744 0 0 0 -18.727-18.717h-244.109l-5.283-11.194a30.035 30.035 0 0 0 -27.406-17.389h-104.531a30.347 30.347 0 0 0 -30.331 30.331v314.339a30.353 30.353 0 0 0 30.331 30.33h35.425c4.387 76.29 67.879 137 145.24 137s140.806-60.709 145.24-137h72.407a30.353 30.353 0 0 0 30.331-30.331v-221.109a30.346 30.346 0 0 0 -28.587-30.279zm-287.789 319.008a6.988 6.988 0 0 0 6.981 7h4.434v-105.577h-4.434a6.984 6.984 0 0 0 -6.981 7zm27.406 20.143a7.6 7.6 0 0 0 7.595 7.6h23.488a7.6 7.6 0 0 0 7.595-7.6v-131.862a7.6 7.6 0 0 0 -7.595-7.6h-23.488a7.6 7.6 0 0 0 -7.595 7.6zm54.671-13.142h47.69a7.028 7.028 0 0 0 7.029-7v-91.578a7.024 7.024 0 0 0 -7.029-7h-47.69zm70.71-7v-91.578a23.041 23.041 0 0 0 -23.02-23h-47.878a23.616 23.616 0 0 0 -23.4-20.741h-23.488a23.7 23.7 0 0 0 -23.444 20.741h-4.576a23 23 0 0 0 -22.972 23v91.577a23 23 0 0 0 22.972 23h4.576a23.7 23.7 0 0 0 23.444 20.741h23.488a23.616 23.616 0 0 0 23.4-20.74h47.878a23.041 23.041 0 0 0 23.022-23.001z" fill-rule="evenodd" fill="#100c41" fill-opacity="1" data-original-color="#000000ff" stroke="none" stroke-opacity="1" />
+                                    </g>
+                                </svg>
+                            </div>
+                            <h3 class="text-center">Expo Customer</h3>
+                            <h4>{{$expocustomer}}</h4>
                         </div>
                     </a>
                 </div>

@@ -86,13 +86,23 @@ class Leadhistory extends Controller
                 return $item;
             });
 
+            foreach ($data->items() as $row) {
+                $row->companyname = '<button class="btn btn-modal text-lblue" 
+        data-cid="' . $row->company_name . '" 
+        data-container=".appac_show" 
+        data-href="' . route('viewaccounts', ['id' => $row->company_name]) . '">
+        ' . e($row->companyname) . '
+    </button>';
+            }
+
+
             $totallead = [];
             $totalHistroy = [];
             $currentDate = new DateTime();
 
             if ($startDate && $endDate) {
 
-                $regis = DB::table('regis')->whereNotIn('empid', ['AM001', 'AM002'])->whereIn('dept_id', ['6', '1'])->where('status', '1')->get();
+                $regis = DB::table('regis')->whereNotIn('empid', ['AM001'])->whereIn('dept_id', ['6', '1', '8'])->where('status', '1')->get();
 
                 foreach ($regis as $regi) {
                     $totalEnquiry = DB::table('notes')
@@ -105,7 +115,7 @@ class Leadhistory extends Controller
                     ];
                 }
 
-                $regis1 = DB::table('regis')->whereIn('dept_id', ['6', '1'])->where('status', '1')->get();
+                $regis1 = DB::table('regis')->whereIn('dept_id', ['6', '1', '8'])->where('status', '1')->get();
 
                 foreach ($regis1 as $regi) {
 
@@ -120,13 +130,12 @@ class Leadhistory extends Controller
                 }
             } else {
 
-                $regis = DB::table('regis')->whereNotIn('empid', ['AM001', 'AM002'])->whereIn('dept_id', ['6', '1'])->where('status', '1')->get();
+                $regis = DB::table('regis')->whereNotIn('empid', ['AM001', 'AM002'])->whereIn('dept_id', ['6', '1', '8'])->where('status', '1')->get();
 
                 foreach ($regis as $regi) {
                     $totalEnquiry = DB::table('notes')
                         ->where('employee', $regi->empid)
                         ->whereBetween("submitdate", [date('Y-m-01'), date('Y-m-t')]);
-
 
                     $totalHistroy[] = [
                         'name' => $regi->fname,
@@ -134,7 +143,7 @@ class Leadhistory extends Controller
                     ];
                 }
 
-                $regis1 = DB::table('regis')->whereIn('dept_id', ['6', '1'])->where('status', '1')->get();
+                $regis1 = DB::table('regis')->whereIn('dept_id', ['6', '1', '8'])->where('status', '1')->get();
 
                 foreach ($regis1 as $regi) {
 
@@ -172,7 +181,7 @@ class Leadhistory extends Controller
         $regis = DB::table('regis')
             ->where('status', '!=', 0)
             ->where('fname', '!=', 'demo')
-            ->whereIn('dept_id', ['6', '1'])
+            ->whereIn('dept_id', ['6', '1', '8'])
             ->whereNotIn('empid', ['AM001', 'AM002'])
             ->where('status', 1) // Overwrites the earlier status condition
             ->pluck('fname', 'empid')

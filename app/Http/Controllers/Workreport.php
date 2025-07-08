@@ -125,7 +125,7 @@ class Workreport extends Controller
             $work_types = DB::table('work_type')->whereIn('dept', [4, 0])->get();
         } else {
 
-            if ($dept_id != 1 && $dept_id != 5 && $dept_id != 6 && $dept_id != 7) {
+            if ($dept_id != 1 && $dept_id != 5 && $dept_id != 6 && $dept_id != 7 && $dept_id != 8) {
                 $dept_id1 = $dept_id;
             } else {
                 $dept_id1 = "0";

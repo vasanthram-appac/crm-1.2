@@ -120,7 +120,7 @@
                         </div>
                     </a>
                 </div>
-                @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1')
+                @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
                 <div class="g-data  ps-3"><a href="/proforma">
                         <div class="bio  rounded-30  piechart-leads dash-6">
                             <div class="svg-d">

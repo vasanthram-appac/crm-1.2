@@ -26,7 +26,7 @@ use App\Http\Controllers\Digitalproposal;
 use App\Http\Controllers\Paymententry;
 use App\Http\Controllers\Leaveapproval;
 use App\Http\Controllers\Newnbd;
-
+use App\Http\Controllers\purchaseorder;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -265,6 +265,18 @@ Route::get('/convertlead/{id}', [Newnbd::class, 'Convertlead'])->name('convertle
 Route::post('/savelead', [Newnbd::class, 'Savelead'])->name('savelead');
 
 Route::get('/taskapprovalview/{id}', [Task::class, 'taskapprovalview'])->name('taskapprovalview');
+
+Route::resource('/expocustomer','App\Http\Controllers\Expocustomer');
+
+Route::resource('/purchaseorder','App\Http\Controllers\Purchaseorder');
+
+Route::get('/poprint/{id}', [Purchaseorder::class, 'print'])->name('poprint');
+
+Route::post('/purchaseorderstatus', [Purchaseorder::class, 'purchaseorderstatus'])->name('purchaseorderstatus');
+
+Route::post('/purchaseorderaccountsid', [Purchaseorder::class, 'accountsid'])->name('purchaseorderaccountsid');
+
+Route::resource('/vendorlist','App\Http\Controllers\Vendorlist');
 
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 

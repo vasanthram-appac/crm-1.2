@@ -39,7 +39,8 @@ class User extends Controller
                         4 => 'Promotion',
                         5 => 'Content Writer',
                         6 => 'Marketing',
-                        7 => 'Client Coordinator'
+                        7 => 'Client Coordinator',
+                        8 => 'Accounts'
                     ];
 
                     // Assign the department name or an empty string if dept_id is not in the array
@@ -183,7 +184,9 @@ class User extends Controller
             4 => 'Promotion',
             5 => 'Content Writer',
             6 => 'Marketing',
-            7 => 'Client Coordinator'
+            7 => 'Client Coordinator',
+            8 => 'Accounts',
+            
         ];
 
         // Assign the department name or an empty string if dept_id is not in the array
@@ -481,7 +484,8 @@ class User extends Controller
             4 => 'Promotion',
             5 => 'Content Writer',
             6 => 'Marketing',
-            7 => 'Client Coordinator'
+            7 => 'Client Coordinator',
+            8 => 'Accounts'
         ];
 
         // Assign the department name or an empty string if dept_id is not in the array

@@ -172,6 +172,7 @@
                         <tr>
                             <th class="thcenter">Item</th>
                             <th class="thcenter">Description</th>
+                            <th class="thcenter">HSN Code</th>
                             <th class="thcenter">Quantity</th>
                             <th class="thcenter">Unit Price</th>
                             <th class="thcenter">Total</th>
@@ -186,6 +187,7 @@
                         <tr>
                             <td><input id="item_no_{{$key+1}}" type="text" name="item_no_{{$key+1}}" value="{{$proforma1->item_no}}" class="input-mini"></td>
                             <td><input id="description_{{$key+1}}" type="text" name="description_{{$key+1}}" value="{{$proforma1->description}}" class="input-xlarge"></td>
+                            <td><input id="hsn_{{$key+1}}" type="text" name="hsn_{{$key+1}}" value="{{$proforma1->hsn}}" class="input-xlarge"></td>
                             <td><input onkeyup="sum();" id="quantity_{{$key+1}}" type="text" name="quantity_{{$key+1}}" value="{{$proforma1->quantity}}" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="unit_{{$key+1}}" type="text" name="unit_{{$key+1}}" value="{{$proforma1->unit}}" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="totalamount_{{$key+1}}" type="text" name="totalamount_{{$key+1}}" value="{{$proforma1->totalamount}}" class="input-mini" readonly></td>
@@ -200,6 +202,7 @@
                             <tr>
                             <td><input onkeyup="sum();" id="item_no_{{$i}}" type="text" name="item_no_{{$i}}" value="0{{$i}}" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="description_{{$i}}" type="text" name="description_{{$i}}" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="hsn_{{$i}}" type="text" name="hsn_{{$i}}" class="input-xlarge"></td>
                             <td><input onkeyup="sum();" id="quantity_{{$i}}" type="text" name="quantity_{{$i}}" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="unit_{{$i}}" type="text" name="unit_{{$i}}" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="totalamount_{{$i}}" type="text" name="totalamount_{{$i}}" class="input-mini" readonly></td>

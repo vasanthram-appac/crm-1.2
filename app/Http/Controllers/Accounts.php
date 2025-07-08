@@ -509,6 +509,9 @@ class Accounts extends Controller
         $empid_value2 = $employeeData->lname ?? '';
         $emailid = $employeeData->emailid ?? '';
 
+        $accountmanager = DB::table('regis')->where('empid', $company->accountmanager)->first();
+        $accountmanager_emailid = $accountmanager->emailid ?? '';
+
         // Insert note data
         $insert = DB::table('notes')->insert($val);
 
@@ -550,7 +553,7 @@ class Accounts extends Controller
             $thesupportmail = request()->session()->get('dept_id') == 6 ? env('THESUPPORTMAIL') : null;
 
             // // Send email
-            Mail::send([], [], function ($message) use ($request, $bala, $managermail, $bccEmail, $infomail, $emailid, $company_name_value, $htmlContent, $empid_value2, $thesupportmail) {
+            Mail::send([], [], function ($message) use ($request, $bala, $managermail, $bccEmail, $infomail, $emailid, $company_name_value, $htmlContent, $empid_value2, $thesupportmail, $accountmanager_emailid) {
                 // Configure email properties
                 $message->to($bala)
                     ->cc(array_filter([$managermail, $thesupportmail]))
@@ -558,7 +561,8 @@ class Accounts extends Controller
                     ->replyTo($emailid)
                     ->from($infomail, $company_name_value)
                     ->subject($request->subject)
-                    ->html($htmlContent);
+                    ->html($htmlContent)
+                    ->cc($accountmanager_emailid);
 
                 // Add any CC emails from mail_cc array
                 if ($request->has('mail_cc') && count($request->mail_cc) > 0) {
@@ -725,7 +729,11 @@ class Accounts extends Controller
 
     public function Keystatus($id, $key_status)
     {
-        $update = DB::table('accounts')->where('id', $id)->update(['key_status' => $key_status]);
+        $order = DB::table('accounts')->select('order_id')->where('active_status', 'active')->where('key_status', 1)->orderBY('order_id', 'desc')->first();
+
+        $order_id =  ($key_status == 1) ? $order->order_id + 1 : 0;
+
+        $update = DB::table('accounts')->where('id', $id)->update(['key_status' => $key_status, 'order_id' => $order_id]);
 
         if ($update) {
             session()->flash('secmessage', 'Status updated successfully!');
@@ -943,7 +951,29 @@ class Accounts extends Controller
                 ->where('regis.status', 1)
                 ->orderBY('t.taskid', 'desc')
                 ->get();
-            // dd($task);
+
+            $threeDaysAgo = date('Y-m-d', strtotime('-3 days'));
+
+            $accounthistory = DB::table('notes')
+                ->select('accounts.company_name', DB::raw('DATE_FORMAT(MAX(notes.submitdate), "%d-%m-%Y") as last_submit_date'))
+                ->join('accounts', 'notes.company_name', '=', 'accounts.id')
+                ->where('accounts.active_status', 'active')
+                ->where('accounts.key_status', 1)
+                ->groupBy('accounts.company_name','accounts.order_id')
+                ->havingRaw('MAX(notes.submitdate) < ?', [$threeDaysAgo])
+                ->orderBy('accounts.order_id', 'ASC')
+                ->get();
+
+            $startDate = date('Y-m-d');
+            $endDate = date('Y-m-d', strtotime('+3 days'));
+
+            $dmcontract = DB::table('seo_client')
+                ->join('accounts', 'seo_client.company_name', '=', 'accounts.id')
+                ->select('seo_client.dateofexpire', 'seo_client.promotion_status', 'accounts.company_name as companyname')
+                ->where('seo_client.status', '0')
+                ->whereBetween('dateofexpire1', [$startDate, $endDate])
+                ->orderBy('dateofexpire', 'Desc')
+                ->get();
         } else {
 
             $hosting = [];
@@ -951,6 +981,8 @@ class Accounts extends Controller
             $domain = [];
             $emailserver = [];
             $ssl_certificate = [];
+            $accounthistory = [];
+            $dmcontract = [];
 
             $task = DB::table('task_management as t')
                 ->join('regis', 't.empid', '=', 'regis.empid')
@@ -974,7 +1006,7 @@ class Accounts extends Controller
             ->get();
 
         $count = count($hosting) + count($seo_client) + count($domain) + count($emailserver) + count($ssl_certificate) + count($calendar) +
-            count($birthdayData) + count($task);
+            count($birthdayData) + count($task) + count($accounthistory) + count($dmcontract);
 
         return response()->json([
             'hosting' => $hosting,
@@ -982,6 +1014,8 @@ class Accounts extends Controller
             'domain' => $domain,
             'emailserver' => $emailserver,
             'ssl_certificate' => $ssl_certificate,
+            'accounthistory' => $accounthistory,
+            'dmcontract' => $dmcontract,
             'calendar' => $calendar,
             'birthdayData' => $birthdayData,
             'task' => $task,

@@ -48,7 +48,7 @@
                     </a>
                 </div>
             
-            @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM063' || request()->session()->get('empid') == 'AM003' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1')
+            @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM063' || request()->session()->get('empid') == 'AM003' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
             <div class="g-data ps-3"><a href="/user">
                         <div class="bio  rounded-30  piechart-leads dash-2">
                             <div class="svg-d">

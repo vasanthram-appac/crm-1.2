@@ -81,7 +81,14 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('numberofmonth', 'Number of Month*', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('numberofmonth', null, ['class' => 'form-control', 'required']) !!}
+                          <select class="form-select" name="numberofmonth" required>
+                            <option value="">Select Month</option>
+                            <option value="1 Month">1 Month</option>
+                            <option value="3 Month">3 Month</option>
+                            <option value="6 Month">6 Month</option>
+                            <option value="9 Month">9 Month</option>
+                            <option value="12 Month">12 Month</option>
+                        </select>
                     </div>
                 </div>
 

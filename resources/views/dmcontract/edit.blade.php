@@ -25,8 +25,15 @@
 
             <div class="row m-0 mb-0">
                 <div class="col-lg-6 col-sm-12 mb-2">
-                    {!! Form::label('numberofmonth', 'SSL Installed On', ['class' => 'label-color py-2']) !!}
-                    {!! Form::text('numberofmonth', $dmcontract->numberofmonth, ['class' => 'form-control']) !!}
+                    {!! Form::label('numberofmonth', 'Number of Month *', ['class' => 'label-color py-2']) !!}
+                    {!! Form::select('numberofmonth', [
+                    '' => 'Select Month',
+                    '1 Month' => '1 Month',
+                    '3 Month' => '3 Month',
+                    '6 Month' => '6 Month',
+                    '9 Month' => '9 Month',
+                    '12 Month' => '12 Month'
+                    ], $dmcontract->numberofmonth, ['class' => 'form-select', 'required' => true]) !!}
                 </div>
 
                 <div class="col-lg-6 col-sm-12 mb-2">
@@ -42,8 +49,6 @@
                     ], $dmcontract->promotion_status, ['class' => 'form-select', 'required' => true])
                     !!}
                 </div>
-
-
             </div>
 
             <div class="row m-0 mb-0">
@@ -56,7 +61,6 @@
                     {!! Form::label('dateofrenewal', 'SEO Last Renewed On', ['class' => 'label-color py-2']) !!}
                     {!! Form::text('', $dmcontract->dateofrenewal, ['class' => 'form-control', 'readonly']) !!}
                 </div>
-
             </div>
 
             <div class="row m-0 mb-0">

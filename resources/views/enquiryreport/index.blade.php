@@ -41,7 +41,7 @@
                 <a class="nav-link active" href="/enquiryreport"><b>Enquiry Report</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/leadhistory"><b>Lead History</b></a>
+                <a class="nav-link" href="/leadhistory"><b>Account History</b></a>
             </li>
             @php
             $empid = request()->session()->get('empid');
@@ -196,7 +196,7 @@
             processing: true,
             serverSide: true,
             pageLength: 10,
-            lengthMenu: [10, 20, 50, 100],
+            lengthMenu: [10, 100, 200, 300],
             ajax: function(data, callback, settings) {
                 var activeForm = $('form.active');
                 var filterData = {
@@ -330,6 +330,7 @@
             ranges: {
                 'All': [moment('01/01/2019'), moment()],
                 'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
                 'Last 3 Months': [moment().subtract(3, 'months').startOf('month'), moment().endOf('month')],

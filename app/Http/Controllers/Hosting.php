@@ -355,14 +355,9 @@ class Hosting extends Controller
     public function adddomain()
     {
 
-        $domainmaster = DB::table('domainmaster')
-            ->join('accounts', 'domainmaster.company_name', '=', 'accounts.id')
-            ->where('domainmaster.domainname', '!=', '')
-            ->groupBy('domainmaster.company_name')
-            ->groupBy('accounts.company_name')
-            ->groupBy('accounts.id')
-            ->orderBy('accounts.company_name', 'ASC')
-            ->select('domainmaster.company_name', 'accounts.company_name as company_name_full', 'accounts.id')
+        $domainmaster = DB::table('accounts')
+            ->select('accounts.company_name', 'accounts.id')
+            ->orderBy('company_name', 'ASC')
             ->get();
         // dd(  $domainmaster);
         // return view('domain/create')->render();

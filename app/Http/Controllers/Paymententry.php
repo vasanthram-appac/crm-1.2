@@ -16,19 +16,19 @@ class Paymententry extends Controller
 
     public function index(Request $request)
     {
-     
-        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') {
+
+        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8') {
 
             if (request()->ajax()) {
                 // Fetch the main payment data
-              
+
                 if (isset($request->companyname) && !empty($request->companyname)) {
                     request()->session()->put('pcompanyname', $request->companyname);
-                } 
+                }
 
-                  if (isset($request->companyname) && !empty($request->companyname) && $request->companyname == "All") {
+                if (isset($request->companyname) && !empty($request->companyname) && $request->companyname == "All") {
                     request()->session()->put('pcompanyname', "");
-                } 
+                }
 
                 if (isset($request->daterange) && !empty($request->daterange)) {
                     $daterange = explode(' - ', $request->daterange);
@@ -52,22 +52,22 @@ class Paymententry extends Controller
                     ->join('accounts as a', 'a.id', '=', 'p.company_name')
                     ->join('regis as r', 'r.empid', '=', 'p.create_empid')
                     ->when(request()->session()->has('pcompanyname') && !empty(request()->session()->get('pcompanyname')) && request()->session()->get('pcompanyname') != 'All', function ($query) {
-                       
+
                         $query->where('p.company_name', request()->session()->get('pcompanyname'));
                     })
                     ->when(request()->session()->has('pstart_date') && !empty(request()->session()->get('pstart_date')) && request()->session()->has('pend_date') && !empty(request()->session()->get('pend_date')), function ($query) {
-                       
+
                         $query->whereBetween('paydate', [request()->session()->get('pstart_date'), request()->session()->get('pend_date')]);
                     })
                     ->orderByDesc('p.paydate')
                     ->get();
 
-                    if(count($data) >0){
+                if (count($data) > 0) {
                     $totalpayamount = number_format((float)$data[0]->totalpayamount, 2, '.', ',')  ?? 0;
                     request()->session()->put('totalpaymententry', $totalpayamount);
-                    }else{
-                        request()->session()->put('totalpaymententry', 0);
-                    }
+                } else {
+                    request()->session()->put('totalpaymententry', 0);
+                }
 
                 foreach ($data as $pay) {
                     // Fetch related invoice data for each payment
@@ -76,8 +76,26 @@ class Paymententry extends Controller
 
                     $pay->proinv = [];
                     if ($invoiceData->isNotEmpty()) {
-                        foreach ($invoiceData as $invoice) {
-                            $pay->proinv[] = "<b>PI:</b> " . ($invoice->pinvoice ?? 'N/A') . "<br> <b>Ino:</b> " . ($invoice->invoiceno ?? 'N/A') . "<br>";
+                        foreach ($invoiceData as $invoiceRow) {
+                            $invoiceno = $invoiceRow->invoiceno;
+                            $pinvoice = $invoiceRow->pinvoice;
+
+                            // Only build links if values are not null
+                            if ($invoiceno && $pinvoice) {
+                                $invoiceno_encoded = base64_encode($invoiceno);
+                                $pinvoice_encoded = base64_encode($pinvoice);
+
+                                $pay->proinv[] =
+                                    "<b>PI:</b> <a class='btn' href='" . route('pprint', ['id' => $pinvoice_encoded]) . "' target='_blank'>
+                    ". e($pinvoice) . "
+                </a> <br>" .
+
+                                    "<b>Ino:</b> <a class='btn' href='" . route('iprint', ['id' => $invoiceno_encoded]) . "' target='_blank'>
+                    ". e($invoiceno) . "
+                </a> <br>";
+                            } else {
+                                $pay->proinv[] = "<b>PI:</b> N/A<br><b>Ino:</b> N/A<br>";
+                            }
                         }
                     }
 
@@ -101,6 +119,9 @@ class Paymententry extends Controller
                     ->addColumn('sno', function ($row) {
                         return '';
                     })
+                    ->addColumn('company_name', function ($row) {
+                        return '<button class="btn  btn-modal text-lblue" data-cid="' . $row->company_id . '" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->company_id]) . '">' . $row->company_name . ' </button>';
+                    })
                     ->addColumn('proinv', function ($row) {
                         return is_array($row->proinv) ? implode('', $row->proinv) : '';
                     })
@@ -110,7 +131,7 @@ class Paymententry extends Controller
 								 <span class="tooltiptext">Edit</span>
                             </button>';
                     })
-                    ->rawColumns(['sno', 'proinv', 'action'])
+                    ->rawColumns(['sno', 'proinv', 'action', 'company_name'])
                     ->make(true);
             }
 
@@ -481,4 +502,3 @@ class Paymententry extends Controller
         return response()->json(['payment' => $payment]);
     }
 }
-

@@ -16,9 +16,25 @@ class Proforma extends Controller
 
     public function index(Request $request)
     {
-        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') {
+        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8') {
 
             if (request()->ajax()) {
+
+                if (isset($request->companyname) && !empty($request->companyname)) {
+                    request()->session()->put('pincompanyname', $request->companyname);
+                }
+
+                if (isset($request->companyname) && !empty($request->companyname) && $request->companyname == "All") {
+                    request()->session()->put('pincompanyname', "");
+                }
+
+                if (isset($request->daterange) && !empty($request->daterange)) {
+                    $daterange = explode(' - ', $request->daterange);
+                    $start_date = date('Y-m-d', strtotime($daterange[0]));
+                    $end_date = date('Y-m-d', strtotime($daterange[1]));
+                    request()->session()->put('pinstart_date', $start_date);
+                    request()->session()->put('pinend_date', $end_date);
+                }
 
                 if (request()->session()->get('proforma_status') == "") {
                     request()->session()->put('proforma_status', 'open');
@@ -30,11 +46,39 @@ class Proforma extends Controller
 
                 $data = DB::table('proformadetails')
                     ->when(request()->session()->get('proforma_status') != 'all', function ($query) {
-                        $query->where('paymentstatus', request()->session()->get('proforma_status'));
+                        if(request()->session()->get('proforma_status') == 'withoutcancelled'){
+                             $query->where('paymentstatus', '!=', 'cancelled');
+                        }else{
+                            $query->where('paymentstatus', request()->session()->get('proforma_status'));
+                        }
                     })
+                    ->when(request()->session()->has('pincompanyname') && !empty(request()->session()->get('pincompanyname')) && request()->session()->get('pincompanyname') != 'All', function ($query) {
+                        $query->where('company_id', request()->session()->get('pincompanyname'));
+                    })
+                    ->when(
+                        request()->session()->has('pinstart_date') && !empty(request()->session()->get('pinstart_date')) &&
+                            request()->session()->has('pinend_date') && !empty(request()->session()->get('pinend_date')),
+                        function ($query) {
+                            $start = date('Y-m-d', strtotime(request()->session()->get('pinstart_date')));
+                            $end = date('Y-m-d', strtotime(request()->session()->get('pinend_date')));
+
+                            // Assuming invoice_date is stored in 'd-m-Y' string format in DB
+                            $query->whereRaw("STR_TO_DATE(invoice_date, '%d-%m-%Y') BETWEEN ? AND ?", [$start, $end]);
+                        }
+                    )
                     // ->whereNotNull('company_id')
                     ->orderBy('invoice_no', 'desc')
                     ->get();
+
+                if (count($data) > 0) {
+                    $total = $data->sum(function ($item) {
+                        return (float) str_replace(',', '', $item->grosspay);
+                    });
+                    $totalinpayment = number_format((float)$total, 2, '.', ',')  ?? 0;
+                    request()->session()->put('totalinppayment', $totalinpayment);
+                } else {
+                    request()->session()->put('totalinppayment', 0);
+                }
 
                 foreach ($data as $pdata) {
                     $emp = DB::table('regis')->where('empid', $pdata->empid)->first();
@@ -108,7 +152,7 @@ class Proforma extends Controller
             }
 
             $accounts = DB::table('accounts')->where('status', '!=', '0')->orderBy('company_name', 'ASC')->pluck('company_name', 'id')->toArray();
-            $accounts = ['0' => 'Select Client'] + $accounts;
+            $accounts = ['0' => 'Select Client', 'All' => 'All'] + $accounts;
 
             $proformadata = DB::table('proformadetails')
                 ->select(DB::raw('COUNT(*) as total_open'), DB::raw('SUM(grosspay) as total_grosspay'))
@@ -142,7 +186,7 @@ class Proforma extends Controller
 
         $in_number = $j;
 
-        $statename = DB::table('statemaster')->orderBy('sorder_id','ASC')->get();
+        $statename = DB::table('statemaster')->orderBy('sorder_id', 'ASC')->get();
 
         return view('proforma/create', compact('accounts', 'in_number', 'gst', 'statename'))->render();
     }
@@ -230,6 +274,7 @@ class Proforma extends Controller
                 'quantity' => $request->quantity_one,
                 'unit' => $request->unit_one,
                 'totalamount' => $request->totalamount_one,
+                'hsn' => $request->hsn_one,
             ]);
         }
 
@@ -245,6 +290,7 @@ class Proforma extends Controller
                 'quantity' => $request->quantity_two,
                 'unit' => $request->unit_two,
                 'totalamount' => $request->totalamount_two,
+                'hsn' => $request->hsn_two,
             ]);
         }
 
@@ -260,6 +306,7 @@ class Proforma extends Controller
                 'quantity' => $request->quantity_three,
                 'unit' => $request->unit_three,
                 'totalamount' => $request->totalamount_three,
+                'hsn' => $request->hsn_three,
             ]);
         }
 
@@ -275,6 +322,7 @@ class Proforma extends Controller
                 'quantity' => $request->quantity_four,
                 'unit' => $request->unit_four,
                 'totalamount' => $request->totalamount_four,
+                'hsn' => $request->hsn_four,
             ]);
         }
 
@@ -290,18 +338,19 @@ class Proforma extends Controller
                 'quantity' => $request->quantity_five,
                 'unit' => $request->unit_five,
                 'totalamount' => $request->totalamount_five,
+                'hsn' => $request->hsn_five,
             ]);
         }
 
         if ($request->gsttype == 'in') {
-            $taxvalue = ($request->statename == 'Tamil Nadu')? 'sgst' : 'igst';
+            $taxvalue = ($request->statename == 'Tamil Nadu') ? 'sgst' : 'igst';
             $igst = $request->igst1;
             $cgst = $request->cgst1;
             $sgst = $request->sgst1;
             $grosspay = $request->grosspay1;
             $amount = $request->netpay;
         } else {
-            $taxvalue = ($request->statename == 'Tamil Nadu')? 'sgst' : 'igst';
+            $taxvalue = ($request->statename == 'Tamil Nadu') ? 'sgst' : 'igst';
             $igst = $request->igst;
             $cgst = $request->cgst;
             $sgst = $request->sgst;
@@ -347,7 +396,7 @@ class Proforma extends Controller
 
         $gst = DB::table('global')->first();
 
-        $statename = DB::table('statemaster')->orderBy('sorder_id','ASC')->get();
+        $statename = DB::table('statemaster')->orderBy('sorder_id', 'ASC')->get();
 
         // dd($accounts);
         return view('proforma.edit')->with(compact('proforma', 'proformadetails', 'accounts', 'gst', 'statename'));
@@ -355,7 +404,7 @@ class Proforma extends Controller
 
     public function update(Request $request, $id)
     {
-      
+
         // Validate the request inputs
         $validator = Validator::make($request->all(), [
             'company_id' => 'required|integer|exists:accounts,id',
@@ -438,6 +487,7 @@ class Proforma extends Controller
                 'quantity' => $request->quantity_1,
                 'unit' => $request->unit_1,
                 'totalamount' => $request->totalamount_1,
+                'hsn' => $request->hsn_1,
             ];
 
             if (!empty($request->updateid_1)) {
@@ -460,6 +510,7 @@ class Proforma extends Controller
                 'quantity' => $request->quantity_2,
                 'unit' => $request->unit_2,
                 'totalamount' => $request->totalamount_2,
+                'hsn' => $request->hsn_2,
             ];
 
 
@@ -483,6 +534,7 @@ class Proforma extends Controller
                 'quantity' => $request->quantity_3,
                 'unit' => $request->unit_3,
                 'totalamount' => $request->totalamount_3,
+                'hsn' => $request->hsn_3,
             ];
 
 
@@ -506,6 +558,7 @@ class Proforma extends Controller
                 'quantity' => $request->quantity_4,
                 'unit' => $request->unit_4,
                 'totalamount' => $request->totalamount_4,
+                'hsn' => $request->hsn_4,
             ];
 
             if (!empty($request->updateid_4)) {
@@ -528,6 +581,7 @@ class Proforma extends Controller
                 'quantity' => $request->quantity_5,
                 'unit' => $request->unit_5,
                 'totalamount' => $request->totalamount_5,
+                'hsn' => $request->hsn_5,
             ];
 
             if (!empty($request->updateid_5)) {
@@ -538,14 +592,14 @@ class Proforma extends Controller
         }
 
         if ($request->gsttype == 'in') {
-            $taxvalue = ($request->statename == 'Tamil Nadu')? 'sgst' : 'igst';
+            $taxvalue = ($request->statename == 'Tamil Nadu') ? 'sgst' : 'igst';
             $igst = $request->igst1;
             $cgst = $request->cgst1;
             $sgst = $request->sgst1;
             $grosspay = $request->grosspay1;
             $amount = $request->netpay;
         } else {
-            $taxvalue = ($request->statename == 'Tamil Nadu')? 'sgst' : 'igst';
+            $taxvalue = ($request->statename == 'Tamil Nadu') ? 'sgst' : 'igst';
             $igst = $request->igst;
             $cgst = $request->cgst;
             $sgst = $request->sgst;
@@ -671,8 +725,8 @@ class Proforma extends Controller
                 foreach ($proforma as $key => $proforma1) {
 
                     $val1 = [
-                        'company_id' => $proforma1->company_id,
-                        'empid'      => request()->session()->get('empid'),
+                        'company_id'   => $proforma1->company_id,
+                        'empid'        => request()->session()->get('empid'),
                         'invoice_date' => date('d-m-Y'),
                         'invoice_no'  => $in_number,
                         'item_no'     => $proforma1->item_no,
@@ -680,6 +734,7 @@ class Proforma extends Controller
                         'quantity'    => $proforma1->quantity,
                         'unit'        => $proforma1->unit,
                         'totalamount' => $proforma1->totalamount,
+                        'hsn'         => $proforma1->hsn,
                     ];
                     $insert = DB::table('invoice')->insert($val1);
                 }

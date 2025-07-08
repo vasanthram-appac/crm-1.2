@@ -18,7 +18,7 @@
                         <select name="company_name" class="form-select">
                             <option name="company_name" value="">Select</option>
                             @foreach($domainmaster as $master)
-                            <option name="company_name" value="{{ $master->company_name }}">{{ $master->company_name_full }}</option>
+                            <option name="company_name" value="{{ $master->id }}">{{ $master->company_name }}</option>
                             @endforeach
                         </select>
                     </div>

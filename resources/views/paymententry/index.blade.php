@@ -61,7 +61,7 @@
             <li class="nav-item">
                 <a class="nav-link " href="/accounts"><b>Accounts</b></a>
             </li>
-            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1')
+            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
             <li class="nav-item">
                 <a class="nav-link " href="/proforma"><b>Proforma</b></a>
             </li>
@@ -93,6 +93,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/required_input"><b>Required Input</b></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/expocustomer"><b>Expo</b></a>
+            </li>
         </ul>
     </div>
 
@@ -113,7 +116,7 @@
         </div>
 
         <div class="col-lg-2 col-sm-12">
-            <div class="validate-input m-b-23 mt-5 mx-5">
+            <div class="validate-input m-b-23 mx-5" style="margin-top: 2.7rem !important;">
                 <button type="button" id="searchpaysubmit" data-id="8" class="frm-btn pri-text-color" role="button">
                     Submit
                 </button>
@@ -124,9 +127,9 @@
             <div class="alidate-input m-b-23 mb-2">
                 <p class="fs-4 pt-5 totalamount mb-0">
                     @if(request()->session()->has('totalpaymententry'))
-                    RS. {{request()->session()->get('totalpaymententry')}}
+                    INR. {{request()->session()->get('totalpaymententry')}}
                     @else
-                    RS. 0.00
+                    INR. 0.00
                     @endif
                 </p>
             </div>
@@ -514,6 +517,7 @@
             ranges: {
                 'All': [moment('01/01/2019'), moment()],
                 'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
                 'This Month': [moment().startOf('month'), moment().endOf('month')],
                 'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
                 'Last Six Months': [moment().subtract(6, 'months').startOf('month'), moment().subtract(1, 'month').endOf('month')],

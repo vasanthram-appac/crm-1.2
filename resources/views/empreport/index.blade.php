@@ -38,7 +38,7 @@
                 <a class="nav-link" href="/enquiryreport"><b>Enquiry Report</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/leadhistory"><b>Lead History</b></a>
+                <a class="nav-link" href="/leadhistory"><b>Account History</b></a>
             </li>
             @php
             $empid = request()->session()->get('empid');

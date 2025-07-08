@@ -16,9 +16,25 @@ class Invoice extends Controller
 
     public function index(Request $request)
     {
-        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') {
+        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8') {
 
             if (request()->ajax()) {
+
+                if (isset($request->companyname) && !empty($request->companyname)) {
+                    request()->session()->put('incompanyname', $request->companyname);
+                }
+
+                if (isset($request->companyname) && !empty($request->companyname) && $request->companyname == "All") {
+                    request()->session()->put('incompanyname', "");
+                }
+
+                if (isset($request->daterange) && !empty($request->daterange)) {
+                    $daterange = explode(' - ', $request->daterange);
+                    $start_date = date('Y-m-d', strtotime($daterange[0]));
+                    $end_date = date('Y-m-d', strtotime($daterange[1]));
+                    request()->session()->put('instart_date', $start_date);
+                    request()->session()->put('inend_date', $end_date);
+                }
 
                 if (isset($request->pstatus) && !empty($request->pstatus)) {
                     request()->session()->put('invoice_status', $request->pstatus);
@@ -29,16 +45,33 @@ class Invoice extends Controller
                         $status = request()->session()->get('invoice_status');
                         if ($status == 'pending') {
                             $query->whereIn('paymentstatus', ['pending', 'open']);
-                        } else {
+                        } else if($status == 'withoutcancelled'){
+                            $query->where('paymentstatus', "!=","cancelled");
+                        }else {
                             $query->where('paymentstatus', $status);
                         }
                     })
-                    ->when(request()->session()->has('invoice_status') && request()->session()->get('invoice_status') !== 'all', function ($query) {
-                            $query->where('paymentstatus', '!=', 'closed');
-                        })
-
+                    // ->when(request()->session()->has('invoice_status') && request()->session()->get('invoice_status') != 'all', function ($query) {
+                    //     $query->where('paymentstatus', '!=', 'closed');
+                    // })
+                    ->when(request()->session()->has('incompanyname') && !empty(request()->session()->get('incompanyname')) && request()->session()->get('incompanyname') != 'All', function ($query) {
+                        $query->where('company_id', request()->session()->get('incompanyname'));
+                    })
+                    ->when(request()->session()->has('instart_date') && !empty(request()->session()->get('instart_date')) && request()->session()->has('inend_date') && !empty(request()->session()->get('inend_date')), function ($query) {
+                        $query->whereBetween('invoice_date1', [request()->session()->get('instart_date'), request()->session()->get('inend_date')]);
+                    })
                     ->orderBy('invoice_no', 'desc')
                     ->get();
+
+                    if(count($data) >0){
+                     $total = $data->sum(function ($item) {
+                        return (float) str_replace(',', '', $item->grosspay);
+                    });
+                    $totalinpayment = number_format((float)$total, 2, '.', ',')  ?? 0;
+                    request()->session()->put('totalinpayment', $totalinpayment);
+                    }else{
+                     request()->session()->put('totalinpayment', 0);
+                    }
 
                 foreach ($data as $pdata) {
                     $emp = DB::table('regis')->where('empid', $pdata->empid)->first();
@@ -87,7 +120,7 @@ class Invoice extends Controller
             }
 
             $accounts = DB::table('accounts')->where('status', '!=', '0')->orderBy('company_name', 'ASC')->pluck('company_name', 'id')->toArray();
-            $accounts = ['0' => 'Select Client'] + $accounts;
+            $accounts = ['0' => 'Select Client', 'All' => 'All'] + $accounts;
 
             return view('invoice/index', compact('accounts'))->render();
         } else {

@@ -34,13 +34,6 @@
 
             @endphp
 
-
-
-
-
-
-
-
             <!-- Sidebar-->
             @php
             $route = explode('.', Route::currentRouteName())[0];
@@ -56,13 +49,14 @@
                                 @if(request()->session()->get('role') != 'user')
 
                                 <a class="" href="/dashboard">
-                                    <img src="{{ asset('asset/image/appac-logo.png') }}" width="100 " class="toggle_close" alt="">
+                                    <img src="{{ asset('img/head-logo.png') }}" width="100 " class="toggle_close" alt="">
                                     <img src="https://appacmedia.com/images/favicon.png" width="30 " class="toggle_open" alt="">
                                 </a>
 
                                 @else
+                                
                                 <a class="" href="/userdashboard">
-                                    <img src="{{ asset('asset/image/appac-logo.png') }}" width="100 " class="toggle_close" alt="">
+                                    <img src="{{ asset('img/head-logo.png') }}" width="100 " class="toggle_close" alt="">
                                     <img src="https://appacmedia.com/images/favicon.png" width="30 " class="toggle_open" alt="">
                                 </a>
 
@@ -103,14 +97,10 @@
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='celebration') bg-bactive @else  @endif " href="/celebration">Celebration</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='resignation') bg-bactive @else  @endif " href="/resignation">Resignation</a></li>
 						
-
                     </ul> -->
                             </span>
 
-
                             @endif
-
-
 
                             @if(request()->session()->get('role') == 'user')
 
@@ -133,7 +123,6 @@
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='celebration') bg-bactive @else  @endif " href="/celebration">Celebration</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='resignation') bg-bactive @else  @endif " href="/resignation">Resignation</a></li>
 						
-
                     </ul> -->
                             </span>
 
@@ -158,8 +147,7 @@
                         
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='celebration') bg-bactive @else  @endif " href="/celebration">Celebration</a></li>
                         <li><a class="menu-list-group-item menu-list-group-item-action anchor menu-list-group-item-dark border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3  @if($route=='resignation') bg-bactive @else  @endif " href="/resignation">Resignation</a></li>
-						
-
+					
                     </ul> -->
                             </span>
 
@@ -233,7 +221,7 @@
                     </ul> -->
                                 @endif
                             </span>
-                            @if(request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('empid') == 'AM090')
+                            @if(request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '8')
                             <!-- @if (request()->session()->get('empid') == 'AM001' || request()->session()->get('empid') == 'AM090') 
                   <span id="m4">
                     <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='fiscal') bg-active @else  @endif " href="/fiscal">
@@ -464,7 +452,7 @@
                                     </a>
 
                                 </span>
-                                @if(request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('empid') == 'AM090')
+                                @if(request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '8')
                                 <!-- @if (request()->session()->get('empid') == 'AM001' || request()->session()->get('empid') == 'AM090') 
   <span id="m4">
     <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='fiscal') bg-active @else  @endif " href="/fiscal">
@@ -817,11 +805,28 @@
                         html += '<p><a href="/ssl"><strong>' + item.companyname + '</strong> - ' + item.DateFormat + '</a></p></div>';
                     });
                 }
-
+                
+                // Task
                 if (response.task.length > 0) {
                     html += '<div><h5>Task Expiry</h5>';
                     response.task.forEach(item => {
                         html += '<p><a href="/task"><strong>' + item.task_name + '</strong> - ' + item.task_duedate + '-' + item.fname + '</a></p></div>';
+                    });
+                }
+
+                // account histroy 
+                if(response.accounthistory.length > 0){
+                    html += '<div><h5>Account History</h5>';
+                    response.accounthistory.forEach(item => {
+                        html += '<p><a href="/accounts"><strong>' + item.company_name + '</strong> - ' + item.last_submit_date +'</a></p></div>';
+                    });
+                }
+
+                // dmcontract
+                if(response.dmcontract.length > 0){
+                    html += '<div><h5>DM Contract Expiry</h5>';
+                    response.dmcontract.forEach(item => {
+                        html += '<p><a href="/dmcontract"><strong>' + item.companyname + '</strong> - ' + item.promotion_status +' - '+ item.dateofexpire +'</a></p></div>';
                     });
                 }
 
@@ -865,7 +870,6 @@
     // document.addEventListener('click', function(event) {
     //     const proD = document.querySelector('.pro-d');
     //     const proDiv = document.querySelector('.pro-div');
-
     //     // Check if the click is outside both `.pro-d` and `.pro-div`
     //     if (!proD.contains(event.target) && !proDiv.contains(event.target)) {
     //         proDiv.closest('div').classList.remove('active');  
@@ -909,9 +913,6 @@
         }
     }
 
-    $(document).ready(function() {
-
-    });
 </script>
 
 </html>

@@ -192,6 +192,7 @@
                         <tr>
                             <th class="thcenter">Item</th>
                             <th class="thcenter">Description</th>
+                             <th class="thcenter">HSN Code</th>
                             <th class="thcenter">Quantity</th>
                             <th class="thcenter">Unit Price</th>
                             <th class="thcenter">Total</th>
@@ -201,6 +202,7 @@
                         <tr>
                             <td><input id="item_no_one" type="text" name="item_no_one" value="01" class="input-mini"></td>
                             <td><input id="description_one" type="text" name="description_one" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="hsn_one" type="text" name="hsn_one" class="input-xlarge"></td>
                             <td><input onkeyup="sum();" id="quantity_one" type="text" name="quantity_one" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="unit_one" type="text" name="unit_one" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="totalamount_one" type="text" name="totalamount_one" class="input-mini" readonly></td>
@@ -208,6 +210,7 @@
                         <tr>
                             <td><input onkeyup="sum();" id="item_no_two" type="text" name="item_no_two" value="02" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="description_two" type="text" name="description_two" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="hsn_two" type="text" name="hsn_two" class="input-xlarge"></td>
                             <td><input onkeyup="sum();" id="quantity_two" type="text" name="quantity_two" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="unit_two" type="text" name="unit_two" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="totalamount_two" type="text" name="totalamount_two" class="input-mini" readonly></td>
@@ -215,6 +218,7 @@
                         <tr>
                             <td><input onkeyup="sum();" id="item_no_three" type="text" name="item_no_three" value="03" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="description_three" type="text" name="description_three" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="hsn_three" type="text" name="hsn_three" class="input-xlarge"></td>
                             <td><input onkeyup="sum();" id="quantity_three" type="text" name="quantity_three" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="unit_three" type="text" name="unit_three" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="totalamount_three" type="text" name="totalamount_three" class="input-mini" readonly></td>
@@ -222,6 +226,7 @@
                         <tr>
                             <td><input onkeyup="sum();" id="item_no_four" type="text" name="item_no_four" value="04" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="description_four" type="text" name="description_four" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="hsn_four" type="text" name="hsn_four" class="input-xlarge"></td>
                             <td><input onkeyup="sum();" id="quantity_four" type="text" name="quantity_four" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="unit_four" type="text" name="unit_four" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="totalamount_four" type="text" name="totalamount_four" class="input-mini" readonly></td>
@@ -229,6 +234,7 @@
                         <tr>
                             <td><input onkeyup="sum();" id="item_no_five" type="text" name="item_no_five" value="05" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="description_five" type="text" name="description_five" class="input-xlarge"></td>
+                            <td><input onkeyup="sum();" id="hsn_five" type="text" name="hsn_five" class="input-xlarge"></td>
                             <td><input onkeyup="sum();" id="quantity_five" type="text" name="quantity_five" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="unit_five" type="text" name="unit_five" class="input-mini"></td>
                             <td><input onkeyup="sum();" id="totalamount_five" type="text" name="totalamount_five" class="input-mini" readonly></td>

@@ -37,7 +37,7 @@
         <li class="nav-item">
             <a class="nav-link " href="/accounts"><b>Accounts</b></a>
         </li>
-        @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1')
+        @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
         <li class="nav-item">
             <a class="nav-link " href="/proforma"><b>Proforma</b></a>
         </li>
@@ -69,6 +69,9 @@
         <li class="nav-item">
             <a class="nav-link" href="/required_input"><b>Required Input</b></a>
         </li>
+           <li class="nav-item">
+                <a class="nav-link" href="/expocustomer"><b>Expo</b></a>
+            </li>
     </ul>
 </div>
 <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between  align-items-center  p-15">

@@ -131,6 +131,16 @@
 </div>
 
 <script>
+    const serverPaymentMode = "<?= $payment->paymentmode ?>";
+
+$(document).ready(function() {
+  if (serverPaymentMode == 2) {
+    $('#neft').hide();
+    $('#chq').show();
+    $("#pi").attr('required', true);
+  }
+});
+
 $('#pm').on('change', function() {
   //  alert( this.value ); // or $(this).val()
   if(this.value == "1") {

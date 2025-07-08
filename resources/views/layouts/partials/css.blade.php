@@ -1,4 +1,4 @@
-<link rel="icon" href="{{ asset('asset/images/bmqr.png') }}">
+<link rel="icon" type="image/x-icon" href="img/favicon.png">
 
 <link rel="stylesheet" href="{{ asset('asset/css/bootstrap.min.css') }}" />
 <link rel="preconnect" href="https://fonts.googleapis.com">

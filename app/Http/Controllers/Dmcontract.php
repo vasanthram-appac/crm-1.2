@@ -139,7 +139,7 @@ class Dmcontract extends Controller
             ->orderBy('fname', 'ASC')
             ->pluck('fname', 'empid');
 
-        // dd(  $names);
+        // dd($names);
         // return view('domain/create')->render();
         return view('dmcontract/create', compact('domainmaster', 'names'))->render();
     }

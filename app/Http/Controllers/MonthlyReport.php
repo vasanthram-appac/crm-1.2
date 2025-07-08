@@ -151,7 +151,10 @@ class Monthlyreport extends Controller
                 ->addColumn('sno', function ($row) {
                     return '';
                 })
-                ->rawColumns(['sno'])
+                    ->addColumn('company_name_account', function ($row) {
+                    return '<button class="btn  btn-modal text-lblue" data-cid="' . $row->client . '" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->client]) . '">' . $row->company_name_account . ' </button>';
+                })
+                ->rawColumns(['sno','company_name_account'])
                 ->make(true);
         }
 

@@ -6,7 +6,9 @@
 	<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
     <title>Proforma Invoice</title>
+
     <style>
+
         .flex{
             position: absolute;
             width: fit-content;
@@ -20,6 +22,7 @@
         .border::after{position:absolute;bottom:0px;left:-10px;width:102%;height:1px;background:#000;content:''}
         
     </style>
+
 </head>
 <body>
     <span style="margin-left:950px;">
@@ -31,20 +34,21 @@
     <!--<img src="imgs/proforma_cover.jpg" class="cover_img" style=" width: 930px; background-size: cover; background-repeat: no-repeat;position:absolute;"/>-->
 	<div class="wid"style="width:930px;">
 		<div class="head_grid" style="width: 870px; margin:auto; display: grid; grid-template-columns: 25% 35% 40%; align-items: end;">
-			<img src="https://appacmedia.in/oldcrm/imgs/head-logo.png" alt="" style="width: 175px; padding-left: 10px; background-color:#fff;">
-			<div class="head_add" style="width: 100%;">
-				<b style="font-family: 'Work Sans', sans-serif; font-size: 10px; font-weight: 800; line-height: 25px; color:#221b53;">APPAC MEDIATECH PVT. LTD.</b><br>
+			<img src="/img/head-logo.png" alt="" style="width: 205px; padding-left: 10px; background-color:#fff;">
+			<div class="head_add" style="width: 100%; padding-bottom: 13px;">
+				<b style="font-family: 'Work Sans', sans-serif; font-size: 16px; font-weight: 800; line-height: 25px; color:#221b53;">APPAC MEDIATECH PVT. LTD.</b><br>
 				<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">#204, 2nd floor, Aathisree Towers, DB Road, R S Puram,</span><br>
 				<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">Coimbatore - 641 002. Tamil Nadu. India.</span><br>
 				<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">+91 422 435 4854 | +91 63692 86774</span><br>
-				<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">Email: info@appacmedia.com | Web: www.appacmedia.com</span>
+				<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">Email: info@appacmedia.com</span><br>
+				<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">Web: www.appacmedia.com</span>
 			</div>
-			<img src="https://appacmedia.in/oldcrm/imgs/head-promo-logo.png" alt="" style="width: 350px; padding-left: 30px; background-color:#fff;">
+			<img src="/img/head-promo-logo.png" alt="" style="width: 318px; padding-left: 30px; background-color:#fff;">
 		</div>
     </div>
     <div class="cover_img" style="position: absolute; width: 930px;">
         
-        <div class="flex" style="font-family: 'Inter', sans-serif; font-size: 14px; position: absolute; width: fit-content; left: 625px; top: 25px; display: flex; gap: 25px;"><div>PI No : <b>{{$proforma->invoice_no}}</b></div> <div>Date: <b>{{ date('d-m-Y', strtotime($proforma->invoice_date)) }}</b></div></div>   
+        <div class="flex" style="font-family: 'Inter', sans-serif; font-size: 17px; position: absolute; width: fit-content; left: 590px; top: 25px; display: flex; gap: 25px;"><div>PI No : <b>{{$proforma->invoice_no}}</b></div> <div>Date: <b>{{ date('d-m-Y', strtotime($proforma->invoice_date)) }}</b></div></div>   
             <div style="border: 1px solid black; font-family: 'Inter', sans-serif; width:870px; position: relative; top: 50px; margin: auto" >                       
                 <table border="0" frame="box" style="border-collapse: collapse; width: 870px; margin-top: 0px;border-left:0px;border-right:0px;border-top:0px;">
             
@@ -68,16 +72,6 @@
                                     <td align="left" style="font-family: 'Inter', sans-serif;color:#464141 "> {{ $accounts->comp_title.' '.$accounts->company_name }}</td>
                                 </tr>
                                 <tr>
-                                    <td align="left" style="font-family: 'Inter', sans-serif; width: 35%;"><strong>Contact Person</strong></td>
-                                    <td align="left" style="width: 20px;">:</td>
-                                    <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ $accounts->title.' '.$accounts->firstname.' '.$accounts->lastname}}</td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-family: 'Inter', sans-serif; width: 35%;"><strong>Contact Number</strong></td>
-                                    <td align="left" style="width: 20px;">:</td>
-                                    <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ $accounts->stdcode.' '.$accounts->phone}}</td>
-                                </tr>
-                                <tr>
                                     <td align="left" valign="top" style="font-family: 'Inter', sans-serif; width: 35%;"><strong>Address</strong></td>
                                     <td align="left" valign="top" style="width: 20px;">:</td>
                                     <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ preg_replace('/(\w)\(/', '$1 (', $accounts->address) }}
@@ -88,6 +82,16 @@
                                     <td align="left" style="width: 20px;">:</td>
                                     <td align="left" style="font-family: 'Inter', sans-serif; color:#464141"> {{ ($accounts->city != "Dubai") ? $accounts->gst_number : '' }}
                                     </td>
+                                </tr>
+								<tr>
+                                    <td align="left" style="font-family: 'Inter', sans-serif; width: 35%;"><strong>Contact Person</strong></td>
+                                    <td align="left" style="width: 20px;">:</td>
+                                    <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ $accounts->title.' '.$accounts->firstname.' '.$accounts->lastname}}</td>
+                                </tr>
+                                <tr>
+                                    <td align="left" style="font-family: 'Inter', sans-serif; width: 35%;"><strong>Contact Number</strong></td>
+                                    <td align="left" style="width: 20px;">:</td>
+                                    <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ $accounts->stdcode.' '.$accounts->phone}}</td>
                                 </tr>
                             </table>
                         </td>
@@ -100,18 +104,6 @@
                                     <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ $accounts->comp_title.' '.$accounts->company_name }}</td>
                                 </tr>
                                 <tr>
-                                    <td align="left" style="font-family: 'Inter', sans-serif; width: 35%;"><strong>Contact Person</strong></td>
-                                    <td align="left" style="width: 20px;">:</td>
-                                    <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ ($accounts->shipping_title) ? $accounts->shipping_title : $accounts->title }} {{ ($accounts->shipping_firstname) ? $accounts->shipping_firstname : $accounts->firstname }} {{ ($accounts->shipping_lastname) ? $accounts->shipping_lastname : $accounts->lastname }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td align="left" style="font-family: 'Inter', sans-serif; width: 35%;"><strong>Contact Number</strong></td>
-                                    <td align="left" style="width: 20px;">:</td>
-                                   <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ $accounts->stdcode . ' ' . ($accounts->shipping_phone ? $accounts->shipping_phone : $accounts->phone) }}</td>
-
-                                </tr>
-                                <tr>
                                     <td align="left" valign="top" style="font-family: 'Inter', sans-serif; width: 35%;"><strong>Address</strong></td>
                                     <td align="left" valign="top" style="width: 20px;">:</td>
                                     <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ preg_replace('/(\w)\(/', '$1 (', $accounts->shipping_address ? $accounts->shipping_address : $accounts->address) }}</td>
@@ -121,6 +113,19 @@
                                     <td align="left" style="width: 20px;">:</td>
                                     <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ ($accounts->city != "Dubai") ? $accounts->gst_number : '' }}
                                     </td>
+                                </tr>
+								<tr> 
+                                    <td align="left" style="font-family: 'Inter', sans-serif; width: 35%;"><strong>Contact Person</strong></td>
+                                    <td align="left" style="width: 20px;">:</td>
+                                    <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">
+									{{ ($accounts->shipping_title) ? $accounts->shipping_title : $accounts->title }} {{ ($accounts->shipping_firstname) ? $accounts->shipping_firstname : $accounts->firstname }} {{ ($accounts->shipping_lastname) ? $accounts->shipping_lastname : $accounts->lastname }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align="left" style="font-family: 'Inter', sans-serif; width: 35%;"><strong>Contact Number</strong></td>
+                                    <td align="left" style="width: 20px;">:</td>
+                                   <td align="left" style="font-family: 'Inter', sans-serif; color:#464141">{{ $accounts->stdcode . ' ' . ($accounts->shipping_phone ? $accounts->shipping_phone : $accounts->phone) }}</td>
+
                                 </tr>
                             </table>
                         </td>
@@ -137,9 +142,10 @@
                         <tr>
                             <th style="text-align: left; font-family: 'Work Sans', sans-serif; font-size: 16px; padding-bottom: 10px; padding-left: 10px; border-bottom: 1px solid #000000;">S.No</th>
                             <th style="text-align: left; font-family: 'Work Sans', sans-serif; font-size: 16px; padding-bottom: 10px; padding-left: 0px; border-bottom: 1px solid #000000;">Description</th>
-                            <th style="text-align: left; font-family: 'Work Sans', sans-serif; font-size: 16px; padding-bottom: 10px; padding-left: 10px; border-bottom: 1px solid #000000;">Quantity<br><span style="font-size: 12px; color:#464141; font-weight: 400;">(Nos)</span></th>
-                            <th style="text-align: left; font-family: 'Work Sans', sans-serif; font-size: 16px; padding-bottom: 10px; padding-left: 10px; border-bottom: 1px solid #000000;">Unit price<br><span style="font-size: 12px; color:#464141; font-weight: 400;">(INR)</span></th>
-                            <th style="text-align: left; font-family: 'Work Sans', sans-serif; font-size: 16px; padding-bottom: 10px; padding-left: 10px; border-bottom: 1px solid #000000;">Total<br><span style="font-size: 12px; color:#464141; font-weight: 400;">(INR)</span></th>
+                            <th style="text-align: left; font-family: 'Work Sans', sans-serif; font-size: 16px; padding-bottom: 10px; border-bottom: 1px solid #000000;">HSN/SAC</th>
+                            <th style="text-align: left; font-family: 'Work Sans', sans-serif; font-size: 16px; padding-bottom: 10px; border-bottom: 1px solid #000000;">Quantity<br><span style="font-size: 12px; color:#464141; font-weight: 400;">(Nos)</span></th>
+                            <th style="text-align: left; font-family: 'Work Sans', sans-serif; font-size: 16px; padding-bottom: 10px; border-bottom: 1px solid #000000;">Unit price<br><span style="font-size: 12px; color:#464141; font-weight: 400;">(INR)</span></th>
+                            <th style="text-align: left; font-family: 'Work Sans', sans-serif; font-size: 16px; padding-bottom: 10px; border-bottom: 1px solid #000000; padding: 0px 70px 0px 57px;">Total<br><span style="font-size: 12px; color:#464141; font-weight: 400;">(INR)</span></th>
                         </tr>
                     
                          
@@ -149,9 +155,10 @@
                             <tr style="padding-left: 15px;">
                                 <td style="font-family: 'Inter', sans-serif; padding-left: 15px;">{{$value->item_no}}</td>
                                 <td style="font-family: 'Inter', sans-serif;">{{$value->description}}</td>
-                                <td style="font-family: 'Inter', sans-serif; padding-left: 35px;">{{$value->quantity}}</td>
-                                <td style="font-family: 'Inter', sans-serif; padding-left: 10px;"><p style="width:65px;text-align:right;">{{ number_format($value->unit ?? 0, 2) }}</p></td>
-                                <td style="font-family: 'Inter', sans-serif; padding-left: 10px;"><p style="width:65px;text-align:right;">{{number_format($value->totalamount ?? 0, 2)}}</p></td>
+                                <td style="font-family: 'Inter', sans-serif; padding-left: 17px;">{{!empty($value->hsn)? $value->hsn : 9983}}</td>
+                                <td style="font-family: 'Inter', sans-serif; padding-left: 20px;">{{$value->quantity}}</td>
+                                <td style="font-family: 'Inter', sans-serif; padding-left: 1px;">{{ number_format($value->unit ?? 0, 2) }}</td>
+                                <td style="font-family: 'Inter', sans-serif; padding-right: 34px; text-align: right;">{{number_format($value->totalamount ?? 0, 2)}}</td>
                             </tr>
                             @endforeach
                             @endif
@@ -176,15 +183,15 @@
 							<img src="https://appacmedia.in/oldcrm/imgs/appac-watermark.svg" class="" style="width:320px;background-color:#fff;" /></div>
 								
                             @if($proforma->specialdiscount !='0')
-							<th style="text-align: right; border-top: 1px solid black; padding: 10px 0px 0px 0px;font-size:13px">Total Amount Rs. </th>
+							<th style="text-align: right; border-top: 1px solid black; padding: 10px 0px 0px 0px;font-size:13px">Taxable Value Rs. </th>
 							@else
-							<th style="text-align: right; border-top: 1px solid black; padding: 10px 0px 0px 0px;font-size:13px">Total Netpay Rs. </th>
+							<th style="text-align: right; border-top: 1px solid black; padding: 10px 0px 0px 0px;font-size:13px">Taxable Value Rs. </th>
 							@endif
 
 							@if($proforma->specialdiscount !='0')
 							<th style="text-align: right; border-top: 1px solid black; padding-right: 35px; padding-top: 10px;font-size:13px">{{number_format($proforma->amount ?? 0,2)}}</th>
                             @else
-							<th style="text-align: right; border-top: 1px solid black; padding-right: 35px; padding-top: 10px;font-size:13px">{{number_format($proforma->netpay ?? 0,2)}}</th>
+							<th style="text-align: right; border-top: 1px solid black; padding-right: 35px; padding-top: 10px;font-size:13px"> {{ ($proforma->gsttype=='ex') ? number_format($proforma->netpay ?? 0,2) : number_format($proforma->principle ?? 0,2)}}</th>
 							@endif
                         </tr>
 						
@@ -197,12 +204,12 @@
                                 @endif
 									
                                 @if($proforma->specialdiscount !='0')
-								<td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px; padding-top: 10px;"><b>{{number_format($proforma->specialdiscount ?? 0,2)}}</td>                       
+								<td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px; padding-top: 10px;"><b>- {{number_format($proforma->specialdiscount ?? 0,2)}}</td>                       
                                 @endif   
                                                           								
 							</tr>
 							
-							<tr style="padding-left: 10px;">
+							<!-- <tr style="padding-left: 10px;">
 								<td align="right" style="border-right: 1px solid black;"></td>
 								@if($proforma->netpay !='0')
 									<td align="right" style="font-family: 'Inter', sans-serif; padding: 10px 0px 0px 0px;"><b>Total Netpay Rs.</b></td>
@@ -211,7 +218,7 @@
 								@if($proforma->netpay !='0')
 								<td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px; padding-top: 10px;"><b>{{number_format($proforma->netpay ?? 0,2)}}</td>                       
 								@endif
-							</tr>
+							</tr> -->
 																											
                             <tr style="padding-left: 10px;">
                                 <td align="right" style="border-right: 1px solid black;"></td>
@@ -290,8 +297,8 @@
                             <tr>
                                 <td align="left" style="font-family: 'Work Sans', sans-serif; border-right: 1px solid black; padding-left: 15px; border-top: 1px solid black; padding-top: 10px; padding-bottom: 10px;"><b style="line-height: 24px;">Amount in Words :</b><br>
                                 <span style="font-family: 'Inter', sans-serif; color:#464141">{{ $result . ' Rupees Only' }}</span></td>
-                                <td align="right" style="font-family: 'Inter', sans-serif; padding: 10px 0px 15px 0px; border-top: 1px solid black;"><b>Grand Total Rs.</b></td>
-                                <td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px; padding-top: 10px; padding-bottom: 15px; border-top: 1px solid black;"><b>{{number_format($proforma->grosspay ?? 0, 2)}}&nbsp;</b></td>                       
+                                <td align="right" style="font-family: 'Inter', sans-serif; padding: 10px 0px 15px 0px; border-top: 1px solid black; font-size: 15px;"><b>NET PAY Rs.</b></td>
+                                <td align="right" style="font-family: 'Inter', sans-serif; padding-right: 35px; padding-top: 10px; padding-bottom: 15px; border-top: 1px solid black; font-size: 15px;"><b>{{number_format($proforma->grosspay ?? 0, 2)}}&nbsp;</b></td>                       
                             </tr>                    
                         </tbody>                
                     </table>
@@ -343,14 +350,19 @@
                                     <b style="font-family: 'Inter', sans-serif; font-weight: 500; color: #000;">PAN</b> : AAQCA4617E &nbsp;&nbsp;|&nbsp;&nbsp; <b style="font-family: 'Inter', sans-serif; font-weight: 500; color: #000;">GST No :</b> 33AAQCA4617E1ZU &nbsp;&nbsp;|&nbsp;&nbsp; <b style="font-family: 'Inter', sans-serif; font-weight: 500; color: #000;">TAN :</b> CMBA09095C
                                 </div>
                                 <div style="font-family: 'Inter', sans-serif; padding-bottom: 10px; font-size: 12px; color: #464141;">
-                                    <b style="font-family: 'Inter', sans-serif; font-weight: 500; color: #000;">SAC CODE</b> : 9983 &nbsp;&nbsp;|&nbsp;&nbsp; <b style="font-family: 'Inter', sans-serif; font-weight: 500; color: #000;">LUT No :</b> AD330419005161L
+                                     <b style="font-family: 'Inter', sans-serif; font-weight: 500; color: #000;">LUT No :</b> AD330419005161L
                                 </div>
                             </td>
 
                             <!-- Right side: SAC CODE -->
-                            <td style=" font-family: 'Inter', sans-serif; padding-bottom: 10px; border-left: 1px solid black; border-top: 1px solid black; vertical-align: bottom;">
-							<div style="font-family: 'Inter', sans-serif; font-size: 8px;padding-bottom: 65px; text-align:center;">This is a digitally signed invoice.<br> No physical signature is necessary.</div>
-                                <div><img src="https://appacmedia.in/oldcrm/imgs/sign.jpg" style="width: 100px; display: block; margin: auto; margin-bottom: -10px; background-color:#fff;" alt="sign"><div style="font-family: 'Inter', sans-serif; font-size: 7px; width: 100px; display: block; margin: auto;">for Appac Mediatech Pvt Ltd</div></div>
+                            <td style=" font-family: 'Inter', sans-serif; padding-bottom: 10px; border-left: 1px solid black; border-top: 1px solid black; vertical-align: bottom; text-align: center;">
+							
+                                <div style="padding-bottom: 25px;">
+								<div style="font-family: 'Inter', sans-serif; font-size: 14px; display: block; margin: auto; font-weight: 800;">For Appac Mediatech Pvt Ltd</div>
+								<img src="https://appacmedia.in/oldcrm/imgs/sign.jpg" style="width: 100px; display: block; margin: auto; margin-bottom: -10px; background-color:#fff; padding-left: 30px;" alt="sign"><div style="font-family: 'Inter', sans-serif; font-size: 11px;  display: block; margin: auto; font-weight: 800; padding-left: 83px;">Authorised Signatory</div>
+								
+								</div>
+								<div style="font-family: 'Inter', sans-serif; font-size: 10px; text-align:center;">This is a digitally signed invoice.<br> No physical signature is necessary.</div>
                             </td>
                             
                         </tr>
@@ -381,4 +393,3 @@
 </body> 
 </html>  
     
-

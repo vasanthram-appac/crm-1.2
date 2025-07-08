@@ -48,6 +48,8 @@ class Payments extends Controller
 
         $requiredinput = DB::table('requiredinput')->count();
 
-        return view('payments/index')->with(compact('invoice', 'proforma', 'payment', 'leads', 'opportunity', 'active', 'inactive', 'keyaccount', 'download','dmworks','newnbd','assetlibrary', 'requiredinput'))->render();
+        $expocustomer = DB::table('expocustomer')->count();
+
+        return view('payments/index')->with(compact('invoice', 'proforma', 'payment', 'leads', 'opportunity', 'active', 'inactive', 'keyaccount', 'download','dmworks','newnbd','assetlibrary', 'requiredinput', 'expocustomer'))->render();
     }
 }
