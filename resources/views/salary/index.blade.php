@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title','User')
+@section('title','Salary')
 
 @section('css')
 <style>
@@ -31,8 +31,8 @@
 <div class="row m-0 appac_hide">
     <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-        <ul class="nav nav-tabs my-4 justify-content-end mb-0">
-              @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
+        <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
+               @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
             <li class="nav-item">
             <a class="nav-link" href="/purchaseorder"><b>Purchase Order</b></a>
             </li>
@@ -46,45 +46,30 @@
                 <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="/user"><b>Employee</b></a>
+                <a class="nav-link" href="/user"><b>Employee</b></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/fiscal"><b>Fiscal</b></a>
             </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/salary"><b>Salary</b></a>
+             <li class="nav-item">
+                <a class="nav-link active" href="/salary"><b>Salary</b></a>
             </li>
              <li class="nav-item">
                 <a class="nav-link" href="/payslip"><b>Payslip</b></a>
             </li>
             @endif
-
         </ul>
     </div>
     <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">Employee</h1>
+            <h1 class="ch2 comp-name">Salary</h1>
         </div>
-        <div class="justify-content-sm-end d-flex">
-            <div class=""></div>
-            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\User::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add User</button>
+
+        <div class=" justify-content-sm-end d-flex  gap-2 flex-wrap">
+            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Salary::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Salary</button>
         </div>
     </div>
-    <!-- <div class="lead-charthed d-flex flex-wrap pt-4">
-        <div class="col-lg-8 col-md-8 col-sm-12 p-0 pr-30">
-            <div class="d-flex align-items-center justify-content-center piechart-leads">
-                <div class="chart-container">
-                    <div id="chart1" class="chart"></div>
-                    <div id="chart2" class="chart"></div>
-                    <div id="chart3" class="chart"></div>
-                    <div id="chart4" class="chart"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-12 p-0">
-            <div id="bar_chart"></div>
-        </div>
-    </div> -->
+
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
             <!-- <div class="add-newproduct-tab">
@@ -93,25 +78,17 @@
                 </div>
             </div> comment by vasanth-->
 
-
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
 
-
-
             <div class="p-4 table-responsive">
-                <table id="example" class="dataTable mt-6 table table-bordered ">
+                <table id="example" class="dataTable mt-6 table table-bordered">
                     <thead>
                         <tr class="bg-white">
-                            <th class="text-grey">S.No</th>
-                            <th class="text-grey">Employee ID</th>
-                            <th class="text-grey">Employee Name</th>
-                            <th class="text-grey">Email ID</th>
-                            <th class="text-grey">Mobile Number</th>
-                            <th class="text-grey">Department</th>
-                            <th class="text-grey">Status</th>
+                            <th class="text-grey">S.no</th>
+                            <th class="text-grey">Name</th>
+                            <th class="text-grey">Salary</th>
                             <th class="text-grey">Action</th>
-                            <!-- Add more columns as needed -->
                         </tr>
                     </thead>
                 </table>
@@ -124,7 +101,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="modal fade" id="errorModal" role="dialog" style="">
         <div class="modal-dialog cascading-modal float-end me-3" role="document">
@@ -146,9 +122,7 @@
     </div>
 </div>
 
-
 @endsection
-
 
 @section('script')
 <script>
@@ -159,35 +133,18 @@
             serverSide: true,
             pageLength: 10,
             lengthMenu: [10, 20, 50, 100],
-            ajax: "{{ action([App\Http\Controllers\User::class,'index']) }}",
+            ajax: "{{ action([App\Http\Controllers\Salary::class,'index']) }}",
             columns: [{
                     data: 'sno',
                     name: 'sno'
-                },
-
-                {
-                    data: 'empid',
-                    name: 'empid'
                 },
                 {
                     data: 'fname',
                     name: 'fname'
                 },
-                {
-                    data: 'emailid',
-                    name: 'emailid'
-                },
-                {
-                    data: 'mno',
-                    name: 'mno'
-                },
-                {
-                    data: 'dept_id',
-                    name: 'dept_id'
-                },
-                {
-                    data: 'status',
-                    name: 'status'
+                 {
+                    data: 'salary',
+                    name: 'salary'
                 },
                 {
                     data: 'action',
@@ -278,8 +235,6 @@
                         cat_table.ajax.reload(null, false); // Prevents table state reset on reload
                     }
 
-
-
                 },
                 error: function(xhr) {
                     // Handle other types of errors (e.g., server error)
@@ -298,16 +253,12 @@
             });
         });
 
-        $(document).on('click', '.viewemp', function() {
-            var empid = $(this).data('id');
-            window.location.href = "/profile?id=" + empid;
-        });
 
         $(document).on('click', '.conformdelete', function() {
             var Id = $(this).data('id');
             swal({
                 title: "Alert",
-                text: "Are you sure you want to delete the User?",
+                text: "Are you sure you want to delete the DM Works?",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -316,7 +267,7 @@
             }).then(function(isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: '/user/' + Id, // Change this to your endpoint
+                        url: '/salary/' + Id, // Change this to your endpoint
                         type: 'DELETE',
                         data: {
                             id: Id,
@@ -341,12 +292,19 @@
                         }
                     });
                 } else {
-                    window.location.href = '/user';
+                    window.location.href = '/salary';
                 }
             });
         });
 
+           $(document).on('click', '.viewemp', function() {
+            var empid = $(this).data('id');
+            window.location.href = "/profile?id=" + empid;
+        });
+
 
     });
+
+    
 </script>
 @endsection

@@ -185,7 +185,7 @@ class Monthlyreport extends Controller
             $dates = explode(' - ', $mdata['daterange']);
             $daterange = "From {$dates[0]} to {$dates[1]}";
         } else {
-            $daterange = now()->format('d M Y');
+            $daterange = now()->format(' M Y');
         }
 
         $employe = request()->session()->get('emp');

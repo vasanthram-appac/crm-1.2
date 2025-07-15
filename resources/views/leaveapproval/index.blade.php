@@ -37,13 +37,7 @@
             </li>
             @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM063' || request()->session()->get('empid') == 'AM003' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
             <li class="nav-item">
-                <a class="nav-link" href="/user"><b>Employee</b></a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link active" href="/leaveapproval"><b>Leave Approval</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/payslip"><b>Payslip</b></a>
             </li>
             @endif
             <li class="nav-item">

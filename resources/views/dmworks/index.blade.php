@@ -42,9 +42,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="/invoice"><b>Invoice</b></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/paymententry"><b>Payment Entry</b></a>
-            </li>
             @endif
             <li class="nav-item">
                 <a class="nav-link " href="/lead"><b>Leads</b></a>
@@ -60,9 +57,6 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link active" href="/dmworks"><b>DM Works</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/required_input"><b>Required Input</b></a>

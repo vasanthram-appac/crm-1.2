@@ -359,7 +359,13 @@
 							
                                 <div style="padding-bottom: 25px;">
 								<div style="font-family: 'Inter', sans-serif; font-size: 14px; display: block; margin: auto; font-weight: 800;">For Appac Mediatech Pvt Ltd</div>
-								<img src="https://appacmedia.in/oldcrm/imgs/sign.jpg" style="width: 100px; display: block; margin: auto; margin-bottom: -10px; background-color:#fff; padding-left: 30px;" alt="sign"><div style="font-family: 'Inter', sans-serif; font-size: 11px;  display: block; margin: auto; font-weight: 800; padding-left: 83px;">Authorised Signatory</div>
+                                @if($proforma->invoice_date < "10-07-2025")
+                                <img src="https://appacmedia.in/oldcrm/imgs/sign.jpg" style="width: 100px; display: block; margin: auto; margin-bottom: -10px; background-color:#fff; padding-left: 30px;" alt="sign">
+								@else
+                                <img src="/img/mohan-sign.png" style="width: 125px; display: block; margin: auto; margin-bottom: -3px; background-color:#fff; padding-left: 30px;" alt="sign">
+                                @endif
+                                
+                                <div style="font-family: 'Inter', sans-serif; font-size: 11px;  display: block; margin: auto; font-weight: 800; padding-left: 83px;">Authorised Signatory</div>
 								
 								</div>
 								<div style="font-family: 'Inter', sans-serif; font-size: 10px; text-align:center;">This is a digitally signed invoice.<br> No physical signature is necessary.</div>

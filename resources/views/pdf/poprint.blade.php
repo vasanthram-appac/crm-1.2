@@ -43,7 +43,7 @@
 				<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">Email: info@appacmedia.com</span><br>
 				<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">Web: www.appacmedia.com</span>
 			</div>
-			<img src="/img/head-promo-logo.png" alt="" style="width: 318px; padding-left: 30px; background-color:#fff;">
+			<img src="/img/purchase-order.png" alt="" style="width: 318px; padding-left: 30px; background-color:#fff;">
 		</div>
     </div>
     <div class="cover_img" style="position: absolute; width: 930px;">
@@ -329,7 +329,7 @@
                                       #204, 2nd floor, Aathisree Towers, DB Road, R S Puram, Coimbatore - 641 002. Tamil Nadu. India.
                                 </div>
                                 <div style="font-family: 'Inter', sans-serif; padding-bottom: 10px; font-size: 12px;position:relative; color: #464141;border-bottom:1px solid #000;">
-                                    Mode of Payment Preferred: <b style="font-family: 'Inter', sans-serif; font-weight: 500; color: #000;">NEFT/RTGS</b>
+                                    
                                 </div>
                                 <div style="font-family: 'Inter', sans-serif; font-size: 12px; padding-bottom: 3px; color: #464141; padding-top: 10px;">
                                     <b style="font-family: 'Inter', sans-serif; font-weight: 500; color: #000;">PAN</b> : AAQCA4617E &nbsp;&nbsp;|&nbsp;&nbsp; <b style="font-family: 'Inter', sans-serif; font-weight: 500; color: #000;">GST No :</b> 33AAQCA4617E1ZU &nbsp;&nbsp;|&nbsp;&nbsp; <b style="font-family: 'Inter', sans-serif; font-weight: 500; color: #000;">TAN :</b> CMBA09095C
@@ -342,10 +342,14 @@
                             <!-- Right side: SAC CODE -->
                             <td style=" font-family: 'Inter', sans-serif; padding-bottom: 10px; border-left: 1px solid black; border-top: 1px solid black; vertical-align: bottom; text-align: center;">
 							
-                                <div style="padding-bottom: 25px;">
+                                <div style="padding-bottom: 25px; padding-top: 10px;">
 								<div style="font-family: 'Inter', sans-serif; font-size: 14px; display: block; margin: auto; font-weight: 800;">For Appac Mediatech Pvt Ltd</div>
-								<img src="https://appacmedia.in/oldcrm/imgs/sign.jpg" style="width: 100px; display: block; margin: auto; margin-bottom: -10px; background-color:#fff; padding-left: 30px;" alt="sign"><div style="font-family: 'Inter', sans-serif; font-size: 11px;  display: block; margin: auto; font-weight: 800; padding-left: 83px;">Authorised Signatory</div>
-								
+								@if($purchaseorder->order_date < "10-07-2025")
+                                <img src="https://appacmedia.in/oldcrm/imgs/sign.jpg" style="width: 100px; display: block; margin: auto; margin-bottom: -10px; background-color:#fff; padding-left: 30px;" alt="sign">
+								@else
+                                <img src="/img/mohan-sign.png" style="width: 125px; display: block; margin: auto; margin-bottom: -3px; background-color:#fff; padding-left: 30px;" alt="sign">
+                                @endif
+                                <div style="font-family: 'Inter', sans-serif; font-size: 11px;  display: block; margin: auto; font-weight: 800; padding-left: 83px;">Authorised Signatory</div>
 								</div>
 								<div style="font-family: 'Inter', sans-serif; font-size: 10px; text-align:center;">This is a digitally signed invoice.<br> No physical signature is necessary.</div>
                             </td>

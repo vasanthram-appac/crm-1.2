@@ -121,32 +121,32 @@
 <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs my-4 justify-content-end mb-0">
+            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
             <li class="nav-item">
-                <a class="nav-link  com ad-btn" href="/workreport"><b>Work Report</b></a>
-            </li>
-            @if(request()->session()->get('role') != 'user')
-            <li class="nav-item">
-                <a class="nav-link " href="/employeereport"><b>Employee Report</b></a>
+            <a class="nav-link" href="/purchaseorder"><b>Purchase Order</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/monthlyreport"><b>Monthly Report</b></a>
+                <a class="nav-link" href="/vendorlist"><b>Vendor List</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/enquiryreport"><b>Enquiry Report</b></a>
+                <a class="nav-link" href="/paymententry"><b>Receipt Entry</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="/leadhistory"><b>Account History</b></a>
+                <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
             </li>
-            @php
-            $empid = request()->session()->get('empid');
-            @endphp
-            @if(in_array($empid, ['AM001', 'AM090']))
-            
+            <li class="nav-item">
+                <a class="nav-link" href="/user"><b>Employee</b></a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link active" href="/fiscal"><b>Fiscal</b></a>
             </li>
-            @endif
-            @endif        
+              <li class="nav-item">
+                <a class="nav-link" href="/salary"><b>Salary</b></a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="/payslip"><b>Payslip</b></a>
+            </li>
+            @endif      
         </ul>
     </div>
     <div class="col-12">

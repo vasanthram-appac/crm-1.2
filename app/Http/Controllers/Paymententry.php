@@ -80,21 +80,18 @@ class Paymententry extends Controller
                             $invoiceno = $invoiceRow->invoiceno;
                             $pinvoice = $invoiceRow->pinvoice;
 
-                            // Only build links if values are not null
-                            if ($invoiceno && $pinvoice) {
+                            if ($invoiceno) {
                                 $invoiceno_encoded = base64_encode($invoiceno);
+                                $pay->proinv[] = "<b>Ino:</b> <a class='btn text-lblue' href='" . route('iprint', ['id' => $invoiceno_encoded]) . "' target='_blank'>" . e($invoiceno) . "</a><br>";
+                            }
+
+                            if ($pinvoice) {
                                 $pinvoice_encoded = base64_encode($pinvoice);
+                                $pay->proinv[] = "<b>PI:</b> <a class='btn text-lblue' href='" . route('pprint', ['id' => $pinvoice_encoded]) . "' target='_blank'>" . e($pinvoice) . "</a><br>";
+                            }
 
-                                $pay->proinv[] =
-                                    "<b>PI:</b> <a class='btn' href='" . route('pprint', ['id' => $pinvoice_encoded]) . "' target='_blank'>
-                    ". e($pinvoice) . "
-                </a> <br>" .
-
-                                    "<b>Ino:</b> <a class='btn' href='" . route('iprint', ['id' => $invoiceno_encoded]) . "' target='_blank'>
-                    ". e($invoiceno) . "
-                </a> <br>";
-                            } else {
-                                $pay->proinv[] = "<b>PI:</b> N/A<br><b>Ino:</b> N/A<br>";
+                            if (empty($invoiceno) && empty($pinvoice)) {
+                                $pay->proinv[] = "<b>Ino:</b> N/A<br><b>PI:</b> N/A<br>";
                             }
                         }
                     }
@@ -143,7 +140,6 @@ class Paymententry extends Controller
                 ->toArray();
             $accounts = ['0' => 'Select Option', 'All' => 'All'] + $accounts;
 
-
             return view('paymententry/index', compact('accounts'))->render();
         } else {
             return redirect()->to('/workreport');
@@ -152,25 +148,43 @@ class Paymententry extends Controller
 
     public function create(Request $request)
     {
-
         $accounts = DB::table('accounts')
             ->where('status', '1')
             ->orderBy('company_name', 'ASC')
             ->pluck('company_name', 'id')->toArray();
         $accounts = ["0" => 'Select Client'] + $accounts;
 
-        return view('paymententry/create', compact('accounts'))->render();
+        $proforma = DB::table('proformadetails')
+            ->where('paymentstatus', 'open')
+            ->orderByDesc('invoice_no')
+            ->get()
+            ->pluck('grosspay', 'invoice_no')
+            ->map(function ($grosspay, $invoice_no) {
+                return $invoice_no . ' - ₹' . number_format($grosspay, 2);
+            });
+
+        $invoice = DB::table('invoicedetails')
+            ->whereIn('paymentstatus', ['pending', 'open'])
+            ->orderByDesc('invoice_no')
+            ->get()
+            ->pluck('grosspay', 'invoice_no')
+            ->map(function ($grosspay, $invoice_no) {
+                return $invoice_no . ' - ₹' . number_format($grosspay, 2);
+            });
+
+        return view('paymententry/create', compact('accounts', 'proforma', 'invoice'))->render();
     }
 
     public function store(Request $request)
     {
+
         $validator = Validator::make($request->all(), [
             'company_name' => 'required|string|max:255',
             'paydate' => 'required|date',
             'paymentmode' => 'required|integer|in:1,2,3',
             'payamount' => 'required|numeric|min:0.01',
-            'pinvoice' => 'nullable|string|regex:/^PI\d+(,PI\d+)*$/',
-            'invoiceno' => 'nullable|string|max:255',
+            // 'pinvoice' => 'nullable|string|regex:/^PI\d+(,PI\d+)*$/',
+            // 'invoiceno' => 'nullable|string|max:255',
             'bankname' => 'nullable|string|max:255',
             'chequeno' => 'nullable|string|max:255',
             'document_upload' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:1024', // 1MB file limit
@@ -235,26 +249,58 @@ class Paymententry extends Controller
 
         $insert = DB::table('payment_list')->insertGetId($val);
 
-        $pinv = $request->pinvoice;
+        // // $pinv = $request->pinvoice;
 
-        $arrs = explode(",", $pinv);
+        // // $arrs = explode(",", $pinv);
 
-        foreach ($arrs as $arr) {
+        // $arrs = $request->pinvoice;
 
+        // foreach ($arrs as $arr) {
+
+        //     $vdata = [
+        //         'plist_id' =>  $insert,
+        //         'pinvoice' =>  $arr
+        //     ];
+
+        //     $invno = DB::table('payment_list_invoice')->insert($vdata);
+        // }
+
+        // // $invno1 = $request->invoiceno;
+
+        // // $arrs1 = explode(",", $invno1);
+
+        // $arrs1 = $request->invoiceno;
+
+        // foreach ($arrs1 as $arr1) {
+        //     $ind = DB::table('payment_list_invoice')->where('plist_id', $insert)->update(['invoiceno' => $arr1]);
+        // }
+
+        $pinvoices = $request->input('pinvoice', []);
+        $invoicenos = $request->input('invoiceno', []);
+
+        $pinvoiceCount = count($pinvoices);
+        $invoicenoCount = count($invoicenos);
+
+        foreach ($pinvoices as $index => $pinv) {
             $vdata = [
-                'plist_id' =>  $insert,
-                'pinvoice' =>  $arr
+                'plist_id' => $insert,
+                'pinvoice' => $pinv,
+                'invoiceno' => $invoicenos[$index] ?? null,
             ];
 
-            $invno = DB::table('payment_list_invoice')->insert($vdata);
+            DB::table('payment_list_invoice')->insert($vdata);
         }
 
-        $invno1 = $request->invoiceno;
+        if ($invoicenoCount > $pinvoiceCount) {
+            for ($i = $pinvoiceCount; $i < $invoicenoCount; $i++) {
+                $idata = [
+                    'plist_id' => $insert,
+                    'invoiceno' => $invoicenos[$i],
+                    'pinvoice' => null,
+                ];
 
-        $arrs1 = explode(",", $invno1);
-
-        foreach ($arrs1 as $arr1) {
-            $ind = DB::table('payment_list_invoice')->where('plist_id', $insert)->update(['invoiceno' => $arr1]);
+                DB::table('payment_list_invoice')->insert($idata);
+            }
         }
 
         if ($insert) {
@@ -300,8 +346,6 @@ class Paymententry extends Controller
         }
     }
 
-
-
     public function edit($id)
     {
         $payment = DB::table('payment_list as p')
@@ -323,18 +367,43 @@ class Paymententry extends Controller
             ->orderBy('company_name', 'ASC')
             ->pluck('company_name', 'id')->toArray();
         $accounts = ["0" => 'Select Client'] + $accounts;
+
         $paymentInvoices = DB::table('payment_list_invoice')
             ->where('plist_id', $id)
             ->get();
 
-        $pinvoices = $paymentInvoices->pluck('pinvoice')->toArray();
-        $invoicenos = $paymentInvoices->pluck('invoiceno')->toArray();
+        // $pinvoices = $paymentInvoices->pluck('pinvoice')->toArray();
+        // $invoicenos = $paymentInvoices->pluck('invoiceno')->toArray();
 
-        $pii = implode(',', $pinvoices);
-        $invv = implode(',', $invoicenos);
+        // $pii = implode(',', $pinvoices);
+        // $invv = implode(',', $invoicenos);
+
+        $pii = $paymentInvoices->pluck('pinvoice')->filter()->map(fn($val) => (string) $val)->values()->toArray();
+
+        $invv = $paymentInvoices->pluck('invoiceno')->filter()->map(fn($val) => (string) $val)->values()->toArray();
+
+        $proforma = DB::table('proformadetails')
+            ->where('paymentstatus', 'open')
+            ->where('company_id', $payment->cname)
+            ->orderByDesc('invoice_no')
+            ->get()
+            ->pluck('grosspay', 'invoice_no')
+            ->map(function ($grosspay, $invoice_no) {
+                return $invoice_no . ' - ₹' . number_format($grosspay, 2);
+            });
+
+        $invoice = DB::table('invoicedetails')
+            ->whereIn('paymentstatus', ['pending', 'open'])
+            ->where('company_id', $payment->cname)
+            ->orderByDesc('invoice_no')
+            ->get()
+            ->pluck('grosspay', 'invoice_no')
+            ->map(function ($grosspay, $invoice_no) {
+                return $invoice_no . ' - ₹' . number_format($grosspay, 2);
+            });
 
 
-        return view('paymententry.edit')->with(compact('payment', 'accounts', 'pii', 'invv'));
+        return view('paymententry.edit')->with(compact('payment', 'accounts', 'pii', 'invv', 'proforma', 'invoice'));
     }
 
     public function update(Request $request, $id)
@@ -344,8 +413,8 @@ class Paymententry extends Controller
             'paydate' => 'required|date',
             'paymentmode' => 'required|integer|in:1,2,3',
             'payamount' => 'required|min:0.01',
-            'pinvoice' => 'nullable|string|regex:/^PI\d+(,PI\d+)*$/',
-            'invoiceno' => 'nullable|string|max:255',
+            // 'pinvoice' => 'nullable|string|regex:/^PI\d+(,PI\d+)*$/',
+            // 'invoiceno' => 'nullable|string|max:255',
             'bankname' => 'nullable|string|max:255',
             'chequeno' => 'nullable|string|max:255',
             'document_upload' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:1024', // 1MB file limit
@@ -412,28 +481,63 @@ class Paymententry extends Controller
 
         $delete = DB::table('payment_list_invoice')->where('plist_id', $id)->delete();
 
-        $pinv = $request->pinvoice;
+        // // $pinv = $request->pinvoice;
 
-        $arrs = explode(",", $pinv);
-        // dd($val);
-        foreach ($arrs as $arr) {
+        // // $arrs = explode(",", $pinv);
 
+        // $arrs = $request->pinvoice;
+
+        // // dd($val);
+        // foreach ($arrs as $arr) {
+
+        //     $vdata = [
+        //         'plist_id' =>  $id,
+        //         'pinvoice' =>  $arr
+        //     ];
+
+        //     $invno = DB::table('payment_list_invoice')->insert($vdata);
+        // }
+
+        // // $invno1 = $request->invoiceno;
+
+        // // $arrs1 = explode(",", $invno1);
+
+        // $arrs1 = $request->invoiceno;
+
+        // foreach ($arrs1 as $arr1) {
+        //     $ind = DB::table('payment_list_invoice')->where('plist_id', $id)->update(['invoiceno' => $arr1]);
+        // }
+
+        $pinvoices = $request->input('pinvoice', []);
+        $invoicenos = $request->input('invoiceno', []);
+
+        $pinvoiceCount = count($pinvoices);
+        $invoicenoCount = count($invoicenos);
+
+        // 1. Insert pinvoices and update with corresponding invoiceno (if exists)
+        foreach ($pinvoices as $index => $pinv) {
             $vdata = [
-                'plist_id' =>  $id,
-                'pinvoice' =>  $arr
+                'plist_id' => $id,
+                'pinvoice' => $pinv,
+                'invoiceno' => $invoicenos[$index] ?? null, // Assign invoiceno if exists, else null
             ];
 
-            $invno = DB::table('payment_list_invoice')->insert($vdata);
+            DB::table('payment_list_invoice')->insert($vdata);
         }
 
-        $invno1 = $request->invoiceno;
+        // 2. If there are extra invoicenos, insert them separately
+        if ($invoicenoCount > $pinvoiceCount) {
+            for ($i = $pinvoiceCount; $i < $invoicenoCount; $i++) {
+                $idata = [
+                    'plist_id' => $id,
+                    'invoiceno' => $invoicenos[$i],
+                    'pinvoice' => null,
+                ];
 
-        $arrs1 = explode(",", $invno1);
-
-        foreach ($arrs1 as $arr1) {
-            $ind = DB::table('payment_list_invoice')->where('plist_id', $id)->update(['invoiceno' => $arr1]);
+                DB::table('payment_list_invoice')->insert($idata);
+            }
         }
-        // dd($val);
+
         if ($insert) {
             if (isset($target12) && !empty($target12)) {
                 $targ = '<a target="blank" href=' . "https://appacmedia.in/uploaddoc/" . $target12 . '>Click here</a>';
@@ -496,9 +600,75 @@ class Paymententry extends Controller
             ->whereBetween('paydate', [$start_date, $end_date])
             ->get();
 
-
         $payment = number_format((float)$data[0]->payamount, 2, '.', ',')  ?? 0; // fallback to 0 if null
 
         return response()->json(['payment' => $payment]);
+    }
+
+    public function paymentproduct(Request $request)
+    {
+        $pid = $request->pid;
+        $iid = $request->iid;
+
+        $proforma = $pid ? DB::table('proformadetails')
+            ->select('paymentterms')
+            ->whereIn('invoice_no', $pid)
+            ->orderByDesc('invoice_no')
+            ->get() : collect();
+
+        $invoice = $iid ? DB::table('invoicedetails')
+            ->select('paymentterms')
+            ->whereIn('invoice_no', $iid)
+            ->orderByDesc('invoice_no')
+            ->get() : collect();
+
+        $pro = $proforma->merge($invoice);
+        $paymentterms = $pro->pluck('paymentterms');
+        $numberedTerms = "\n" . $paymentterms
+            ->filter(function ($term) {
+                return !is_null($term) && trim($term) !== '';
+            })
+            ->values()
+            ->map(function ($term, $index) {
+                return ($index + 1) . '. ' . trim($term);
+            })
+            ->implode("\n");
+
+
+        return response()->json(['paymentterms' => $numberedTerms]);
+    }
+
+    public function fetchClientInvoices(Request $request)
+    {
+        $clientId = $request->input('company_id');
+
+        $proforma = DB::table('proformadetails')
+            ->where('paymentstatus', 'open')
+            ->where('company_id', $clientId)
+            ->orderByDesc('invoice_no')
+            ->select('invoice_no', 'grosspay')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->invoice_no => $item->invoice_no . ' - ₹' . number_format($item->grosspay)];
+            })
+            ->toArray();
+
+
+        $invoice = DB::table('invoicedetails')
+            ->whereIn('paymentstatus', ['pending', 'open'])
+            ->where('company_id', $clientId)
+            ->orderByDesc('invoice_no')
+            ->select('invoice_no', 'grosspay')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->invoice_no => $item->invoice_no . ' - ₹' . number_format($item->grosspay)];
+            })
+            ->toArray();
+
+
+        return response()->json([
+            'proforma' => $proforma,
+            'invoice' => $invoice
+        ]);
     }
 }

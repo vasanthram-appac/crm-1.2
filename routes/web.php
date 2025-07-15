@@ -26,7 +26,8 @@ use App\Http\Controllers\Digitalproposal;
 use App\Http\Controllers\Paymententry;
 use App\Http\Controllers\Leaveapproval;
 use App\Http\Controllers\Newnbd;
-use App\Http\Controllers\purchaseorder;
+use App\Http\Controllers\Payslip;
+use App\Http\Controllers\Purchaseorder;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -277,6 +278,14 @@ Route::post('/purchaseorderstatus', [Purchaseorder::class, 'purchaseorderstatus'
 Route::post('/purchaseorderaccountsid', [Purchaseorder::class, 'accountsid'])->name('purchaseorderaccountsid');
 
 Route::resource('/vendorlist','App\Http\Controllers\Vendorlist');
+
+Route::resource('/salary','App\Http\Controllers\Salary');
+
+Route::get('/emppayslip/{id}', [Payslip::class, 'print'])->name('emppayslip');
+
+Route::post('/paymentproduct', [Paymententry::class, 'paymentproduct'])->name('paymentproduct');
+
+Route::post('/getClientInvoices', [Paymententry::class, 'fetchClientInvoices'])->name('getClientInvoices');
 
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 

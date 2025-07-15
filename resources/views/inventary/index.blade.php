@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title','Inventary')
+@section('title','Assets')
 
 @section('css')
 <style>
@@ -32,34 +32,51 @@
 <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
+           <li class="nav-item">
+                <a class="nav-link" href="/accounts"><b>Accounts</b></a>
+            </li>
+            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8') 
             <li class="nav-item">
-                <a class="nav-link "  href="/sociallogin"><b>Social Login</b></a>
+                <a class="nav-link" href="/proforma"><b>Proforma</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/questionnaire"><b>Questionnaire</b></a>
+                <a class="nav-link" href="/invoice"><b>Invoice</b></a>
+            </li>
+            @endif
+            <li class="nav-item">
+                <a class="nav-link" href="/lead"><b>Leads</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/documentupload"><b>Document Upload</b></a>
+                <a class="nav-link" href="/opportunity"><b>Opportunity</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active"  href="/inventary"><b>Inventory</b></a>
+                <a class="nav-link" href="/serverdetails"><b>Renewals</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/googlesheet"><b>Google Sheet</b></a>
+                <a class="nav-link" href="/newnbd"><b>New NBD</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/backup"><b>Backup</b></a>
+                <a class="nav-link" href="/dmworks"><b>DM Works</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/required_input"><b>Required Input</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/expocustomer"><b>Expo</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active"  href="/inventary"><b>Assets</b></a>
             </li>
            
         </ul>
     </div>
     <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">Inventary</h1>
+            <h1 class="ch2 comp-name">Assets</h1>
         </div>
         <div class="justify-content-sm-end d-flex">
             <div class=""></div>
-            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Inventary::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Inventary</button>
+            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Inventary::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Asset</button>
         </div>
     </div>
 
@@ -69,15 +86,18 @@
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
 
-
-
             <div class="p-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered ">
                     <thead>
                         <tr class="bg-white">
                             <th class="text-grey">S.No</th>
-                            <th class="text-grey">Title</th>
+                            <th class="text-grey">Account Head</th>
+                            <th class="text-grey">Vendor Name</th>
+                            <th class="text-grey">Date</th>
+                            <th class="text-grey">Taxable Value</th>
+                            <th class="text-grey">Total Invoice Value</th>
                             <th class="text-grey">Description</th>
+                            <th class="text-grey">Action</th>
                             <!-- Add more columns as needed -->
                         </tr>
                     </thead>
@@ -91,7 +111,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="modal fade" id="errorModal" role="dialog" style="">
         <div class="modal-dialog cascading-modal float-end me-3" role="document">
@@ -112,10 +131,7 @@
         </div>
     </div>
 </div>
-
-
 @endsection
-
 
 @section('script')
 <script>
@@ -136,8 +152,28 @@
                     name: 'title'
                 },
                 {
+                    data: 'vendor_name',
+                    name: 'vendor_name'
+                },
+                {
+                    data: 'date',
+                    name: 'date'
+                },
+                {
+                    data: 'taxable_value',
+                    name: 'taxable_value'
+                },
+                {
+                    data: 'total_invoice_value',
+                    name: 'total_invoice_value'
+                },
+                {
                     data: 'description',
                     name: 'description'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
                 },
 
                 // Add more columns as needed

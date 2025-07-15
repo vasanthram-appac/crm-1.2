@@ -29,8 +29,66 @@ class Token
                 request()->session()->put('empid', '');
                 request()->session()->put('token', '');
                 session()->flush();
-                    return redirect()->to('/');
+                return redirect()->to('/');
             } else {
+
+                $month = date('m-Y');
+                $today = date('d');
+                $pays = DB::table('emp_payslip')->where('month_year', $month)->count();
+
+                if ($pays == 0 && $today == '27') {
+
+                    $data = DB::table('emp_salary')
+                        ->select('emp_salary.*')
+                        ->join('regis', 'emp_salary.empid', '=', 'regis.empid')
+                        ->where('regis.status', 1)
+                        ->orderByDesc('regis.status')->get();
+
+                    if (count($data) > 0) {
+
+                        foreach ($data as $pay) {
+
+                            if ($pay->empid == 'AM003') {
+                                $tds = '4000';
+                            } else if ($pay->empid == 'AM063') {
+                                $tds = '4750';
+                            } else {
+                                $tds = '200';
+                            }
+
+                            $basic = $pay->salary * (40 / 100);
+                            $hra = $pay->salary * (30 / 100);
+                            $conveyance = $pay->salary * (8 / 100);
+                            $special = $pay->salary * (22 / 100);
+                            $generatedate = date('Y-m-d H:i:s');
+
+                            $pdata = [
+                                'empid' => $pay->empid,
+                                'month_year' => date('m-Y'),
+                                'specl_amt' => 0,
+                                'lop' => 0,
+                                'totalleave' => 0,
+                                'other' => 0,
+                                'generate_date' => $generatedate,
+                                'generated_by' => 'admin',
+                                'pf' => 0,
+                                'pt' => 0,
+                                'tds' => $tds,
+                                'esi' => 0,
+                                'summary' => "",
+                                'salary' => $pay->salary,
+                                'netsalary' => $pay->salary - $tds,
+                                'basic_salary' => $basic,
+                                'conveyance_allowance' => $conveyance,
+                                'hra' => $hra,
+                                'special_allowance' => $special,
+                                'status' => 1,
+                            ];
+
+                            $last_id = DB::table('emp_payslip')->insertGetID($pdata);
+                        }
+                    }
+                }
 
                 return $next($req);
             }

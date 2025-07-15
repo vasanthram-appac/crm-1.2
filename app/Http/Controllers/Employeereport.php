@@ -99,6 +99,8 @@ class Employeereport extends Controller
 
             $excludedEmpIds = array_merge($eid, $leid, ['AM001', 'AM002', 'admin']);
 
+            if(empty(request()->session()->get('aiempid')) || in_array('all', request()->session()->get('aiempid')) || count($data) == 0){
+
             $inactive = DB::table('regis')
             ->select('fname')
             ->whereNotIn('empid', $excludedEmpIds)
@@ -107,6 +109,12 @@ class Employeereport extends Controller
             ->get();
 
             $data->inactive = $inactive;
+            } else{
+
+                $data->inactive = [];
+                
+            }
+
 
             request()->session()->put('aireport', $data);
             

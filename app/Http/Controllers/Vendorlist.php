@@ -17,9 +17,8 @@ class Vendorlist extends Controller
 
     public function index(Request $request)
     {
-        if (request()->session()->get('role') == 'user') {
-            return redirect()->to('/workreport');
-        }
+         if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8') {
+
         if (request()->ajax()) {
 
                 $data = DB::table('vendorlist')
@@ -51,6 +50,10 @@ class Vendorlist extends Controller
         }
  
         return view('vendorlist/index')->render();
+
+    } else{
+            return redirect()->to('/workreport');
+        }
     }
 
     public function create()

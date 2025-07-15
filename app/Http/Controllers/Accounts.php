@@ -215,8 +215,8 @@ class Accounts extends Controller
             )
             ->where('d.client', $id)
             // ->where('d.enquiry_month', $today)
-            ->where('d.enquiry_month', $today1)
-            ->orderBy('d.id', 'desc')->get();
+            // ->where('d.enquiry_month', $today1)
+            ->orderBy('d.report_date1', 'desc')->get();
 
         if (count($reports) > 0) {
             foreach ($reports as $report) {

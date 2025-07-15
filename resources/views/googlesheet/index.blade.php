@@ -42,9 +42,6 @@
                 <a class="nav-link "  href="/documentupload"><b>Document Upload</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link "  href="/inventary"><b>Inventory</b></a>
-            </li>
-            <li class="nav-item">
                 <a class="nav-link active"  href="/googlesheet"><b>Google Sheet</b></a>
             </li>
             <li class="nav-item">

@@ -97,17 +97,15 @@
                 @php
                     $empid = request()->session()->get('empid');
                 @endphp
-                @if(in_array($empid, ['AM001', 'AM090']))
+                @if(in_array($empid, ['AM001', 'AM090', 'AM099']))
                 <div class="g-data ps-3">
-                    <a href="/fiscal">
+                    <a href="/purchaseorder">
                         <div class="bio  rounded-30  piechart-leads dash-6">
                             <div class="svg-d">
-
-                                <img src="/img/task.png"  />
-
+                                <img src="/img/task.png"/>
                             </div>
-                            <h3 class="text-center ">Fiscal</h3>
-                            <h4 class="opacity-0">0</h4>
+                            <h3 class="text-center ">Finance</h3>
+                            <h4>8</h4>
                         </div>
                     </a>
                 </div>

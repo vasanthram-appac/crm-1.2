@@ -48,15 +48,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="/leadhistory"><b>Account History</b></a>
             </li>
-            @php
-            $empid = request()->session()->get('empid');
-            @endphp
-            @if(in_array($empid, ['AM001', 'AM090']))
-            
-            <li class="nav-item">
-                <a class="nav-link" href="/fiscal"><b>Fiscal</b></a>
-            </li>
-            @endif
+           
             @endif        
         </ul>
     </div>

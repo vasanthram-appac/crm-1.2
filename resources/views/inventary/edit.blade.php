@@ -4,32 +4,32 @@
             <button type="button" class="close waves-effect waves-light fs-4" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>
-            <h4 class="title">Add Asset</h4>
+            <h4 class="title">Edit Asset</h4>
         </div>
-        <!--Body-->
+
         <div class="modal-body mb-0">
-            {!! Form::open(['route' => ['inventary.store'], 'method' => 'Post']) !!}
+            {!! Form::model($asset, ['route' => ['inventary.update', $asset->id], 'method' => 'PUT']) !!}
 
             <div class="row m-0 mb-0">
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('ventor_name', 'Vendor Name*', ['class' => 'label-color py-2 '] ) !!}
-                        {!! Form::select('company_name', $vendor, null, ['class' => 'form-select select2']) !!}
+                        {!! Form::select('company_name', $vendor, $asset->vendor_id, ['class' => 'form-select select2']) !!}
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('title', 'Title*', ['class' => 'label-color py-2'] ) !!}
-                        {!! Form::text('title', null, ['class' => 'form-control','required' => true, 'placeholder'=>'Title']) !!}
+                        {!! Form::text('title', $asset->title, ['class' => 'form-control','required' => true, 'placeholder'=>'Title']) !!}
                     </div>
                 </div>
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('date', 'Date*', ['class' => 'label-color py-2'] ) !!}
-                        {!! Form::date('date', null, ['class' => 'form-control','required' => true]) !!}
+                        {!! Form::date('date', $asset->date, ['class' => 'form-control','required' => true]) !!}
                     </div>
                 </div>
 
@@ -47,7 +47,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('total_invoice_value', 'Total Invoice Value*', ['class' => 'label-color py-2'] ) !!}
-                        {!! Form::number('total_invoice_value', null, ['class' => 'form-control','required' => true, 'placeholder'=>'Total Invoice Value']) !!}
+                        {!! Form::number('total_invoice_value', $asset->total_invoice_value, ['class' => 'form-control','required' => true, 'placeholder'=>'Total Invoice Value']) !!}
                     </div>
                 </div>
 
@@ -66,55 +66,22 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('description', 'Description*', ['class' => 'label-color py-2'] ) !!}
-                        {!! Form::textarea('description', null, ['class' => 'form-control','required' => true, 'placeholder'=>'Description', 'id' => 'description']) !!}
+                        {!! Form::textarea('description', $asset->description, ['class' => 'form-control','required' => true, 'placeholder'=>'Description', 'id' => 'description']) !!}
                     </div>
                 </div>
 
             </div>
 
-            <!-- Add a submit button -->
-            <br>
-            <div class="text-center">
+            <div class="text-end">
                 <label class="err_lbl"></label><br>
                 <div class="btn-g2">
                     <div></div>
                     <div></div>
-                    <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button"> Add </button>
+                    {!! Form::button(' Update', ['type' => 'submit', 'class' => 'frm-btn pri-text-color']) !!}
                     <button type="button" data-bs-dismiss="modal" class="frm-btn outline-btn" role="button"> Cancel </button>
                 </div>
             </div>
-            <br>
             {!! Form::close() !!}
-
         </div>
     </div>
-    <!--/.Content-->
 </div>
-
-<script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
-<script>
-    CKEDITOR.replace('description', {
-        toolbar: [{
-                name: 'basicstyles',
-                items: ['Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat']
-            },
-            {
-                name: 'paragraph',
-                items: ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent']
-            },
-            {
-                name: 'styles',
-                items: ['Format', 'Font', 'FontSize']
-            },
-            {
-                name: 'colors',
-                items: ['TextColor', 'BGColor']
-            },
-            {
-                name: 'tools',
-                items: ['Maximize']
-            }
-        ],
-        height: 200
-    });
-</script>

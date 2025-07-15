@@ -4,7 +4,7 @@
             <button type="button" class="close waves-effect waves-light fs-4" data-bs-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">×</span>
             </button>
-            <h4 class="title">Edit Payment</h4>
+            <h4 class="title">Edit Receipt</h4>
         </div>
         <div class="modal-body mb-0">
             {!! Form::model($payment, ['route' => ['paymententry.update', $payment->id], 'method' => 'PUT']) !!}
@@ -13,7 +13,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('company_name', 'Client Name*', ['class' => 'label-color py-2'] ) !!}
-                        {!! Form::select('company_name', $accounts, $payment->cname, ['class' => 'form-select', 'required' => true]) !!}
+                        {!! Form::select('company_name', $accounts, $payment->cname, ['class' => 'form-select', 'id' => 'company_name', 'required' => true]) !!}
                     </div>
                 </div>
 
@@ -50,7 +50,9 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('pinvoice', 'Proforma Invoiceno', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('pinvoice', $pii, ['class' => 'form-control', 'id'=>'pi']) !!}
+                        {!! Form::select('pinvoice[]', $proforma->toArray(), $pii, ['class' => 'select2 input100 custoname border-0', 'onchange' => 'product()', 'multiple' => true, 'id'=>'pi']) !!}
+
+                        
                     </div>
                     (**If you want to add multiple please give like this PI100934,PI100935)
                 </div>
@@ -58,7 +60,8 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('invoiceno', 'Invoiceno', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('invoiceno', $invv, ['class' => 'form-control']) !!}
+                        {!! Form::select('invoiceno[]', $invoice->toArray(), $invv, ['class' => 'select2 input100 custoname border-0', 'onchange' => 'product()', 'multiple' => true]) !!}
+                        
                     </div>
                 </div>
             </div>
@@ -103,7 +106,7 @@
             <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('productservice', 'Product/Service', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('productservice', $payment->productservice, ['class' => 'form-control']) !!}
+                        {!! Form::textarea('productservice', $payment->productservice, ['class' => 'form-control']) !!}
                     </div>
                 </div>
 
@@ -129,6 +132,89 @@
         </div>
     </div>
 </div>
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.select2').select2({
+        dropdownParent: $('.customer_modal'), // Ensures dropdown stays inside the modal
+        width: '100%' // Makes the select box full width
+    });
+});
+
+
+$('#company_name').on('change', function () {
+    var clientId = $(this).val();
+
+    if (clientId != 0) {
+        $.ajax({
+            type: "POST",
+            url: "{{ route('getClientInvoices') }}",
+            data: {
+                company_id: clientId,
+                _token: "{{ csrf_token() }}"
+            },
+            success: function (data) {
+                // Clear and repopulate proforma
+                var $proforma = $("select[name='pinvoice[]']");
+                $proforma.empty();
+                $.each(data.proforma, function (key, value) {
+                    $proforma.append($('<option>', { value: key, text: value }));
+                });
+
+                // Clear and repopulate invoice
+                var $invoice = $("select[name='invoiceno[]']");
+                $invoice.empty();
+                $.each(data.invoice, function (key, value) {
+                    $invoice.append($('<option>', { value: key, text: value }));
+                });
+
+                // Re-initialize Select2
+                $proforma.trigger('change.select2');
+                $invoice.trigger('change.select2');
+
+                // Optional: auto-trigger product fetch
+                product();
+            },
+            error: function (xhr) {
+                console.error("Client invoice fetch failed:", xhr.responseText);
+            }
+        });
+    } else {
+        // Clear both if 'Select Client' is chosen
+        $("select[name='pinvoice[]']").empty().trigger('change.select2');
+        $("select[name='invoiceno[]']").empty().trigger('change.select2');
+    }
+});
+
+    function product() {
+ 
+        pid = $("select[name='pinvoice[]']").val();
+
+        iid = $("select[name='invoiceno[]']").val();
+ 
+    $.ajax({
+        type: "POST",
+        url: "/paymentproduct",
+        data: {
+            pid: pid, 
+            iid: iid,
+            _token: "{{ csrf_token() }}"
+        },
+        success: function(data) {
+         
+             $("#productservice").val(data.paymentterms);
+        },
+        error: function(xhr) {
+            console.error("AJAX Error:", xhr.responseText);
+        }
+    });
+}
+
+</script>
 
 <script>
     const serverPaymentMode = "<?= $payment->paymentmode ?>";

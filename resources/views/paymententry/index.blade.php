@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title','Payment Entry')
+@section('title','Receipt Entry')
 
 @section('css')
 <style>
@@ -58,44 +58,32 @@
     <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
         <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
+              @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
             <li class="nav-item">
-                <a class="nav-link " href="/accounts"><b>Accounts</b></a>
-            </li>
-            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
-            <li class="nav-item">
-                <a class="nav-link " href="/proforma"><b>Proforma</b></a>
+            <a class="nav-link" href="/purchaseorder"><b>Purchase Order</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/invoice"><b>Invoice</b></a>
+                <a class="nav-link" href="/vendorlist"><b>Vendor List</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" href="/paymententry"><b>Payment Entry</b></a>
-            </li>
-            @endif
-            <li class="nav-item">
-                <a class="nav-link" href="/lead"><b>Leads</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/opportunity"><b>Opportunity</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/serverdetails"><b>Renewals</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/newnbd"><b>New NBD</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/dmworks"><b>DM Works</b></a>
+                <a class="nav-link active" href="/paymententry"><b>Receipt Entry</b></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/required_input"><b>Required Input</b></a>
+                <a class="nav-link" href="/user"><b>Employee</b></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/expocustomer"><b>Expo</b></a>
+                <a class="nav-link" href="/fiscal"><b>Fiscal</b></a>
             </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/salary"><b>Salary</b></a>
+            </li>
+             <li class="nav-item">
+                <a class="nav-link" href="/payslip"><b>Payslip</b></a>
+            </li>
+            @endif
         </ul>
     </div>
 
@@ -138,11 +126,11 @@
 
     <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">Payment Entry</h1>
+            <h1 class="ch2 comp-name">Receipt Entry</h1>
         </div>
         <div class="justify-content-sm-end d-flex">
             <div class=""></div>
-            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Paymententry::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Payment</button>
+            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Paymententry::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Receipt</button>
         </div>
     </div>
 
@@ -534,7 +522,7 @@
             }
         }, cb);
 
-        cb(start, end);
+        cb(start, end); 
     });
 </script>
 

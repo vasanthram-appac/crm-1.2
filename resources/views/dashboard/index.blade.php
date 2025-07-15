@@ -22,7 +22,11 @@
         background-color: #01152b !important;
         color: #fff !important;
     }
+	 .odd {
+        background-color: #fff !important;
+    }
 </style>
+       
 @endsection
 
 @section('content')
@@ -120,15 +124,15 @@
                         </div>
                     </a>
                 </div>
-                @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
+                @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1'  || request()->session()->get('dept_id') == '8')
                 <div class="g-data  ps-3"><a href="/proforma">
                         <div class="bio  rounded-30  piechart-leads dash-6">
                             <div class="svg-d">
-                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M10.4164 17.9215L13.5197 14.8182L12.2237 13.5054L10.6892 15.0399L10.6891 5.15031L12.2236 6.68484L13.5366 5.37188L10.4162 2.2686C10.0581 1.91047 9.46142 1.91047 9.10328 2.2686L6 5.37188L7.31296 6.68484L8.84749 5.15031V15.0399L7.31296 13.5054L6 14.8183L9.10328 17.9216C9.47841 18.2795 10.0581 18.2795 10.4162 17.9214L10.4164 17.9215Z" fill="#95999C" />
-                                </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                 <path fill="currentColor" d="M3.5 5A2.5 2.5 0 0 1 6 2.5h10A2.5 2.5 0 0 1 18.5 5v5.5a.5.5 0 0 1-1 0V5A1.5 1.5 0 0 0 16 3.5H6A1.5 1.5 0 0 0 4.5 5v14.382a.5.5 0 0 0 .724.447l1-.5a1.5 1.5 0 0 1 1.57.142l.906.679a.5.5 0 0 0 .6 0l.862-.647a1.5 1.5 0 0 1 1.672-.086l.673.404a.5.5 0 1 1-.514.858l-.674-.404a.5.5 0 0 0-.557.028l-.862.647a1.5 1.5 0 0 1-1.8 0l-.906-.68a.5.5 0 0 0-.523-.046l-1 .5A1.5 1.5 0 0 1 3.5 19.382z"></path><path fill="currentColor" d="M6.5 7a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m11-1.5a3 3 0 1 0 0 6a3 3 0 0 0 0-6m-4 3a4 4 0 1 1 8 0a4 4 0 0 1-8 0m5.666-1.229a.5.5 0 0 1 0 .708l-2.104 2.103l-1.228-1.228a.5.5 0 0 1 .707-.708l.521.522l1.397-1.397a.5.5 0 0 1 .707 0"></path>
+                               </svg>
                             </div>
-                            <h3 class="text-center">Proforma</h3>
+                            <h3 class="text-center">Proforma Invoice</h3>
                             <h4>{{$proforma}}</h4>
                         </div>
                     </a>
@@ -137,10 +141,9 @@
                 <div class="g-data  ps-3"><a href="invoice">
                         <div class="bio  rounded-30  piechart-leads dash-7">
                             <div class="svg-d">
-                                <svg width="13" height="17" viewBox="0 0 13 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M6.38346 0.619057C6.31874 0.543522 6.2243 0.5 6.12484 0.5C6.02537 0.5 5.93093 0.543522 5.86621 0.619057C5.62468 0.901491 0 7.61517 0 10.8272C0.0180011 12.4349 0.672866 13.9699 1.82117 15.0951C2.96948 16.2204 4.51724 16.8442 6.12495 16.8298C7.73262 16.8442 9.28044 16.2204 10.4287 15.0951C11.577 13.9699 12.2319 12.435 12.2499 10.8272C12.2499 7.61517 6.62518 0.901386 6.38368 0.619057H6.38346ZM8.3196 14.9447C8.27266 14.9701 8.21991 14.983 8.16648 14.982C8.00971 14.9811 7.8738 14.8732 7.83745 14.7207C7.80111 14.5681 7.8738 14.4104 8.01336 14.339C8.66902 14.015 9.2216 13.5149 9.60919 12.8947C9.9969 12.2744 10.2042 11.5586 10.2081 10.8273C10.2081 10.6394 10.3604 10.4871 10.5484 10.4871C10.7363 10.4871 10.8886 10.6394 10.8886 10.8273C10.8852 11.6845 10.643 12.5237 10.1892 13.2511C9.73543 13.9783 9.08808 14.5647 8.31961 14.9446L8.3196 14.9447Z" fill="#B1B5C3" />
-                                </svg>
-
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                 <path fill="currentColor" d="M3.5 5A2.5 2.5 0 0 1 6 2.5h10A2.5 2.5 0 0 1 18.5 5v5.5a.5.5 0 0 1-1 0V5A1.5 1.5 0 0 0 16 3.5H6A1.5 1.5 0 0 0 4.5 5v14.382a.5.5 0 0 0 .724.447l1-.5a1.5 1.5 0 0 1 1.57.142l.906.679a.5.5 0 0 0 .6 0l.862-.647a1.5 1.5 0 0 1 1.672-.086l.673.404a.5.5 0 1 1-.514.858l-.674-.404a.5.5 0 0 0-.557.028l-.862.647a1.5 1.5 0 0 1-1.8 0l-.906-.68a.5.5 0 0 0-.523-.046l-1 .5A1.5 1.5 0 0 1 3.5 19.382z"></path><path fill="currentColor" d="M6.5 7a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m11-1.5a3 3 0 1 0 0 6a3 3 0 0 0 0-6m-4 3a4 4 0 1 1 8 0a4 4 0 0 1-8 0m5.666-1.229a.5.5 0 0 1 0 .708l-2.104 2.103l-1.228-1.228a.5.5 0 0 1 .707-.708l.521.522l1.397-1.397a.5.5 0 0 1 .707 0"></path>
+                               </svg>
                             </div>
                             <h3 class="text-center">Invoice</h3>
                             <h4>{{$invoice}}</h4>
@@ -153,7 +156,7 @@
                             <div class="svg-d">
                                 <img src="/img/payment entry.png" />
                             </div>
-                            <h3 class="text-center ">Payment Entry</h3>
+                            <h3 class="text-center ">Receipt Entry</h3>
                             <h4>{{$payment}}</h4>
                         </div>
                     </a>
@@ -340,13 +343,6 @@
             </div>
 
 
-
-
-            <div class="modal fade show sp_edit in" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel" id="account_type_modal">
-                <div class="bind_customer"></div>
-            </div>
-            <div class="modal fade customer_modal" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
-            </div>
         </div>
     </div>
 
@@ -356,10 +352,14 @@
                 <h4 class="ch-2">Ratecards</h4>
             </div>
             <div class="rate-d py-3 p-0 my-3">
+                
+				      @if(count($ratecard)>0)
+            @foreach($ratecard as $rate)
+  
                 <div class="d-flex gap-2 p-0 my-2">
-                    <a href="pdf/ratecard/download/organic_seo.pdf" target="_blank" class="rate-link w-100">
+                    <a href="{{ url('pdf/ratecard/download/' . $rate->download_package) }}" target="_blank" class="rate-link w-100">
                         <div class="d-flex justify-content-between p-0 w-100">
-                            <p class="p-0 m-0">Proposal - Organic SEO</p>
+                            <p class="p-0 m-0">{{$rate->package_name}}</p>
 
                             <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24">
                                 <g fill="none" stroke="#666666" stroke-width="0.9">
@@ -371,135 +371,192 @@
                         </div>
                     </a>
                 </div>
-                <div class="d-flex gap-2 p-0 my-2">
-                    <a href="pdf/ratecard/download/digital_marketing_new1.pdf" target="_blank" class="rate-link w-100">
-                        <div class="d-flex justify-content-between p-0 w-100">
-                            <p class="p-0 m-0">Proposal - Digital Marketing 6 Months</p>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24">
-                                <g fill="none" stroke="#666666" stroke-width="0.9">
-                                    <circle cx="12" cy="12" r="3" />
-                                    <path d="M20.188 10.934c.388.472.582.707.582 1.066s-.194.594-.582 1.066C18.768 14.79 15.636 18 12 18s-6.768-3.21-8.188-4.934c-.388-.472-.582-.707-.582-1.066s.194-.594.582-1.066C5.232 9.21 8.364 6 12 6s6.768 3.21 8.188 4.934Z" />
-                                </g>
-                            </svg>
-
-                        </div>
-                    </a>
-                </div>
-                <div class="d-flex gap-2 p-0 my-2">
-                    <a href="pdf/ratecard/download/digital_marketing_new2.pdf" target="_blank" class="rate-link w-100">
-                        <div class="d-flex justify-content-between p-0 w-100">
-                            <p class="p-0  m-0">Proposal - Digital Marketing 1 Year</p>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24">
-                                <g fill="none" stroke="#666666" stroke-width="0.9">
-                                    <circle cx="12" cy="12" r="3" />
-                                    <path d="M20.188 10.934c.388.472.582.707.582 1.066s-.194.594-.582 1.066C18.768 14.79 15.636 18 12 18s-6.768-3.21-8.188-4.934c-.388-.472-.582-.707-.582-1.066s.194-.594.582-1.066C5.232 9.21 8.364 6 12 6s6.768 3.21 8.188 4.934Z" />
-                                </g>
-                            </svg>
-
-                        </div>
-                    </a>
-                </div>
-                <div class="d-flex gap-2 p-0 my-2">
-                    <a href="pdf/ratecard/download/Website-design-new3.pdf" target="_blank" class="rate-link w-100">
-                        <div class="d-flex justify-content-between p-0 w-100">
-                            <p class="p-0  m-0">Proposal - Website Premium</p>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24">
-                                <g fill="none" stroke="#666666" stroke-width="0.9">
-                                    <circle cx="12" cy="12" r="3" />
-                                    <path d="M20.188 10.934c.388.472.582.707.582 1.066s-.194.594-.582 1.066C18.768 14.79 15.636 18 12 18s-6.768-3.21-8.188-4.934c-.388-.472-.582-.707-.582-1.066s.194-.594.582-1.066C5.232 9.21 8.364 6 12 6s6.768 3.21 8.188 4.934Z" />
-                                </g>
-                            </svg>
-
-                        </div>
-                    </a>
-                </div>
-                <div class="d-flex gap-2 p-0 my-2">
-                    <a href="pdf/ratecard/download/Website-design-new4.pdf" target="_blank" class="rate-link w-100">
-                        <div class="d-flex justify-content-between p-0 w-100">
-                            <p class="p-0  m-0">Proposal - Website Regular</p>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24">
-                                <g fill="none" stroke="#666666" stroke-width="0.9">
-                                    <circle cx="12" cy="12" r="3" />
-                                    <path d="M20.188 10.934c.388.472.582.707.582 1.066s-.194.594-.582 1.066C18.768 14.79 15.636 18 12 18s-6.768-3.21-8.188-4.934c-.388-.472-.582-.707-.582-1.066s.194-.594.582-1.066C5.232 9.21 8.364 6 12 6s6.768 3.21 8.188 4.934Z" />
-                                </g>
-                            </svg>
-
-                        </div>
-                    </a>
-                </div>
-                <div class="d-flex gap-2 p-0 my-2">
-                    <a href="pdf/ratecard/download/branding-proposal.pdf" target="_blank" class="rate-link w-100">
-                        <div class="d-flex justify-content-between p-0 w-100">
-                            <p class="p-0  m-0">Proposal - Graphic</p>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24">
-                                <g fill="none" stroke="#666666" stroke-width="0.9">
-                                    <circle cx="12" cy="12" r="3" />
-                                    <path d="M20.188 10.934c.388.472.582.707.582 1.066s-.194.594-.582 1.066C18.768 14.79 15.636 18 12 18s-6.768-3.21-8.188-4.934c-.388-.472-.582-.707-.582-1.066s.194-.594.582-1.066C5.232 9.21 8.364 6 12 6s6.768 3.21 8.188 4.934Z" />
-                                </g>
-                            </svg>
-
-                        </div>
-                    </a>
-                </div>
-                <div class="d-flex gap-2 p-0 my-2">
-                    <a href="pdf/ratecard/download/proposal.pdf" target="_blank" class="rate-link w-100">
-                        <div class="d-flex justify-content-between p-0 w-100">
-                            <p class="p-0  m-0">Proposal - Branding</p>
-
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24">
-                                <g fill="none" stroke="#666666" stroke-width="0.9">
-                                    <circle cx="12" cy="12" r="3" />
-                                    <path d="M20.188 10.934c.388.472.582.707.582 1.066s-.194.594-.582 1.066C18.768 14.79 15.636 18 12 18s-6.768-3.21-8.188-4.934c-.388-.472-.582-.707-.582-1.066s.194-.594.582-1.066C5.232 9.21 8.364 6 12 6s6.768 3.21 8.188 4.934Z" />
-                                </g>
-                            </svg>
-
-                        </div>
-                    </a>
-                </div>
-                <div class="d-flex gap-2 p-0 my-2">
-                    <a href="pdf/ratecard/download/Appac Web Best Practices & Process Flow.pdf" target="_blank" class="rate-link w-100">
-                        <div class="d-flex justify-content-between p-0 w-100">
-                            <p class="p-0  m-0"> Appac Best Pratices & Process Flow</p>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" viewBox="0 0 24 24">
-                                <g fill="none" stroke="#666666" stroke-width="0.9">
-                                    <circle cx="12" cy="12" r="3" />
-                                    <path d="M20.188 10.934c.388.472.582.707.582 1.066s-.194.594-.582 1.066C18.768 14.79 15.636 18 12 18s-6.768-3.21-8.188-4.934c-.388-.472-.582-.707-.582-1.066s.194-.594.582-1.066C5.232 9.21 8.364 6 12 6s6.768 3.21 8.188 4.934Z" />
-                                </g>
-                            </svg>
-                        </div>
-                    </a>
-                </div>
-
-                <!-- <button class="my-3 rate-btn">See All</button> -->
+            @endforeach
+            @endif
 
             </div>
 
         </div>
     </div>
+	
+	
+	 <div class="row pt-4">
 
-    <div class="modal fade" id="errorModal" role="dialog" style="">
-        <div class="modal-dialog cascading-modal float-end me-3" role="document">
-            <!--Content-->
-            <div class="modal-content">
-                <!--Header-->
+        <ul class="nav nav-tabs px-4 acc-tab" role="tablist">
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#promotion"><b>Promotion</b></a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#design"><b>Design</b></a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#development"><b>Development</b></a></li>
+        </ul>
 
-                <button type="button" class="close waves-effect waves-light fs-4" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-                <h4 class="title ps-3 pt-1">Errors</h4>
-                <!--Body-->
-                <div class="error-modal px-2 pb-1">
-
+        <div class="tab-content">
+ 
+            <!-- promotion History Tab -->
+            <div id="promotion" class="tab-pane fade show active" role="tabpanel">
+			
+                <div class="row">
+                    <div class="col-12">
+                        <div class="widget appac">
+                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                                <table id="datatable1" class="table table-bordered dataTable table-responsive" style="width:100%">
+                                    <thead>
+                                        <tr class="bg-white border-0">
+                                            <th class="text-grey">S.no</th>
+                                            <th class="text-grey">Date of Report</th>
+                                            <th class="text-grey">Employee Name</th>
+                                            <th class="text-grey">Client Name</th>
+                                            <th class="text-grey">Project Name</th>
+                                            <th class="text-grey">Start Time</th>
+                                            <th class="text-grey">End Time</th>
+                                            <th class="text-grey">Total Working Time</th>
+                                            <th class="text-grey">Status</th>
+                                            <th class="text-grey">Submit Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if(count($promotion) > 0)
+                                        
+                                        @foreach($promotion as $key=> $pro)
+                                        <tr class="bg-white">
+                                            <td>{{ $key+1 }}</td>
+                                            <td>{{ $pro->report_date }}</td>
+                                            <td>{{ $pro->fname }}</td>
+                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$pro->client}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $pro->client) }}">{{ $pro->company_name_account }} </button></td>
+                                            <td>{{ $pro->project_name }}</td>
+                                            <td>{{ $pro->start_time }}</td>
+                                            <td>{{ $pro->end_time }}</td>
+                                            <td>{{ $pro->w_hours }} Hours and {{ $pro->w_mins }} Minutes</td>
+                                            <td>{{ $pro->status }}</td>
+                                            <td>{{ $pro->submit_time }}</td>
+                                        </tr>
+                                        @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!--/.Content-->
+
+            <!-- design History Tab -->
+            <div id="design" class="tab-pane fade show" role="tabpanel">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="widget appac">
+                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                                <table id="datatable2" class="table table-bordered dataTable table-responsive" style="width:100%">
+                                    <thead>
+                                        <tr class="bg-white border-0">
+                                            <th class="text-grey">S.no</th>
+                                            <th class="text-grey">Date of Report</th>
+                                            <th class="text-grey">Employee Name</th>
+                                            <th class="text-grey">Client Name</th>
+                                            <th class="text-grey">Project Name</th>
+                                            <th class="text-grey">Start Time</th>
+                                            <th class="text-grey">End Time</th>
+                                            <th class="text-grey">Total Working Time</th>
+                                            <th class="text-grey">Status</th>
+                                            <th class="text-grey">Submit Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if(count($design) > 0)
+                                        
+                                        @foreach($design as $key=> $des)
+                                        <tr class="bg-white">
+                                            <td>{{ $key+1 }}</td>
+                                            <td>{{ $des->report_date }}</td>
+                                            <td>{{ $des->fname }}</td>
+                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$des->client}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $des->client) }}">{{ $des->company_name_account }} </button></td>
+                                            <td>{{ $des->project_name }}</td>
+                                            <td>{{ $des->start_time }}</td>
+                                            <td>{{ $des->end_time }}</td>
+                                            <td>{{ $des->w_hours }} Hours and {{ $des->w_mins }} Minutes</td>
+                                            <td>{{ $des->status }}</td>
+                                            <td>{{ $des->submit_time }}</td>
+                                        </tr>
+                                        @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- development History Tab -->
+            <div id="development" class="tab-pane fade show" role="tabpanel">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="widget appac">
+                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                                <table id="datatable3" class="table table-bordered dataTable table-responsive" style="width:100%">
+                                    <thead>
+                                        <tr class="bg-white border-0">
+                                            <th class="text-grey">S.no</th>
+                                            <th class="text-grey">Date of Report</th>
+                                            <th class="text-grey">Employee Name</th>
+                                            <th class="text-grey">Client Name</th>
+                                            <th class="text-grey">Project Name</th>
+                                            <th class="text-grey">Start Time</th>
+                                            <th class="text-grey">End Time</th>
+                                            <th class="text-grey">Total Working Time</th>
+                                            <th class="text-grey">Status</th>
+                                            <th class="text-grey">Submit Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if(count($development) > 0)
+                                        
+                                        @foreach($development as $key=> $devel)
+                                        <tr class="bg-white">
+                                            <td>{{ $key+1 }}</td>
+                                            <td>{{ $devel->report_date }}</td>
+                                            <td>{{ $devel->fname }}</td>
+                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$devel->client}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $devel->client) }}">{{ $devel->company_name_account }} </button></td>
+                                            <td>{{ $devel->project_name }}</td>
+                                            <td>{{ $devel->start_time }}</td>
+                                            <td>{{ $devel->end_time }}</td>
+                                            <td>{{ $devel->w_hours }} Hours and {{ $devel->w_mins }} Minutes</td>
+                                            <td>{{ $devel->status }}</td>
+                                            <td>{{ $devel->submit_time }}</td>
+                                        </tr>
+                                        @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+ <script>
+             $(document).ready(function () {
+    $('#datatable1, #datatable2, #datatable3').DataTable({
+        ordering: false,
+        responsive: true,
+        pageLength: 10,
+        lengthMenu: [
+            [10, 25, 50, -1],
+            [10, 25, 50, "All"]
+        ],
+        language: {
+            search: "_INPUT_",
+            searchPlaceholder: "Search records"
+        }
+    });
+});
+
+            </script>
+    
         </div>
     </div>
+
+    
 </div>
 
 
@@ -507,8 +564,10 @@
 
 
 @section('script')
+       
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
 <script>
     // Load Google Charts
     google.charts.load('current', {
@@ -790,128 +849,6 @@
         $('#example_paginate').addClass('mt-3');
         $('.dt-buttons').addClass('ps-2');
         $('#example_wrapper').addClass('overflow-x-auto');
-
-
-        $(document).on('submit', 'form', function(e) {
-            e.preventDefault();
-
-            var form = $(this);
-            var container = form.closest('.modal');
-
-            var formData = new FormData(form[0]); // Create a FormData object
-
-            $.ajax({
-                url: form.attr('action'),
-                type: form.attr('method'),
-                data: formData,
-                dataType: 'json',
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(response) {
-
-                    $('#session_message').css('display', 'block');
-                    $('#session_message').text(response.message);
-
-                    setTimeout(function() {
-                        $('#session_message').hide();
-                    }, 5000);
-                    if (typeof response.reload !== 'undefined') {
-                        $('.appac_show').hide();
-                        $('.appac_hide').show();
-
-                        setTimeout(function() {
-                            window.location.reload();
-                        }, 2000);
-                    } else {
-                        $('.customer_modal').modal('hide');
-                        $('.appac_show').hide();
-                        $('.appac_hide').show();
-                        cat_table.ajax.reload(null, false); // Prevents table state reset on reload
-                    }
-
-
-
-                },
-                error: function(xhr) {
-                    // Handle other types of errors (e.g., server error)
-
-                    var errors = xhr.responseJSON.errors;
-                    var errorString = '';
-
-                    for (var key in errors) {
-                        errorString += '<span class="text-danger">' + errors[key][0] + '</span><br>';
-                    }
-
-                    // Show errors in a Bootstrap modal (assuming you are using Bootstrap)
-                    $('#errorModal .error-modal').html(errorString);
-                    $('#errorModal').modal('show');
-                }
-            });
-        });
-
-
-        function Oppourtunity() {
-
-            var id = $('select[name="oppourtunity_status"]').val();
-            // alert(id);
-            $.ajax({
-                url: "{{ action([App\Http\Controllers\Leads::class, 'index']) }}",
-                type: 'GET',
-                data: {
-                    id: id
-                },
-                success: function(response) {
-                    window.location.reload();
-
-                },
-                error: function(xhr) {
-                    var errors = xhr.responseJSON.errors;
-                    var errorString = '';
-
-                    for (var key in errors) {
-                        errorString += '<span class="text-danger">' + errors[key][0] + '</span><br>';
-                    }
-
-                    $('#errorModal .error-modal').html(errorString);
-                    $('#errorModal').modal('show');
-                }
-            });
-        }
-
-        $('select[name="oppourtunity_status"]').on('change', Oppourtunity);
-
-        function Status() {
-
-            var status = $('select[name="lead_status"]').val();
-
-            $.ajax({
-                url: "{{ action([App\Http\Controllers\Leads::class, 'index']) }}",
-                type: 'GET',
-                data: {
-                    status: status
-                },
-                success: function(response) {
-                    window.location.reload();
-
-                },
-                error: function(xhr) {
-                    var errors = xhr.responseJSON.errors;
-                    var errorString = '';
-
-                    for (var key in errors) {
-                        errorString += '<span class="text-danger">' + errors[key][0] + '</span><br>';
-                    }
-
-                    $('#errorModal .error-modal').html(errorString);
-                    $('#errorModal').modal('show');
-                }
-            });
-        }
-
-        $('select[name="lead_status"]').on('change', Status);
-
-
 
     });
 </script>

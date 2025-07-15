@@ -364,7 +364,13 @@
                                     <!-- Right side: SAC CODE -->
                                     <td style="padding: 15px; border-left: 1px solid black; border-top: 0px solid black; vertical-align: bottom;text-align: center;background-color:#fff;">
 									 <p style="font-family: 'Inter', sans-serif;margin:0px;font-size:14px;color:#1d1d1d; font-weight: 800;">For Appac Mediatech Pvt Ltd</p>
-                                    <img src="https://appacmedia.in/oldcrm/imgs/signature.png" style="height:60px;background-color:#fff; padding-left: 30px;">
+                                    
+                                    
+                                @if($invoice->invoice_date < "10-07-2025")
+                                <img src="https://appacmedia.in/oldcrm/imgs/signature.png" style="height:60px;background-color:#fff; padding-left: 30px;">
+								@else
+                                <img src="/img/mohan-sign.png" style="height:60px;background-color:#fff; padding-left: 30px;">
+                                @endif
 									 <p style="font-family: 'Inter', sans-serif;margin:0px;font-size:11px;color:#1d1d1d; padding-bottom: 60px; font-weight: 800; padding-left: 83px;">Authorised Signatory</p>
 									<div style="font-family: 'Inter', sans-serif;font-size: 10px; text-align:center;">This is a digitally signed invoice. <br> No physical signature is necessary.</div>
                                    

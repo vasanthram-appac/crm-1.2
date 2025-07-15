@@ -16,7 +16,7 @@ class Fiscal extends Controller
     public function index(Request $request)
     {
 
-        if (request()->session()->get('empid') != 'AM001' && request()->session()->get('empid') != 'AM090') {
+        if (request()->session()->get('empid') != 'AM001' && request()->session()->get('empid') != 'AM090' && request()->session()->get('empid') != 'AM099') {
             return redirect()->to('/workreport');
         }
 

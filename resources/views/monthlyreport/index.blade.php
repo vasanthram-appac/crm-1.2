@@ -47,15 +47,6 @@
             <li class="nav-item">
                 <a class="nav-link" href="/leadhistory"><b>Account History</b></a>
             </li>
-            @php
-            $empid = request()->session()->get('empid');
-            @endphp
-            @if(in_array($empid, ['AM001', 'AM090']))
-            
-            <li class="nav-item">
-                <a class="nav-link" href="/fiscal"><b>Fiscal</b></a>
-            </li>
-            @endif
             @endif        
         </ul>
     </div>
@@ -73,7 +64,7 @@
                             {!! Form::hidden('type', 'client', ['class' => 'form-control']) !!}
                             <div class="control-group mb-2">
                                 {!! Form::label('promotionClients', 'Select', ['class' => 'label-color control-label mb-2']) !!}
-                                {!! Form::select('client', $clients, null, ['class' => 'form-select select2', 'placeholder' => 'Select a client']) !!}
+                                {!! Form::select('client', $clients, null, ['class' => 'form-select select2']) !!}
                             </div>
 
                             <div class="control-group mb-2">
@@ -82,7 +73,7 @@
                             </div>
                             <div class="control-group mb-2">
                                 {!! Form::label('employe', 'Select Employees', ['class' => 'label-color control-label mb-2']) !!}
-                                {!! Form::select('emp[]', $empl, null, ['class' => 'form-select select2', 'multiple' => 'multiple']) !!}
+                                {!! Form::select('emp[]', $empl, ['all'], ['class' => 'form-select select2', 'multiple' => 'multiple']) !!}
                             </div>
 
                             <div class="text-end">
@@ -103,8 +94,6 @@
                 <div class="bio  rounded-30 bg-white  client-li">
                     <div class="row col-wrap">
 
-
-
                         <div class="col-lg-12 col-xl-6 col-xxl-6 pr-20 d-flex align-items-center   d-none-800  justify-content-center">
                             <div class=" row" id="firstRow">
                                 <div>
@@ -118,8 +107,6 @@
 
                             </div>
                         </div>
-
-
 
                         <div class="col-lg-12 col-xl-6 col-xxl-6 ">
                             <div class="col-lg-12 col-xl-6 col-xxl-6 pr-20 d-flex align-items-center   d-block-800  justify-content-center">
@@ -368,8 +355,11 @@
 </script>
 <script>
     $(function() {
-        var start = moment('01/01/2019');
-        var end = moment();
+        // var start = moment('01/01/2019');
+        // var end = moment();
+
+        const start = moment().startOf('month');
+        const end = moment().endOf('month');
 
         function cb(start, end) {
             // Set the value of the input field
