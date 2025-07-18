@@ -27,12 +27,12 @@ class Payslip extends Controller
 
                 if (isset($request->month) && !empty($request->month)) {
                     request()->session()->put('payslipmonth', $request->month);
-                } 
-
-                if(empty(request()->session()->get('payslipmonth'))){
-                     request()->session()->put('payslipmonth', date("m-Y", strtotime("-1 month")));
                 }
-  
+
+                if (empty(request()->session()->get('payslipmonth'))) {
+                    request()->session()->put('payslipmonth', date("m-Y", strtotime("-1 month")));
+                }
+
                 $data = DB::table('emp_payslip')
                     ->join('regis', 'emp_payslip.empid', '=', 'regis.empid')
                     ->select('emp_payslip.*', 'regis.fname')
@@ -55,7 +55,7 @@ class Payslip extends Controller
 
                 foreach ($data as $pdata) {
 
-                    $gname = DB::table('regis')->select('fname', 'lname')->where('empid', $pdata->generated_by)->first();
+                    $gname = DB::table('regis')->select('fname', 'lname')->where('empid', $pdata->empid)->first();
 
                     $pdata->gname = $gname->fname . ' ' . $gname->lname;
                 }
@@ -101,8 +101,15 @@ class Payslip extends Controller
         $emp = DB::table('regis')
             ->where('status', '!=', '0')
             ->where('fname', '!=', 'demo')
-            ->pluck('fname', 'empid')->toArray();
+            ->select('empid', 'fname', 'lname')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->empid => $item->fname . ' ' . $item->lname];
+            })
+            ->toArray();
+
         $emp = ['0' => 'Select Employee'] + $emp;
+
 
         return view('payslip/create', compact('emp'))->render();
     }
@@ -205,8 +212,15 @@ class Payslip extends Controller
         $emp = DB::table('regis')
             ->where('status', '!=', '0')
             ->where('fname', '!=', 'demo')
-            ->pluck('fname', 'empid')->toArray();
+            ->select('empid', 'fname', 'lname')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->empid => $item->fname . ' ' . $item->lname];
+            })
+            ->toArray();
+
         $emp = ['0' => 'Select Employee'] + $emp;
+
 
         $payslip = DB::table('emp_payslip')->where('id', $id)->first();
 

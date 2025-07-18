@@ -23,25 +23,7 @@
 <div class="row m-0 appac_hide">
     <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-        <ul class="nav nav-tabs my-4 justify-content-end mb-0">
-            <li class="nav-item">
-                <a class="nav-link  com ad-btn" href="/workreport"><b>Work Report</b></a>
-            </li>
-            @if(request()->session()->get('role') != 'user')
-            <li class="nav-item">
-                <a class="nav-link active" href="/employeereport"><b>Employee Report</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/monthlyreport"><b>Monthly Report</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/enquiryreport"><b>Enquiry Report</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/leadhistory"><b>Account History</b></a>
-            </li>
-            @endif        
-        </ul>
+        @include('layouts/partials/reportmenu')
     </div>
 <div class="profile my-3 col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
@@ -72,7 +54,7 @@
 
                             <div class="control-group validate-input mb-2">
                                 {!! Form::label('employee', 'Employee', ['class' => 'label-color control-label mb-2']) !!}
-                                {!! Form::select('empid[]', $user->pluck('fname', 'empid')->prepend('All', 'all'), null, ['class' => 'js-select2 input100 select2', 'multiple' => true]) !!}
+                                {!! Form::select('empid[]', $user->pluck('fname', 'empid')->prepend('All', 'all'), ['all'], ['class' => 'js-select2 input100 select2', 'multiple' => true]) !!}
                             </div>
 
                             <b class="text-center w-100 d-block my-2  mt-3" style="color:#2c86ba;">(OR)</b>
@@ -368,4 +350,4 @@
         });
     });
 </script>
-@endsection
+@endsection  

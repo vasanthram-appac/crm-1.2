@@ -28,6 +28,7 @@ use App\Http\Controllers\Leaveapproval;
 use App\Http\Controllers\Newnbd;
 use App\Http\Controllers\Payslip;
 use App\Http\Controllers\Purchaseorder;
+use App\Http\Controllers\Vendorpaymententry;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -286,6 +287,12 @@ Route::get('/emppayslip/{id}', [Payslip::class, 'print'])->name('emppayslip');
 Route::post('/paymentproduct', [Paymententry::class, 'paymentproduct'])->name('paymentproduct');
 
 Route::post('/getClientInvoices', [Paymententry::class, 'fetchClientInvoices'])->name('getClientInvoices');
+
+Route::resource('/vendorpaymententry','App\Http\Controllers\Vendorpaymententry');
+
+Route::post('/vendorpaymentproduct', [Vendorpaymententry::class, 'paymentproduct'])->name('vendorpaymentproduct');
+
+Route::post('/getpurchase', [Vendorpaymententry::class, 'fetchClientInvoices'])->name('getpurchase');
 
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 

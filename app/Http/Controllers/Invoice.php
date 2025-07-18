@@ -45,10 +45,12 @@ class Invoice extends Controller
                         $status = request()->session()->get('invoice_status');
                         if ($status == 'pending') {
                             $query->whereIn('paymentstatus', ['pending', 'open']);
-                        } else if($status == 'withoutcancelled'){
-                            $query->where('paymentstatus', "!=","cancelled");
-                        }else {
-                            $query->where('paymentstatus', $status);
+                        } else if ($status == 'withoutcancelled') {
+                            $query->whereNotIn('paymentstatus', ['cancelled', 'creditnote']);
+                        } else if ($status == 'creditnote') {
+                            $query->where('paymentstatus', 'creditnote');
+                        } else {
+                            $query->where('paymentstatus', $status)->where('paymentstatus', '!=', 'creditnote');
                         }
                     })
                     // ->when(request()->session()->has('invoice_status') && request()->session()->get('invoice_status') != 'all', function ($query) {
@@ -63,15 +65,21 @@ class Invoice extends Controller
                     ->orderBy('invoice_no', 'desc')
                     ->get();
 
-                    if(count($data) >0){
-                     $total = $data->sum(function ($item) {
+                if (count($data) > 0) {
+
+                    $created_note = DB::table('invoicedetails')->where('paymentstatus', 'creditnote')->sum('grosspay');
+
+                    request()->session()->put('creatednotetotal', $created_note);
+
+                    $total = $data->sum(function ($item) {
                         return (float) str_replace(',', '', $item->grosspay);
                     });
                     $totalinpayment = number_format((float)$total, 2, '.', ',')  ?? 0;
                     request()->session()->put('totalinpayment', $totalinpayment);
-                    }else{
-                     request()->session()->put('totalinpayment', 0);
-                    }
+                } else {
+                    request()->session()->put('totalinpayment', 0);
+                    request()->session()->put('creatednotetotal', 0);
+                }
 
                 foreach ($data as $pdata) {
                     $emp = DB::table('regis')->where('empid', $pdata->empid)->first();
@@ -93,7 +101,7 @@ class Invoice extends Controller
                         return '<button class="btn text-lblue btn-modal" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->company_id]) . '">' . $row->companyname . '</button>';
                     })
                     ->addColumn('paymentstatus', function ($row) {
-                        if ($row->paymentstatus != 'closed') {
+                        if ($row->paymentstatus != 'closed' && $row->paymentstatus != 'creditnote') {
 
                             return '
                             <div>
@@ -102,6 +110,7 @@ class Invoice extends Controller
                                     <option value="paid" ' . ($row->paymentstatus === 'paid' ? 'selected' : '') . '>Paid</option>
                                     <option value="closed" ' . ($row->paymentstatus === 'closed' ? 'selected' : '') . '>Closed</option>
                                     <option value="cancelled" ' . ($row->paymentstatus === 'cancelled' ? 'selected' : '') . '>Cancelled</option>
+                                    <option value="creditnote" ' . ($row->paymentstatus === 'creditnote' ? 'selected' : '') . '>Credit Note</option>
                                 </select>
                                 <button class="btn btn-modal invoicestatus" data-id="' . $row->id . '" data-inid="' . $row->invoice_no . '">update</button>
                             </div>
@@ -363,7 +372,45 @@ class Invoice extends Controller
     {
         // dd($request->all());
 
-        $update = DB::table('invoicedetails')->where('invoice_no', $request->inid)->update(['paymentstatus' => $request->status]);
+        if ($request->status == 'creditnote') {
+
+            $todayDate = date('Y-m-d');
+            $date = date_create($todayDate);
+            if (date_format($date, "m") >= 4) {
+                $financialYear = date_format($date, "Y") . '-' . (date_format($date, "y") + 1);
+            } else {
+                $financialYear = (date_format($date, "Y") - 1) . '-' . date_format($date, "y");
+            }
+
+            $latestInvoice = DB::table('invoicedetails')->where('creditnoteid', '!=', "")->OrderByDesc('id')->first();
+
+            $inv = $latestInvoice ? substr($latestInvoice->creditnoteid, -4) : '';
+
+            $extracted = substr($latestInvoice->creditnoteid, 3, 7);
+
+            $common = 'AMT';
+
+            if ($inv == '' ||  (date('d-m') >= "01-04" &&  ($inv != "0001" && $extracted != $financialYear))) {
+                $inv1 = '0001';
+            } else {
+                $inv1 = str_pad($inv + 1, 4, '0', STR_PAD_LEFT);
+            }
+            // dd($extracted,$financialYear,$inv1);
+            $c_id = $common . $financialYear . '/' . $inv1;
+            $in_number = $c_id;
+
+            $val = [
+                'paymentstatus' => $request->status,
+                'creditnoteid' => $in_number,
+                'creditdate' => date('d-m-Y'),
+            ];
+        } else {
+            $val = [
+                'paymentstatus' => $request->status,
+            ];
+        }
+
+        $update = DB::table('invoicedetails')->where('invoice_no', $request->inid)->update($val);
         session()->flash('secmessage', 'Status Updated Successfully');
         return response()->json(['status' => 1, 'message' => 'Status Updated Successfully'], 200);
     }

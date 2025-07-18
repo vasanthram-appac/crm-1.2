@@ -22,11 +22,12 @@
         background-color: #01152b !important;
         color: #fff !important;
     }
-	 .odd {
+
+    .odd {
         background-color: #fff !important;
     }
 </style>
-       
+
 @endsection
 
 @section('content')
@@ -124,13 +125,14 @@
                         </div>
                     </a>
                 </div>
-                @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1'  || request()->session()->get('dept_id') == '8')
+                @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
                 <div class="g-data  ps-3"><a href="/proforma">
                         <div class="bio  rounded-30  piechart-leads dash-6">
                             <div class="svg-d">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                 <path fill="currentColor" d="M3.5 5A2.5 2.5 0 0 1 6 2.5h10A2.5 2.5 0 0 1 18.5 5v5.5a.5.5 0 0 1-1 0V5A1.5 1.5 0 0 0 16 3.5H6A1.5 1.5 0 0 0 4.5 5v14.382a.5.5 0 0 0 .724.447l1-.5a1.5 1.5 0 0 1 1.57.142l.906.679a.5.5 0 0 0 .6 0l.862-.647a1.5 1.5 0 0 1 1.672-.086l.673.404a.5.5 0 1 1-.514.858l-.674-.404a.5.5 0 0 0-.557.028l-.862.647a1.5 1.5 0 0 1-1.8 0l-.906-.68a.5.5 0 0 0-.523-.046l-1 .5A1.5 1.5 0 0 1 3.5 19.382z"></path><path fill="currentColor" d="M6.5 7a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m11-1.5a3 3 0 1 0 0 6a3 3 0 0 0 0-6m-4 3a4 4 0 1 1 8 0a4 4 0 0 1-8 0m5.666-1.229a.5.5 0 0 1 0 .708l-2.104 2.103l-1.228-1.228a.5.5 0 0 1 .707-.708l.521.522l1.397-1.397a.5.5 0 0 1 .707 0"></path>
-                               </svg>
+                                    <path fill="currentColor" d="M3.5 5A2.5 2.5 0 0 1 6 2.5h10A2.5 2.5 0 0 1 18.5 5v5.5a.5.5 0 0 1-1 0V5A1.5 1.5 0 0 0 16 3.5H6A1.5 1.5 0 0 0 4.5 5v14.382a.5.5 0 0 0 .724.447l1-.5a1.5 1.5 0 0 1 1.57.142l.906.679a.5.5 0 0 0 .6 0l.862-.647a1.5 1.5 0 0 1 1.672-.086l.673.404a.5.5 0 1 1-.514.858l-.674-.404a.5.5 0 0 0-.557.028l-.862.647a1.5 1.5 0 0 1-1.8 0l-.906-.68a.5.5 0 0 0-.523-.046l-1 .5A1.5 1.5 0 0 1 3.5 19.382z"></path>
+                                    <path fill="currentColor" d="M6.5 7a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m11-1.5a3 3 0 1 0 0 6a3 3 0 0 0 0-6m-4 3a4 4 0 1 1 8 0a4 4 0 0 1-8 0m5.666-1.229a.5.5 0 0 1 0 .708l-2.104 2.103l-1.228-1.228a.5.5 0 0 1 .707-.708l.521.522l1.397-1.397a.5.5 0 0 1 .707 0"></path>
+                                </svg>
                             </div>
                             <h3 class="text-center">Proforma Invoice</h3>
                             <h4>{{$proforma}}</h4>
@@ -141,9 +143,10 @@
                 <div class="g-data  ps-3"><a href="invoice">
                         <div class="bio  rounded-30  piechart-leads dash-7">
                             <div class="svg-d">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                                 <path fill="currentColor" d="M3.5 5A2.5 2.5 0 0 1 6 2.5h10A2.5 2.5 0 0 1 18.5 5v5.5a.5.5 0 0 1-1 0V5A1.5 1.5 0 0 0 16 3.5H6A1.5 1.5 0 0 0 4.5 5v14.382a.5.5 0 0 0 .724.447l1-.5a1.5 1.5 0 0 1 1.57.142l.906.679a.5.5 0 0 0 .6 0l.862-.647a1.5 1.5 0 0 1 1.672-.086l.673.404a.5.5 0 1 1-.514.858l-.674-.404a.5.5 0 0 0-.557.028l-.862.647a1.5 1.5 0 0 1-1.8 0l-.906-.68a.5.5 0 0 0-.523-.046l-1 .5A1.5 1.5 0 0 1 3.5 19.382z"></path><path fill="currentColor" d="M6.5 7a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m11-1.5a3 3 0 1 0 0 6a3 3 0 0 0 0-6m-4 3a4 4 0 1 1 8 0a4 4 0 0 1-8 0m5.666-1.229a.5.5 0 0 1 0 .708l-2.104 2.103l-1.228-1.228a.5.5 0 0 1 .707-.708l.521.522l1.397-1.397a.5.5 0 0 1 .707 0"></path>
-                               </svg>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M3.5 5A2.5 2.5 0 0 1 6 2.5h10A2.5 2.5 0 0 1 18.5 5v5.5a.5.5 0 0 1-1 0V5A1.5 1.5 0 0 0 16 3.5H6A1.5 1.5 0 0 0 4.5 5v14.382a.5.5 0 0 0 .724.447l1-.5a1.5 1.5 0 0 1 1.57.142l.906.679a.5.5 0 0 0 .6 0l.862-.647a1.5 1.5 0 0 1 1.672-.086l.673.404a.5.5 0 1 1-.514.858l-.674-.404a.5.5 0 0 0-.557.028l-.862.647a1.5 1.5 0 0 1-1.8 0l-.906-.68a.5.5 0 0 0-.523-.046l-1 .5A1.5 1.5 0 0 1 3.5 19.382z"></path>
+                                    <path fill="currentColor" d="M6.5 7a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m11-1.5a3 3 0 1 0 0 6a3 3 0 0 0 0-6m-4 3a4 4 0 1 1 8 0a4 4 0 0 1-8 0m5.666-1.229a.5.5 0 0 1 0 .708l-2.104 2.103l-1.228-1.228a.5.5 0 0 1 .707-.708l.521.522l1.397-1.397a.5.5 0 0 1 .707 0"></path>
+                                </svg>
                             </div>
                             <h3 class="text-center">Invoice</h3>
                             <h4>{{$invoice}}</h4>
@@ -259,6 +262,225 @@
 
         </div>
     </div>
+
+    <!-- report start -->
+
+    <div class="row pt-4">
+
+        <ul class="nav nav-tabs px-4 acc-tab" role="tablist">
+            <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#promotion"><b>Promotion</b></a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#design"><b>Design</b></a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#development"><b>Development</b></a></li>
+            <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#acchistroy"><b>Account History</b></a></li>
+        </ul>
+
+        <div class="tab-content">
+
+            <!-- promotion History Tab -->
+            <div id="promotion" class="tab-pane fade show active" role="tabpanel">
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="widget appac">
+                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                                <table id="datatable1" class="table table-bordered dataTable table-responsive" style="width:100%">
+                                    <thead>
+                                        <tr class="bg-white border-0">
+                                            <th class="text-grey">S.no</th>
+                                            <th class="text-grey">Date of Report</th>
+                                            <th class="text-grey">Employee Name</th>
+                                            <th class="text-grey">Client Name</th>
+                                            <th class="text-grey">Project Name</th>
+                                            <th class="text-grey">Start Time</th>
+                                            <th class="text-grey">End Time</th>
+                                            <th class="text-grey">Total Working Time</th>
+                                            <th class="text-grey">Status</th>
+                                            <th class="text-grey">Submit Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if(count($promotion) > 0)
+
+                                        @foreach($promotion as $key=> $pro)
+                                        <tr class="bg-white">
+                                            <td>{{ $key+1 }}</td>
+                                            <td>{{ $pro->report_date }}</td>
+                                            <td>{{ $pro->fname }}</td>
+                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$pro->client}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $pro->client) }}">{{ $pro->company_name_account }} </button></td>
+                                            <td>{{ $pro->project_name }}</td>
+                                            <td>{{ $pro->start_time }}</td>
+                                            <td>{{ $pro->end_time }}</td>
+                                            <td>{{ $pro->w_hours }} Hours and {{ $pro->w_mins }} Minutes</td>
+                                            <td>{{ $pro->status }}</td>
+                                            <td>{{ $pro->submit_time }}</td>
+                                        </tr>
+                                        @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- design History Tab -->
+            <div id="design" class="tab-pane fade show" role="tabpanel">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="widget appac">
+                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                                <table id="datatable2" class="table table-bordered dataTable table-responsive" style="width:100%">
+                                    <thead>
+                                        <tr class="bg-white border-0">
+                                            <th class="text-grey">S.no</th>
+                                            <th class="text-grey">Date of Report</th>
+                                            <th class="text-grey">Employee Name</th>
+                                            <th class="text-grey">Client Name</th>
+                                            <th class="text-grey">Project Name</th>
+                                            <th class="text-grey">Start Time</th>
+                                            <th class="text-grey">End Time</th>
+                                            <th class="text-grey">Total Working Time</th>
+                                            <th class="text-grey">Status</th>
+                                            <th class="text-grey">Submit Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if(count($design) > 0)
+
+                                        @foreach($design as $key=> $des)
+                                        <tr class="bg-white">
+                                            <td>{{ $key+1 }}</td>
+                                            <td>{{ $des->report_date }}</td>
+                                            <td>{{ $des->fname }}</td>
+                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$des->client}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $des->client) }}">{{ $des->company_name_account }} </button></td>
+                                            <td>{{ $des->project_name }}</td>
+                                            <td>{{ $des->start_time }}</td>
+                                            <td>{{ $des->end_time }}</td>
+                                            <td>{{ $des->w_hours }} Hours and {{ $des->w_mins }} Minutes</td>
+                                            <td>{{ $des->status }}</td>
+                                            <td>{{ $des->submit_time }}</td>
+                                        </tr>
+                                        @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- development History Tab -->
+            <div id="development" class="tab-pane fade show" role="tabpanel"> 
+                <div class="row">
+                    <div class="col-12">
+                        <div class="widget appac">
+                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                                <table id="datatable3" class="table table-bordered dataTable table-responsive" style="width:100%">
+                                    <thead>
+                                        <tr class="bg-white border-0">
+                                            <th class="text-grey">S.no</th>
+                                            <th class="text-grey">Date of Report</th>
+                                            <th class="text-grey">Employee Name</th>
+                                            <th class="text-grey">Client Name</th>
+                                            <th class="text-grey">Project Name</th>
+                                            <th class="text-grey">Start Time</th>
+                                            <th class="text-grey">End Time</th>
+                                            <th class="text-grey">Total Working Time</th>
+                                            <th class="text-grey">Status</th>
+                                            <th class="text-grey">Submit Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if(count($development) > 0)
+
+                                        @foreach($development as $key=> $devel)
+                                        <tr class="bg-white">
+                                            <td>{{ $key+1 }}</td>
+                                            <td>{{ $devel->report_date }}</td>
+                                            <td>{{ $devel->fname }}</td>
+                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$devel->client}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $devel->client) }}">{{ $devel->company_name_account }} </button></td>
+                                            <td>{{ $devel->project_name }}</td>
+                                            <td>{{ $devel->start_time }}</td>
+                                            <td>{{ $devel->end_time }}</td>
+                                            <td>{{ $devel->w_hours }} Hours and {{ $devel->w_mins }} Minutes</td>
+                                            <td>{{ $devel->status }}</td>
+                                            <td>{{ $devel->submit_time }}</td>
+                                        </tr>
+                                        @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- account History Tab -->
+            <div id="acchistroy" class="tab-pane fade show" role="tabpanel"> 
+                <div class="row">
+                    <div class="col-12">
+                        <div class="widget appac">
+                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                                <table id="datatable3" class="table table-bordered dataTable table-responsive" style="width:100%">
+                                    <thead>
+                                        <tr class="bg-white border-0">
+                                            <th class="text-grey">S.no</th>
+                                            <th class="text-grey">Date of Note Created</th>
+                                            <th class="text-grey">Employee Name</th>
+                                            <th class="text-grey">Client Name</th>
+                                            <th class="text-grey">Subject</th>
+                                             <th class="text-grey">Summary</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if(count($acchistroy) > 0)
+
+                                        @foreach($acchistroy as $key=> $acc)
+                                        <tr class="bg-white">
+                                            <td>{{ $key+1 }}</td>
+                                            <td>{{ $acc->datetimestamp }}</td>
+                                            <td>{{ $acc->fname }}</td>
+                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$acc->company_name}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $acc->company_name) }}">{{ $acc->company_name_account }} </button></td>
+                                            <td>{{ $acc->subject }}</td>
+                                            <td>{{ $acc->summary }}</td>
+                                        </tr>
+                                        @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+            <script>
+                $(document).ready(function() {
+                    $('#datatable1, #datatable2, #datatable3').DataTable({
+                        ordering: false,
+                        responsive: true,
+                        pageLength: 10,
+                        lengthMenu: [
+                            [10, 25, 50, -1],
+                            [10, 25, 50, "All"]
+                        ],
+                        language: {
+                            search: "_INPUT_",
+                            searchPlaceholder: "Search records"
+                        }
+                    });
+                });
+            </script>
+
+        </div>
+    </div>
+
+    <!-- report end -->
+
     <div class=" col-lg-12 col-xl-6 col-md-12 col-sm-12 ">
         <div class="bio  rounded-30  piechart-leads bl">
             <div class="d-flex justify-content-between align-items-center p-0">
@@ -352,10 +574,10 @@
                 <h4 class="ch-2">Ratecards</h4>
             </div>
             <div class="rate-d py-3 p-0 my-3">
-                
-				      @if(count($ratecard)>0)
-            @foreach($ratecard as $rate)
-  
+
+                @if(count($ratecard)>0)
+                @foreach($ratecard as $rate)
+
                 <div class="d-flex gap-2 p-0 my-2">
                     <a href="{{ url('pdf/ratecard/download/' . $rate->download_package) }}" target="_blank" class="rate-link w-100">
                         <div class="d-flex justify-content-between p-0 w-100">
@@ -372,191 +594,18 @@
                     </a>
                 </div>
 
-            @endforeach
-            @endif
+                @endforeach
+                @endif
 
             </div>
 
         </div>
     </div>
-	
-	
-	 <div class="row pt-4">
 
-        <ul class="nav nav-tabs px-4 acc-tab" role="tablist">
-            <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#promotion"><b>Promotion</b></a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#design"><b>Design</b></a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#development"><b>Development</b></a></li>
-        </ul>
 
-        <div class="tab-content">
- 
-            <!-- promotion History Tab -->
-            <div id="promotion" class="tab-pane fade show active" role="tabpanel">
-			
-                <div class="row">
-                    <div class="col-12">
-                        <div class="widget appac">
-                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
-                                <table id="datatable1" class="table table-bordered dataTable table-responsive" style="width:100%">
-                                    <thead>
-                                        <tr class="bg-white border-0">
-                                            <th class="text-grey">S.no</th>
-                                            <th class="text-grey">Date of Report</th>
-                                            <th class="text-grey">Employee Name</th>
-                                            <th class="text-grey">Client Name</th>
-                                            <th class="text-grey">Project Name</th>
-                                            <th class="text-grey">Start Time</th>
-                                            <th class="text-grey">End Time</th>
-                                            <th class="text-grey">Total Working Time</th>
-                                            <th class="text-grey">Status</th>
-                                            <th class="text-grey">Submit Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if(count($promotion) > 0)
-                                        
-                                        @foreach($promotion as $key=> $pro)
-                                        <tr class="bg-white">
-                                            <td>{{ $key+1 }}</td>
-                                            <td>{{ $pro->report_date }}</td>
-                                            <td>{{ $pro->fname }}</td>
-                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$pro->client}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $pro->client) }}">{{ $pro->company_name_account }} </button></td>
-                                            <td>{{ $pro->project_name }}</td>
-                                            <td>{{ $pro->start_time }}</td>
-                                            <td>{{ $pro->end_time }}</td>
-                                            <td>{{ $pro->w_hours }} Hours and {{ $pro->w_mins }} Minutes</td>
-                                            <td>{{ $pro->status }}</td>
-                                            <td>{{ $pro->submit_time }}</td>
-                                        </tr>
-                                        @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- design History Tab -->
-            <div id="design" class="tab-pane fade show" role="tabpanel">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="widget appac">
-                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
-                                <table id="datatable2" class="table table-bordered dataTable table-responsive" style="width:100%">
-                                    <thead>
-                                        <tr class="bg-white border-0">
-                                            <th class="text-grey">S.no</th>
-                                            <th class="text-grey">Date of Report</th>
-                                            <th class="text-grey">Employee Name</th>
-                                            <th class="text-grey">Client Name</th>
-                                            <th class="text-grey">Project Name</th>
-                                            <th class="text-grey">Start Time</th>
-                                            <th class="text-grey">End Time</th>
-                                            <th class="text-grey">Total Working Time</th>
-                                            <th class="text-grey">Status</th>
-                                            <th class="text-grey">Submit Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if(count($design) > 0)
-                                        
-                                        @foreach($design as $key=> $des)
-                                        <tr class="bg-white">
-                                            <td>{{ $key+1 }}</td>
-                                            <td>{{ $des->report_date }}</td>
-                                            <td>{{ $des->fname }}</td>
-                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$des->client}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $des->client) }}">{{ $des->company_name_account }} </button></td>
-                                            <td>{{ $des->project_name }}</td>
-                                            <td>{{ $des->start_time }}</td>
-                                            <td>{{ $des->end_time }}</td>
-                                            <td>{{ $des->w_hours }} Hours and {{ $des->w_mins }} Minutes</td>
-                                            <td>{{ $des->status }}</td>
-                                            <td>{{ $des->submit_time }}</td>
-                                        </tr>
-                                        @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- development History Tab -->
-            <div id="development" class="tab-pane fade show" role="tabpanel">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="widget appac">
-                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
-                                <table id="datatable3" class="table table-bordered dataTable table-responsive" style="width:100%">
-                                    <thead>
-                                        <tr class="bg-white border-0">
-                                            <th class="text-grey">S.no</th>
-                                            <th class="text-grey">Date of Report</th>
-                                            <th class="text-grey">Employee Name</th>
-                                            <th class="text-grey">Client Name</th>
-                                            <th class="text-grey">Project Name</th>
-                                            <th class="text-grey">Start Time</th>
-                                            <th class="text-grey">End Time</th>
-                                            <th class="text-grey">Total Working Time</th>
-                                            <th class="text-grey">Status</th>
-                                            <th class="text-grey">Submit Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if(count($development) > 0)
-                                        
-                                        @foreach($development as $key=> $devel)
-                                        <tr class="bg-white">
-                                            <td>{{ $key+1 }}</td>
-                                            <td>{{ $devel->report_date }}</td>
-                                            <td>{{ $devel->fname }}</td>
-                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$devel->client}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $devel->client) }}">{{ $devel->company_name_account }} </button></td>
-                                            <td>{{ $devel->project_name }}</td>
-                                            <td>{{ $devel->start_time }}</td>
-                                            <td>{{ $devel->end_time }}</td>
-                                            <td>{{ $devel->w_hours }} Hours and {{ $devel->w_mins }} Minutes</td>
-                                            <td>{{ $devel->status }}</td>
-                                            <td>{{ $devel->submit_time }}</td>
-                                        </tr>
-                                        @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-           <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
- <script>
-             $(document).ready(function () {
-    $('#datatable1, #datatable2, #datatable3').DataTable({
-        ordering: false,
-        responsive: true,
-        pageLength: 10,
-        lengthMenu: [
-            [10, 25, 50, -1],
-            [10, 25, 50, "All"]
-        ],
-        language: {
-            search: "_INPUT_",
-            searchPlaceholder: "Search records"
-        }
-    });
-});
-
-            </script>
-    
-        </div>
-    </div>
-
-    
 </div>
 
 
@@ -564,7 +613,7 @@
 
 
 @section('script')
-       
+
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 

@@ -33,12 +33,13 @@ class Inventary extends Controller
                     return $row->description;
                 })
                 ->addColumn('action', function ($row) {
-                    $editBtn = '<button class="btn btn-modal" data-container=".customer_modal" data-href="'. action([Inventary::class, 'edit'], [$row->id]) . '"><i class="fi fi-ts-file-edit"></i>
+                    $editBtn = '<button class="btn btn-modal" data-container=".customer_modal" data-href="' . action([Inventary::class, 'edit'], [$row->id]) . '"><i class="fi fi-ts-file-edit"></i>
                               <span class="tooltiptext">edit</span></button>';
 
                     $fileLink = '';
                     if (!empty($row->file)) {
-                        $fileLink = ' <a href="' . $row->file . '" target="_blank" style="text-decoration:none;"><i class="fi fi-ts-user-check"></i></a>';  }
+                        $fileLink = ' <a href="' . $row->file . '" target="_blank" style="text-decoration:none;"><i class="fi fi-ts-user-check"></i></a>';
+                    }
 
                     return $editBtn . $fileLink;
                 })
@@ -70,9 +71,11 @@ class Inventary extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
+        $vendorname = DB::table('vendorlist')->select('company_name')->where('id', $request->vendor_id)->first();
+
         $val = [
             'vendor_id' => $request->vendor_id,
-            'vendor_name' => $request->vendor_name,
+            'vendor_name' => $vendorname->company_name,
             'date' => $request->date,
             'title' => $request->title,
             'description' => $request->description,
@@ -137,10 +140,10 @@ class Inventary extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
-
+        $vendorname = DB::table('vendorlist')->select('company_name')->where('id', $request->vendor_id)->first();
         $val = [
             'vendor_id' => $request->vendor_id,
-            'vendor_name' => $request->vendor_name,
+            'vendor_name' => $vendorname->company_name,
             'date' => $request->date,
             'title' => $request->title,
             'description' => $request->description,

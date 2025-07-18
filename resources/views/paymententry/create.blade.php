@@ -85,7 +85,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6 col-sm-12">
+                   <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('document_upload', 'document', ['class' => 'label-color py-2']) !!}
                         {!! Form::file('document_upload', null, ['class' => 'form-control']) !!}
@@ -93,26 +93,9 @@
                 </div>
             </div>
 
-              <div class="row m-0 mb-0">
+            <div class="row m-0 mb-0" id="neft" style="display:none;">
 
-            
-
-                <div class="col-lg-6 col-sm-12">
-                    <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('neftnumber', 'NEFT/RTGS No', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('neftnumber', null, ['class' => 'form-control']) !!}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row m-0 mb-0">
-
-                <div class="col-lg-6 col-sm-12">
-                    <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('document_upload', 'document', ['class' => 'label-color py-2']) !!}
-                        {!! Form::file('document_upload', null, ['class' => 'form-control']) !!}
-                    </div>
-                </div>
+             
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">

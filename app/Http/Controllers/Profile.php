@@ -86,25 +86,25 @@ class Profile extends Controller
 
         if (!empty($request->photo)) {
             $validator->addRules([
-                'photo' => 'required|mimes:jpeg,jpg,png|file|max:1024',
+                'photo' => 'required|mimes:jpeg,jpg,png|file|max:1550',
             ]);
         }
 
         if (!empty($request->resume)) {
             $validator->addRules([
-                'resume' => 'required|mimes:pdf|file|max:1024',
+                'resume' => 'required|mimes:pdf|file|max:1550',
             ]);
         }
 
         if (!empty($request->addressproof)) {
             $validator->addRules([
-                'addressproof' => 'required|mimes:pdf|file|max:1024',
+                'addressproof' => 'required|mimes:pdf|file|max:1550',
             ]);
         }
 
         if (!empty($request->identityproof)) {
             $validator->addRules([
-                'identityproof' => 'required|mimes:pdf|file|max:1024',
+                'identityproof' => 'required|mimes:pdf|file|max:1550',
             ]);
         }
 

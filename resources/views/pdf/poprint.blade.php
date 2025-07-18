@@ -179,7 +179,7 @@
 								</span>
 							</th>
 							<div style="display:flex;align-items:center;justify-content:right;position: absolute;left: 35%;right: 30%;top: 60%;background-color:#fff;    z-index: -2;">
-							<img src="https://appacmedia.in/oldcrm/imgs/appac-watermark.svg" class="" style="width:320px;background-color:#fff;" /></div>
+							<img src="/imgs/appac-watermark.svg" class="" style="width:320px;background-color:#fff;" /></div>
 								
                             @if($purchaseorder->specialdiscount !='0')
 							<th style="text-align: right; border-top: 1px solid black; padding: 10px 0px 0px 0px;font-size:13px">Taxable Value Rs. </th>
@@ -345,11 +345,13 @@
                                 <div style="padding-bottom: 25px; padding-top: 10px;">
 								<div style="font-family: 'Inter', sans-serif; font-size: 14px; display: block; margin: auto; font-weight: 800;">For Appac Mediatech Pvt Ltd</div>
 								@if($purchaseorder->order_date < "10-07-2025")
-                                <img src="https://appacmedia.in/oldcrm/imgs/sign.jpg" style="width: 100px; display: block; margin: auto; margin-bottom: -10px; background-color:#fff; padding-left: 30px;" alt="sign">
+                                <img src="/imgs/sign.jpg" style="width: 100px; display: block; margin: auto; margin-bottom: -10px; background-color:#fff; padding-left: 30px;" alt="sign">
 								@else
                                 <img src="/img/mohan-sign.png" style="width: 125px; display: block; margin: auto; margin-bottom: -3px; background-color:#fff; padding-left: 30px;" alt="sign">
                                 @endif
-                                <div style="font-family: 'Inter', sans-serif; font-size: 11px;  display: block; margin: auto; font-weight: 800; padding-left: 83px;">Authorised Signatory</div>
+								
+								<div style="font-family: 'Inter', sans-serif; font-size: 11px;  display: block; margin: auto; font-weight: 800; padding-left: 83px;">Authorised Signatory</div>
+								
 								</div>
 								<div style="font-family: 'Inter', sans-serif; font-size: 10px; text-align:center;">This is a digitally signed invoice.<br> No physical signature is necessary.</div>
                             </td>

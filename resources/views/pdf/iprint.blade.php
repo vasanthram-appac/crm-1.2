@@ -41,15 +41,20 @@
 					<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">Email: info@appacmedia.com</span><br>
 					<span style="font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 400; line-height: 15px;">Web: www.appacmedia.com</span>
 				</div>
-				<img src="https://appacmedia.in/oldcrm/imgs/head-invoice.png" alt="" style="width: 319px; padding-left: 30px; background-color:#fff;">
+                @if($invoice->paymentstatus == 'creditnote')
+                    <img src="/img/credit-note.png" alt="" style="width: 319px; padding-left: 30px; background-color:#fff;">
+                @else
+                    <img src="/imgs/head-invoice.png" alt="" style="width: 319px; padding-left: 30px; background-color:#fff;">
+                @endif
+				
 			</div>
 		</div>
         <div class="cover_img" style="position: absolute; width: 930px;">
-           
 
-
-                    <div class="flex" style="font-family: 'Inter', sans-serif; font-size: 16px; position: absolute; width: fit-content; left: 480px; top: 25px; display: flex; gap: 20px;"><div>Invoice No : <b>{{ $invoice->invoice_no ?? 'N/A' }}
-                    </b></div> <div style="font-family: 'Inter', sans-serif;">Date : <b>{{ $invoice->invoice_date ? date('d-m-Y', strtotime($invoice->invoice_date)) : 'N/A' }}
+                    <div class="flex" style="font-family: 'Inter', sans-serif; font-size: 16px; position: absolute; width: fit-content; left: 460px; top: 25px; display: flex; gap: 20px;"><div> {{ $invoice->paymentstatus == 'creditnote' ? 'Credit Note No : ' : 'Invoice No : ' }} <b>{{ $invoice->paymentstatus == 'creditnote' ? $invoice->creditnoteid : ($invoice->invoice_no ?? 'N/A') }}
+                    </b></div> <div style="font-family: 'Inter', sans-serif;">Date : <b>{{ $invoice->paymentstatus == 'creditnote'
+                ? ($invoice->creditdate ? date('d-m-Y', strtotime($invoice->creditdate)) : 'N/A')
+                : ($invoice->invoice_date ? date('d-m-Y', strtotime($invoice->invoice_date)) : 'N/A') }}
                 </b></div></div>   
                     <div style="border: 1px solid black; font-family: 'Inter', serif; width:870px; position: relative; top: 50px; margin: auto" >                       
                         <table border="0" frame="box" style="border-collapse: collapse; width: 870px; margin-top: 0px;border-left:0px;border-right:0px;border-top:0px;">              
@@ -176,11 +181,11 @@
                                 <tr>
                                     <th style="text-align: left; font-family: 'Work Sans', sans-serif; padding-left: 10px; padding-top: 10px; border-top: 1px solid black; border-right: 1px solid black;font-size:13px">Key Notes:
 									  <br><br><span style="font-family: 'Inter', sans-serif; font-weight: 400;">
-                                    {{$invoice->paymentterms}}
-                                </span>
+                                     {{ $invoice->paymentstatus == 'creditnote' ? 'Credit Note against Invoice No ' . $invoice->invoice_no . ' dd. '.$invoice->invoice_date: $invoice->paymentterms }}
+                                </span> 
 									</th>
 									<div style="display:flex;align-items:center;justify-content:right;position: absolute;left: 35%;right: 30%;top: 60%;background-color:#fff;    z-index: -2;">
-									<img src="https://appacmedia.in/oldcrm/imgs/appac-watermark.svg" class="" style="width:320px;background-color:#fff;" /></div>
+									<img src="/imgs/appac-watermark.svg" class="" style="width:320px;background-color:#fff;" /></div>
                                     
                                     
                                     @if($invoice->specialdiscount !='0')
@@ -340,16 +345,16 @@
                                                     <col style="width: 100%;">                       
                                                 </colgroup>
                                                 <tr>
-                                                    <th style="font-family: 'Work Sans', sans-serif; text-align: left; font-size: 12px; padding-left: 10px; padding-bottom: 8px;">Invoice Terms & Conditions</th>
+                                                    <th style="font-family: 'Work Sans', sans-serif; text-align: left; font-size: 12px; padding-left: 10px; padding-bottom: 8px;"> {{ $invoice->paymentstatus != 'creditnote' ? 'Invoice' : 'Credit Note' }} Terms & Conditions</th>
                                                 </tr>
                                                 <tbody style="color:#464141">
                                                     <tr style="padding-left: 10px;">
-                                                        <td align="left" ><tr><td style="font-family: 'Inter', sans-serif;font-size: 12px; "><li>Please be aware that you must communicate any changes to this tax invoice via email within 7 days.</li></td></tr></td> 
-                                                        <td align="left" ><tr><td style="font-family: 'Inter', sans-serif;font-size: 12px;"><li style="list-style: none; padding-left: 17px;">After 7 days, the invoice will be considered accepted by the customer and not changed.</li></td></tr></td>
-                                                        <td align="left" ><tr><td style="font-family: 'Inter', sans-serif;font-size: 12px;"><li>Company liability is only up to the value of the invoice.</li></td></tr></td>
-                                                        <td align="left" ><tr><td style="font-family: 'Inter', sans-serif;font-size: 12px;"><li>Acceptance of the invoice signifies acceptance of the agreed service levels.</li></td></tr></td>
-                                                        <td align="left"  ><tr><td  class=""style="font-family: 'Inter', sans-serif; font-size: 12px;"><li>The recipient of this invoice has fully and duly verified all contents, data, input files, and copies.</li></td></tr></td>
-                                                        <td align="left"  ><tr><td style="font-family: 'Inter', sans-serif;padding-bottom: 10px; font-size: 12px;"><li>Payment to us is covered under advertising contract u/s 194C. TDS, if applicable, will be @ 2%.</li></td></tr></td>
+                                                        <td align="left" ><tr><td style="font-family: 'Inter', sans-serif;font-size: 12px; "><li>Please be aware that you must communicate any changes to this tax {{ $invoice->paymentstatus != 'creditnote' ? 'invoice' : 'credit note' }} via email within </li></td></tr></td> 
+                                                        <td align="left" ><tr><td style="font-family: 'Inter', sans-serif;font-size: 12px;"><li style="list-style: none; padding-left: 17px;">7 days. After 7 days, the {{ $invoice->paymentstatus != 'creditnote' ? 'invoice' : 'credit note' }} will be considered accepted by the customer and not changed.</li></td></tr></td>
+                                                        <td align="left" ><tr><td style="font-family: 'Inter', sans-serif;font-size: 12px;"><li>Company liability is only up to the value of the {{ $invoice->paymentstatus != 'creditnote' ? 'invoice' : 'credit note' }}.</li></td></tr></td>
+                                                        <td align="left" ><tr><td style="font-family: 'Inter', sans-serif;font-size: 12px;"><li>Acceptance of the {{ $invoice->paymentstatus != 'creditnote' ? 'invoice' : 'credit note' }} signifies acceptance of the agreed service levels.</li></td></tr></td>
+                                                        <td align="left"  ><tr><td  class=""style="font-family: 'Inter', sans-serif; font-size: 12px;"><li>The recipient of this {{ $invoice->paymentstatus != 'creditnote' ? 'invoice' : 'credit note' }} has fully and duly verified all contents, data, input files, and copies.</li></td></tr></td>
+                                                       @if($invoice->paymentstatus != 'creditnote')<td align="left"  ><tr><td style="font-family: 'Inter', sans-serif;padding-bottom: 10px; font-size: 12px;"><li>Payment to us is covered under advertising contract u/s 194C. TDS, if applicable, will be @ 2%.</li></td></tr></td>@endif
                                                     </tr>   
                                                     <tr>
                                                         <td align="left" ><tr><td style="font-family: 'Inter', sans-serif;font-size: 12px;border-top: 1px solid #000;    padding-top: 12px;"><b style="font-family: 'Inter', sans-serif;font-weight: 500; color: #000;">Note</b> : Cheque / Draft to be made in the favour of <b style="font-family: 'Inter', sans-serif;font-weight: 500; color: #000;">APPAC MEDIATECH PVT. LTD.</b></td></tr></td>
@@ -364,15 +369,13 @@
                                     <!-- Right side: SAC CODE -->
                                     <td style="padding: 15px; border-left: 1px solid black; border-top: 0px solid black; vertical-align: bottom;text-align: center;background-color:#fff;">
 									 <p style="font-family: 'Inter', sans-serif;margin:0px;font-size:14px;color:#1d1d1d; font-weight: 800;">For Appac Mediatech Pvt Ltd</p>
-                                    
-                                    
-                                @if($invoice->invoice_date < "10-07-2025")
-                                <img src="https://appacmedia.in/oldcrm/imgs/signature.png" style="height:60px;background-color:#fff; padding-left: 30px;">
+                                       @if($invoice->invoice_date < "10-07-2025")
+                                <img src="/imgs/signature.png" style="height:60px;background-color:#fff; padding-left: 30px;">
 								@else
                                 <img src="/img/mohan-sign.png" style="height:60px;background-color:#fff; padding-left: 30px;">
                                 @endif
 									 <p style="font-family: 'Inter', sans-serif;margin:0px;font-size:11px;color:#1d1d1d; padding-bottom: 60px; font-weight: 800; padding-left: 83px;">Authorised Signatory</p>
-									<div style="font-family: 'Inter', sans-serif;font-size: 10px; text-align:center;">This is a digitally signed invoice. <br> No physical signature is necessary.</div>
+									<div style="font-family: 'Inter', sans-serif;font-size: 10px; text-align:center;">This is a digitally signed {{ $invoice->paymentstatus != 'creditnote' ? 'invoice' : 'credit note' }}. <br> No physical signature is necessary.</div>
                                    
                                     </td>
                                 </tr>

@@ -27,30 +27,10 @@
 
 @section('content')
 
-
 <div class="row m-0 appac_hide">
 <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-        <ul class="nav nav-tabs my-4 justify-content-end mb-0">
-            <li class="nav-item">
-                <a class="nav-link active" href="/profile"><b>Profile</b></a>
-            </li>
-           @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM063' || request()->session()->get('empid') == 'AM003' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
-            <li class="nav-item">
-                <a class="nav-link" href="/leaveapproval"><b>Leave Approvel</b></a>
-            </li>
-            @endif
-            <li class="nav-item">
-                <a class="nav-link" href="/applyleave"><b>Employee Leave</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/celebration"><b>Celebration</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/resignation"><b>Resignation</b></a>
-            </li>
-         
-        </ul>
+       @include('layouts/partials/usermodulemenu')
     </div>
     <div class="profile my-3 col-12 col-lg-12 col-xl-12 col-xxl-12">
         <div class="profile-head">
@@ -69,14 +49,9 @@
                     <div class="row m-0 justify-content-between profile-col align-items-center">
                         <div class="col-lg-4 col-xl-3 col-xxl-4">
 
-
                             <div class="pro-img">
-
-
                                 <img class="w-100" src="{{ $document->photo ? asset('uploadphoto/' . $document->photo)  : asset('asset/image/avatar/' . $document->avatar.'.png') }}" alt="">
-
                             </div>
-
 
                             <div class="ud">
                                 <h4 class="u-name">{{$user->fname}} {{$user->lname}}</h4>

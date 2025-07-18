@@ -1308,7 +1308,7 @@
                                                         <tr class="bnone">
                                                             <td>
                                                                 <p class="bold">**The Above cost is exclusive of Taxes and Paid Marketing budget. Our Campaign management
-                                                                    charges would be Minimum INR 15,000 or 10% of Total Investment</p>
+                                                                    charges would be Minimum INR 15,000 or 15% of Total Investment</p>
                                                                 <p class="bold">**Please note Minimum Contract Period is 6 months.</p>
                                                             </td>
                                                         </tr>

@@ -40,7 +40,7 @@ class Login extends Controller
 
             if (request()->session()->has('empid') && request()->session()->get('empid') != null) {
 
-                if (request()->session()->get('role') != 'user') {
+                if (request()->session()->get('role') != 'user' && request()->session()->get('dept_id') != '2' && request()->session()->get('empid') != 'AM073') {
                     return redirect()->to('/dashboard');
                 } else {
                     return redirect()->to('/userdashboard');
@@ -76,7 +76,7 @@ class Login extends Controller
                     request()->session()->put('profilephoto', $photo->photo);
                     request()->session()->put('avatarphoto', $photo->avatar);
 
-                    if ($user[0]->role != 'user') {
+                    if ($user[0]->role != 'user' && request()->session()->get('dept_id') != '2' && request()->session()->get('empid') != 'AM073') {
                         return redirect()->to('/dashboard');
                     } else {
                         return redirect()->to('/userdashboard');
@@ -92,7 +92,7 @@ class Login extends Controller
             // dd($user->password);
             if (request()->session()->has('empid') && request()->session()->get('empid') != null) {
 
-                if (request()->session()->get('role') != 'user') {
+                if (request()->session()->get('role') != 'user' && request()->session()->get('dept_id') != '2' && request()->session()->get('empid') != 'AM073') {
                     return redirect()->to('/dashboard');
                 } else {
                     return redirect()->to('/userdashboard');
@@ -209,7 +209,7 @@ class Login extends Controller
             //             ); // Set the HTML content directly
             // });
 
-            if ($user[0]->role != 'user') {
+            if ($user[0]->role != 'user' && request()->session()->get('dept_id') != '2' && request()->session()->get('empid') != 'AM073') {
                 return redirect()->to('/dashboard');
             } else {
                 return redirect()->to('/userdashboard');

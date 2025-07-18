@@ -29,91 +29,64 @@
 
 <div class="appac_show"></div>
 <div class="row m-0 appac_hide">
-<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+    <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-        <ul class="nav nav-tabs my-4 justify-content-end mb-0">
-            <li class="nav-item">
-                <a class="nav-link" href="/profile"><b>Profile</b></a>
-            </li>
-           @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM063' || request()->session()->get('empid') == 'AM003' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1')
-            <li class="nav-item">
-                <a class="nav-link" href="/leaveapproval"><b>Leave Approvel</b></a>
-            </li>
-            @endif
-            <li class="nav-item">
-                <a class="nav-link" href="/applyleave"><b>Employee Leave</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/celebration"><b>Celebration</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/resignation"><b>Resignation</b></a>
-            </li>
-         
-        </ul>
+        @include('layouts/partials/usermodulemenu')
     </div>
-<div class="profile my-3 col-12 col-lg-12 col-xl-8 col-xxl-12">
+    <div class="profile my-3 col-12 col-lg-12 col-xl-8 col-xxl-12">
         <div class="profile-head">
             <h1 class="ch2 comp-name">Resignation</h1>
         </div>
     </div>
 
-<div class="row  col-wrap">
+    <div class="row  col-wrap">
         <div class="col-lg-12 col-xl-6 col-xxl-4 pr-20">
-<div class="bio  rounded-30 bg-white h-100  border-0  client-li">
+            <div class="bio  rounded-30 bg-white h-100  border-0  client-li">
 
-       
-            <!-- <div class="add-newproduct-tab">
+                <!-- <div class="add-newproduct-tab">
                 <div class="gradient-card-header">
                     <h2 class="white-text mx-3">Leads</h2>
                 </div>
             </div> comment by vasanth-->
 
-           
-            <div class="border-0 alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
+                <div class="border-0 alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
+                </div>
+
+                {!! Form::open(['route' => ['resignation.store'], 'method' => 'Post']) !!}
+
+
+                <div class="alidate-input m-b-23 mb-2  p-0  border-0">
+                    {!! Form::label('subject', 'Subject *', ['class' => 'label-color py-2']) !!}
+                    {!! Form::text('subject', null, ['class' => 'form-control', 'required']) !!}
+                </div>
+
+                <div class="alidate-input m-b-23 mb-2   border-0 p-0">
+                    {!! Form::label('resignationdate', 'Resignation Date*', ['class' => 'label-color py-2']) !!}
+                    {!! Form::date('resignationdate', null, ['class' => 'form-control', 'required']) !!}
+                </div>
+
+                <div class="alidate-input m-b-23     border-0 p-0">
+                    {!! Form::label('description', 'Description *', ['class' => 'label-color py-2']) !!}
+                    {!! Form::textarea('description', null, ['class' => 'no-resize h20 form-control', 'required']) !!}
+                </div>
+
+                <!-- Add a submit button -->
+                <br>
+                <div class="text-end  p-0">
+                    <label class="err_lbl"></label><br>
+                    <div class="p-0">
+                        <div></div>
+                        <div></div>
+                        <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button">Submit </button>
+                    </div>
+                </div>
+                <br>
+                {!! Form::close() !!}
             </div>
-
-            {!! Form::open(['route' => ['resignation.store'], 'method' => 'Post']) !!}
-
-         
-                    <div class="alidate-input m-b-23 mb-2  p-0  border-0">
-                        {!! Form::label('subject', 'Subject *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('subject', null, ['class' => 'form-control', 'required']) !!}
-
-                    </div>
-             
-                    <div class="alidate-input m-b-23 mb-2   border-0 p-0">
-                        {!! Form::label('resignationdate', 'Resignation Date*', ['class' => 'label-color py-2']) !!}
-                        {!! Form::date('resignationdate', null, ['class' => 'form-control', 'required']) !!}
-
-                    </div>
-                
-           
-
-     
-                    <div class="alidate-input m-b-23     border-0 p-0">
-                        {!! Form::label('description', 'Description *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::textarea('description', null, ['class' => 'no-resize h20 form-control', 'required']) !!}
-                    </div>
-              
-
-            <!-- Add a submit button -->
-            <br>
-            <div class="text-end  p-0">
-                                <label class="err_lbl"></label><br>
-                                <div class="p-0">
-                                    <div></div>
-                                    <div></div>
-                                    <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button">Submit </button>
-                                </div>
-                            </div>
-            <br>
-            {!! Form::close() !!}
-</div>
-</div>
+        </div>
 
 
-<div class="col-lg-12 col-xl-6 col-xxl-8 pr-20">
+        <div class="col-lg-12 col-xl-6 col-xxl-8 pr-20">
             <div class="pt-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered p-0">
                     <thead>
@@ -131,65 +104,65 @@
     </div>
 
 
-<!-- Dummy Starts -->
+    <!-- Dummy Starts -->
 
 
     <div class="row  col-wrap dum opacity-0">
         <div class="col-lg-12 col-xl-6 col-xxl-4 pr-20">
-<div class="bio  rounded-30 bg-white h-100  border-0  client-li">
+            <div class="bio  rounded-30 bg-white h-100  border-0  client-li">
 
-       
-            <!-- <div class="add-newproduct-tab">
+
+                <!-- <div class="add-newproduct-tab">
                 <div class="gradient-card-header">
                     <h2 class="white-text mx-3">Leads</h2>
                 </div>
             </div> comment by vasanth-->
 
-           
-            <div class="border-0 alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
+
+                <div class="border-0 alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
+                </div>
+
+                {!! Form::open(['route' => ['resignation.store'], 'method' => 'Post']) !!}
+
+
+                <div class="alidate-input m-b-23 mb-2  p-0  border-0">
+                    {!! Form::label('subject', 'Subject *', ['class' => 'label-color py-2']) !!}
+                    {!! Form::text('subject', null, ['class' => 'form-control', 'required']) !!}
+
+                </div>
+
+                <div class="alidate-input m-b-23 mb-2   border-0 p-0">
+                    {!! Form::label('resignationdate', 'Resignation Date*', ['class' => 'label-color py-2']) !!}
+                    {!! Form::date('resignationdate', null, ['class' => 'form-control', 'required']) !!}
+
+                </div>
+
+
+
+
+                <div class="alidate-input m-b-23     border-0 p-0">
+                    {!! Form::label('description', 'Description *', ['class' => 'label-color py-2']) !!}
+                    {!! Form::textarea('description', null, ['class' => 'no-resize h20 form-control', 'required']) !!}
+                </div>
+
+
+                <!-- Add a submit button -->
+                <br>
+                <div class="text-end  p-0">
+                    <label class="err_lbl"></label><br>
+                    <div class="p-0">
+                        <div></div>
+                        <div></div>
+                        <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button">Submit </button>
+                    </div>
+                </div>
+                <br>
+                {!! Form::close() !!}
             </div>
-
-            {!! Form::open(['route' => ['resignation.store'], 'method' => 'Post']) !!}
-
-         
-                    <div class="alidate-input m-b-23 mb-2  p-0  border-0">
-                        {!! Form::label('subject', 'Subject *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::text('subject', null, ['class' => 'form-control', 'required']) !!}
-
-                    </div>
-             
-                    <div class="alidate-input m-b-23 mb-2   border-0 p-0">
-                        {!! Form::label('resignationdate', 'Resignation Date*', ['class' => 'label-color py-2']) !!}
-                        {!! Form::date('resignationdate', null, ['class' => 'form-control', 'required']) !!}
-
-                    </div>
-                
-           
-
-     
-                    <div class="alidate-input m-b-23     border-0 p-0">
-                        {!! Form::label('description', 'Description *', ['class' => 'label-color py-2']) !!}
-                        {!! Form::textarea('description', null, ['class' => 'no-resize h20 form-control', 'required']) !!}
-                    </div>
-              
-
-            <!-- Add a submit button -->
-            <br>
-            <div class="text-end  p-0">
-                                <label class="err_lbl"></label><br>
-                                <div class="p-0">
-                                    <div></div>
-                                    <div></div>
-                                    <button type="submit" data-id="8" class="frm-btn pri-text-color" role="button">Submit </button>
-                                </div>
-                            </div>
-            <br>
-            {!! Form::close() !!}
-</div>
-</div>
+        </div>
 
 
-<div class="col-lg-12 col-xl-6 col-xxl-8 pr-20">
+        <div class="col-lg-12 col-xl-6 col-xxl-8 pr-20">
             <div class="pt-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered p-0">
                     <thead>
@@ -207,7 +180,7 @@
     </div>
 
 
-<!-- Dummy End -->
+    <!-- Dummy End -->
 
     <div class="modal fade" id="errorModal" role="dialog" style="">
         <div class="modal-dialog cascading-modal float-end me-3" role="document">
@@ -281,8 +254,8 @@
             },
 
         });
-		
-		        // Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon
@@ -325,7 +298,7 @@
                         $('.appac_hide').show();
 
                         setTimeout(function() {
-                            
+
                         }, 2000);
                     } else {
                         $('.customer_modal').modal('hide');

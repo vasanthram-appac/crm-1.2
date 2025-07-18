@@ -15,7 +15,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('ventor_name', 'Vendor Name*', ['class' => 'label-color py-2 '] ) !!}
-                        {!! Form::select('company_name', $vendor, $asset->vendor_id, ['class' => 'form-select select2']) !!}
+                        {!! Form::select('vendor_id', $vendor, $asset->vendor_id, ['class' => 'form-select select2']) !!}
                     </div>
                 </div>
 

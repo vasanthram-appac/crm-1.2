@@ -46,7 +46,7 @@
                     <div class="container-fluid justify-content-between gap-4 ps-5 pe-5  nav-div">
                         <div class="d-flex gap-3">
                             <div class="sidebar-heading fw-bolder d-flex justify-content-between align-items-center text-white cursive">
-                                @if(request()->session()->get('role') != 'user')
+                                @if(request()->session()->get('role') != 'user'  && request()->session()->get('dept_id') != '2' && request()->session()->get('empid') != 'AM073')
 
                                 <a class="" href="/dashboard">
                                     <img src="{{ asset('img/head-logo.png') }}" width="100 " class="toggle_close" alt="">
@@ -76,7 +76,7 @@
                         <div class="menu-list-group menu-list-group-flush gap-2  menus">
 
 
-                            @if(request()->session()->get('role') != 'user')
+                            @if(request()->session()->get('role') != 'user' && request()->session()->get('dept_id') != '2' && request()->session()->get('empid') != 'AM073')
 
                             <span id="m1" class="home-menu  d-flex align-items-center  me-3 @if($route=='dashboard') active @else  @endif">
                                 <a href="/dashboard">
@@ -102,7 +102,7 @@
 
                             @endif
 
-                            @if(request()->session()->get('role') == 'user')
+                            @if(request()->session()->get('role') == 'user'  || request()->session()->get('dept_id') == '2' || request()->session()->get('empid') == 'AM073')
 
                             <span id="m1" class="home-menu  d-flex align-items-center  me-3 @if($route=='userdashboard') active @else  @endif">
                                 <a href="/userdashboard">
@@ -173,7 +173,7 @@
                     </ul> -->
                             </span>
 
-                            @if(request()->session()->get('role') != 'user')
+                            @if(request()->session()->get('role') != 'user' && request()->session()->get('dept_id') != '2' && request()->session()->get('empid') != 'AM073')
                             <span id="m4">
                                 <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='account') bg-active @else  @endif " href="/account">
                                     <img src="{{ asset('asset/image/accounts.png') }}" width="22" alt="">
@@ -300,7 +300,7 @@
                                 </div>
                             </div>
 
-                            @if(request()->session()->get('role') != 'user')
+                            @if(request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '8')
                             <a href="/settings"> <img src="{{ asset('asset/image/setting.png') }}" width="22" alt=""></a>
                             @endif
                             <!-- Left Side Of Navbar
@@ -396,7 +396,7 @@
 
                                 </span>
 
-                                @if(request()->session()->get('role') != 'user')
+                                @if(request()->session()->get('role') != 'user' && request()->session()->get('dept_id') != '2' && request()->session()->get('empid') != 'AM073')
                                 <span id="m4">
                                     <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='account') bg-active @else  @endif " href="/account">
                                         <img src="{{ asset('asset/image/accounts.png') }}" width="22" alt="">
@@ -550,7 +550,7 @@
 
                                 </span>
 
-                                @if(request()->session()->get('role') != 'user')
+                                @if(request()->session()->get('role') != 'user' && request()->session()->get('dept_id') != '2' && request()->session()->get('empid') != 'AM073')
                                 <span id="m4">
                                     <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='account') bg-active @else  @endif " href="/account">
                                         <img src="{{ asset('asset/image/accounts.png') }}" width="22" alt="">

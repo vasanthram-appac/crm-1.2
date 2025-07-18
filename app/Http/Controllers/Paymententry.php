@@ -333,7 +333,7 @@ class Paymententry extends Controller
                     ->cc(array_filter([$managerMail, $thesupportmail]))
                     ->bcc($bccEmail)
                     ->from($infoMail, $appName)
-                    ->subject("Payment Entry Details")
+                    ->subject("Receipt Entry Details")
                     ->html('
                         <html><title></title><head></head>   <body> <table style="background:#efeded" cellpadding="0" cellspacing="0" bgcolor="#EFEDED" border="0" width="575px"><tbody><tr><td align="center"><table width="96%" cellpadding="0" cellspacing="0"border="0"><tbody><tr><td style="border-top:5px solid #1e96d3;background:#fff;margin:0;padding:20px;border-spacing:0px"><table width="100%" cellpadding="0" cellspacing="0"><tbody><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="font-size:14px;color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:center">Payment Entry Details</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="color:#000;font-size:13px;margin:0;font-family:Arial,Helvetica,sans-serif"> <strong> Hi Sir/Mam, </strong> <br></p></td></tr><tr><td style="margin:0;padding:0 0 5px 0" colspan="4"><p style="font-size:13px;background-color:rgb(234,234,234);color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:left"> Please find the Payment Entry Details</p></td></tr><tr><td style="width:200px;padding:4px 0"> Company Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $com_name . '</td></tr><tr><td style="width:200px;padding:4px 0"> Date:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->paydate . '</td></tr>
             <tr><td style="width:200px;padding:4px 0"> Amount:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->payamount . '</td></tr><tr><td style="width:200px;padding:4px 0">Payment Mode:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $pm . '</td></tr><tr><td style="width:200px;padding:4px 0">Product/Service:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->productservice . '</td></tr><tr><td style="width:200px;padding:4px 0">Comments:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->comment . '</td></tr><tr><td style="width:200px;padding:4px 0">Document Path</td><td style="padding-right:10px"> : </td><td style="font-weight:normal"> ' . $targ . ' </td></tr> </tbody></table></td></tr><tr><td style="margin:0;padding:15px  0"></td></tr></tbody></table></td></tr></tbody></table></body></html>
@@ -567,7 +567,7 @@ class Paymententry extends Controller
                     ->cc(array_filter([$managerMail, $thesupportmail]))
                     ->bcc($bccEmail)
                     ->from($infoMail, $appName)
-                    ->subject("Update Payment Entry Details")
+                    ->subject("Update Receipt Entry Details")
                     ->html(' <html><title></title><head></head>   <body> <table style="background:#efeded" cellpadding="0" cellspacing="0" bgcolor="#EFEDED" border="0" width="575px"><tbody><tr><td align="center"><table width="96%" cellpadding="0" cellspacing="0"border="0"><tbody><tr><td style="border-top:5px solid #1e96d3;background:#fff;margin:0;padding:20px;border-spacing:0px"><table width="100%" cellpadding="0" cellspacing="0"><tbody><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="font-size:14px;color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:center">Updated Payment Entry Details</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="color:#000;font-size:13px;margin:0;font-family:Arial,Helvetica,sans-serif"> <strong> Hi Sir, </strong> <br></p></td></tr><tr><td style="margin:0;padding:0 0 5px 0"><p style="font-size:13px;background-color:rgb(234,234,234);color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:left"> Payment Entry Details</p></td></tr><tr><td style="width:200px;padding:4px 0"> Company Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $com_name . '</td></tr><tr><td style="width:200px;padding:4px 0"> Date:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->paydate . '</td></tr>
 		<tr><td style="width:200px;padding:4px 0"> Amount:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->payamount . '</td></tr><tr><td style="width:200px;padding:4px 0"> Bank Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->bankname . '</td></tr>
 		<tr><td style="width:200px;padding:4px 0"> Cheque Number:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->chequeno . '</td></tr><tr><td style="width:200px;padding:4px 0">NEFT/RTGS No:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $request->neftnumber . '</td></tr>
@@ -610,20 +610,20 @@ class Paymententry extends Controller
         $pid = $request->pid;
         $iid = $request->iid;
 
-        $proforma = $pid ? DB::table('proformadetails')
-            ->select('paymentterms')
+        $proforma = $pid ? DB::table('proforma')
+            ->select('description')
             ->whereIn('invoice_no', $pid)
             ->orderByDesc('invoice_no')
             ->get() : collect();
 
-        $invoice = $iid ? DB::table('invoicedetails')
-            ->select('paymentterms')
+        $invoice = $iid ? DB::table('invoice')
+            ->select('description')
             ->whereIn('invoice_no', $iid)
             ->orderByDesc('invoice_no')
             ->get() : collect();
 
         $pro = $proforma->merge($invoice);
-        $paymentterms = $pro->pluck('paymentterms');
+        $paymentterms = $pro->pluck('description');
         $numberedTerms = "\n" . $paymentterms
             ->filter(function ($term) {
                 return !is_null($term) && trim($term) !== '';

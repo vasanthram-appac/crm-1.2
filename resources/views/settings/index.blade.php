@@ -73,19 +73,6 @@
                     </a>
                 </div>
 
-                <div class="g-data ps-3"><a href="/inventary">
-                        <div class="bio  rounded-30  piechart-leads dash-4">
-                            <div class="svg-d">
-
-                                <img src="/img/inventary.png" />
-
-                            </div>
-                            <h3 class="text-center ">Inventory</h3>
-                            <h4>{{$inventory}}</h4>
-                        </div>
-                    </a>
-                </div>
-
                 <div class="g-data ps-3"><a href="/googlesheet">
                         <div class="bio  rounded-30  piechart-leads dash-5">
                             <div class="svg-d">

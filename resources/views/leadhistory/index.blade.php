@@ -26,26 +26,7 @@
 <div class="row m-0 appac_hide">
     <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-        <ul class="nav nav-tabs my-4 justify-content-end mb-0">
-            <li class="nav-item">
-                <a class="nav-link  com ad-btn" href="/workreport"><b>Work Report</b></a>
-            </li>
-            @if(request()->session()->get('role') != 'user')
-            <li class="nav-item">
-                <a class="nav-link " href="/employeereport"><b>Employee Report</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="/monthlyreport"><b>Monthly Report</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link " href="/enquiryreport"><b>Enquiry Report</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/leadhistory"><b>Account History</b></a>
-            </li>
-         
-            @endif
-        </ul>
+      @include('layouts/partials/reportmenu')
     </div>
     <div class="col-12">
         <div class="row  col-wrap">

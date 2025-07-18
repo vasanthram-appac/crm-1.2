@@ -56,40 +56,7 @@
 <div class="row m-0 appac_hide">
     <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-        <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
-            <li class="nav-item">
-                <a class="nav-link " href="/accounts"><b>Accounts</b></a>
-            </li>
-            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
-            <li class="nav-item">
-                <a class="nav-link " href="/proforma"><b>Proforma</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/invoice"><b>Invoice</b></a>
-            </li>
-            @endif
-            <li class="nav-item">
-                <a class="nav-link" href="/lead"><b>Leads</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/opportunity"><b>Opportunity</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/serverdetails"><b>Renewals</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/newnbd"><b>New NBD</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/dmworks"><b>DM Works</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/required_input"><b>Required Input</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/expocustomer"><b>Expo</b></a>
-            </li>
-        </ul>
+      @include('accountmenu/index')
     </div>
     <div class="profile  prof  col-12 d-flex justify-content-between align-items-center  p-15">
 
@@ -110,6 +77,7 @@
                     <option value="paid" @if(request()->session()->get('invoice_status') == 'paid') selected @endif>Paid</option>
                     <option value="closed" @if(request()->session()->get('invoice_status') == 'closed') selected @endif>Close</option>
                     <option value="cancelled" @if(request()->session()->get('invoice_status') == 'cancelled') selected @endif>Cancelled</option>
+                    <option value="creditnote" @if(request()->session()->get('invoice_status') == 'creditnote') selected @endif>Credit Note</option>
                 </select>
             </div>
         </div>
@@ -145,7 +113,8 @@
     <div class="profile  prof  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex  justify-content-between  align-items-center  p-15">
         <div class="profile-head">
             <h1 class="ch2 comp-name m-0">Invoice</h1>
-        </div>
+        </div> <br>
+
         <!-- <div class="justify-content-sm-end search-bar d-flex w-100">
             <div class="row  form-flex">
                 {!! Form::open(['route' => ['invoiceaccountsid'], 'method' => 'Post']) !!}
@@ -158,6 +127,11 @@
             </div>
         </div> -->
     </div>
+    @if(request()->session()->get('creatednotetotal') > 0)
+    <div class="col-12">
+        <p class="d-block" style="cursor: pointer; font-weight: 700;" id="pendingstatus">Credit Note INR. {{number_format(request()->session()->get('creatednotetotal') ?? 0,2)}}</p>
+    </div>
+    @endif
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
 
@@ -196,6 +170,7 @@
                                     <option value="paid" @if(request()->session()->get('invoice_status') == 'paid') selected @endif>Paid</option>
                                     <option value="closed" @if(request()->session()->get('invoice_status') == 'closed') selected @endif>Close</option>
                                     <option value="cancelled" @if(request()->session()->get('invoice_status') == 'cancelled') selected @endif>Cancelled</option>
+                                    <option value="creditnote" @if(request()->session()->get('invoice_status') == 'creditnote') selected @endif>Credit Note</option>
                                 </select>
                             </th>
                             <th class="text-grey">Action</th>

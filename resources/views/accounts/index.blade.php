@@ -34,40 +34,7 @@
 <div class="row m-0 appac_hide">
     <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-        <ul class="nav nav-tabs  my-4  justify-content-end  mb-0  ">
-            <li class="nav-item">
-                <a class="nav-link active" href="/accounts"><b>Accounts</b></a>
-            </li>
-            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8') 
-            <li class="nav-item">
-                <a class="nav-link" href="/proforma"><b>Proforma</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/invoice"><b>Invoice</b></a>
-            </li>
-            @endif
-            <li class="nav-item">
-                <a class="nav-link" href="/lead"><b>Leads</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/opportunity"><b>Opportunity</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/serverdetails"><b>Renewals</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/newnbd"><b>New NBD</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/dmworks"><b>DM Works</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/required_input"><b>Required Input</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/expocustomer"><b>Expo</b></a>
-            </li>
-        </ul>
+      @include('accountmenu/index')
     </div>
     <div class="profile col-12 col-lg-12 col-xl-12 my-2 col-xxl-12">
         <div class="profile-head">

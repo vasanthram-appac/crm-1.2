@@ -21,16 +21,23 @@ class Salary extends Controller
         if (request()->ajax()) {
 
             $data = DB::table('emp_salary')
-            ->select('emp_salary.*','regis.fname')
-            ->join('regis', 'emp_salary.empid', '=','regis.empid')
-            ->where('regis.status',1)
-            ->orderByDesc('regis.status') ->get();
+                ->select('emp_salary.*', 'regis.fname')
+                ->join('regis', 'emp_salary.empid', '=', 'regis.empid')
+                ->where('regis.status', 1)
+                ->orderByDesc('regis.status')->get();
+
+                   foreach ($data as $pdata) {
+
+                    $gname = DB::table('regis')->select('fname', 'lname')->where('empid', $pdata->empid)->first();
+
+                    $pdata->gname = $gname->fname . ' ' . $gname->lname;
+                }
 
             return DataTables::of($data)
                 ->addColumn('sno', function ($row) {
                     return '';
                 })
-                 ->addColumn('fname', function ($row) {
+                ->addColumn('fname', function ($row) {
                     return '
                             <button class="btn  btn-modal text-lblue viewemp" data-id="' . base64_encode($row->empid) . '">' . $row->fname . ' </button>';
                 })
@@ -49,7 +56,18 @@ class Salary extends Controller
 
     public function create(Request $request)
     {
-        $regis = DB::table('regis')->pluck('fname', 'empid');
+        $regis = DB::table('regis')
+            ->where('status', '!=', '0')
+            ->where('fname', '!=', 'demo')
+            ->select('empid', 'fname', 'lname')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->empid => $item->fname . ' ' . $item->lname];
+            })
+            ->toArray();
+
+        $regis = ['0' => 'Select Employee'] + $regis;
+
         return view('salary/create', compact('regis'))->render();
     }
 
@@ -65,13 +83,13 @@ class Salary extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-          $sal = DB::table('emp_salary')->where('empid',$request->empid)->get();
+        $sal = DB::table('emp_salary')->where('empid', $request->empid)->get();
 
-          if(count($sal)>0){
-            
-        session()->flash('secmessage', 'Salary Details Already added in Server.');
-        return response()->json(['status' => 1, 'message' => 'Salary Details Already added in Server.'], 200);
-          }
+        if (count($sal) > 0) {
+
+            session()->flash('secmessage', 'Salary Details Already added in Server.');
+            return response()->json(['status' => 1, 'message' => 'Salary Details Already added in Server.'], 200);
+        }
 
         $domainData = [
             'empid' => $request->empid,
@@ -87,14 +105,26 @@ class Salary extends Controller
     public function edit($id)
     {
         $salary = DB::table('emp_salary')->select('id', 'salary', 'empid')->find($id);
-        $regis = DB::table('regis')->pluck('fname', 'empid');
+
+        $regis = DB::table('regis')
+            ->where('status', '!=', '0')
+            ->where('fname', '!=', 'demo')
+            ->select('empid', 'fname', 'lname')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->empid => $item->fname . ' ' . $item->lname];
+            })
+            ->toArray();
+
+        $regis = ['0' => 'Select Employee'] + $regis;
+
         // dd($salary);
-        return view('salary.edit')->with(compact('salary','regis'));
+        return view('salary.edit')->with(compact('salary', 'regis'));
     }
 
     public function update(Request $request, $id)
     {
-     
+
         $validator = Validator::make($request->all(), [
             'salary' => 'required',
             'empid' => 'required',
@@ -105,8 +135,8 @@ class Salary extends Controller
         }
 
         $data = [
-        'empid' => $request->empid,
-        'salary' => $request->salary
+            'empid' => $request->empid,
+            'salary' => $request->salary
         ];
 
         $updated = DB::table('emp_salary')->where('id', $id)->update($data);
@@ -123,5 +153,3 @@ class Salary extends Controller
         return response()->json(['status' => 1, 'message' => 'Salary Deleted Successfully!'], 200);
     }
 }
-
-

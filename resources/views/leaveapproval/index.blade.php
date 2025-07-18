@@ -31,26 +31,7 @@
 <div class="row m-0 appac_hide">
     <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-        <ul class="nav nav-tabs my-4 justify-content-end mb-0">
-            <li class="nav-item">
-                <a class="nav-link" href="/profile"><b>Profile</b></a>
-            </li>
-            @if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM063' || request()->session()->get('empid') == 'AM003' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
-            <li class="nav-item">
-                <a class="nav-link active" href="/leaveapproval"><b>Leave Approval</b></a>
-            </li>
-            @endif
-            <li class="nav-item">
-                <a class="nav-link" href="/applyleave"><b>Employee Leave</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/celebration"><b>Celebration</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/resignation"><b>Resignation</b></a>
-            </li>
-
-        </ul>
+       @include('layouts/partials/usermodulemenu')
     </div>
     <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12">
         <div class="profile-head">

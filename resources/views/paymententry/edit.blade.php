@@ -80,7 +80,7 @@
                         {!! Form::text('chequeno', $payment->chequeno, ['class' => 'form-control']) !!}
                     </div>
                 </div>
-
+                
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('document_upload', 'document', ['class' => 'label-color py-2']) !!}
@@ -89,7 +89,7 @@
                 </div>
             </div>
 
-            <div class="row m-0 mb-0">
+            <div class="row m-0 mb-0" id="neft" style="display:none;">
            
 
                 <div class="col-lg-6 col-sm-12">
@@ -220,10 +220,19 @@ $('#company_name').on('change', function () {
     const serverPaymentMode = "<?= $payment->paymentmode ?>";
 
 $(document).ready(function() {
-  if (serverPaymentMode == 2) {
+    if(serverPaymentMode == "1") {
+    $('#neft').show();
+    $('#chq').hide();
+	$("#pi").attr('required', true);
+  } else if(serverPaymentMode == "2") {
     $('#neft').hide();
     $('#chq').show();
-    $("#pi").attr('required', true);
+	$("#pi").attr('required', true);
+  }
+  else{
+	  $('#neft').hide();
+    $('#chq').hide();
+     $("#pi").attr('required', false);
   }
 });
 

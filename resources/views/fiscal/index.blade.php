@@ -120,34 +120,7 @@
 <div class="row m-0 appac_hide  pb-5">
 <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-        <ul class="nav nav-tabs my-4 justify-content-end mb-0">
-            @if(request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8')
-            <li class="nav-item">
-            <a class="nav-link" href="/purchaseorder"><b>Purchase Order</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/vendorlist"><b>Vendor List</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/paymententry"><b>Receipt Entry</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/asset_library"><b>Asset Library</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/user"><b>Employee</b></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/fiscal"><b>Fiscal</b></a>
-            </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/salary"><b>Salary</b></a>
-            </li>
-             <li class="nav-item">
-                <a class="nav-link" href="/payslip"><b>Payslip</b></a>
-            </li>
-            @endif      
-        </ul>
+        @include('financemenu/index')
     </div>
     <div class="col-12">
   
@@ -171,14 +144,14 @@
                                 @endphp
                             </div>
 
-                                <select name="yearrange" class="form-control select2">
-                                    @for ($year = $startYear; $year <= $endYear; $year++)
+                               
+                               <select name="yearrange" class="form-control select2">
+                                    @for ($year = $endYear; $year >= $startYear; $year--)
                                         <option value="{{ $year }}-{{ $year + 1 }}">
-                                        {{ $year }}-{{ $year + 1 }}
+                                            {{ $year }}-{{ $year + 1 }}
                                         </option>
-                                        @endfor
+                                    @endfor
                                 </select>
-
                             </div>
 
                           

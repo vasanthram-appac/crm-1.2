@@ -61,18 +61,6 @@
                     </a>
                 </div>
 
-                <div class="g-data ps-3"><a href="/payslip">
-                        <div class="bio  rounded-30  piechart-leads dash-4">
-                            <div class="svg-d">
-
-                                <img src="/img/payslip.png"/>
-
-                            </div>
-                            <h3 class="text-center ">Payslip</h3>
-                            <h4>{{$payslip}}</h4>
-                        </div>
-                    </a>
-                </div>
                 @endif
                 <div class="g-data ps-3"><a href="/applyleave">
                         <div class="bio  rounded-30  piechart-leads dash-5">
