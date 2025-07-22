@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('title', 'Enquiry Report')
 
 @section('css')
@@ -26,7 +25,7 @@
 <div class="row m-0 appac_hide">
     <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-       @include('layouts/partials/reportmenu')
+        @include('layouts/partials/reportmenu')
     </div>
     <div class="col-12">
         <div class="row  col-wrap">

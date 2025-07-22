@@ -244,7 +244,7 @@ class Workreport extends Controller
             'w_hours' => $hours,
             'w_mins' => $minutes,
             'taskid' => "",
-            'wipid' => $request->wipid,
+            'wipid' => ($request->worktype == 1) ? $request->wipid : "",
             'worktype' => $request->worktype,
         ];
 
@@ -365,7 +365,7 @@ class Workreport extends Controller
             'w_hours' => $hours,
             'w_mins' => $minutes,
             'taskid' => "",
-            'wipid' => $request->wipid,
+            'wipid' => ($request->worktype == 1) ? $request->wipid : "",
             'worktype' => $request->worktype,
         ];
 

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Employee Report')
+@section('title', 'Monthly Report')
 
 @section('css')
 <style>
@@ -28,9 +28,9 @@
 <div class="appac_show"></div>
 
 <div class="row m-0 appac_hide">
-<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+    <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-      @include('layouts/partials/reportmenu')
+        @include('layouts/partials/reportmenu')
     </div>
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="row  col-wrap">
@@ -39,7 +39,7 @@
                     <div class=" row" id="firstRow">
                         <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;"></div>
                         <div class="widget-body">
-                            <h4>Clients</h4>
+                            <h5>Clients ( Working Hours - {{$clientname}} - {{$daterange}}  {{ session('gdata') ? json_decode(session('gdata'))->All->hours : '0' }} Hrs  {{ session('gdata') ? json_decode(session('gdata'))->All->minutes : '0' }} Mins )</h5>
 
                             {!! Form::open(['route' => ['monthlyreport.store'], 'method' => 'POST']) !!}
                             @csrf
@@ -78,16 +78,13 @@
 
                         <div class="col-lg-12 col-xl-6 col-xxl-6 pr-20 d-flex align-items-center   d-none-800  justify-content-center">
                             <div class=" row" id="firstRow">
-                                <div>
-                                    <h1>Working Hours</h1>
-                                    <h2></h2>
-                                    <h1>{{$clientname}}</h1>
-
-                                    <p> {{$daterange}}  {{ session('gdata') ? json_decode(session('gdata'))->All->hours : '0' }} Hrs  {{ session('gdata') ? json_decode(session('gdata'))->All->minutes : '0' }} Mins </p>
-                                  
-                                </div>
-
+                             
                             </div>
+                            <div id="bar_chart" style="height: 400px;"></div>
+                            <div id="nodata_message" style="text-align: center; color: #888; font-size: 18px; display: none;">
+                                No data found
+                            </div>
+
                         </div>
 
                         <div class="col-lg-12 col-xl-6 col-xxl-6 ">
@@ -100,6 +97,8 @@
                                     </div>
 
                                 </div>
+
+
                             </div>
                             <div class="p-0 row" id="firstRow">
                                 <div id="piechart_3d" style="width: auto;height:100%;min-height:365px;text-align:center;margin:auto"></div>
@@ -161,6 +160,106 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
 <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-xRVzT3eZUZ1X7KTHM8SbDk5t51zzmQlDWJ5gKw0KNY2ISDYXORfEYJkC0Wh8Kh9G" crossorigin="anonymous"></script>
+
+<script type="text/javascript">
+    google.charts.load('current', {
+        packages: ['corechart']
+    });
+    google.charts.setOnLoadCallback(drawChart);
+
+    function customTooltip(month, label) {
+        return `<div style="padding:10px">
+                <strong>${month}</strong><br>
+                ${label}
+            </div>`;
+    }
+
+    function parseTimeToDecimal(timeString) {
+        const [hoursPart, minutesPart] = timeString.split(' ');
+        const hours = parseInt(hoursPart) || 0;
+        const minutes = parseInt(minutesPart) || 0;
+        return hours + (minutes / 60);
+    }
+
+    function drawChart() {
+        const enquiryCounts = @json(session('monthly_chart') ?? []);
+
+        if (!enquiryCounts.length) {
+            // No data — show message only
+            document.getElementById('bar_chart').style.display = 'none';
+            document.getElementById('nodata_message').style.display = 'block';
+            return;
+        }
+
+        // If data exists — show chart
+        document.getElementById('bar_chart').style.display = 'block';
+        document.getElementById('nodata_message').style.display = 'none';
+
+        const chartData = [
+            ['Month', 'Time (hrs)', {
+                role: 'style'
+            }, {
+                role: 'tooltip',
+                p: {
+                    html: true
+                }
+            }]
+        ];
+
+        enquiryCounts.forEach(({
+            month,
+            time,
+            label
+        }) => {
+            const decimalTime = time / 60; // Convert minutes to hours
+            chartData.push([
+                month,
+                decimalTime,
+                '#d9e1ef',
+                customTooltip(month, label)
+            ]);
+        });
+
+        const data = google.visualization.arrayToDataTable(chartData);
+
+        const options = {
+            hAxis: {
+                title: 'Month',
+                textStyle: {
+                    color: '#666',
+                    fontSize: 12
+                }
+            },
+            vAxis: {
+                title: 'Time (hrs)',
+                minValue: 0,
+                gridlines: {
+                    color: '#eaeaea'
+                },
+                textStyle: {
+                    color: '#666'
+                }
+            },
+            legend: 'none',
+            tooltip: {
+                isHtml: true
+            },
+            animation: {
+                startup: true,
+                duration: 1000,
+                easing: 'out'
+            },
+            chartArea: {
+                width: '80%',
+                height: '80%',
+            }
+        };
+
+        const chart = new google.visualization.ColumnChart(document.getElementById('bar_chart'));
+        chart.draw(data, options);
+    }
+</script>
+
 
 <script type="text/javascript">
     google.charts.load("current", {
@@ -371,30 +470,30 @@
         // }, cb);
 
         $('#reportrange').daterangepicker({
-    showDropdowns: true,
-    autoUpdateInput: false,
-    linkedCalendars: false, // ✅ This prevents the end calendar from jumping when you pick the start date
-    startDate: moment('01/01/2020', 'MM/DD/YYYY'),
-    endDate: moment('01/01/2025', 'MM/DD/YYYY'),
-    minDate: '01/01/2000',
-    maxDate: '12/31/2030',
-    locale: {
-        format: 'MM/DD/YYYY',
-        cancelLabel: 'Clear'
-    },
-    ranges: {
-        'All': [moment('01/01/2019'), moment()],
-        'Today': [moment(), moment()],
-        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        'This Month': [moment().startOf('month'), moment().endOf('month')],
-        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-        'Last 3 Months': [moment().subtract(3, 'months').startOf('month'), moment().endOf('month')],
-        'Last 6 Months': [moment().subtract(6, 'months').startOf('month'), moment().endOf('month')],
-        'Last 12 Months': [moment().subtract(11, 'months').startOf('month'), moment().endOf('month')],
-    }
-}, function(start, end) {
-    $('#reportrange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
-});
+            showDropdowns: true,
+            autoUpdateInput: false,
+            linkedCalendars: false, // ✅ This prevents the end calendar from jumping when you pick the start date
+            startDate: moment('01/01/2020', 'MM/DD/YYYY'),
+            endDate: moment('01/01/2025', 'MM/DD/YYYY'),
+            minDate: '01/01/2000',
+            maxDate: '12/31/2030',
+            locale: {
+                format: 'MM/DD/YYYY',
+                cancelLabel: 'Clear'
+            },
+            ranges: {
+                'All': [moment('01/01/2019'), moment()],
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                'Last 3 Months': [moment().subtract(3, 'months').startOf('month'), moment().endOf('month')],
+                'Last 6 Months': [moment().subtract(6, 'months').startOf('month'), moment().endOf('month')],
+                'Last 12 Months': [moment().subtract(11, 'months').startOf('month'), moment().endOf('month')],
+            }
+        }, function(start, end) {
+            $('#reportrange').val(start.format('MM/DD/YYYY') + ' - ' + end.format('MM/DD/YYYY'));
+        });
 
         cb(start, end);
     });
@@ -504,6 +603,7 @@
                 }).nodes().each(function(cell, i) {
                     cell.innerHTML = start + i + 1;
                 });
+                drawChart();
             },
             searching: true,
             language: {
@@ -522,8 +622,8 @@
                 'colvis'
             ]
         });
-		
-		// Add an icon to the search input
+
+        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon

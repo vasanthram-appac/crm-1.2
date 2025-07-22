@@ -197,16 +197,16 @@ class Dashboard extends Controller
             ->first();
 
         $promotion = DB::table('dailyreport')->join('regis', 'dailyreport.empid', '=', 'regis.empid')->join('accounts', 'dailyreport.client', '=', 'accounts.id')
-        ->select('dailyreport.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('dailyreport.dept_id',4)->where('dailyreport.report_date1', $lastdata->report_date1)->get();
+        ->select('dailyreport.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('dailyreport.dept_id',4)->where('dailyreport.report_date1', $lastdata->report_date1)->orderBy('dailyreport.empid', 'asc')->get();
 
         $design = DB::table('dailyreport')->join('regis', 'dailyreport.empid', '=', 'regis.empid')->join('accounts', 'dailyreport.client', '=', 'accounts.id')
-        ->select('dailyreport.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('dailyreport.dept_id',2)->where('dailyreport.report_date1', $lastdata->report_date1)->get();
+        ->select('dailyreport.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('dailyreport.dept_id',2)->where('dailyreport.report_date1', $lastdata->report_date1)->orderBy('dailyreport.empid', 'asc')->get();
 
         $development = DB::table('dailyreport')->join('regis', 'dailyreport.empid', '=', 'regis.empid')->join('accounts', 'dailyreport.client', '=', 'accounts.id')
-        ->select('dailyreport.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('dailyreport.dept_id',3)->where('dailyreport.report_date1', $lastdata->report_date1)->get();
+        ->select('dailyreport.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('dailyreport.dept_id',3)->where('dailyreport.report_date1', $lastdata->report_date1)->orderBy('dailyreport.empid', 'asc')->get();
 
         $acchistroy = DB::table('notes')->join('regis', 'notes.employee', '=', 'regis.empid')->join('accounts', 'notes.company_name', '=', 'accounts.id')
-        ->select('notes.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('notes.submitdate', date('Y-m-d', strtotime('-1 day')))->get();
+        ->select('notes.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('notes.submitdate', date('Y-m-d', strtotime('-1 day')))->orderBy('notes.employee', 'asc')->get();
 
         return view('dashboard/index')->with(compact('leadCounts','activeAcc','proforma','invoice','wip_history' ,'keyaccounts','aallead','wipenqs','opportunity','website_enquiry_data','work_order','dailyreport','empreport','employee','leaveapproved','social','payment', 'ratecard', 'promotion', 'design', 'development','acchistroy'))->render();
     }

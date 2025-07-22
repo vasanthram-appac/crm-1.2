@@ -17,31 +17,31 @@ class Monthlyreport extends Controller
 
     public function index(Request $request)
     {
-        if(request()->session()->get('role') =='user'){
+        if (request()->session()->get('role') == 'user') {
             return redirect()->to('/workreport');
         }
         $gdata = '';
         if (request()->ajax()) {
 
             $mdata = request()->session()->get('client');
-         
-            $emp = isset($mdata['emp']) 
-            ? (is_array($mdata['emp']) ? $mdata['emp'] : [$mdata['emp']]) 
-            : [];
 
-            $client = (isset($mdata['client']) && !empty($mdata['client']))? $mdata['client'] : null;
+            $emp = isset($mdata['emp'])
+                ? (is_array($mdata['emp']) ? $mdata['emp'] : [$mdata['emp']])
+                : [];
+
+            $client = (isset($mdata['client']) && !empty($mdata['client'])) ? $mdata['client'] : null;
             $emp = isset($mdata['emp']) ? (is_array($mdata['emp']) ? $mdata['emp'] : [$mdata['emp']]) : [];
-            $daterange = (isset($mdata['daterange']) && !empty($mdata['daterange']))? $mdata['daterange'] : null;
-            
+            $daterange = (isset($mdata['daterange']) && !empty($mdata['daterange'])) ? $mdata['daterange'] : null;
+
             if ($daterange) {
                 $daterange = explode(' - ', $daterange);
                 $start_date = date('Y-m-d', strtotime($daterange[0]));
                 $end_date = date('Y-m-d', strtotime($daterange[1]));
-            }else{
+            } else {
                 $start_date = date('Y-m-01');
                 $end_date = date('Y-m-d');
             }
-            
+
             $data = DB::table('dailyreport')
                 ->join('accounts', 'dailyreport.client', '=', 'accounts.id')
                 ->join('regis', 'dailyreport.empid', '=', 'regis.empid')
@@ -54,7 +54,7 @@ class Monthlyreport extends Controller
                 ->when(!empty($client) && $client != 'all', function ($query) use ($client) {
                     return $query->where(function ($q) use ($client) {
                         $q->where('dailyreport.client', $client)
-                          ->orWhere('dailyreport.wipid', $client);
+                            ->orWhere('dailyreport.wipid', $client);
                     });
                 })
                 ->when(!empty($emp) && !in_array('all', $emp), function ($query) use ($emp) {
@@ -62,26 +62,27 @@ class Monthlyreport extends Controller
                 })
                 ->when($daterange, function ($query) use ($start_date, $end_date) {
                     return $query->whereBetween('report_date1', [$start_date, $end_date])
-                                 ->orderBy('report_date1', 'asc');
+                        ->orderBy('report_date1', 'asc');
                 }, function ($query) {
                     return $query->whereYear('report_date1', date('Y'))
-                    ->whereMonth('report_date1', date('m'))
-                    ->orderBy('report_date1', 'desc');
+                        ->whereMonth('report_date1', date('m'))
+                        ->orderBy('report_date1', 'desc');
                 })
+                ->where('regis.status', '1')
                 ->orderBy('dailyreport.id', 'asc')
                 ->get();
 
             $graph_data1 = $data;
 
             if ($data) {
-               
-                $totalHours = 0; 
-                $hoursList = []; 
+
+                $totalHours = 0;
+                $hoursList = [];
 
                 foreach ($data as $item) {
                     $wHours = (int)$item->dept_id;
-                    $hoursList[] = $wHours; 
-                    $totalHours += $wHours; 
+                    $hoursList[] = $wHours;
+                    $totalHours += $wHours;
                 }
 
                 $totals = [
@@ -145,16 +146,98 @@ class Monthlyreport extends Controller
 
                 // dd(session('gdata'));
 
+                if (
+                    count($emp) > 0 &&
+                    (($monthDiff = ((date('Y', strtotime($end_date)) - date('Y', strtotime($start_date))) * 12) +
+                        (date('m', strtotime($end_date)) - date('m', strtotime($start_date)))) >= 0 && $monthDiff < 13)
+                ) {
+                    // Fetch monthly data grouped by month and empid
+                    $rawData = DB::table('dailyreport')
+                        ->select(
+                            DB::raw("DATE_FORMAT(report_date1, '%b') as month_name"),
+                            DB::raw("MONTH(report_date1) as month_number"),
+                            'regis.fname',
+                            'dailyreport.empid',
+                            DB::raw("SUM(w_hours * 60 + w_mins) as total_minutes")
+                        )
+                        ->join('regis', 'dailyreport.empid', '=', 'regis.empid')
+                        ->when(!empty($client) && $client !== 'all', function ($query) use ($client) {
+                            return $query->where(function ($q) use ($client) {
+                                $q->where('dailyreport.client', $client)
+                                    ->orWhere('dailyreport.wipid', $client);
+                            });
+                        })
+                        ->when(!empty($emp) && !in_array('all', $emp), function ($query) use ($emp) {
+                            return $query->whereIn('dailyreport.empid', $emp);
+                        })
+                        ->where('regis.status', '1')
+                        ->whereBetween('dailyreport.report_date1', [$start_date, $end_date])
+                        ->groupBy(DB::raw("MONTH(report_date1)"), DB::raw("DATE_FORMAT(report_date1, '%b')"), 'dailyreport.empid', 'regis.fname')
+                        ->orderBy(DB::raw("MONTH(report_date1)"), 'asc')
+                        ->get()
+                        ->groupBy('month_number'); // Group the collection by numeric month
+
+                    // Prepare list of months between start and end date
+                    $start = strtotime($start_date);
+                    $end = strtotime($end_date);
+                    $months = collect();
+
+                    while ($start <= $end) {
+                        $monthNum = (int) date('n', $start); // Month number (1-12)
+                        $monthName = date('M', $start);      // Abbreviated month name (Jan, Feb, etc.)
+                        $months->put($monthNum, $monthName);
+                        $start = strtotime('+1 month', $start);
+                    }
+
+                    // Final chart data
+                    $monthlyChart = [];
+
+                    foreach ($months as $num => $name) {
+                        $monthEntries = $rawData->get($num, collect());
+
+                        $totalMinutes = 0;
+                        $empLabels = [];
+
+                        $counter = 1;
+                        foreach ($monthEntries as $entry) {
+                            $empMinutes = (int) $entry->total_minutes;
+                            $empHours = floor($empMinutes / 60);
+                            $empMins = $empMinutes % 60;
+
+                            $empLabels[] = "{$counter}. {$entry->fname} - {$empHours} hrs {$empMins} mins";
+                            $totalMinutes += $empMinutes;
+                            $counter++;
+                        }
+
+                        $totalHours = floor($totalMinutes / 60);
+                        $totalMins = $totalMinutes % 60;
+
+                        $label = implode('<br>', $empLabels);
+                        if (count($empLabels) > 0) {
+                            $label .= "<br><strong>Total - {$totalHours} hrs {$totalMins} mins</strong>";
+                        }
+
+                        $monthlyChart[] = [
+                            'month' => $name,
+                            'time'  => $totalMinutes,
+                            'label' => $label
+                        ];
+                    }
+
+                    session()->put('monthly_chart', $monthlyChart);
+                } else {
+                    session()->put('monthly_chart', []);
+                }
             };
 
             return DataTables::of($data)
                 ->addColumn('sno', function ($row) {
                     return '';
                 })
-                    ->addColumn('company_name_account', function ($row) {
+                ->addColumn('company_name_account', function ($row) {
                     return '<button class="btn  btn-modal text-lblue" data-cid="' . $row->client . '" data-container=".appac_show" data-href="' . route('viewaccounts', ['id' => $row->client]) . '">' . $row->company_name_account . ' </button>';
                 })
-                ->rawColumns(['sno','company_name_account'])
+                ->rawColumns(['sno', 'company_name_account'])
                 ->make(true);
         }
 
@@ -240,6 +323,5 @@ class Monthlyreport extends Controller
 
         // Return data as JSON or pass it to a view
         return redirect()->route('monthlyreport.index');
-
     }
 }

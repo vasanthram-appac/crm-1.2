@@ -97,7 +97,7 @@ class Employeereport extends Controller
 
             $data->active = $active;
 
-            $excludedEmpIds = array_merge($eid, $leid, ['AM001', 'AM002', 'admin']);
+            $excludedEmpIds = array_merge($eid, $leid, ['AM001', 'AM002', 'AM099', 'admin']);
 
             if(empty(request()->session()->get('aiempid')) || in_array('all', request()->session()->get('aiempid')) || count($data) == 0){
 
@@ -110,11 +110,8 @@ class Employeereport extends Controller
 
             $data->inactive = $inactive;
             } else{
-
                 $data->inactive = [];
-                
             }
-
 
             request()->session()->put('aireport', $data);
             

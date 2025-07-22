@@ -267,8 +267,8 @@ class Enquiryreport extends Controller
         }
 
         // Return default view with filter options
-        $websites = DB::connection('mysql_second')->table('company_master')->where('promotion', 0)->pluck('comp_website', 'comp_website');
-        $pro_websites = DB::connection('mysql_second')->table('company_master')->where('promotion', 1)->orderBy('comp_website')->get();
+        $websites = DB::connection('mysql_second')->table('company_master')->where('promotion', 0)->orderBy('order_id', 'asc')->pluck('comp_website', 'comp_website');
+        $pro_websites = DB::connection('mysql_second')->table('company_master')->where('promotion', 1)->orderBy('order_id', 'asc')->orderBy('comp_website')->get();
         
         return view('enquiryreport.index', compact('websites', 'pro_websites'));
 
