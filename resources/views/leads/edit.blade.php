@@ -282,8 +282,9 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="validate-input m-b-23 mb-2">
                         {!! Form::label('assignedto', 'Assigned To', ['class' => 'label-color py-2 ']) !!}
-                        {!! Form::hidden('assignedto', $lead->assignedto, ['class' => 'form-control']) !!}
-                        {!! Form::text('assigned', $assinedby->fname, ['class' => 'form-control', 'readonly']) !!}
+                        <!-- {!! Form::hidden('assignedto', $lead->assignedto, ['class' => 'form-control']) !!}
+                        {!! Form::text('assigned', $assinedby->fname, ['class' => 'form-control', 'readonly']) !!} -->
+                        {!! Form::select('assignedto', $regis, $lead->assignedto, ['class' => 'form-control']) !!}
                         <span class="focus-input100"></span>
                     </div>
                 </div>

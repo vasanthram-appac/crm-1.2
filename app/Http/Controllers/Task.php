@@ -16,7 +16,7 @@ class Task extends Controller
 
     public function index(Request $request)
     {
-        if(request()->session()->get('role') =='user'){
+        if (request()->session()->get('role') == 'user') {
             return redirect()->to('/workreport');
         }
         // dd($request);
@@ -113,7 +113,7 @@ class Task extends Controller
                     return $row->status_label . ' ' . $row->priority_label;
                 })
 
-                 ->addColumn('approved', function ($row) {
+                ->addColumn('approved', function ($row) {
                     return ' <button class="btn btn-modal text-lblue" data-container=".customer_modal" data-href="' . action([Taskview::class, 'edit'], [$row->tid]) . '">
                                 Click
                             </button>';
@@ -176,8 +176,8 @@ class Task extends Controller
             'task_startdate' => 'required|date',
             'task_duedate' => 'required|date',
             'task_description' => 'nullable|string|max:500',
-            'mail_cc' => 'required|array',
-            'mail_cc.*' => 'exists:regis,emailid',
+            // 'mail_cc' => 'required|array',
+            // 'mail_cc.*' => 'exists:regis,emailid',
         ]);
 
         if ($validator->fails()) {
@@ -222,15 +222,32 @@ class Task extends Controller
 
         $mquery1 = DB::table('regis')->where('empid', $request->empid)->first();
         $fquery = DB::table('regis')->where('empid', request()->session()->get('empid'))->first();
-        if(request()->session()->get('dept_id') != 6){
+        if (request()->session()->get('dept_id') != 6) {
             $replay1 = DB::table('regis')->select('emailid')->where('empid', request()->session()->get('empid'))->first();
             $reply = $replay1->emailid ?? null;
-        }else{
+        } else {
             $reply = null;
         }
 
-        $business = DB::table('regis')->where('dept_id', 6)->where('status',1)->pluck('emailid');
+        $business = DB::table('regis')->where('dept_id', 6)->where('status', 1)->pluck('emailid');
         $thesupportmail = request()->session()->get('dept_id') == 6 ? $business->toArray() : [];
+
+        //tl mail start
+        $empidsByDept = [
+            3 => ['AM063', 'AM073', 'AM098'],
+            2 => ['AM043', 'AM049'],
+            4 => ['AM045', 'AM046'],
+            5 => ['AM045', 'AM046'],
+            6 => ['AM081'],
+        ];
+        $empids = $empidsByDept[$mquery1->dept_id] ?? [];
+
+        $tmail = DB::table('regis')
+            ->whereIn('empid', $empids)
+            ->where('status', 1)
+            ->pluck('emailid');
+        $tlmail = $business ? $tmail->toArray() : [];
+        //tl mail end
 
         $bccEmail = env('SUPPORTMAIL');
         $founderEmail = env('FOUNDERMAIL');
@@ -249,24 +266,25 @@ class Task extends Controller
             $task_new,
             $thesupportmail,
             $reply,
+            $tlmail,
         ) {
             // Validate that $request->mail_cc is an array or provide a fallback
             $ccEmails = is_array($request->mail_cc) ? $request->mail_cc : [];
             // $ccList = array_filter([$founderEmail, $managerMail, $thesupportmail, ...$ccEmails]);
-                   
-       $ccList = array_filter(array_merge( array_filter([$founderEmail, $managerMail]),$thesupportmail, $ccEmails));
- 
+
+            $ccList = array_filter(array_merge(array_filter([$founderEmail, $managerMail]), $thesupportmail, $ccEmails, $tlmail));
+
             // Set recipients
             $message->to($mquery1->emailid)
                 ->cc($ccList)
                 ->bcc($bccEmail);
-                if (!empty($reply)) {
-    $message->bcc($reply);
-}
-                $message->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
+            if (!empty($reply)) {
+                $message->bcc($reply);
+            }
+            $message->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
                 ->from($infoMail, $fquery->fname . ' ' . $fquery->lname)
-                ->subject('Task For '.$request->task_name.' - ' . $com_name . ' : ' . date('d-m-Y', strtotime($request->task_startdate)))
-                        ->html(' <html>
+                ->subject('Task For ' . $request->task_name . ' - ' . $com_name . ' : ' . date('d-m-Y', strtotime($request->task_startdate)))
+                ->html(' <html>
                         <head>
                             <title>Task Details</title>
                         </head>
@@ -356,7 +374,7 @@ class Task extends Controller
                         </body>
                     </html>
                         ');
-                });
+        });
 
 
         // Success message and response
@@ -404,8 +422,8 @@ class Task extends Controller
             'task_startdate' => 'required|date',
             'task_description' => 'nullable|string|max:500',
             'task_subject' => 'nullable|string|max:500',
-            'mail_cc' => 'required|array',
-            'mail_cc.*' => 'exists:regis,emailid',
+            // 'mail_cc' => 'required|array',
+            // 'mail_cc.*' => 'exists:regis,emailid',
         ]);
 
         if ($validator->fails()) {
@@ -440,21 +458,39 @@ class Task extends Controller
 
         $fquery = DB::table('regis')->where('empid', request()->session()->get('empid'))->first();
 
-        if(request()->session()->get('dept_id') != 6){
+        if (request()->session()->get('dept_id') != 6) {
             $replay1 = DB::table('regis')->select('emailid')->where('empid', request()->session()->get('empid'))->first();
             $reply = $replay1->emailid ?? null;
-        }else{
+        } else {
             $reply = null;
         }
 
-        $business = DB::table('regis')->where('dept_id', 6)->where('status',1)->pluck('emailid');
+        $business = DB::table('regis')->where('dept_id', 6)->where('status', 1)->pluck('emailid');
         $thesupportmail = request()->session()->get('dept_id') == 6 ? $business->toArray() : [];
+
+        //tl mail start
+        $empidsByDept = [
+            3 => ['AM063', 'AM073', 'AM098'],
+            2 => ['AM043', 'AM049'],
+            4 => ['AM045', 'AM046'],
+            5 => ['AM045', 'AM046'],
+            6 => ['AM081'],
+        ];
+        
+        $empids = $empidsByDept[$mquery1->dept_id] ?? [];
+
+        $tmail = DB::table('regis')
+            ->whereIn('empid', $empids)
+            ->where('status', 1)
+            ->pluck('emailid');
+        $tlmail = $business ? $tmail->toArray() : [];
+        //tl mail end
 
         $bccEmail = env('SUPPORTMAIL');
         $founderEmail = env('FOUNDERMAIL');
         $infoMail = env('INFOMAIL');
         $managerMail = env('MANAGERMAIL');
-      
+
         Mail::send([], [], function ($message) use (
             $request,
             $founderEmail,
@@ -467,22 +503,23 @@ class Task extends Controller
             $thesupportmail,
             $reply,
             $managerMail,
+            $tlmail,
         ) {
             // Validate that $request->mail_cc is an array or provide a fallback
             $ccEmails = is_array($request->mail_cc) ? $request->mail_cc : [];
             // $ccList = array_filter([$founderEmail, $thesupportmail, ...$ccEmails]);
-     
-            $ccList = array_filter(array_merge( array_filter([$founderEmail, $managerMail]),$thesupportmail,$ccEmails));
+
+            $ccList = array_filter(array_merge(array_filter([$founderEmail, $managerMail]), $thesupportmail, $ccEmails, $tlmail));
 
             $message->to($mquery1->emailid)
                 ->cc($ccList)
                 ->bcc($bccEmail);
-                if (!empty($reply)) {
-                    $message->bcc($reply);
-                }
-                $message->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
+            if (!empty($reply)) {
+                $message->bcc($reply);
+            }
+            $message->replyTo($fquery->emailid, $fquery->fname . ' ' . $fquery->lname)
                 ->from($infoMail, $fquery->fname . ' ' . $fquery->lname)
-                ->subject('Task For '.$request->task_name.' - ' . $com_name . ' : ' . date('d-m-Y', strtotime($request->task_startdate)))
+                ->subject('Task For ' . $request->task_name . ' - ' . $com_name . ' : ' . date('d-m-Y', strtotime($request->task_startdate)))
                 ->html('<html><title>Task Update Details</title><head></head><body><table style="background:#efeded" cellpadding="0" cellspacing="0" bgcolor="#EFEDED" border="0" width="575px"><tbody><tr><td align="center"><table width="96%" cellpadding="0" cellspacing="0"border="0"><tbody><tr><td style="border-top:5px solid #1e96d3;background:#fff;margin:0;padding:20px;border-spacing:0px"><table width="100%" cellpadding="0" cellspacing="0"><tbody><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="font-size: 18px;color: rgb(239, 12, 12);    font-family: Arial,Helvetica,sans-serif;font-weight: 800;line-height: 1.5em;    margin: 0px;padding: 0.4em;text-align: center;">Task Update Details</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><p style="color:#000;font-size:13px;margin:0;font-family:Arial,Helvetica,sans-serif"> <strong> Dear ' . htmlspecialchars($mquery1->fname . ' ' . $mquery1->lname) . ', </strong> <br></p></td></tr><tr><td style="margin:0;padding:0 0 5px 0"><p style="font-size:13px;background-color:rgb(234,234,234);color:rgb(0,0,0);font-family:Arial,Helvetica,sans-serif;font-weight:bold;line-height:1.5em;margin:0px;padding:0.4em;text-align:left"> Task details Updated Through CRM Portal</p></td></tr><tr><td style="margin:0;padding:0px 0px 15px 0px;border-spacing:0px"><table style="font-family:Helvetica,Arial,sans-serif;font-size:12px;font-weight:bold;margin-top:10px;width:100%"><tbody><tr><td style="width:200px;padding:4px 0">Client Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . htmlspecialchars($com_name) . '</td></tr><tr><td style="width:200px;padding:4px 0">Task Name:</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . htmlspecialchars($request->task_name) . '</td></tr><tr><td style="width:200px;padding:4px 0">Task Assign Date</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . htmlspecialchars(date('d-m-Y', strtotime($request->task_startdate))) . '</td></tr><tr><td style="width:200px;padding:4px 0">Task Description</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . $task_new . '</td></tr><tr><td style="width:200px;padding:4px 0">Assigned By</td><td style="padding-right:10px"> :</td><td style="font-weight:normal"> ' . htmlspecialchars($fquery->fname . ' ' . $fquery->lname) . '</td></tr></tbody></table></td></tr></tbody></table></td></tr><tr><td style="margin:0;padding:15px 0"></td></tr></tbody></table></td></tr></tbody></table></body></html>
                         ');
         });
@@ -492,14 +529,15 @@ class Task extends Controller
         return response()->json(['status' => 1, 'message' => 'Task Details Added Successfully.'], 200);
     }
 
-    public function query($id){
+    public function query($id)
+    {
         // dd($id);
         return view('task/query', compact('id'))->render();
     }
 
     public function taskstatus($id, $status)
     {
-// dd($id, $status);
+        // dd($id, $status);
         if ($status == 'closed') {
             $val = [
                 'task_status' => 'closed',
@@ -607,12 +645,12 @@ class Task extends Controller
         return response()->json(['status' => 1, 'message' => 'Status Updated Successfully.'], 200);
     }
 
-    public function taskapprovalview($id){
+    public function taskapprovalview($id)
+    {
 
-        $task = DB::table('taskqc')->select('taskqc.*','regis.fname')->where('taskqc.task_id', $id)
-        ->join('regis', 'taskqc.empid','regis.empid')->get();
+        $task = DB::table('taskqc')->select('taskqc.*', 'regis.fname')->where('taskqc.task_id', $id)
+            ->join('regis', 'taskqc.empid', 'regis.empid')->get();
 
         return view('task/taskapprovalview', compact('task'))->render();
     }
-
 }

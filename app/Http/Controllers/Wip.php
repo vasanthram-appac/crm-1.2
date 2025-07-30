@@ -104,9 +104,12 @@ class Wip extends Controller
                 // $contentTime = $timeByDepartment['5']['formatted_time'];
                 // $marketingTime = $timeByDepartment['6']['formatted_time'];
 
+                // time calculate start 
+
                 $reports = DB::table('dailyreport')
                 ->where('worktype', 1)
                 ->where('report_date1','>=', $wip->startdate)
+                ->where('wipid',$wip->wid)
                 ->where('client', $wip->aid)
                 ->orWhere('leadid', $wip->aid)
                 ->get();
@@ -157,6 +160,8 @@ class Wip extends Controller
                 
                 $wip->totalTime = sprintf('%d Hours %02d Minutes', $totalHours, $totalRemainingMinutes);
 
+                // time calculate end
+
                 $datetime1 = date_create(date('d-m-Y', time()));
                 $datetime2 = date_create($wip->startdate);
                 // Calculates the difference between DateTime objects
@@ -191,7 +196,7 @@ class Wip extends Controller
                     return $row->remainday1;
                 })
                 ->addColumn('totalhours', function ($row) {
-                    return '<die style="cursor: pointer;" onclick="viewalldetail(this)">' . $row->totalTime . '</div>' .
+                    return '<div style="cursor: pointer;" onclick="viewalldetail(this)">' . $row->totalTime . '</div>' .
                            '<input type="hidden" name="development" value="' . $row->developmentTime . '">' .
                            '<input type="hidden" name="design" value="' . $row->designTime . '">';
                 })                

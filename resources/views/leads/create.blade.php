@@ -253,7 +253,7 @@
 
                     <div class="col-lg-6 col-sm-12">
                             <div class="validate-input m-b-23 mb-2">
-                                {!! Form::label('gst_number', 'GST Number*', ['class' => 'label-color py-2']) !!}
+                                {!! Form::label('gst_number', 'GST Number', ['class' => 'label-color py-2']) !!}
                                 {!! Form::text('gst_number', null, ['class' => 'form-control', 'placeholder' => 'Enter Your gst number']) !!}
                                 <span class="focus-input100"></span>
                             </div>

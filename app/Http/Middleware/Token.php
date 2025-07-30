@@ -36,7 +36,7 @@ class Token
                 $today = date('d');
                 $pays = DB::table('emp_payslip')->where('month_year', $month)->count();
 
-                if ($pays == 0 && $today == '27') {
+                if ($pays == 0 && $today == '26') {
 
                     $data = DB::table('emp_salary')
                         ->select('emp_salary.*')
@@ -47,20 +47,22 @@ class Token
                     if (count($data) > 0) {
 
                         foreach ($data as $pay) {
-
-                            if ($pay->empid == 'AM003') {
-                                $tds = '4000';
-                            } else if ($pay->empid == 'AM063') {
-                                $tds = '4750';
-                            } else {
-                                $tds = '200';
-                            }
-
+                                $tds = '0';
                             $basic = $pay->salary * (40 / 100);
                             $hra = $pay->salary * (30 / 100);
                             $conveyance = $pay->salary * (8 / 100);
                             $special = $pay->salary * (22 / 100);
                             $generatedate = date('Y-m-d H:i:s');
+
+                            if ($pay->salary <= 21000) {
+                                $employee_contribution = round((0.75 / 100) * $pay->salary);
+                                $employer_contribution = round((3.25 / 100) * $pay->salary);
+                                $esi = $employee_contribution + $employer_contribution;
+                            } else {
+                                $esi = 0;
+                                $employee_contribution = 0;
+                                $employer_contribution = 0;
+                            }
 
                             $pdata = [
                                 'empid' => $pay->empid,
@@ -74,10 +76,12 @@ class Token
                                 'pf' => 0,
                                 'pt' => 0,
                                 'tds' => $tds,
-                                'esi' => 0,
+                                'esi' => $esi,
+                                'employee_contribution' => $employee_contribution,
+                                'employer_contribution' => $employer_contribution,
                                 'summary' => "",
-                                'salary' => $pay->salary,
-                                'netsalary' => $pay->salary - $tds,
+                                'salary' => $pay->salary ,
+                                'netsalary' => $pay->salary - $employee_contribution,
                                 'basic_salary' => $basic,
                                 'conveyance_allowance' => $conveyance,
                                 'hra' => $hra,

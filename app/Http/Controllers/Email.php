@@ -26,7 +26,7 @@ class Email extends Controller
                 ->join('accounts', 'emailserver.company_name', '=', 'accounts.id')
                 ->select('emailserver.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(emailserver.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
                 ->where('emailserver.status', '0')
-                ->orderBy('id', 'ASC')
+                ->orderBy('dateofexpire1', 'ASC')
                 ->get();
             // dd($data);
             foreach ($data as $domain) {
@@ -345,8 +345,8 @@ class Email extends Controller
                                     <tr><td style="background-color:rgb(234,234,234);"><p style="font-size:13px;text-align:left"><strong>Emailserver Removal Details</strong></p></td></tr>
                                     <tr><td>
                                         <table style="font-size:12px;width:100%">
-                                            <tr><td>Company Name:</td><td>:</td><td>' . htmlspecialchars($accounts->companynameval) . '</td></tr>
-                                            <tr><td>Domain Name:</td><td>:</td><td>' . htmlspecialchars($domainmaster->domainnamevalue) . '</td></tr>
+                                            <tr><td>Company Name:</td><td>:</td><td>' . htmlspecialchars($accounts->company_name) . '</td></tr>
+                                            <tr><td>Domain Name:</td><td>:</td><td>' . htmlspecialchars($domainmaster->domainname) . '</td></tr>
                                             <tr><td>Updated By:</td><td>:</td><td>' . htmlspecialchars($user->fname . ' ' . $user->lname) . '</td></tr>
                                         </table>
                                     </td></tr>

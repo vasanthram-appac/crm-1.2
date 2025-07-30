@@ -483,12 +483,15 @@
 
                         setTimeout(function() {
                             window.location.reload();
-                        }, 2000);
+                        }, 1000);
                     } else {
                         $('.customer_modal').modal('hide');
                         $('.appac_show').hide();
                         $('.appac_hide').show();
-                        cat_table.ajax.reload(null, false); // Prevents table state reset on reload
+                        
+                        setTimeout(function() {
+                            window.location.reload();
+                        }, 1000);
                     }
 
 

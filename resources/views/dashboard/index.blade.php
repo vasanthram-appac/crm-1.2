@@ -104,7 +104,7 @@
                                 </svg>
                             </div>
                             <h3 class="text-center">Key Accounts</h3>
-                            <h4>{{$keyaccounts}}</h4>
+                            <h4>{{count($keyaccounts)}}</h4>
                         </div>
                     </a>
                 </div>
@@ -163,7 +163,18 @@
                             <h4>{{$payment}}</h4>
                         </div>
                     </a>
-                </div>
+                </div>  
+
+                <div class="g-data ps-3"><a href="/vendorpaymententry">
+                        <div class="bio  rounded-30  piechart-leads dash-2">
+                            <div class="svg-d">
+                                <img src="/img/payment entry.png" />
+                            </div>
+                            <h3 class="text-center ">Payment Entry</h3>
+                            <h4>{{$vendorpayment}}</h4>
+                        </div>
+                    </a>
+                </div> 
 
                 <div class="g-data ps-3"><a href="/user">
                         <div class="bio  rounded-30  piechart-leads dash-4">
@@ -257,229 +268,296 @@
                     </a>
                 </div>
 
+                    <div class="g-data ps-3"><a href="/ourwork">
+                        <div class="bio  rounded-30  piechart-leads dash-2">
+                            <div class="svg-d">
+
+                                     <svg id="Layer_1" enable-background="new 0 0 16 16" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                                    <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                                        <g id="user" fill="#37474f">
+                                            <path d="m11.021 11.594c-.733.854-1.807 1.406-3.021 1.406-1.2 0-2.265-.54-2.998-1.377-2.276.603-5.002 1.677-5.002 3.377v1h16s0-.167 0-1c0-1.753-2.717-2.819-4.979-3.406z" fill="#b1b5c3" fill-opacity="1" data-original-color="#37474fff" stroke="none" stroke-opacity="1" />
+                                            <path d="m4 5c0-.995-.037-5 3.969-5s4.031 4.083 4.031 5c0 2-1.438 6-4 6s-4-3.958-4-6z" fill="#b1b5c3" fill-opacity="1" data-original-color="#37474fff" stroke="none" stroke-opacity="1" />
+                                        </g>
+                                    </g>
+                                </svg>
+
+                            </div>
+                            <h3 class="text-center ">Our Works</h3>
+                            <h4>2</h4>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="g-data ps-3"><a href="https://appacmedia.com/case-studies.php" target="blank">
+                        <div class="bio  rounded-30  piechart-leads dash-3">
+                            <div class="svg-d">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M3.5 5A2.5 2.5 0 0 1 6 2.5h10A2.5 2.5 0 0 1 18.5 5v5.5a.5.5 0 0 1-1 0V5A1.5 1.5 0 0 0 16 3.5H6A1.5 1.5 0 0 0 4.5 5v14.382a.5.5 0 0 0 .724.447l1-.5a1.5 1.5 0 0 1 1.57.142l.906.679a.5.5 0 0 0 .6 0l.862-.647a1.5 1.5 0 0 1 1.672-.086l.673.404a.5.5 0 1 1-.514.858l-.674-.404a.5.5 0 0 0-.557.028l-.862.647a1.5 1.5 0 0 1-1.8 0l-.906-.68a.5.5 0 0 0-.523-.046l-1 .5A1.5 1.5 0 0 1 3.5 19.382z"></path>
+                                    <path fill="currentColor" d="M6.5 7a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m11-1.5a3 3 0 1 0 0 6a3 3 0 0 0 0-6m-4 3a4 4 0 1 1 8 0a4 4 0 0 1-8 0m5.666-1.229a.5.5 0 0 1 0 .708l-2.104 2.103l-1.228-1.228a.5.5 0 0 1 .707-.708l.521.522l1.397-1.397a.5.5 0 0 1 .707 0"></path>
+                                </svg>
+
+                            </div>
+                            <h3 class="text-center ">Case Studies</h3>
+                            <h4>13</h4>
+                        </div>
+                    </a>
+                </div>
+
             </div>
 
 
         </div>
     </div>
+
+    
+    <!-- key account start -->
+
+    <div class="row">
+        <div class="col-12">
+            <div>
+                <h4> <b>Key Accounts</b></h1>
+            </div>
+            <div class="widget appac">
+                <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                    <table id="ddatatable4" class="table table-bordered dataTable table-responsive" style="width:100%">
+                        <thead>
+                            <tr class="bg-white border-0">
+                                <th class="text-grey">S.no</th>
+                                <th class="text-grey">Company Name</th>
+                                <th class="text-grey">City</th>
+                                <th class="text-grey">State</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if(count($keyaccounts) > 0)
+
+                            @foreach($keyaccounts as $key=> $keya)
+                            <tr class="bg-white">
+                                <td>{{ $key+1 }}</td>
+                                <td><button class="btn  btn-modal text-lblue" data-cid="{{$keya->id}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $keya->id) }}">{{ $keya->company_name }} </button></td>
+
+                                <td>{{ $keya->city }}</td>
+                                <td>{{ $keya->state }}</td>
+                            </tr>
+                            @endforeach
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- key account end -->
 
     <!-- report start -->
 
     <div class="row pt-4">
+        <div class="col-12">
+            <div>
+                <h4> <b>Reports</b></h1>
+            </div>
+            <ul class="nav nav-tabs px-4 acc-tab" role="tablist">
+                <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#promotion"><b>Promotion</b></a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#design"><b>Design</b></a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#development"><b>Development</b></a></li>
+                <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#acchistroy"><b>Account History</b></a></li>
+            </ul>
 
-        <ul class="nav nav-tabs px-4 acc-tab" role="tablist">
-            <li class="nav-item"><a class="nav-link active" data-toggle="tab" role="tab" href="#promotion"><b>Promotion</b></a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#design"><b>Design</b></a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#development"><b>Development</b></a></li>
-            <li class="nav-item"><a class="nav-link" data-toggle="tab" role="tab" data-toggle="tab" href="#acchistroy"><b>Account History</b></a></li>
-        </ul>
+            <div class="tab-content">
 
-        <div class="tab-content">
+                <!-- promotion History Tab -->
+                <div id="promotion" class="tab-pane fade show active" role="tabpanel">
 
-            <!-- promotion History Tab -->
-            <div id="promotion" class="tab-pane fade show active" role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget appac">
+                                <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                                    <table id="ddatatable1" class="table table-bordered dataTable table-responsive" style="width:100%">
+                                        <thead>
+                                            <tr class="bg-white border-0">
+                                                <th class="text-grey">S.no</th>
+                                                <th class="text-grey">Date of Report</th>
+                                                <th class="text-grey">Employee Name</th>
+                                                <th class="text-grey">Client Name</th>
+                                                <th class="text-grey">Project Name</th>
+                                                <th class="text-grey">Start Time</th>
+                                                <th class="text-grey">End Time</th>
+                                                <th class="text-grey">Total Working Time</th>
+                                                <th class="text-grey">Status</th>
+                                                <th class="text-grey">Submit Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="promotionBody">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="widget appac">
-                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
-                                <table id="datatable1" class="table table-bordered dataTable table-responsive" style="width:100%">
-                                    <thead>
-                                        <tr class="bg-white border-0">
-                                            <th class="text-grey">S.no</th>
-                                            <th class="text-grey">Date of Report</th>
-                                            <th class="text-grey">Employee Name</th>
-                                            <th class="text-grey">Client Name</th>
-                                            <th class="text-grey">Project Name</th>
-                                            <th class="text-grey">Start Time</th>
-                                            <th class="text-grey">End Time</th>
-                                            <th class="text-grey">Total Working Time</th>
-                                            <th class="text-grey">Status</th>
-                                            <th class="text-grey">Submit Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if(count($promotion) > 0)
+                <!-- design History Tab -->
+                <div id="design" class="tab-pane fade show" role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget appac">
+                                <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                                    <table id="ddatatable2" class="table table-bordered dataTable table-responsive" style="width:100%">
+                                        <thead>
+                                            <tr class="bg-white border-0">
+                                                <th class="text-grey">S.no</th>
+                                                <th class="text-grey">Date of Report</th>
+                                                <th class="text-grey">Employee Name</th>
+                                                <th class="text-grey">Client Name</th>
+                                                <th class="text-grey">Project Name</th>
+                                                <th class="text-grey">Start Time</th>
+                                                <th class="text-grey">End Time</th>
+                                                <th class="text-grey">Total Working Time</th>
+                                                <th class="text-grey">Status</th>
+                                                <th class="text-grey">Submit Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="designBody">
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                                        @foreach($promotion as $key=> $pro)
-                                        <tr class="bg-white">
-                                            <td>{{ $key+1 }}</td>
-                                            <td>{{ $pro->report_date }}</td>
-                                            <td>{{ $pro->fname }}</td>
-                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$pro->client}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $pro->client) }}">{{ $pro->company_name_account }} </button></td>
-                                            <td>{{ $pro->project_name }}</td>
-                                            <td>{{ $pro->start_time }}</td>
-                                            <td>{{ $pro->end_time }}</td>
-                                            <td>{{ $pro->w_hours }} Hours and {{ $pro->w_mins }} Minutes</td>
-                                            <td>{{ $pro->status }}</td>
-                                            <td>{{ $pro->submit_time }}</td>
-                                        </tr>
-                                        @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
+                <!-- development History Tab -->
+                <div id="development" class="tab-pane fade show" role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget appac">
+                                <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                                    <table id="ddatatable3" class="table table-bordered dataTable table-responsive" style="width:100%">
+                                        <thead>
+                                            <tr class="bg-white border-0">
+                                                <th class="text-grey">S.no</th>
+                                                <th class="text-grey">Date of Report</th>
+                                                <th class="text-grey">Employee Name</th>
+                                                <th class="text-grey">Client Name</th>
+                                                <th class="text-grey">Project Name</th>
+                                                <th class="text-grey">Start Time</th>
+                                                <th class="text-grey">End Time</th>
+                                                <th class="text-grey">Total Working Time</th>
+                                                <th class="text-grey">Status</th>
+                                                <th class="text-grey">Submit Time</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="developmentBody">
+                                           
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- account History Tab -->
+                <div id="acchistroy" class="tab-pane fade show" role="tabpanel">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="widget appac">
+                                <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                                    <table id="ddatatable3_acc" class="table table-bordered dataTable table-responsive" style="width:100%">
+                                        <thead>
+                                            <tr class="bg-white border-0">
+                                                <th class="text-grey">S.no</th>
+                                                <th class="text-grey">Date of Note Created</th>
+                                                <th class="text-grey">Employee Name</th>
+                                                <th class="text-grey">Client Name</th>
+                                                <th class="text-grey">Subject</th>
+                                                <th class="text-grey">Summary</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="acchistoryBody">
+                                            
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- design History Tab -->
-            <div id="design" class="tab-pane fade show" role="tabpanel">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="widget appac">
-                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
-                                <table id="datatable2" class="table table-bordered dataTable table-responsive" style="width:100%">
-                                    <thead>
-                                        <tr class="bg-white border-0">
-                                            <th class="text-grey">S.no</th>
-                                            <th class="text-grey">Date of Report</th>
-                                            <th class="text-grey">Employee Name</th>
-                                            <th class="text-grey">Client Name</th>
-                                            <th class="text-grey">Project Name</th>
-                                            <th class="text-grey">Start Time</th>
-                                            <th class="text-grey">End Time</th>
-                                            <th class="text-grey">Total Working Time</th>
-                                            <th class="text-grey">Status</th>
-                                            <th class="text-grey">Submit Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if(count($design) > 0)
-
-                                        @foreach($design as $key=> $des)
-                                        <tr class="bg-white">
-                                            <td>{{ $key+1 }}</td>
-                                            <td>{{ $des->report_date }}</td>
-                                            <td>{{ $des->fname }}</td>
-                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$des->client}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $des->client) }}">{{ $des->company_name_account }} </button></td>
-                                            <td>{{ $des->project_name }}</td>
-                                            <td>{{ $des->start_time }}</td>
-                                            <td>{{ $des->end_time }}</td>
-                                            <td>{{ $des->w_hours }} Hours and {{ $des->w_mins }} Minutes</td>
-                                            <td>{{ $des->status }}</td>
-                                            <td>{{ $des->submit_time }}</td>
-                                        </tr>
-                                        @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- development History Tab -->
-            <div id="development" class="tab-pane fade show" role="tabpanel"> 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="widget appac">
-                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
-                                <table id="datatable3" class="table table-bordered dataTable table-responsive" style="width:100%">
-                                    <thead>
-                                        <tr class="bg-white border-0">
-                                            <th class="text-grey">S.no</th>
-                                            <th class="text-grey">Date of Report</th>
-                                            <th class="text-grey">Employee Name</th>
-                                            <th class="text-grey">Client Name</th>
-                                            <th class="text-grey">Project Name</th>
-                                            <th class="text-grey">Start Time</th>
-                                            <th class="text-grey">End Time</th>
-                                            <th class="text-grey">Total Working Time</th>
-                                            <th class="text-grey">Status</th>
-                                            <th class="text-grey">Submit Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if(count($development) > 0)
-
-                                        @foreach($development as $key=> $devel)
-                                        <tr class="bg-white">
-                                            <td>{{ $key+1 }}</td>
-                                            <td>{{ $devel->report_date }}</td>
-                                            <td>{{ $devel->fname }}</td>
-                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$devel->client}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $devel->client) }}">{{ $devel->company_name_account }} </button></td>
-                                            <td>{{ $devel->project_name }}</td>
-                                            <td>{{ $devel->start_time }}</td>
-                                            <td>{{ $devel->end_time }}</td>
-                                            <td>{{ $devel->w_hours }} Hours and {{ $devel->w_mins }} Minutes</td>
-                                            <td>{{ $devel->status }}</td>
-                                            <td>{{ $devel->submit_time }}</td>
-                                        </tr>
-                                        @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-             <!-- account History Tab -->
-            <div id="acchistroy" class="tab-pane fade show" role="tabpanel"> 
-                <div class="row">
-                    <div class="col-12">
-                        <div class="widget appac">
-                            <div class="widget-body" style=" overflow: auto;margin:20px 0px">
-                                <table id="datatable3" class="table table-bordered dataTable table-responsive" style="width:100%">
-                                    <thead>
-                                        <tr class="bg-white border-0">
-                                            <th class="text-grey">S.no</th>
-                                            <th class="text-grey">Date of Note Created</th>
-                                            <th class="text-grey">Employee Name</th>
-                                            <th class="text-grey">Client Name</th>
-                                            <th class="text-grey">Subject</th>
-                                             <th class="text-grey">Summary</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if(count($acchistroy) > 0)
-
-                                        @foreach($acchistroy as $key=> $acc)
-                                        <tr class="bg-white">
-                                            <td>{{ $key+1 }}</td>
-                                            <td>{{ $acc->datetimestamp }}</td>
-                                            <td>{{ $acc->fname }}</td>
-                                            <td><button class="btn  btn-modal text-lblue" data-cid="{{$acc->company_name}}" data-container=".appac_show" data-href="{{ url('viewaccounts/' . $acc->company_name) }}">{{ $acc->company_name_account }} </button></td>
-                                            <td>{{ $acc->subject }}</td>
-                                            <td>{{ $acc->summary }}</td>
-                                        </tr>
-                                        @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-            <script>
-                $(document).ready(function() {
-                    $('#datatable1, #datatable2, #datatable3').DataTable({
-                        ordering: false,
-                        responsive: true,
-                        pageLength: 10,
-                        lengthMenu: [
-                            [10, 25, 50, -1],
-                            [10, 25, 50, "All"]
-                        ],
-                        language: {
-                            search: "_INPUT_",
-                            searchPlaceholder: "Search records"
-                        }
-                    });
-                });
-            </script>
-
         </div>
     </div>
 
     <!-- report end -->
+
+
+    <!-- WIP start -->
+
+    <div class="row">
+        <div class="col-12">
+            <div>
+                <h4> <b>WIP</b></h1>
+            </div>
+            <div class="widget appac">
+                <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                    <table id="ddatatable5" class="table table-bordered dataTable table-responsive" style="width:100%">
+                        <thead>
+                            <tr class="bg-white border-0">
+                                <th class="text-grey">S.no</th>
+                                <th class="text-grey">Company Name</th>
+                                <th class="text-grey">Project name</th>
+                                <th class="text-grey">Date</th>
+                                <th class="text-grey">Project status</th>
+                                <th class="text-grey">Total Time</th>
+                                <th class="text-grey">URL</th>
+                            </tr>
+                        </thead>
+                        <tbody id="wipBody"> 
+
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WIP end -->
+
+    <!-- Leaveapproval start -->
+
+    <div class="row">
+        <div class="col-12">
+            <div>
+                <h4> <b>Leaveapproval</b></h1>
+            </div>
+            <div class="widget appac">
+                <div class="widget-body" style=" overflow: auto;margin:20px 0px">
+                    <table id="ddatatable6" class="table table-bordered dataTable table-responsive" style="width:100%">
+                        <thead>
+                            <tr class="bg-white border-0">
+                                <th class="text-grey">S.no</th>
+                                <th class="text-grey">Employee Id</th>
+                                <th class="text-grey">Employee Name</th>
+                                <th class="text-grey">Leave Applied Date</th>
+                                <th class="text-grey">Leave From</th>
+                                <th class="text-grey">Leave Till</th>
+                                <th class="text-grey">Leave</th>
+                                <th class="text-grey">Approval</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaveapprovalBody">
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaveapproval end -->
 
     <div class=" col-lg-12 col-xl-6 col-md-12 col-sm-12 ">
         <div class="bio  rounded-30  piechart-leads bl">
@@ -492,13 +570,8 @@
                 </div>
 
             </div>
-
-
-
-
             <div id="bar_charts" style="width: 100%; height:250px;min-height:300px" class="p-0"></div>
         </div>
-
 
     </div>
     <div class=" col-lg-12 col-xl-6 col-md-12 col-sm-12 ">
@@ -517,8 +590,6 @@
         </div>
     </div>
 
-
-
     <div class="col-lg-8 col-sm-12 ">
         <div class="bio  rounded-30  piechart-leads h-auto">
             <div class="panel row m-0" id="firstRow">
@@ -533,19 +604,9 @@
                 </div>
                 <div class="rate-d py-1 p-0 my-2">
                 </div>
-                <!-- <div class="add-newproduct-tab">
-                <div class="gradient-card-header">
-                    <h2 class="white-text mx-3">Leads</h2>
-                </div>
-            </div> comment by vasanth-->
-
-
-
-
+              
                 <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
                 </div>
-
-
 
                 <div class="pt-4 table-responsive p-0">
                     <table id="example" class="dataTable mt-6 table table-bordered ">
@@ -563,8 +624,6 @@
                     </table>
                 </div>
             </div>
-
-
         </div>
     </div>
 
@@ -579,7 +638,7 @@
                 @foreach($ratecard as $rate)
 
                 <div class="d-flex gap-2 p-0 my-2">
-                    <a href="{{ url('pdf/ratecard/download/' . $rate->download_package) }}" target="_blank" class="rate-link w-100">
+                    <a href="{{ url('pdf/ratecard/download/last/' . $rate->download_package) }}" target="_blank" class="rate-link w-100">
                         <div class="d-flex justify-content-between p-0 w-100">
                             <p class="p-0 m-0">{{$rate->package_name}}</p>
 
@@ -602,51 +661,66 @@
         </div>
     </div>
 
-
-
-
-
 </div>
-
 
 @endsection
 
-
 @section('script')
-
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script>
-    // Load Google Charts
+    $(document).on('click', '.taskestatus', function() {
+        var Id = $(this).data('id');
+        var status = $(this).siblings('.paymentstatus').val();
+        $.ajax({
+            url: '/leavestatus',
+            type: 'POST',
+            data: {
+                id: Id,
+                status: status,
+                _token: '{{ csrf_token() }}',
+            },
+            success: function(response) {
+                $('#session_message').css('display', 'block');
+                $('#session_message').text(response.message);
+                setTimeout(function() {
+                    $('#session_message').hide();
+                }, 5000);
+                window.location.reload();
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    });
+</script>
+
+<script>
     google.charts.load('current', {
         packages: ['corechart']
     });
-    google.charts.setOnLoadCallback(drawAreaChart); // Call the Area Chart function on load
+    google.charts.setOnLoadCallback(drawAreaChart);
 
-    // Data from Laravel
-    const enqCount = @json($wipenqs); // Example: [{ month: "Jan", leads: 120 }, { month: "Feb", leads: 150 }]
+    const enqCount = @json($wipenqs);
 
-    // Process the data
     const enqCounts = enqCount
-        .reverse() // Reverse the data order
+        .reverse()
         .map(({
             month,
             leads
         }) => ({
-            month: month.split(' ')[0], // Extract only the month (e.g., "Nov" from "Nov 2024")
+            month: month.split(' ')[0],
             leads: leads,
         }));
 
-    // Calculate the dynamic maximum value
     const maxLeads = Math.max(...enqCounts.map(({
         leads
     }) => leads));
-    const dynamicMaxValue = maxLeads <= 2 ? 3 : Math.ceil(maxLeads * 1.2); // Add a buffer of 20% above the maximum
+    const dynamicMaxValue = maxLeads <= 2 ? 3 : Math.ceil(maxLeads * 1.2);
 
-    // Function to draw the Area Chart
     function drawAreaChart() {
-        // Prepare data for Google Charts
+
         const data = google.visualization.arrayToDataTable([
             ['Month', 'Leads', {
                 role: 'tooltip',
@@ -660,11 +734,10 @@
             }) => [
                 month,
                 leads,
-                customTooltip(month, leads), // Tooltip content
+                customTooltip(month, leads),
             ])
         ]);
 
-        // Options for the Area Chart
         const options = {
             hAxis: {
                 textStyle: {
@@ -672,29 +745,30 @@
                 },
                 gridlines: {
                     color: 'transparent'
-                },
+                }
             },
             vAxis: {
                 minValue: 0,
-                maxValue: dynamicMaxValue, // Use the dynamic max value
+                maxValue: dynamicMaxValue,
                 textStyle: {
                     color: '#666'
                 },
                 gridlines: {
                     color: '#eaeaea'
-                },
+                }
             },
-            colors: ['#ffcc80'], // Chart color
+            colors: ['#ffcc80'],
             areaOpacity: 0.2,
             lineWidth: 3,
+            pointSize: 5,
             curveType: 'function',
             backgroundColor: {
                 fill: 'transparent'
             },
-            legend: 'none', // Disable legend
+            legend: 'none',
             tooltip: {
                 isHtml: true
-            }, // Enable HTML tooltips
+            },
             animation: {
                 startup: true,
                 duration: 1000,
@@ -703,15 +777,13 @@
             chartArea: {
                 width: '80%',
                 height: '80%'
-            }, // Adjust chart area
+            }
         };
 
-        // Draw the Area Chart
         const chart = new google.visualization.AreaChart(document.getElementById('area_chart_div'));
         chart.draw(data, options);
     }
 
-    // Function to generate a custom tooltip
     function customTooltip(label, value) {
         return `
         <div style="padding: 8px 0px !important;width:100%; color: #fff; background-color: #282b32; border-radius: 5px;">
@@ -731,20 +803,19 @@
     google.charts.setOnLoadCallback(drawChart);
 
     function drawChart() {
-        // Get last 7 months' lead data from the backend
-        var leadCount = @json($leadCounts); // Data from PHP
+
+        var leadCount = @json($leadCounts);
 
         const leadCounts = leadCount
-            .reverse() // Reverse the data order
+            .reverse()
             .map(({
                 month,
                 leads
             }) => ({
-                month: month.split(' ')[0], // Extract only the month (e.g., "Nov" from "Nov 2024")
+                month: month.split(' ')[0],
                 leads: leads,
             }));
 
-        // Prepare data for Google Charts
         const data = google.visualization.arrayToDataTable([
             ['Month', 'Leads', {
                 role: 'style'
@@ -827,7 +898,6 @@
                     data: 'sno',
                     name: 'sno'
                 },
-
                 {
                     data: 'companyname',
                     name: 'companyname'
@@ -836,15 +906,14 @@
                     data: 'domainname',
                     name: 'domainname'
                 },
-
                 {
                     data: 'dateofexpire',
-                    type: 'date-mm-dd', // Use the custom date type
+                    type: 'date-mm-dd',
                     orderData: 0
                 },
                 {
                     data: 'DateFormat',
-                    type: 'date-mm-dd', // Use the custom date type
+                    type: 'date-mm-dd',
                     orderData: 0
                 },
 
@@ -853,9 +922,6 @@
                     name: 'remainday1'
                 },
 
-
-
-                // Add more columns as needed
             ],
             "drawCallback": function(settings) {
                 var api = this.api();
@@ -873,7 +939,7 @@
                 searchPlaceholder: 'Search'
             },
             <?php if (session()->get('role') == 'superadmin') : ?>
-                dom: 'lBfrtip', // 'l' for length dropdown, 'B' for buttons
+                dom: 'lBfrtip',
                 buttons: [{
                         extend: 'csv',
                         text: 'Export CSV'
@@ -882,17 +948,15 @@
                         extend: 'excel',
                         text: 'Export Excel'
                     },
-                    'colvis' // Column visibility button
+                    'colvis'
                 ]
             <?php endif; ?>
         });
 
-        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
-        $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon
+        $('.dataTables_filter input').addClass('form-control ps-5');
         $('.dataTables_filter').prepend('<i class="fas fa-search position-absolute" style="left: 30px; top: 50%; transform: translateY(-50%); color: #999;"></i>');
-
         $('.dataTables_filter').addClass('mb-3');
         $('#example_info').addClass('mt-2');
         $('#example_paginate').addClass('mt-3');
@@ -901,4 +965,140 @@
 
     });
 </script>
+
+
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<script>
+$(document).ready(function () {
+    // Initialize all DataTables
+    let table1 = $('#ddatatable1').DataTable({ ordering: false, responsive: true, pageLength: 10 });
+    let table2 = $('#ddatatable2').DataTable({ ordering: false, responsive: true, pageLength: 10 });
+    let table3 = $('#ddatatable3').DataTable({ ordering: false, responsive: true, pageLength: 10 }); // Development
+    let table3_acc = $('#ddatatable3_acc').DataTable({ ordering: false, responsive: true, pageLength: 10 }); // Account History
+    let table4 = $('#ddatatable4').DataTable({ ordering: false, responsive: true, pageLength: 10 }); // Key Accounts
+    let table5 = $('#ddatatable5').DataTable({ ordering: false, responsive: true, pageLength: 10 }); // WIP
+    let table6 = $('#ddatatable6').DataTable({ ordering: false, responsive: true, pageLength: 10 }); // Leaveapproval
+
+    $.ajax({
+        url: "{{ route('viewdashboard') }}",
+        method: "GET",
+        success: function (response) {
+            // Promotion
+            table1.clear();
+            response.promotion.forEach((item, index) => {
+                table1.row.add([
+                    index + 1,
+                    item.report_date,
+                    item.fname,
+                    `<button class="btn btn-modal text-lblue" data-cid="${item.client}" data-container=".appac_show" data-href="/viewaccounts/${item.client}">${item.company_name_account}</button>`,
+                    item.project_name,
+                    item.start_time,
+                    item.end_time,
+                    `${item.w_hours} Hours and ${item.w_mins} Minutes`,
+                    item.status,
+                    item.submit_time
+                ]);
+            });
+            table1.draw();
+
+            // Design
+            table2.clear();
+            response.design.forEach((item, index) => {
+                table2.row.add([
+                    index + 1,
+                    item.report_date,
+                    item.fname,
+                    `<button class="btn btn-modal text-lblue" data-cid="${item.client}" data-container=".appac_show" data-href="/viewaccounts/${item.client}">${item.company_name_account}</button>`,
+                    item.project_name,
+                    item.start_time,
+                    item.end_time,
+                    `${item.w_hours} Hours and ${item.w_mins} Minutes`,
+                    item.status,
+                    item.submit_time
+                ]);
+            });
+            table2.draw();
+
+            // Development
+            table3.clear();
+            response.development.forEach((item, index) => {
+                table3.row.add([
+                    index + 1,
+                    item.report_date,
+                    item.fname,
+                    `<button class="btn btn-modal text-lblue" data-cid="${item.client}" data-container=".appac_show" data-href="/viewaccounts/${item.client}">${item.company_name_account}</button>`,
+                    item.project_name,
+                    item.start_time,
+                    item.end_time,
+                    `${item.w_hours} Hours and ${item.w_mins} Minutes`,
+                    item.status,
+                    item.submit_time
+                ]);
+            });
+            table3.draw();
+
+            // Account History
+            table3_acc.clear();
+            response.acchistroy.forEach((item, index) => {
+                table3_acc.row.add([
+                    index + 1,
+                    item.datetimestamp,
+                    item.fname,
+                    `<button class="btn btn-modal text-lblue" data-cid="${item.company_name}" data-container=".appac_show" data-href="/viewaccounts/${item.company_name}">${item.company_name_account}</button>`,
+                    item.subject,
+                    item.summary
+                ]);
+            });
+            table3_acc.draw();
+
+            // WIP
+            table5.clear();
+            response.wips.forEach((item, index) => {
+                table5.row.add([
+                    index + 1,
+                    `<button class="btn btn-modal text-lblue" data-cid="${item.aid}" data-container=".appac_show" data-href="/viewaccounts/${item.aid}">${item.company_name}</button>`,
+                    item.projectname,
+                    item.startdate,
+                    item.project_status,
+                    item.totalTime,
+                    `<a class="btn" href="${item.temp_url}" target="_blank">Link</a>`
+                ]);
+            });
+            table5.draw();
+
+            // Leave Approval
+            table6.clear();
+            response.leaveapproval.forEach((item, index) => {
+                table6.row.add([
+                    index + 1,
+                    item.empid,
+                    item.employee,
+                    item.dateofapplication,
+                    item.leavedate,
+                    item.leavedatetill,
+                    item.leavetype,
+                    `<div class="status-update-wrapper">
+                        <select name="update_status" class="form-select paymentstatus" data-id="${item.id}">
+                            <option value="">Select</option>
+                            <option value="Approved" ${item.leavestatus === 'Approved' ? 'selected' : ''}>Approved</option>
+                            <option value="Not Approved" ${item.leavestatus === 'Not Approved' ? 'selected' : ''}>Not Approved</option>
+                            <option value="Pending" ${item.leavestatus === 'Pending' ? 'selected' : ''}>Pending</option>
+                            <option value="Cancelled" ${item.leavestatus === 'Cancelled' ? 'selected' : ''}>Cancelled</option>
+                        </select>
+                        <button type="button" class="btn btn-outline-primary btn-sm mt-2 taskestatus" data-id="${item.id}">Update</button>
+                    </div>`
+                ]);
+            });
+            table6.draw();
+        },
+        error: function () {
+            alert("Failed to load dashboard data.");
+        }
+    });
+});
+</script>
+
+
 @endsection

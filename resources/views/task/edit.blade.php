@@ -75,7 +75,7 @@
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('mail_cc', 'Mark a CC Mail to', ['class' => 'label-color py-2']) !!}
-                        {!! Form::select('mail_cc[]', $assign, null, ['class' => 'form-select select2', 'required' => true,'multiple' => true]) !!}
+                        {!! Form::select('mail_cc[]', $assign, null, ['class' => 'form-select select2', 'multiple' => true]) !!}
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@ class Plans extends Controller
                 ->join('accounts', 'plans.company_name', '=', 'accounts.id')
                 ->select('plans.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(plans.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
                 ->where('plans.status', '0')
-                ->orderBy('id', 'ASC')
+                ->orderBy('dateofexpire1', 'ASC')
                 ->get();
             // dd($data);
             foreach ($data as $domain) {

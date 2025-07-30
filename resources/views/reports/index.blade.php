@@ -97,7 +97,7 @@
                 @php
                     $empid = request()->session()->get('empid');
                 @endphp
-                @if(in_array($empid, ['AM001', 'AM090', 'AM099']))
+                @if(in_array($empid, ['AM001', 'AM090', 'AM099', 'AM098']))
                 <div class="g-data ps-3">
                     <a href="/purchaseorder">
                         <div class="bio  rounded-30  piechart-leads dash-6">

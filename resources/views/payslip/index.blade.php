@@ -31,7 +31,7 @@
 <div class="row m-0 appac_hide">
     <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-       @include('financemenu/index')
+        @include('financemenu/index')
     </div>
 
     <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
@@ -93,6 +93,7 @@
         </div>
         <div class="justify-content-sm-end d-flex">
             <div class=""></div>
+            <!-- <button class="btn bg-primary text-white ft-15 pri-text-color m-0 mx-3" id="showesi">ESI</button> -->
             <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Payslip::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Payslip</button>
         </div>
     </div>
@@ -102,13 +103,12 @@
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
 
-
-
             <div class="p-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered ">
                     <thead>
                         <tr class="bg-white">
                             <th class="text-grey">S.no</th>
+                            <th class="text-grey">EMPID</th>
                             <th class="text-grey">Name</th>
                             <th class="text-grey">Month & year</th>
                             <th class="text-grey">Basic Salary</th>
@@ -118,6 +118,8 @@
                             <th class="text-grey">Incentive</th>
                             <th class="text-grey">Gross Pay</th>
                             <th class="text-grey">Provident Fund</th>
+                            <th class="text-grey">Employee Contribution</th>
+                            <th class="text-grey">Employer Contribution</th>
                             <th class="text-grey">ESI</th>
                             <th class="text-grey">Professional Tax</th>
                             <th class="text-grey">LOP</th>
@@ -137,7 +139,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="modal fade" id="errorModal" role="dialog" style="">
         <div class="modal-dialog cascading-modal float-end me-3" role="document">
@@ -159,9 +160,7 @@
     </div>
 </div>
 
-
 @endsection
-
 
 @section('script')
 <script>
@@ -169,7 +168,7 @@
 
         var cat_table = $('#example').DataTable({
             processing: true,
-            serverSide: true,
+            serverSide: false,
             pageLength: 10,
             lengthMenu: [10, 20, 50, 100],
             ajax: "{{ action([App\Http\Controllers\Payslip::class,'index']) }}",
@@ -177,14 +176,17 @@
                     data: 'sno',
                     name: 'sno'
                 },
-
+                {
+                    data: 'empid',
+                    name: 'empid'
+                },
                 {
                     data: 'gname',
                     name: 'gname'
                 },
                 {
                     data: 'month_year',
-                    type: 'date-mm-dd', // Use the custom date type
+                    type: 'date-mm-dd', 
                     orderData: 0
                 },
                 {
@@ -216,14 +218,24 @@
                     name: 'pf'
                 },
                 {
-                    data: 'esi',
-                    name: 'esi'
+                    data: 'employee_contribution',
+                    name: 'employee_contribution',
+                    visible: false
+                },
+                {
+                    data: 'employer_contribution',
+                    name: 'employer_contribution',
+                    visible: false
+                },
+                {
+                    data: 'employee_contribution',
+                    name: 'employee_contribution'
                 },
                 {
                     data: 'pt',
                     name: 'pt'
                 },
-                 {
+                {
                     data: 'lop',
                     name: 'lop'
                 },
@@ -241,7 +253,7 @@
                     orderable: false,
                     searchable: false
                 },
-                // Add more columns as needed
+               
             ],
             "drawCallback": function(settings) {
                 var api = this.api();
@@ -258,17 +270,18 @@
                 search: '',
                 searchPlaceholder: 'Search'
             },
-                dom: 'lBfrtip', // 'l' for length dropdown, 'B' for buttons
-                buttons: [
-                    {
-                        extend: 'excel',
-                        text: 'Export Excel'
-                    },
-                    'colvis' // Column visibility button
-                ]
+            dom: 'lBfrtip', 
+            buttons: [{
+                    extend: 'excel',
+                    text: 'Export Excel',
+                    exportOptions: {
+                       columns: ':visible'    
+                    }
+                },
+                'colvis' // Column visibility button
+            ]
         });
 
-        // Add an icon to the search input
         $('.dataTables_filter').addClass('mb-3 position-relative');
         $('.dataTables_filter label').addClass('d-flex align-items-center');
         $('.dataTables_filter input').addClass('form-control ps-5'); // Add padding to the left for the icon
@@ -279,6 +292,40 @@
         $('#example_paginate').addClass('mt-3');
         $('.dt-buttons').addClass('ps-2');
         $('#example_wrapper').addClass('overflow-x-auto');
+
+        let esiVisible = false; 
+
+        $('#showesi').on('click', function() {
+            esiVisible = !esiVisible;
+
+            cat_table.column('employee_contribution:name').visible(esiVisible);
+            cat_table.column('employer_contribution:name').visible(esiVisible);
+
+            $.fn.dataTable.ext.search = $.fn.dataTable.ext.search.filter(function(f) {
+                return !f._esiFilter;
+            });
+
+            if (esiVisible) {
+     
+                const esiFilter = function(settings, data, dataIndex) {
+                    var employeeContribution = data[11];
+                    var employerContribution = data[12];
+
+                    return (
+                        employeeContribution &&
+                        employerContribution &&
+                        employeeContribution != "0" &&
+                        employerContribution != "0"
+                    );
+                };
+                esiFilter._esiFilter = true; 
+                $.fn.dataTable.ext.search.push(esiFilter);
+            }
+
+            cat_table.draw();
+
+            $(this).text(esiVisible ? 'Hide ESI' : 'Show ESI');
+        });
 
         $(document).on('submit', 'form', function(e) {
             e.preventDefault();

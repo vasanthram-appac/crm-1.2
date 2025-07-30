@@ -29,6 +29,7 @@ use App\Http\Controllers\Newnbd;
 use App\Http\Controllers\Payslip;
 use App\Http\Controllers\Purchaseorder;
 use App\Http\Controllers\Vendorpaymententry;
+use App\Http\Controllers\Dashboard;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -293,6 +294,12 @@ Route::resource('/vendorpaymententry','App\Http\Controllers\Vendorpaymententry')
 Route::post('/vendorpaymentproduct', [Vendorpaymententry::class, 'paymentproduct'])->name('vendorpaymentproduct');
 
 Route::post('/getpurchase', [Vendorpaymententry::class, 'fetchClientInvoices'])->name('getpurchase');
+
+Route::get('/ourwork', function () { return view('ourworks/index'); });
+
+Route::get('/viewdashboard', [Dashboard::class, 'viewdashboard'])->name('viewdashboard');
+
+Route::resource('/esi','App\Http\Controllers\Esi');
 
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 

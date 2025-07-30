@@ -277,6 +277,41 @@
                     </a>
                 </div>
 
+                   <div class="g-data ps-3"><a href="/ourwork">
+                        <div class="bio  rounded-30  piechart-leads dash-7">
+                            <div class="svg-d">
+
+                                     <svg id="Layer_1" enable-background="new 0 0 16 16" height="20" viewBox="0 0 16 16" width="20" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.dev/svgjs">
+                                    <g width="100%" height="100%" transform="matrix(1,0,0,1,0,0)">
+                                        <g id="user" fill="#37474f">
+                                            <path d="m11.021 11.594c-.733.854-1.807 1.406-3.021 1.406-1.2 0-2.265-.54-2.998-1.377-2.276.603-5.002 1.677-5.002 3.377v1h16s0-.167 0-1c0-1.753-2.717-2.819-4.979-3.406z" fill="#b1b5c3" fill-opacity="1" data-original-color="#37474fff" stroke="none" stroke-opacity="1" />
+                                            <path d="m4 5c0-.995-.037-5 3.969-5s4.031 4.083 4.031 5c0 2-1.438 6-4 6s-4-3.958-4-6z" fill="#b1b5c3" fill-opacity="1" data-original-color="#37474fff" stroke="none" stroke-opacity="1" />
+                                        </g>
+                                    </g>
+                                </svg>
+
+                            </div>
+                            <h3 class="text-center ">Our Works</h3>
+                            <h4>2</h4>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="g-data ps-3"><a href="https://appacmedia.com/case-studies.php" target="blank">
+                        <div class="bio  rounded-30  piechart-leads dash-9">
+                            <div class="svg-d">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M3.5 5A2.5 2.5 0 0 1 6 2.5h10A2.5 2.5 0 0 1 18.5 5v5.5a.5.5 0 0 1-1 0V5A1.5 1.5 0 0 0 16 3.5H6A1.5 1.5 0 0 0 4.5 5v14.382a.5.5 0 0 0 .724.447l1-.5a1.5 1.5 0 0 1 1.57.142l.906.679a.5.5 0 0 0 .6 0l.862-.647a1.5 1.5 0 0 1 1.672-.086l.673.404a.5.5 0 1 1-.514.858l-.674-.404a.5.5 0 0 0-.557.028l-.862.647a1.5 1.5 0 0 1-1.8 0l-.906-.68a.5.5 0 0 0-.523-.046l-1 .5A1.5 1.5 0 0 1 3.5 19.382z"></path>
+                                    <path fill="currentColor" d="M6.5 7a.5.5 0 0 1 .5-.5h6.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m0 3a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1H7a.5.5 0 0 1-.5-.5m11-1.5a3 3 0 1 0 0 6a3 3 0 0 0 0-6m-4 3a4 4 0 1 1 8 0a4 4 0 0 1-8 0m5.666-1.229a.5.5 0 0 1 0 .708l-2.104 2.103l-1.228-1.228a.5.5 0 0 1 .707-.708l.521.522l1.397-1.397a.5.5 0 0 1 .707 0"></path>
+                                </svg>
+
+                            </div>
+                            <h3 class="text-center ">Case Studies</h3>
+                            <h4>13</h4>
+                        </div>
+                    </a>
+                </div>
+
             </div>
         </div>
     </div>

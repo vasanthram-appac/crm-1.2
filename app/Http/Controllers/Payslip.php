@@ -17,7 +17,7 @@ class Payslip extends Controller
 
     public function index(Request $request)
     {
-        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM063' || request()->session()->get('empid') == 'AM003' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8') {
+        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM098' || request()->session()->get('empid') == 'AM063' || request()->session()->get('empid') == 'AM003' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8') {
 
             if (request()->ajax()) {
 
@@ -29,8 +29,10 @@ class Payslip extends Controller
                     request()->session()->put('payslipmonth', $request->month);
                 }
 
-                if (empty(request()->session()->get('payslipmonth'))) {
+                if (empty(request()->session()->get('payslipmonth')) && date('d') < 26) {
                     request()->session()->put('payslipmonth', date("m-Y", strtotime("-1 month")));
+                }else{
+                     request()->session()->put('payslipmonth', date("m-Y"));
                 }
 
                 $data = DB::table('emp_payslip')
@@ -155,17 +157,7 @@ class Payslip extends Controller
                 $conveyance = $salary * (8 / 100);
                 $special = $salary * (22 / 100);
                 $pt = $request->pt;
-                if ($empid == 'AM003') {
-                    $tds = '4000';
-                } else if ($empid == 'AM063') {
-                    $tds = '4750';
-                } else {
-                    if ($request->tds == '1') {
-                        $tds = $salary * (10 / 100);
-                    } else {
-                        $tds = '0';
-                    }
-                }
+                $tds = $request->tds;
 
                 $mm = "01-" . $request->monthyear;
                 $new_date = date('Y-m-d', strtotime($mm));
@@ -173,8 +165,19 @@ class Payslip extends Controller
                 $days = (date('t', strtotime($new_date)));
                 $tot_lop = $days - $request->totalleave;
                 $total = $basic + $hra + $conveyance + $special + $incentive1;
-                $totaldect = $pt + $tds + $other + $lop + $request->esi + $request->pf;
+                $totaldect = $pt + $tds + $other + $lop + $request->pf;
                 $netsalary = $total - $totaldect;
+
+                if ($salary <= 21000) {
+                    $employee_contribution = round((0.75 / 100) * $salary);
+                    $employer_contribution = round((3.25 / 100) * $salary);
+                    $esi = $employee_contribution + $employer_contribution;
+                    $netsalary = $netsalary - $employee_contribution;
+                } else {
+                    $esi = 0;
+                    $employee_contribution = 0;
+                    $employer_contribution = 0;
+                }
 
                 $pdata = [
                     'empid' => $empid,
@@ -188,7 +191,9 @@ class Payslip extends Controller
                     'pf' => $request->pf,
                     'pt' => $request->pt,
                     'tds' => $tds,
-                    'esi' => $request->esi,
+                    'esi' => $esi,
+                    'employee_contribution' => $employee_contribution,
+                    'employer_contribution' => $employer_contribution,
                     'summary' => $request->summary,
                     'salary' => $salary + $request->incentive,
                     'netsalary' => $netsalary,
@@ -258,17 +263,7 @@ class Payslip extends Controller
             $conveyance = $salary * (8 / 100);
             $special = $salary * (22 / 100);
             $pt = $request->pt;
-            if ($empid == 'AM003') {
-                $tds = '4000';
-            } else if ($empid == 'AM063') {
-                $tds = '4750';
-            } else {
-                if ($request->tds == '1') {
-                    $tds = $salary * (10 / 100);
-                } else {
-                    $tds = '0';
-                }
-            }
+            $tds = $request->tds;
 
             $mm = "01-" . $request->monthyear;
             $new_date = date('Y-m-d', strtotime($mm));
@@ -276,8 +271,20 @@ class Payslip extends Controller
             $days = (date('t', strtotime($new_date)));
             $tot_lop = $days - $request->totalleave;
             $total = $basic + $hra + $conveyance + $special + $incentive1;
-            $totaldect = $pt + $tds + $other + $lop + $request->esi + $request->pf;
+            $totaldect = $pt + $tds + $other + $lop + $request->pf;
             $netsalary = $total - $totaldect;
+
+            if ($salary <= 21000) {
+                $employee_contribution = round((0.75 / 100) * $salary);
+                $employer_contribution = round((3.25 / 100) * $salary);
+                $esi = $employee_contribution + $employer_contribution;
+                $netsalary = $netsalary - $employee_contribution;
+                // dd($employee_contribution, $employer_contribution, $esi);
+            } else {
+                $esi = 0;
+                $employee_contribution = 0;
+                $employer_contribution = 0;
+            }
 
             $pdata = [
                 'specl_amt' => $request->incentive,
@@ -288,7 +295,9 @@ class Payslip extends Controller
                 'pf' => $request->pf ?? 0,
                 'pt' => $request->pt,
                 'tds' => $tds,
-                'esi' => $request->esi ?? 0,
+                'esi' => $esi,
+                'employee_contribution' => $employee_contribution,
+                'employer_contribution' => $employer_contribution,
                 'salary' => $salary + $request->incentive,
                 'netsalary' => $netsalary,
                 'basic_salary' => $basic,

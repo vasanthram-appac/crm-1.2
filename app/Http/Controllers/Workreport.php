@@ -20,7 +20,8 @@ class Workreport extends Controller
         if (request()->ajax()) {
             $data = DB::table('dailyreport')
                 ->where('empid', request()->session()->get('empid'))
-                ->orderByRaw("STR_TO_DATE(report_date, '%d-%m-%Y') DESC")
+                 // ->orderByRaw("STR_TO_DATE(report_date, '%d-%m-%Y') DESC")
+				->orderBy("report_date1", "DESC")
                 ->limit(200)
                 ->get();
 
@@ -134,11 +135,15 @@ class Workreport extends Controller
             $work_types = DB::table('work_type')->where('dept', $dept_id1)->get();
         }
 
-        $wip_list = DB::table('work_wip')
-            ->join('accounts', 'work_wip.client_id', '=', 'accounts.id')
-            ->whereIn('project_status', ['Development', 'Design'])
-            ->where('work_wip.status', '0')
-            ->pluck('accounts.company_name', 'work_wip.client_id');
+$wip_list_raw = DB::table('work_wip')
+    ->join('accounts', 'work_wip.client_id', '=', 'accounts.id')
+    ->whereIn('project_status', ['Development', 'Design'])
+    ->where('work_wip.status', '0')
+    ->select('work_wip.id', 'accounts.company_name', 'work_wip.projectname')
+    ->get();
+$wip_list = $wip_list_raw->mapWithKeys(function ($item) {
+    return [$item->id => $item->company_name . ' - ( ' . $item->projectname . ' )'];
+});
 
         $leads_list = DB::table('leads')
             ->where('oppourtunity_status', 'inactive')
@@ -225,13 +230,20 @@ class Workreport extends Controller
         $minutes = $dateDiff % 60;
         $total_time = $hours . " Hours and " . $minutes . " Minutes";
 
+        if($request->worktype == 1){
+        $wip = DB::table('work_wip')->select('client_id')->where('id',$request->wipid)->first();
+        $client = $wip->client_id;
+        }else{
+        $client = $request->client;
+        }
+        
         // Prepare data for insertion
         $reportData = [
             'report_date' => date("d-m-Y", strtotime($request->report_date)),
             'report_date1' => $request->report_date,
             'empid' => request()->session()->get('empid'),
             'dept_id' => request()->session()->get('dept_id'),
-            'client' => ($request->worktype == 1) ? $request->wipid : $request->client,
+            'client' => $client,
             'leadid' => $request->leadid,
             'project_name' => $request->project_name,
             'start_time' => date("g:i a", strtotime($request->start_time)),
@@ -280,11 +292,15 @@ class Workreport extends Controller
             $work_types = DB::table('work_type')->where('dept', $dept_id1)->get();
         }
 
-        $wip_list = DB::table('work_wip')
-            ->join('accounts', 'work_wip.client_id', '=', 'accounts.id')
-            ->whereIn('project_status', ['Development', 'Design'])
-            ->where('work_wip.status', '0')
-            ->pluck('accounts.company_name', 'work_wip.client_id');
+$wip_list_raw = DB::table('work_wip')
+    ->join('accounts', 'work_wip.client_id', '=', 'accounts.id')
+    ->whereIn('project_status', ['Development', 'Design'])
+    ->where('work_wip.status', '0')
+    ->select('work_wip.id', 'accounts.company_name', 'work_wip.projectname')
+    ->get();
+$wip_list = $wip_list_raw->mapWithKeys(function ($item) {
+      return [$item->id => $item->company_name . ' - ( ' . $item->projectname . ' )'];
+});
 
         $leads_list = DB::table('leads')
             ->where('oppourtunity_status', 'inactive')
@@ -346,13 +362,20 @@ class Workreport extends Controller
         $minutes = $dateDiff % 60;
         $total_time = $hours . " Hours and " . $minutes . " Minutes";
 
+        if($request->worktype == 1){
+        $wip = DB::table('work_wip')->select('client_id')->where('id',$request->wipid)->first();
+        $client = $wip->client_id;
+        }else{
+        $client = $request->client;
+        }
+
         // Prepare data for insertion
         $reportData = [
             'report_date' => date("d-m-Y", strtotime($request->report_date)),
             'report_date1' => $request->report_date,
             'empid' => request()->session()->get('empid'),
             'dept_id' => request()->session()->get('dept_id'),
-            'client' => ($request->worktype == 1) ? $request->wipid : $request->client,
+            'client' => $client,
             'leadid' => $request->leadid,
             'project_name' => $request->project_name,
             'start_time' => date("g:i a", strtotime($request->start_time)),
@@ -385,3 +408,5 @@ class Workreport extends Controller
         return response()->json(['status' => 1, 'message' => 'Daily report Deleted Successfully!'], 200);
     }
 }
+
+

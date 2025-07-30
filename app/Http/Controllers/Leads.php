@@ -139,8 +139,6 @@ class Leads extends Controller
         return view('leads.create')->with(compact('city', 'state', 'country', 'source', 'status', 'regis'));
     }
 
-
-
     public function store(Request $request)
     {
 
@@ -218,7 +216,6 @@ class Leads extends Controller
         /*Check Duplicate leads in database*/
         $Selectmobile = DB::table('leads')->where('phone', $request->phone)->where('gst_number', $request->gst_number)->where('company_name', $request->company_name)->get();
 
-
         if (count($Selectmobile) > 0) {
             session()->flash('secmessage', 'Lead Already Exists in our Database.');
             return response()->json(['status' => 0, 'message' => 'Lead Already Exists in our Database.'], 200);
@@ -230,7 +227,6 @@ class Leads extends Controller
             return response()->json(['status' => 1, 'message' => 'Lead Successfully Created.'], 200);
         }
     }
-
 
     public function edit($id)
     {
@@ -244,7 +240,12 @@ class Leads extends Controller
 
         $assinedby = DB::table('regis')->select('fname')->where('status', 1)->where('empid', $lead->assignedto)->orderBy('fname', 'ASC')->first();
 
-        return view('leads.edit')->with(compact('lead', 'country', 'leadmaster', 'assinedby', 'state'));
+         $regis = DB::table('regis')->where('status', '1')
+            ->where(function ($query) {
+                $query->where('dept_id', '1')->orWhere('dept_id', '6');
+            })->where('id', '!=', '1')->orderBy('fname', 'ASC')->pluck('fname', 'empid');
+
+        return view('leads.edit')->with(compact('lead', 'country', 'leadmaster', 'assinedby', 'state', 'regis'));
     }
 
     public function update(Request $request, $id)

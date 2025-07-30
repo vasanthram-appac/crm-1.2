@@ -211,7 +211,7 @@
     <section class="header-sec">
         <div class="header-menu container  p-3 d-flex justify-content-between align-items-end">
             <div>
-                <a href=""><img src="https://www.appacmedia.com/images/appac-logo.svg" class="img-fluid" width="160px" alt=""></a>
+                <a href=""><img src="/img/head-logo.png" class="img-fluid" width="160px" alt=""></a>
             </div>
             <!-- <div>
                 <p class="m-0 breadcrumbs">/ Paid Marketing Questionaire</p>

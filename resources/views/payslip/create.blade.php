@@ -99,13 +99,6 @@
                     </div>
                 </div>
 
-                    <div class="col-lg-6 col-sm-12">
-                    <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('esi', 'ESI', ['class' => 'label-color py-2']) !!}
-                        {!! Form::number('esi', null, ['class' => 'form-control']) !!}
-                    </div>
-                </div>
-
                    <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
                         {!! Form::label('summary', 'Summary', ['class' => 'label-color py-2']) !!}

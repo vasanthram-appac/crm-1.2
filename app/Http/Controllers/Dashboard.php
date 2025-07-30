@@ -17,70 +17,69 @@ class Dashboard extends Controller
 
     public function index(Request $request)
     {
-    
-        if(request()->session()->get('role') =='user'){
+
+        if (request()->session()->get('role') == 'user') {
             return redirect()->to('/workreport');
         }
 
         if (request()->ajax()) {
 
             $data = DB::table('hosting')
-            ->join('domainmaster', 'hosting.domainname', '=', 'domainmaster.id')
-            ->join('accounts', 'hosting.company_name', '=', 'accounts.id')
-            ->select(
-                'hosting.*',
-                'domainmaster.domainname',
-                'accounts.company_name as companyname',
-                'accounts.phone',
-                'accounts.emailid',
-                DB::raw("DATE_FORMAT(STR_TO_DATE(hosting.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat")
-            )
-            ->where('hosting.status', '0')
-            ->whereRaw("MONTH(STR_TO_DATE(hosting.dateofexpire, '%d-%m-%Y')) = ?", [date('m')])
-            ->whereRaw("YEAR(STR_TO_DATE(hosting.dateofexpire, '%d-%m-%Y')) = ?", [date('Y')])
-            ->orderBy('dateofexpire', 'ASC')
-            ->get();
-        
+                ->join('domainmaster', 'hosting.domainname', '=', 'domainmaster.id')
+                ->join('accounts', 'hosting.company_name', '=', 'accounts.id')
+                ->select(
+                    'hosting.*',
+                    'domainmaster.domainname',
+                    'accounts.company_name as companyname',
+                    'accounts.phone',
+                    'accounts.emailid',
+                    DB::raw("DATE_FORMAT(hosting.dateofexpire1, '%Y-%m-%d') as DateFormat")
+                )
+                ->where('hosting.status', '0')
+                ->whereMonth('hosting.dateofexpire1', date('m'))
+                ->whereYear('hosting.dateofexpire1', date('Y'))
+                ->orderBy('hosting.dateofexpire1', 'ASC')
+                ->get();
 
-                foreach ($data as $domain) {
-                    $currentDate = date('d-m-Y');  // Get the current date in d-m-Y format
-                    $expiryDate = $domain->dateofexpire;  // Assuming it's in d-m-Y format
-    
-                    // Convert both dates to timestamp (seconds since epoch)
-                    $currentTimestamp = strtotime($currentDate);
-                    $expiryTimestamp = strtotime($expiryDate);
-    
-                    // Calculate the difference in days
-                    $diff = ($expiryTimestamp - $currentTimestamp) / (60 * 60 * 24); // Difference in days
-    
-                    $diff = (int) $diff;  // Cast to integer for exact day count
-        
-                    // Determine status based on the difference in days
-                    if ($diff > 0 && $diff <= 30) {
-                        $bg = '#FFF3DD'; // Yellow
-                        $cc = '#D68A00';
-                        $remainday1 = '<b>' . $diff . '</b> Days Remaining';
-                    } elseif ($diff > 30) {
-                        $bg = '#F6FFF1'; // Green
-                        $cc = '#38A800 ';
-                        $remainday1 = '<b>' . $diff . '</b> Days Remaining';
-                    } elseif ($diff == 0) {
-                        $bg = '#F6FFF1'; // Green
-                        $cc = '#38A800 ';
-                        $remainday1 = 'Today is the day to Renew';
-                    } else {
-                        $bg = '#FFF0F0'; // Red
-                        $cc = '#F41B1B';
-                        $remainday1 = $diff;
-                    }
-                    $domain->cc = $cc;
-                    $domain->bg = $bg;
-                    $domain->remainday1 = $remainday1;
+            foreach ($data as $domain) {
+                $currentDate = date('d-m-Y');  // Get the current date in d-m-Y format
+                $expiryDate = $domain->dateofexpire;  // Assuming it's in d-m-Y format
+
+                // Convert both dates to timestamp (seconds since epoch)
+                $currentTimestamp = strtotime($currentDate);
+                $expiryTimestamp = strtotime($expiryDate);
+
+                // Calculate the difference in days
+                $diff = ($expiryTimestamp - $currentTimestamp) / (60 * 60 * 24); // Difference in days
+
+                $diff = (int) $diff;  // Cast to integer for exact day count
+
+                // Determine status based on the difference in days
+                if ($diff > 0 && $diff <= 30) {
+                    $bg = '#FFF3DD'; // Yellow
+                    $cc = '#D68A00';
+                    $remainday1 = '<b>' . $diff . '</b> Days Remaining';
+                } elseif ($diff > 30) {
+                    $bg = '#F6FFF1'; // Green
+                    $cc = '#38A800 ';
+                    $remainday1 = '<b>' . $diff . '</b> Days Remaining';
+                } elseif ($diff == 0) {
+                    $bg = '#F6FFF1'; // Green
+                    $cc = '#38A800 ';
+                    $remainday1 = 'Today is the day to Renew';
+                } else {
+                    $bg = '#FFF0F0'; // Red
+                    $cc = '#F41B1B';
+                    $remainday1 = $diff;
                 }
+                $domain->cc = $cc;
+                $domain->bg = $bg;
+                $domain->remainday1 = $remainday1;
+            }
 
-                
-    
-                return DataTables::of($data)
+
+
+            return DataTables::of($data)
                 ->addColumn('sno', function ($row) {
                     return '';
                 })
@@ -95,7 +94,6 @@ class Dashboard extends Controller
                     $nextStatus = $row->bg == '#FFF0F0' ? 'Overdue for <b>' . abs($row->remainday1) . '</b> Days' : $row->remainday1;
 
                     return '<p style="padding: 5px 15px 6px; margin-bottom: 0; border-radius: 5px; color: ' . $row->cc . '; background-color: ' . $row->bg . ';">' . $nextStatus . '</p>';
-    
                 })
                 ->rawColumns(['sno', 'companyname', 'domainname', 'remainday1', '',])
                 ->make(true);
@@ -103,19 +101,19 @@ class Dashboard extends Controller
         $currentDate = new DateTime();
         $leadCounts = [];
         $wipenqs = [];
-        
+
         for ($i = 0; $i < 7; $i++) {
             $date = clone $currentDate; // Clone the current date
             $date->modify("-$i months");
             $month = $date->format('m');
             $year = $date->format('Y');
-        
+
             $leadCount = DB::table('leads')
                 ->where('oppourtunity_status', 'active')
                 ->where(DB::raw("SUBSTRING(leaddate, 4, 2)"), $month)
                 ->where(DB::raw("SUBSTRING(leaddate, 7, 4)"), $year)
                 ->count();
-        
+
             $leadCounts[] = [
                 'month' => $date->format('M Y'),
                 'leads' => $leadCount
@@ -127,8 +125,8 @@ class Dashboard extends Controller
             $date->modify("-$i months");
             $month = $date->format('m');
             $year = $date->format('Y');
-        
-           // $servername = "appacmedia-data-rds-private-aps1.cdamytlhflpj.ap-south-1.rds.amazonaws.com";
+
+            // $servername = "appacmedia-data-rds-private-aps1.cdamytlhflpj.ap-south-1.rds.amazonaws.com";
             // $username = "appacprodadmin";
             // $password = "cS4#i7Ls!02DOmL";
             // $db = "appacdb";
@@ -137,9 +135,9 @@ class Dashboard extends Controller
 
 
             // if ($conn->connect_error) {
-                // return response()->json([
-                    // 'error' => 'Connection failed: ' . $conn->connect_error
-                // ], 500);
+            // return response()->json([
+            // 'error' => 'Connection failed: ' . $conn->connect_error
+            // ], 500);
             // }
 
             // $query = "SELECT COUNT(*) AS total FROM website_enquiry_data 
@@ -149,13 +147,13 @@ class Dashboard extends Controller
             // $stmt->execute();
             // $stmt->bind_result($wipenq);
             // $stmt->fetch();
-			
-			$wipenq = DB::connection('mysql_second') // Specify the second database connection
-    ->table('website_enquiry_data')
-    ->where(DB::raw("SUBSTRING(enquiry_date, 4, 2)"), $month)
-    ->where(DB::raw("SUBSTRING(enquiry_date, 7, 4)"), $year)
-    ->count();
-        
+
+            $wipenq = DB::connection('mysql_second') // Specify the second database connection
+                ->table('website_enquiry_data')
+                ->where(DB::raw("SUBSTRING(enquiry_date, 4, 2)"), $month)
+                ->where(DB::raw("SUBSTRING(enquiry_date, 7, 4)"), $year)
+                ->count();
+
             $wipenqs[] = [
                 'month' => $date->format('M Y'),
                 'leads' => $wipenq
@@ -166,10 +164,10 @@ class Dashboard extends Controller
         $proforma = DB::table('proformadetails')->count();
         $invoice = DB::table('invoicedetails')->count();
         $wip_history = DB::table('wip_history')->count();
-        $keyaccounts = DB::table('accounts')->where('status', '!=', 0)->where('active_status', 'active')->where('key_status', 1)->count();
+        $keyaccounts = DB::table('accounts')->where('status', '!=', 0)->where('active_status', 'active')->where('key_status', 1)->get();
 
-        $website_enquiry_data=DB::connection('mysql_second')->table('website_enquiry_data')->where('flag_identity',1)->count();
-    
+        $website_enquiry_data = DB::connection('mysql_second')->table('website_enquiry_data')->where('flag_identity', 1)->count();
+
         $aallead = DB::table('leads')->count();
 
         $opportunity = DB::table('opportunity')->count();
@@ -178,49 +176,35 @@ class Dashboard extends Controller
 
         $dailyreport = DB::table('dailyreport')->where('report_date1', date('Y-m-d', strtotime('-1 day')))->count();
 
-        $empreport = DB::table('dailyreport')->whereYear('report_date1',date('Y'))->count();
+        $empreport = DB::table('dailyreport')->whereYear('report_date1', date('Y'))->count();
 
-        $employee = DB::table('regis')->where('status',1)->count();
+        $employee = DB::table('regis')->where('status', 1)->count();
 
         $currentYear = date('Y');
-        $leaveapproved = DB::table('leaverecord')->whereYear('leavedate', $currentYear)->where('leavestatus','Approved')->count();
+        $leaveapproved = DB::table('leaverecord')->whereYear('leavedate', $currentYear)->where('leavestatus', 'Approved')->count();
 
         $social = DB::table('social_login')->count();
 
         $payment = DB::table('payment_list')->count();
 
+        $vendorpayment = DB::table('vendorpayment_list')->count();
+
         $ratecard = DB::table('ratecard')->whereNotNull('empid')->where('empid', '!=', '')->orderBy('id', 'ASC')->get();
 
-        $lastdata = DB::table('dailyreport')
-            ->select('report_date1')
-            ->orderBy('id', 'desc')
-            ->first();
-
-        $promotion = DB::table('dailyreport')->join('regis', 'dailyreport.empid', '=', 'regis.empid')->join('accounts', 'dailyreport.client', '=', 'accounts.id')
-        ->select('dailyreport.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('dailyreport.dept_id',4)->where('dailyreport.report_date1', $lastdata->report_date1)->orderBy('dailyreport.empid', 'asc')->get();
-
-        $design = DB::table('dailyreport')->join('regis', 'dailyreport.empid', '=', 'regis.empid')->join('accounts', 'dailyreport.client', '=', 'accounts.id')
-        ->select('dailyreport.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('dailyreport.dept_id',2)->where('dailyreport.report_date1', $lastdata->report_date1)->orderBy('dailyreport.empid', 'asc')->get();
-
-        $development = DB::table('dailyreport')->join('regis', 'dailyreport.empid', '=', 'regis.empid')->join('accounts', 'dailyreport.client', '=', 'accounts.id')
-        ->select('dailyreport.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('dailyreport.dept_id',3)->where('dailyreport.report_date1', $lastdata->report_date1)->orderBy('dailyreport.empid', 'asc')->get();
-
-        $acchistroy = DB::table('notes')->join('regis', 'notes.employee', '=', 'regis.empid')->join('accounts', 'notes.company_name', '=', 'accounts.id')
-        ->select('notes.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('notes.submitdate', date('Y-m-d', strtotime('-1 day')))->orderBy('notes.employee', 'asc')->get();
-
-        return view('dashboard/index')->with(compact('leadCounts','activeAcc','proforma','invoice','wip_history' ,'keyaccounts','aallead','wipenqs','opportunity','website_enquiry_data','work_order','dailyreport','empreport','employee','leaveapproved','social','payment', 'ratecard', 'promotion', 'design', 'development','acchistroy'))->render();
+        return view('dashboard/index')->with(compact('leadCounts', 'activeAcc', 'proforma', 'invoice', 'wip_history', 'keyaccounts', 'aallead', 'wipenqs', 'opportunity', 'website_enquiry_data', 'work_order', 'dailyreport', 'empreport', 'employee', 'leaveapproved', 'social', 'payment', 'ratecard', 'vendorpayment'))->render();
     }
 
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
 
         $validator = Validator::make($request->all(), [
-          
+
             'title' => 'required|string|max:255',
             'firstname' => 'required|string|max:255',
             'company_name' => 'nullable|string|max:255',
             'gst_number' => 'required|string|max:15',
-           
+
             'phone' => 'required|digits:10',
             'assignedto' => 'required|string|max:255',
             'status' => 'required|string|max:255',
@@ -233,67 +217,177 @@ class Dashboard extends Controller
             'city' => 'required|string|max:255',
             'state' => 'nullable|string|max:255',
             'pincode' => 'nullable|string|max:10',
-        
-         
+
+
         ]);
 
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $val=[
+        $val = [
 
-        'leaddate'=>date('d-m-Y'),
-        'title'=>$request->title,
-        'firstname'=>$request->firstname,
-        'lastname'=>$request->lastname,
-        'company_name'=>$request->company_name,
-        'gst_number'=>$request->gst_number,
-        'stdcode'=>'+91',
-        'phone'=>$request->phone,
-        'alternate_phone'=>$request->alternate_phone,
-        'assignedto'=>$request->assignedto,
-        'status'=>$request->status,
-        'summary'=>$request->summary,
-        'designation'=>$request->designation,
-        'department'=>$request->department,
-        'emailid'=>$request->emailid,
-        'alternateemail'=>$request->alternateemail,
-        'website'=>$request->website,
-        'leadsource'=>$request->leadsource,
-        'address'=>$request->address,
-        'city'=>$request->city,
-        'state'=>$request->state,
-        'pincode'=>$request->pincode,
-        'country'=>$request->country,
-        'oppourtunity_status'=>'inactive',
+            'leaddate' => date('d-m-Y'),
+            'title' => $request->title,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'company_name' => $request->company_name,
+            'gst_number' => $request->gst_number,
+            'stdcode' => '+91',
+            'phone' => $request->phone,
+            'alternate_phone' => $request->alternate_phone,
+            'assignedto' => $request->assignedto,
+            'status' => $request->status,
+            'summary' => $request->summary,
+            'designation' => $request->designation,
+            'department' => $request->department,
+            'emailid' => $request->emailid,
+            'alternateemail' => $request->alternateemail,
+            'website' => $request->website,
+            'leadsource' => $request->leadsource,
+            'address' => $request->address,
+            'city' => $request->city,
+            'state' => $request->state,
+            'pincode' => $request->pincode,
+            'country' => $request->country,
+            'oppourtunity_status' => 'inactive',
 
-    ];
+        ];
         /*Check Duplicate leads in database*/
-        $Selectmobile=DB::table('leads')->where('phone',$request->phone)->where('gst_number',$request->gst_number)->get();
-      
+        $Selectmobile = DB::table('leads')->where('phone', $request->phone)->where('gst_number', $request->gst_number)->get();
 
-        if(count($Selectmobile) > 0)
-        {
+
+        if (count($Selectmobile) > 0) {
             session()->flash('secmessage', 'Lead Already Exists in our Database.');
             return response()->json(['status' => 0, 'message' => 'Lead Already Exists in our Database.'], 200);
-        }
-        else
-        {
-      
+        } else {
+
             $lead_id = DB::table('leads')->insertGetId($val);
-            
+
             session()->flash('secmessage', 'Lead Successfully Created.');
             return response()->json(['status' => 1, 'message' => 'Lead Successfully Created.'], 200);
-        
         }
     }
 
 
+    public function viewdashboard()
+    {
 
-    
+        $lastdata = DB::table('dailyreport')
+            ->select('report_date1')
+            ->orderBy('id', 'desc')
+            ->first();
 
-   
+        $promotion = DB::table('dailyreport')->join('regis', 'dailyreport.empid', '=', 'regis.empid')->join('accounts', 'dailyreport.client', '=', 'accounts.id')
+            ->select('dailyreport.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('dailyreport.dept_id', 4)->where('dailyreport.report_date1', $lastdata->report_date1)->orderBy('dailyreport.empid', 'asc')->get();
 
-  
+        $design = DB::table('dailyreport')->join('regis', 'dailyreport.empid', '=', 'regis.empid')->join('accounts', 'dailyreport.client', '=', 'accounts.id')
+            ->select('dailyreport.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('dailyreport.dept_id', 2)->where('dailyreport.report_date1', $lastdata->report_date1)->orderBy('dailyreport.empid', 'asc')->get();
+
+        $development = DB::table('dailyreport')->join('regis', 'dailyreport.empid', '=', 'regis.empid')->join('accounts', 'dailyreport.client', '=', 'accounts.id')
+            ->select('dailyreport.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('dailyreport.dept_id', 3)->where('dailyreport.report_date1', $lastdata->report_date1)->orderBy('dailyreport.empid', 'asc')->get();
+
+        $acchistroy = DB::table('notes')->join('regis', 'notes.employee', '=', 'regis.empid')->join('accounts', 'notes.company_name', '=', 'accounts.id')
+            ->select('notes.*', 'accounts.company_name as company_name_account', 'regis.fname')->where('notes.submitdate', date('Y-m-d', strtotime('-1 day')))->orderBy('notes.employee', 'asc')->get();
+
+        $currentYear = date('Y');
+        $currentMonth = date('m');
+
+        if ($currentMonth == 1 || $currentMonth == 2 || $currentMonth == 3) {
+            $academicStart = ($currentYear - 1) . "-04-01"; // April 1st of the previous year
+            $academicEnd = "$currentYear-03-31"; // March 31st of the current year
+        } else { // For other months
+            $academicStart = "$currentYear-04-01"; // April 1st of the current year
+            $academicEnd = ($currentYear + 1) . "-03-31"; // March 31st of the next year
+        }
+
+        $leaveapproval = DB::table('leaverecord')->where('leavestatus', 'Pending')->whereBetween('leavedate', [$academicStart, $academicEnd])->orderByDesc('id')->get();
+
+        if (count($leaveapproval) > 0) {
+            $leaveTypes = [
+                '0' => 'Permission',
+                '1' => 'Compensatory leave',
+                '2' => 'WFH leave',
+                '3' => 'Half day leave',
+                '4' => 'Leave',
+                '5' => 'Casual leave',
+                '6' => 'Sick leave',
+            ];
+
+            foreach ($leaveapproval as $datal) {
+                $datal->leavetype = $leaveTypes[$datal->leavetype] ?? $datal->leavetype; // Default to original if not found
+            }
+        }
+
+        $wips = DB::table('work_wip as w')->select('w.*', 'w.id as wid', 'a.company_name', 'a.id as aid')->join('accounts as a', 'a.id', '=', 'w.client_id')->where('w.status', '=', '0')->where('w.wiptype', '=', '1')->orderBy('w.id', 'DESC')->get();
+
+        if (count($wips) > 0) {
+
+            foreach ($wips as $wip) {
+
+                $reports = DB::table('dailyreport')
+                    ->where('worktype', 1)
+                    ->where('report_date1', '>=', $wip->startdate)
+                    ->where('wipid', $wip->wid)
+                    ->where('client', $wip->aid)
+                    ->orWhere('leadid', $wip->aid)
+                    ->get();
+
+                $timeByDepartment = [
+                    '3' => ['hours' => 0, 'minutes' => 0], // Management
+                    '2' => ['hours' => 0, 'minutes' => 0], // Design
+                ];
+
+                foreach ($reports as $report) {
+                    $deptId = $report->dept_id;
+                    $startTime = strtotime($report->start_time);
+                    $endTime = strtotime($report->end_time);
+
+                    if ($startTime && $endTime && isset($timeByDepartment[$deptId])) {
+                        $dateDiff = intval(($endTime - $startTime) / 60); // Convert to minutes
+                        $hours = intval($dateDiff / 60);
+                        $minutes = $dateDiff % 60;
+
+                        // Add hours and minutes to the respective department
+                        $timeByDepartment[$deptId]['hours'] += $hours;
+                        $timeByDepartment[$deptId]['minutes'] += $minutes;
+                    }
+                }
+
+                // Convert minutes to hours for each department and format the result
+                foreach ($timeByDepartment as $deptId => $time) {
+                    $totalMinutes = $time['hours'] * 60 + $time['minutes'];
+                    $hours = intval($totalMinutes / 60);
+                    $minutes = $totalMinutes % 60;
+                    $timeByDepartment[$deptId]['formatted_time'] = sprintf('%d Hours %02d Minutes', $hours, $minutes);
+                    $timeByDepartment[$deptId]['decimal_time'] = sprintf('%d.%02d', $hours, $minutes);
+                }
+
+                // Access the formatted times for each department
+                $wip->developmentTime = $timeByDepartment['3']['formatted_time'];
+                $wip->designTime = $timeByDepartment['2']['formatted_time'];
+
+                $developmentDecimal = floatval($timeByDepartment['3']['hours']) + ($timeByDepartment['3']['minutes'] / 60);
+                $designDecimal = floatval($timeByDepartment['2']['hours']) + ($timeByDepartment['2']['minutes'] / 60);
+
+                $totalDecimal = $developmentDecimal + $designDecimal;
+
+                // Convert total decimal back to hours and minutes
+                $totalMinutes = intval($totalDecimal * 60);
+                $totalHours = intval($totalMinutes / 60);
+                $totalRemainingMinutes = $totalMinutes % 60;
+
+                $wip->totalTime = sprintf('%d Hours %02d Minutes', $totalHours, $totalRemainingMinutes);
+            }
+        }
+
+        return response()->json([
+            'promotion' => $promotion,
+            'design' => $design,
+            'development' => $development,
+            'acchistroy' => $acchistroy,
+            'leaveapproval' => $leaveapproval,
+            'wips' => $wips
+        ]);
+    }
 }
