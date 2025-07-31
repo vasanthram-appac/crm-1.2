@@ -179,6 +179,18 @@ class Payslip extends Controller
                     $employer_contribution = 0;
                 }
 
+                //   if ($empid == 'AM003') {
+                //     $tds = '4000';
+                // } else if ($empid == 'AM063') {
+                //     $tds = '4750';
+                // } else {
+                //     if ($request->tds == '1') {
+                //         $tds = $salary * (10 / 100);
+                //     } else {
+                //         $tds = '0';
+                //     }
+                // }
+
                 $pdata = [
                     'empid' => $empid,
                     'month_year' => $request->monthyear,
@@ -285,6 +297,18 @@ class Payslip extends Controller
                 $employee_contribution = 0;
                 $employer_contribution = 0;
             }
+
+            //   if ($empid == 'AM003') {
+            //         $tds = '4000';
+            //     } else if ($empid == 'AM063') {
+            //         $tds = '4750';
+            //     } else {
+            //         if ($request->tds == '1') {
+            //             $tds = $salary * (10 / 100);
+            //         } else {
+            //             $tds = '0';
+            //         }
+            //     }
 
             $pdata = [
                 'specl_amt' => $request->incentive,
@@ -710,8 +734,6 @@ Nadu,India - 641002.<br><span style="font-style:normal;font-size:13px;">Ph: + 91
                         ->html($html1)
                         ->attach(public_path('pdf/payslip/' . $payslipname), ['as' => $payslipname]);
                 });
-
-
 
                 session()->flash('secmessage', 'Payslip Generated Successfully.');
                 return response()->json(['status' => 1, 'message' => 'Payslip Generated Successfully.'], 200);

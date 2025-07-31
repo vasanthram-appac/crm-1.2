@@ -459,7 +459,7 @@ class User extends Controller
             'emptype' => $request->emptype,
             'role' => $request->role,
             'company' => 'APPAC MEDIATECH PVT LTD',
-            'status' => 1,
+            'status' => $request->status,
             'emailid' => $request->emailid,
             'dept_id' => $request->department,
         ];

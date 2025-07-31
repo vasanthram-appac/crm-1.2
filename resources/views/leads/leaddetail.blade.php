@@ -1,5 +1,5 @@
 <div class="row">
-<div >
+<div>
         <a href="/lead" class="nav_btn">Back</a>
     </div>
     <!-- BEGIN PROFILE PORTLET -->

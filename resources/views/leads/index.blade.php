@@ -31,6 +31,10 @@
 @section('content')
 
 <div class="appac_show"></div>
+
+
+<div class=" m-0 appac_hide col-wrap ">
+
 <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
     <a id="preback" href="javascript:history.back()">Back</a>
     @include('accountmenu/index')
@@ -44,7 +48,6 @@
         <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Leads::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Lead</button>
     </div>
 </div>
-<div class=" m-0 appac_hide col-wrap ">
 
     <div class="lead-charthed row pt-4 row-gap-3">
         <div class="col-lg-12 col-xl-8 col-md-12 col-sm-12 p-0 pad-rig-30">
