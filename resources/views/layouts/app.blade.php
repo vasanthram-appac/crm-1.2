@@ -221,7 +221,7 @@
                     </ul> -->
                                 @endif
                             </span>
-                            @if(request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '8')
+                            @if(request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM098' || request()->session()->get('dept_id') == '8')
                             <!-- @if (request()->session()->get('empid') == 'AM001' || request()->session()->get('empid') == 'AM090') 
                   <span id="m4">
                     <a class="ma menu-list-group-item menu-list-group-item-action menu-list-group-item-dark anchor border-0 text-grey sidebar-hedtwo bg-white d-flex align-items-center gap-3 @if($route=='fiscal') bg-active @else  @endif " href="/fiscal">
@@ -300,7 +300,7 @@
                                 </div>
                             </div>
 
-                            @if(request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '8')
+                            @if(request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM098' || request()->session()->get('dept_id') == '8')
                             <a href="/settings"> <img src="{{ asset('asset/image/setting.png') }}" width="22" alt=""></a>
                             @endif
                             <!-- Left Side Of Navbar

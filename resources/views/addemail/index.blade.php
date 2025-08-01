@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title','Hosting')
+@section('title','Email')
 
 @section('css')
 <style>
@@ -31,47 +31,32 @@
 <div class="row m-0 appac_hide">
     <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-       @include('layouts/partials/renewalsmenu')
+        @include('layouts/partials/renewalsmenu')
     </div>
     <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">Hosting</h1>
+            <h1 class="ch2 comp-name"> Add Email</h1>
         </div>
-        <div class=" justify-content-sm-end d-flex  gap-2 flex-wrap">
-            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{route('adddomain')}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Domain</button>
 
-            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Hosting::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Hosting</button>
+        <div class=" justify-content-sm-end d-flex  gap-2 flex-wrap">
+           <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{ route('addemail.create', $id) }}"> <i class="fa fa-plus me-1" aria-hidden="true"></i> Add Email </button>
         </div>
     </div>
+
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
-            <!-- <div class="add-newproduct-tab">
-                <div class="gradient-card-header">
-                    <h2 class="white-text mx-3">Leads</h2>
-                </div>
-            </div> comment by vasanth-->
-
 
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
-
-
 
             <div class="p-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered">
                     <thead>
                         <tr class="bg-white">
                             <th class="text-grey">S.no</th>
-                            <th class="text-grey">Account Name</th>
-                            <th class="text-grey">Domain Name</th>
-                            <th class="text-grey">Next Renewal Date</th>
-                            <th class="text-grey">Day</th>
-                            <th class="text-grey">Remaining Days</th>
-
-                            <th class="text-grey"></th>
-
+                            <th class="text-grey">Added By</th>
+                            <th class="text-grey">Email</th>
                             <th class="text-grey">Action</th>
-                            <!-- Add more columns as needed -->
                         </tr>
                     </thead>
                 </table>
@@ -84,7 +69,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="modal fade" id="errorModal" role="dialog" style="">
         <div class="modal-dialog cascading-modal float-end me-3" role="document">
@@ -106,9 +90,7 @@
     </div>
 </div>
 
-
 @endsection
-
 
 @section('script')
 <script>
@@ -119,42 +101,19 @@
             serverSide: true,
             pageLength: 10,
             lengthMenu: [10, 20, 50, 100],
-            ajax: "{{ action([App\Http\Controllers\Hosting::class,'index']) }}",
+            ajax: "{{ route('addemail.index', ['id' => $id]) }}",
             columns: [{
                     data: 'sno',
                     name: 'sno'
                 },
-
                 {
-                    data: 'companyname',
-                    name: 'companyname'
+                    data: 'gname',
+                    name: 'gname'
                 },
                 {
-                    data: 'domainname',
-                    name: 'domainname'
+                    data: 'mailid',
+                    name: 'mailid'
                 },
-
-                {
-                    data: 'dateofexpire',
-                    type: 'date-mm-dd', // Use the custom date type
-                    orderData: 0
-                },
-                {
-                    data: 'DateFormat',
-                    type: 'date-mm-dd', // Use the custom date type
-                    orderData: 0
-                },
-
-                {
-                    data: 'remainday1',
-                    name: 'remainday1'
-                },
-
-                {
-                    data: '',
-                    name: ''
-                },
-
                 {
                     data: 'action',
                     name: 'action',
@@ -244,8 +203,6 @@
                         cat_table.ajax.reload(null, false); // Prevents table state reset on reload
                     }
 
-
-
                 },
                 error: function(xhr) {
                     // Handle other types of errors (e.g., server error)
@@ -269,16 +226,15 @@
             var Id = $(this).data('id');
             swal({
                 title: "Alert",
-                text: "Are you sure you want to delete the Hosting?",
+                text: "Are you sure you want to delete the Email?",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
 
-                // timer: 4000,
             }).then(function(isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: '/hosting/' + Id, // Change this to your endpoint
+                        url: '/addemail/' + Id + '/delete', 
                         type: 'DELETE',
                         data: {
                             id: Id,
@@ -292,26 +248,22 @@
                             setTimeout(function() {
                                 $('#session_message').hide();
                             }, 5000);
-
                             cat_table.ajax.reload();
-
                         },
                         error: function(error) {
-
                             console.error(error);
-
                         }
                     });
                 } else {
-                    window.location.href = '/hosting';
+                    window.location.reload();
                 }
             });
         });
 
-
-
-
-
+        $(document).on('click', '.viewemp', function() {
+            var empid = $(this).data('id');
+            window.location.href = "/profile?id=" + empid;
+        });
 
 
     });

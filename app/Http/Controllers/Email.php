@@ -30,17 +30,15 @@ class Email extends Controller
                 ->get();
             // dd($data);
             foreach ($data as $domain) {
-                $currentDate = date('d-m-Y');  // Get the current date in d-m-Y format
-                $expiryDate = $domain->dateofexpire;  // Assuming it's in d-m-Y format
+                $currentDate = date('d-m-Y');  
+                $expiryDate = $domain->dateofexpire;  
 
-                // Convert both dates to timestamp (seconds since epoch)
                 $currentTimestamp = strtotime($currentDate);
                 $expiryTimestamp = strtotime($expiryDate);
 
-                // Calculate the difference in days
-                $diff = ($expiryTimestamp - $currentTimestamp) / (60 * 60 * 24); // Difference in days
+                $diff = ($expiryTimestamp - $currentTimestamp) / (60 * 60 * 24); 
 
-                $diff = (int) $diff;  // Cast to integer for exact day count
+                $diff = (int) $diff;  
 
                 if ($diff > 0 && $diff <= 30) {
                     $bg = '#FFF3DD'; // Yellow
@@ -103,7 +101,9 @@ class Email extends Controller
 					</button>
                     <button class="btn btn-modal conformdelete" data-id="' . $row->id . '"><i class="fi fi-ts-trash-xmark"></i>
 					<span class="tooltiptext">delete</span>
-					</button>';
+					</button>
+                    <a class="btn" href="' . route('addemail.index', ['id' => $row->id]) . '" ><i class="fi fi-ts-user-check"></i><span class="tooltiptext">Add Email</span></a>
+                    ';
                 })
 
                 ->rawColumns(['sno', 'companyname', 'domainname', 'view', 'remainday1', '', 'action'])
@@ -367,7 +367,6 @@ class Email extends Controller
 
     public function viewemail($id)
     {
-
         $email = DB::table('emailid_list')->where('eid', $id)->get();
 
         return view('email.viewemail')->with(compact('email'));

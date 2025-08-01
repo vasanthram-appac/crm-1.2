@@ -97,7 +97,7 @@
                 @php
                     $empid = request()->session()->get('empid');
                 @endphp
-                @if(in_array($empid, ['AM001', 'AM090', 'AM099', 'AM098']))
+                @if(in_array($empid, ['AM001', 'AM090', 'AM098']))
                 <div class="g-data ps-3">
                     <a href="/purchaseorder">
                         <div class="bio  rounded-30  piechart-leads dash-6">
@@ -110,6 +110,21 @@
                     </a>
                 </div>
                 @endif
+
+                @if(in_array($empid, ['AM045']))
+                <div class="g-data ps-3">
+                    <a href="/pettycash">
+                        <div class="bio  rounded-30  piechart-leads dash-7">
+                            <div class="svg-d">
+                                <img src="/img/task.png"/>
+                            </div>
+                            <h3 class="text-center ">Petty Cash</h3>
+                            <h4>{{$pettycash}}</h4>
+                        </div>
+                    </a>
+                </div>
+                @endif
+
                 @endif
             </div>
         </div>

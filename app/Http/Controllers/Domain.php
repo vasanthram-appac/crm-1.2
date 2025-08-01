@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\DataTables;
 use Illuminate\Http\Request;
@@ -27,7 +26,7 @@ class Domain extends Controller
                 ->join('accounts', 'domain.company_name', '=', 'accounts.id')
                 ->select('domain.*', 'domainmaster.domainname', 'accounts.company_name as companyname', 'accounts.phone', 'accounts.emailid', DB::raw("DATE_FORMAT(STR_TO_DATE(domain.dateofexpire, '%d-%m-%Y'), '%Y-%m-%d') as DateFormat"))
                 ->where('domain.status', '0')
-                ->orderBy('dateofexpire1', 'ASC')
+                ->orderBy('DateFormat', 'ASC')
                 ->get();
 
             foreach ($data as $domain) {

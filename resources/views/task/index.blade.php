@@ -36,7 +36,7 @@
 
     <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">Task View</h1>
+            <h1 class="ch2 comp-name">Task</h1>
         </div>
         <div class="justify-content-sm-end d-flex">
                 <div class=""></div>
@@ -80,7 +80,8 @@
                             <th class="text-grey">Task ID</th>
                             <th class="text-grey">Company Name</th>
                             <th class="text-grey">Task Name</th>
-                            <th class="text-grey">Task Startdate</th>
+                            <th class="text-grey">Task Startdate</th> 
+                            <th class="text-grey">Task Duedate</th>
                             <th class="text-grey">Assigned to Employee</th>
                             <th class="text-grey">Assigned By</th>
                             <th class="text-grey">Task Status</th>
@@ -154,6 +155,11 @@
                 },
                 {
                     data: 'task_startdate',
+                    type: 'date-mm-dd', // Use the custom date type
+                    orderData: 0
+                },
+                 {
+                    data: 'task_duedate',
                     type: 'date-mm-dd', // Use the custom date type
                     orderData: 0
                 },

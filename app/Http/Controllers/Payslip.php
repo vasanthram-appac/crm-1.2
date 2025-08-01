@@ -31,8 +31,12 @@ class Payslip extends Controller
 
                 if (empty(request()->session()->get('payslipmonth')) && date('d') < 26) {
                     request()->session()->put('payslipmonth', date("m-Y", strtotime("-1 month")));
-                }else{
-                     request()->session()->put('payslipmonth', date("m-Y"));
+                } else {
+                    if (isset($request->month) && !empty($request->month)) {
+                        request()->session()->put('payslipmonth', $request->month);
+                    } else {
+                        request()->session()->put('payslipmonth', date("m-Y"));
+                    }
                 }
 
                 $data = DB::table('emp_payslip')

@@ -34,6 +34,7 @@ class Task extends Controller
                     't.task_enddate',
                     't.taskclose_date',
                     't.task_startdate',
+                    't.task_duedate',
                     't.task_status',
                     't.priority',
                     't.id as tid'

@@ -35,7 +35,7 @@
     </div>
         <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
             <div class="profile-head">
-            <h1 class="ch2 comp-name">Task</h1>
+            <h1 class="ch2 comp-name">Task View</h1>
         </div>
         <!-- <div class="justify-content-sm-end d-flex">
                 <div class=""></div>

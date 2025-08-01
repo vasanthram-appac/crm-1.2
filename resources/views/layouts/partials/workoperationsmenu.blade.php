@@ -5,7 +5,7 @@
   <ul class="nav nav-tabs my-4 justify-content-end mb-0">
             @if(request()->session()->get('role') != 'user')
             <li class="nav-item">
-                <a class="nav-link @if($route=='task') active @endif com ad-btn" href="/task"><b>Create Task</b></a>
+                <a class="nav-link @if($route=='task') active @endif com ad-btn" href="/task"><b>Task</b></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link @if($route=='workorderview') active @endif" href="/workorderview"><b>Work Order</b></a>

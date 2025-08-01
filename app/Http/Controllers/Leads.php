@@ -86,13 +86,15 @@ class Leads extends Controller
                 ->rawColumns(['sno', 'action', 'company_name', 'phone', 'emailid', 'assignedto'])
                 ->make(true);
         }
-        $currentDate = Carbon::now();
+
         $leadCounts = [];
 
         for ($i = 0; $i < 7; $i++) {
-            $date = $currentDate->copy()->subMonths($i);
-            $month = $date->format('m');
-            $year = $date->format('Y');
+    $timestamp = strtotime(date('Y-m-01') . " -$i months");
+
+    $month = date('m', $timestamp); // e.g., 07
+    $year = date('Y', $timestamp);  // e.g., 2025
+    $displayMonth = date('M Y', $timestamp);
 
             $leadCount = DB::table('leads')
                 ->where('oppourtunity_status', 'active')
@@ -101,7 +103,7 @@ class Leads extends Controller
                 ->count();
 
             $leadCounts[] = [
-                'month' => $date->format('M Y'),
+                'month' => $displayMonth,
                 'leads' => $leadCount
             ];
         }

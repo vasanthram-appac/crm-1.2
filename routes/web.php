@@ -30,6 +30,7 @@ use App\Http\Controllers\Payslip;
 use App\Http\Controllers\Purchaseorder;
 use App\Http\Controllers\Vendorpaymententry;
 use App\Http\Controllers\Dashboard;
+use App\Http\Controllers\Addemail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -300,6 +301,22 @@ Route::get('/ourwork', function () { return view('ourworks/index'); });
 Route::get('/viewdashboard', [Dashboard::class, 'viewdashboard'])->name('viewdashboard');
 
 Route::resource('/esi','App\Http\Controllers\Esi');
+
+Route::resource('/pettycash','App\Http\Controllers\Pettycash');
+
+// add emailid start
+Route::get('/addemail/{id}', [Addemail::class, 'index'])->name('addemail.index');
+
+Route::get('/addemail/create/{id}', [Addemail::class, 'create'])->name('addemail.create');
+
+Route::post('/addemail/store', [Addemail::class, 'store'])->name('addemail.store');
+
+Route::get('/addemail/{id}/edit', [Addemail::class, 'edit'])->name('addemail.edit');
+
+Route::put('/addemail/{id}/update', [Addemail::class, 'update'])->name('addemail.update');
+
+Route::delete('/addemail/{id}/delete', [Addemail::class, 'destroy'])->name('addemail.destroy');
+// add emailid end
 
 Route::get('/logout', [Login::class, 'Logout'])->name('Logout');
 

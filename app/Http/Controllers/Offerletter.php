@@ -15,7 +15,7 @@ class Offerletter extends Controller
     public function index(Request $request)
     {
 
-        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') {
+        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM098' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1') {
        
         if (request()->ajax()) {
             $data = DB::table('offer_letter_pdf')

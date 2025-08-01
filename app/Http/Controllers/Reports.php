@@ -26,7 +26,9 @@ class Reports extends Controller
 
         $notes = DB::table('notes')->count();
 
-        return view('reports/index')->with(compact('dailyreport', 'empreport', 'enquiry', 'notes'))->render();
+        $pettycash = DB::table('pettycash')->count();
+
+        return view('reports/index')->with(compact('dailyreport', 'empreport', 'enquiry', 'notes', 'pettycash'))->render();
     }
   
 }

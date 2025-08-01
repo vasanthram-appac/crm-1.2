@@ -120,7 +120,8 @@ class Requiredinput extends Controller
         if ($request->hasFile('file')) {
 
             $file = $request->file('file');
-            $fileName = $file->getClientOriginalName();
+            $originalName = $file->getClientOriginalName();
+            $fileName = preg_replace('/\s+/', '', $originalName); 
 
             $extension = strtolower($file->getClientOriginalExtension());
 
@@ -218,7 +219,8 @@ class Requiredinput extends Controller
             }
 
             $file = $request->file('file');
-            $fileName = $file->getClientOriginalName();
+            $originalName = $file->getClientOriginalName();
+            $fileName = preg_replace('/\s+/', '', $originalName); 
 
             $extension = strtolower($file->getClientOriginalExtension());
             $imgExtensions = ['webp', 'png', 'jpg', 'jpeg'];

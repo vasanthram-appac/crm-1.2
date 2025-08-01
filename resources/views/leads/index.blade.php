@@ -22,7 +22,8 @@
         background-color: #01152b !important;
         color: #fff !important;
     }
-    .leadcl-status{
+
+    .leadcl-status {
         cursor: pointer;
     }
 </style>
@@ -35,19 +36,19 @@
 
 <div class=" m-0 appac_hide col-wrap ">
 
-<div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
-    <a id="preback" href="javascript:history.back()">Back</a>
-    @include('accountmenu/index')
-</div>
-<div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between  align-items-center  p-15">
-    <div class="profile-head">
-        <h1 class="ch2 comp-name">Leads</h1>
+    <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
+        <a id="preback" href="javascript:history.back()">Back</a>
+        @include('accountmenu/index')
     </div>
-    <div class="justify-content-sm-end d-flex">
-        <div class=""></div>
-        <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Leads::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Lead</button>
+    <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between  align-items-center  p-15">
+        <div class="profile-head">
+            <h1 class="ch2 comp-name">Leads</h1>
+        </div>
+        <div class="justify-content-sm-end d-flex">
+            <div class=""></div>
+            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0 " data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Leads::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Lead</button>
+        </div>
     </div>
-</div>
 
     <div class="lead-charthed row pt-4 row-gap-3">
         <div class="col-lg-12 col-xl-8 col-md-12 col-sm-12 p-0 pad-rig-30">
@@ -96,7 +97,7 @@
 
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
-   
+
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
                 <h2>Success</h2>
             </div>
@@ -342,11 +343,10 @@
     }
 </script>
 <script>
-
-          $(document).on('click', '.viewemp', function() {
-            var empid = $(this).data('id');
-            window.location.href = "/profile?id=" + empid;
-        });
+    $(document).on('click', '.viewemp', function() {
+        var empid = $(this).data('id');
+        window.location.href = "/profile?id=" + empid;
+    });
 
     $(document).ready(function() {
 
@@ -491,7 +491,7 @@
                         $('.customer_modal').modal('hide');
                         $('.appac_show').hide();
                         $('.appac_hide').show();
-                        
+
                         setTimeout(function() {
                             window.location.reload();
                         }, 1000);
@@ -548,22 +548,17 @@
 
         $('select[name="oppourtunity_status"]').on('change', Oppourtunity);
 
-        $('.leadcl-status').on('click', function(){
-
-           var status= $(this).data('status');
-
-           Status(status);
-
+        $('.leadcl-status').on('click', function() {
+            const status = $(this).data('status');
+            fetchLeadStatus(status);
         });
 
-        function Status(stat=null) {
+        $('select[name="lead_status"]').on('change', function() {
+            const status = $(this).val();
+            fetchLeadStatus(status);
+        });
 
-            if(stat){
-                var status = stat;
-            }else{
-                var status = $('select[name="lead_status"]').val();
-            }
-
+        function fetchLeadStatus(status) {
             $.ajax({
                 url: "{{ action([App\Http\Controllers\Leads::class, 'index']) }}",
                 type: 'GET',
@@ -571,15 +566,16 @@
                     status: status
                 },
                 success: function(response) {
-                    window.location.reload();
-
+                    window.location.reload(); // you might want to update DOM instead
                 },
                 error: function(xhr) {
-                    var errors = xhr.responseJSON.errors;
-                    var errorString = '';
+                    let errors = xhr.responseJSON?.errors || {};
+                    let errorString = '';
 
-                    for (var key in errors) {
-                        errorString += '<span class="text-danger">' + errors[key][0] + '</span><br>';
+                    for (const key in errors) {
+                        if (errors.hasOwnProperty(key)) {
+                            errorString += `<span class="text-danger">${errors[key][0]}</span><br>`;
+                        }
                     }
 
                     $('#errorModal .error-modal').html(errorString);
@@ -587,8 +583,6 @@
                 }
             });
         }
-
-        $('select[name="lead_status"]').on('change', Status);
 
     });
 </script>

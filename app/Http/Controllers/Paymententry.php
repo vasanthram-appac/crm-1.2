@@ -17,7 +17,7 @@ class Paymententry extends Controller
     public function index(Request $request)
     {
 
-        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8') {
+        if (request()->session()->get('empid') == 'AM090' || request()->session()->get('empid') == 'AM098' || request()->session()->get('dept_id') == '6' || request()->session()->get('dept_id') == '1' || request()->session()->get('dept_id') == '8') {
 
             if (request()->ajax()) {
                 // Fetch the main payment data
@@ -189,7 +189,7 @@ class Paymententry extends Controller
             'chequeno' => 'nullable|string|max:255',
             'document_upload' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:1024', // 1MB file limit
             'neftnumber' => 'nullable|string|max:255',
-            'productservice' => 'required|string|max:1000',
+            'productservice' => 'required|string|max:4000',
             'comment' => 'nullable|string|max:500',
         ]);
 
@@ -419,7 +419,7 @@ class Paymententry extends Controller
             'chequeno' => 'nullable|string|max:255',
             'document_upload' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:1024', // 1MB file limit
             'neftnumber' => 'nullable|string|max:255',
-            'productservice' => 'required|string|max:1000',
+            'productservice' => 'required|string|max:4000',
             'comment' => 'nullable|string|max:500',
         ]);
 
@@ -643,7 +643,7 @@ class Paymententry extends Controller
         $clientId = $request->input('company_id');
 
         $proforma = DB::table('proformadetails')
-            ->where('paymentstatus', 'open')
+            ->whereIn('paymentstatus', ['open', 'closed'])
             ->where('company_id', $clientId)
             ->orderByDesc('invoice_no')
             ->select('invoice_no', 'grosspay')
@@ -653,9 +653,8 @@ class Paymententry extends Controller
             })
             ->toArray();
 
-
         $invoice = DB::table('invoicedetails')
-            ->whereIn('paymentstatus', ['pending', 'open'])
+            ->whereIn('paymentstatus', ['pending', 'open', 'paid'])
             ->where('company_id', $clientId)
             ->orderByDesc('invoice_no')
             ->select('invoice_no', 'grosspay')

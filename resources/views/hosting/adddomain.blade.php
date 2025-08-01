@@ -26,7 +26,7 @@
 
                 <div class="col-lg-6 col-sm-12">
                     <div class="alidate-input m-b-23 mb-2">
-                        {!! Form::label('domainname', 'Domain Name*', ['class' => 'label-color py-2']) !!}
+                        {!! Form::label('domainname', 'Domain Name* (format:www.example.com)', ['class' => 'label-color py-2']) !!}
                         {!! Form::text('domainname', null, ['class' => 'form-control']) !!}
                     </div>
                 </div>

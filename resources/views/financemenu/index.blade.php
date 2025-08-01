@@ -33,5 +33,8 @@
       <li class="nav-item">
           <a class="nav-link @if($route == 'vendorpaymententry') active @endif" href="/vendorpaymententry"><b>Payment Entry</b></a>
       </li>
-      @endif
+      <li class="nav-item">
+          <a class="nav-link @if($route == 'pettycash') active @endif" href="/pettycash"><b>Petty Cash</b></a>
+      </li>
+      @endif 
   </ul>  

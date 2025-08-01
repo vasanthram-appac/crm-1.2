@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title','Work Order')
+@section('title','Work Order View')
 
 @section('css')
 <style>
@@ -35,7 +35,7 @@
     </div>
 <div class="profile  col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">Work Order </h1>
+            <h1 class="ch2 comp-name">Work Order View</h1>
         </div>
     </div>
     <div class="col-lg-12 col-sm-12 p-0">

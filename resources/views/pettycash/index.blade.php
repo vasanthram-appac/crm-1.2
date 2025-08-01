@@ -1,6 +1,6 @@
 @extends('layouts/app')
 
-@section('title','Hosting')
+@section('title','Petty Cash')
 
 @section('css')
 <style>
@@ -31,47 +31,99 @@
 <div class="row m-0 appac_hide">
     <div class="d-flex justify-content-between  align-items-end  inside-nav mb-4">
         <a id="preback" href="javascript:history.back()">Back</a>
-       @include('layouts/partials/renewalsmenu')
+        @include('financemenu/index')
     </div>
+
+    <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
+
+        <div class="col-lg-2 col-sm-12">
+            <div class="form-group mx-2">
+                {!! Form::label('creditby', 'Credit By *', ['class' => 'label-color py-2']) !!}
+                {!! Form::select('creditby', ['All' => 'All', 'AM001' => 'Balakrishnan', 'AM003' => 'Mohan', 'AM045' => 'Rohindh'], request()->session()->get('cashcreditby'), ['class' => 'form-select']) !!}
+            </div>
+        </div>
+
+         <div class="col-lg-2 col-sm-12">
+            <div class="form-group mx-2">
+                {!! Form::label('ctype', 'Type *', ['class' => 'label-color py-2']) !!}
+                {!! Form::select('ctype', ['All' => 'All', 'Debit' => 'Debit', 'Credit' => 'Credit'], request()->session()->get('cashtype'), ['class' => 'form-select', 'required']) !!}
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-sm-12">
+            <div class="form-group px-2">
+                {!! Form::label('month', 'Month', ['class' => 'label-color py-2']) !!}
+
+                @php
+                $start = new DateTime('2024-01-01');
+                $end = new DateTime(); // current month
+                $months = [];
+
+                while ($start <= $end) {
+                    $key=$start->format('m-Y'); // option value
+                    $months[$key] = $key; // display text
+                    $start->modify('+1 month');
+                    }
+
+                    $months = array_reverse($months, true); // current month first
+
+                    @endphp
+
+                    {!! Form::select('month', $months, request()->session()->get('cashmonth'), ['class' => 'form-control']) !!}
+            </div>
+        </div>
+
+        <div class="col-lg-2 col-sm-12">
+            <div class="validate-input m-b-23 mx-5" style="margin-top: 2.7rem !important;">
+                <button type="button" id="searchpaysubmit" data-id="8" class="frm-btn pri-text-color" role="button">
+                    Submit
+                </button>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-sm-12">
+            <div class="alidate-input m-b-23 mb-2">
+                <p class="fs-4 pt-5 totalamount mb-0">
+                    @if(request()->session()->has('totalpettycash'))
+                    INR. {{request()->session()->get('totalpettycash')}}
+                    @else
+                    INR. 0.00
+                    @endif
+                </p>
+            </div>
+        </div>
+    </div>
+
     <div class="profile col-12 col-lg-12 col-xl-12 col-xxl-12 d-flex justify-content-between flex-wrap  align-items-center  p-15">
         <div class="profile-head">
-            <h1 class="ch2 comp-name">Hosting</h1>
+            <h1 class="ch2 comp-name">Petty Cash</h1>
         </div>
-        <div class=" justify-content-sm-end d-flex  gap-2 flex-wrap">
-            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{route('adddomain')}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Domain</button>
 
-            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Hosting::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Hosting</button>
+        <div class=" justify-content-sm-end d-flex  gap-2 flex-wrap">
+            <button class="btn bg-primary text-white ft-15 btn-modal pri-text-color m-0" data-container=".customer_modal" data-href="{{action([App\Http\Controllers\Pettycash::class,'create'])}}"><i class="fa fa-plus me-1" aria-hidden="true"></i> Add Petty Cash</button>
         </div>
     </div>
+
     <div class="col-lg-12 col-sm-12 p-0">
         <div class="panel row" id="firstRow">
-            <!-- <div class="add-newproduct-tab">
-                <div class="gradient-card-header">
-                    <h2 class="white-text mx-3">Leads</h2>
-                </div>
-            </div> comment by vasanth-->
-
 
             <div class="alert alert-success alert-dismissible px-3 bold" id="session_message" style="display: none;">
             </div>
-
-
 
             <div class="p-4 table-responsive">
                 <table id="example" class="dataTable mt-6 table table-bordered">
                     <thead>
                         <tr class="bg-white">
                             <th class="text-grey">S.no</th>
-                            <th class="text-grey">Account Name</th>
-                            <th class="text-grey">Domain Name</th>
-                            <th class="text-grey">Next Renewal Date</th>
-                            <th class="text-grey">Day</th>
-                            <th class="text-grey">Remaining Days</th>
-
-                            <th class="text-grey"></th>
-
+                            <th class="text-grey">Added By</th>
+                            <th class="text-grey">Paid To</th>
+                            <th class="text-grey">Amount</th>
+                            <th class="text-grey">Credit By</th>
+                            <th class="text-grey">Date</th>
+                            <th class="text-grey">Payment Mode</th>
+                            <th class="text-grey">Type</th>
+                            <th class="text-grey">Description</th>
                             <th class="text-grey">Action</th>
-                            <!-- Add more columns as needed -->
                         </tr>
                     </thead>
                 </table>
@@ -84,7 +136,6 @@
             </div>
         </div>
     </div>
-
 
     <div class="modal fade" id="errorModal" role="dialog" style="">
         <div class="modal-dialog cascading-modal float-end me-3" role="document">
@@ -106,9 +157,7 @@
     </div>
 </div>
 
-
 @endsection
-
 
 @section('script')
 <script>
@@ -119,42 +168,44 @@
             serverSide: true,
             pageLength: 10,
             lengthMenu: [10, 20, 50, 100],
-            ajax: "{{ action([App\Http\Controllers\Hosting::class,'index']) }}",
+            ajax: "{{ action([App\Http\Controllers\Pettycash::class,'index']) }}",
             columns: [{
                     data: 'sno',
                     name: 'sno'
                 },
-
                 {
-                    data: 'companyname',
-                    name: 'companyname'
+                    data: 'gname',
+                    name: 'gname'
                 },
                 {
-                    data: 'domainname',
-                    name: 'domainname'
+                    data: 'paidto',
+                    name: 'paidto'
                 },
-
                 {
-                    data: 'dateofexpire',
-                    type: 'date-mm-dd', // Use the custom date type
+                    data: 'amount',
+                    name: 'amount'
+                },
+                {
+                    data: 'creditby',
+                    name: 'creditby'
+                },
+                {
+                    data: 'date',
+                    type: 'date-mm-dd', 
                     orderData: 0
                 },
                 {
-                    data: 'DateFormat',
-                    type: 'date-mm-dd', // Use the custom date type
-                    orderData: 0
+                    data: 'paymentmode',
+                    name: 'paymentmode'
                 },
-
                 {
-                    data: 'remainday1',
-                    name: 'remainday1'
+                    data: 'type',
+                    name: 'type'
                 },
-
                 {
-                    data: '',
-                    name: ''
+                    data: 'description',
+                    name: 'description'
                 },
-
                 {
                     data: 'action',
                     name: 'action',
@@ -244,8 +295,6 @@
                         cat_table.ajax.reload(null, false); // Prevents table state reset on reload
                     }
 
-
-
                 },
                 error: function(xhr) {
                     // Handle other types of errors (e.g., server error)
@@ -269,7 +318,7 @@
             var Id = $(this).data('id');
             swal({
                 title: "Alert",
-                text: "Are you sure you want to delete the Hosting?",
+                text: "Are you sure you want to delete the DM Works?",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -278,7 +327,7 @@
             }).then(function(isConfirm) {
                 if (isConfirm) {
                     $.ajax({
-                        url: '/hosting/' + Id, // Change this to your endpoint
+                        url: '/pettycash/' + Id, // Change this to your endpoint
                         type: 'DELETE',
                         data: {
                             id: Id,
@@ -303,16 +352,57 @@
                         }
                     });
                 } else {
-                    window.location.href = '/hosting';
+                    window.location.href = '/pettycash';
                 }
             });
         });
 
+        $(document).on('click', '.viewemp', function() {
+            var empid = $(this).data('id');
+            window.location.href = "/profile?id=" + empid;
+        });
+        
+           $('#searchpaysubmit').on('click', function() {
 
+            var creditby = $('select[name="creditby"]').val();
+            var month = $('select[name="month"]').val();
+            var type = $('select[name="ctype"]').val();
 
+            if (creditby == "" || creditby == 0) {
+                alert("Please select a Credit By.");
+                return false;
+            }
 
+             if (type == "" || type == 0) {
+                alert("Please select a Type.");
+                return false;
+            }
 
+            $.ajax({
+                url: "{{ action([App\Http\Controllers\Pettycash::class, 'index']) }}",
+                type: 'GET',
+                data: {
+                    creditby: creditby,
+                    month: month,
+                    type: type,
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(response) {
+                    window.location.reload();
+                },
+                error: function(xhr) {
+                    var errors = xhr.responseJSON.errors;
+                    var errorString = '';
 
+                    for (var key in errors) {
+                        errorString += '<span class="text-danger">' + errors[key][0] + '</span><br>';
+                    }
+
+                    $('#errorModal .error-modal').html(errorString);
+                    $('#errorModal').modal('show');
+                }
+            });
+        });
 
     });
 </script>
